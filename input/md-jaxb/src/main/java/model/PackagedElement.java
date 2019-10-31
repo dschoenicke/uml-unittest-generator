@@ -14,6 +14,7 @@ public class PackagedElement {
 	private ArrayList<OwnedAttribute> ownedAttributes;
 	private ArrayList<OwnedOperation> ownedOperations;
 	private ArrayList<OwnedLiteral> ownedLiterals;
+	private ArrayList<PackagedElement> packagedElements;
  	
 	public PackagedElement() {}
 	
@@ -78,5 +79,14 @@ public class PackagedElement {
 	
 	public void setOwnedLiterals(ArrayList<OwnedLiteral> ownedLiterals) {
 		this.ownedLiterals = ownedLiterals;
+	}
+	
+	@XmlElement(name = "packagedElement")
+	public ArrayList<PackagedElement> getPackagedElements() {
+		return packagedElements;
+	}
+	
+	public void setPackagedElements(ArrayList<PackagedElement> packagedElements) {
+		this.packagedElements = packagedElements;
 	}
 }
