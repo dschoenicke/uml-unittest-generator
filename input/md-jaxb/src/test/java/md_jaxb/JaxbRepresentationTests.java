@@ -9,6 +9,9 @@ import javax.xml.bind.JAXBException;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.OwnedAttribute;
+import model.PackagedElement;
+
 public class JaxbRepresentationTests
 {
 	private JaxbRepresentation representation;
@@ -22,6 +25,21 @@ public class JaxbRepresentationTests
 	
 	@Test
 	public void modelSizeTest() {
-		assertEquals(representation.getXmi().getModel().getPackagedElements().size(), 7);
+		assertEquals(representation.getXmi().getModel().getPackagedElements().size(), 32);
+		
+		for (PackagedElement element : representation.getXmi().getModel().getPackagedElements()) {
+			for (OwnedAttribute attribute : element.getOwnedAttributes()) {
+				System.out.println(element.getName() + "." + attribute.getName());
+				
+				if (attribute.getDataType() != null) {
+					System.out.println(attribute.getDataType().getHref());
+				}
+				else {
+					System.out.println(attribute.getAssociationType());
+				}
+			}
+ 		}
 	}
+	
+	
 }

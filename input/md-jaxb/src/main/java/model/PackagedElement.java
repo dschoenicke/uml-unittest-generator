@@ -15,8 +15,15 @@ public class PackagedElement {
 	private ArrayList<OwnedOperation> ownedOperations;
 	private ArrayList<OwnedLiteral> ownedLiterals;
 	private ArrayList<PackagedElement> packagedElements;
+	private Generalization generalization;
+	private InterfaceRealization interfaceRealization;
  	
-	public PackagedElement() {}
+	public PackagedElement() {
+		ownedAttributes = new ArrayList<OwnedAttribute>();
+		ownedOperations = new ArrayList<OwnedOperation>();
+		ownedLiterals = new ArrayList<OwnedLiteral>();
+		packagedElements = new ArrayList<PackagedElement>();
+	}
 	
 	@XmlElement(name = "ownedAttribute")
 	public ArrayList<OwnedAttribute> getOwnedAttributes() {
@@ -88,5 +95,23 @@ public class PackagedElement {
 	
 	public void setPackagedElements(ArrayList<PackagedElement> packagedElements) {
 		this.packagedElements = packagedElements;
+	}
+	
+	@XmlElement(name = "generalization")
+	public Generalization getGeneralization() {
+		return generalization;
+	}
+	
+	public void setGeneralization(Generalization generalization) {
+		this.generalization = generalization;
+	}
+	
+	@XmlElement(name = "interfaceRealization")
+	public InterfaceRealization getInterfaceRealization() {
+		return interfaceRealization;
+	}
+	
+	public void setInterfaceRealization(InterfaceRealization interfaceRealization) {
+		this.interfaceRealization = interfaceRealization;
 	}
 }

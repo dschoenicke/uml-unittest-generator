@@ -14,11 +14,6 @@ public class Model {
 	
 	public Model() {}
 	
-	@Override
-	public String toString() {
-		return "ID: " + id + "\nName: " + name + "\nElements:" + packagedElements.size();
-	}
-	
 	@XmlAttribute(namespace = "http://www.omg.org/spec/XMI/20131001", name = "id")
 	public String getId() {
 		return id;
