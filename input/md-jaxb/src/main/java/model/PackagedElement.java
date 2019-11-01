@@ -11,18 +11,30 @@ public class PackagedElement {
 	private String name;
 	private String visibility;
 	private String type;
+	private String isStatic;
+	private String isAbstract;
+	private String isFinal;
 	private ArrayList<OwnedAttribute> ownedAttributes;
 	private ArrayList<OwnedOperation> ownedOperations;
 	private ArrayList<OwnedLiteral> ownedLiterals;
 	private ArrayList<PackagedElement> packagedElements;
+	private ArrayList<TemplateBinding> templateBindings;
+	private OwnedTemplateSignature ownedTemplateSignature;
 	private Generalization generalization;
 	private InterfaceRealization interfaceRealization;
+	private Client client;
+	private Supplier supplier;
+	private ArrayList<MemberEnd> memberEnds;
+	private OwnedEnd ownedEnd;
+	private ArrayList<PackagedElement> nestedClassifiers;
  	
 	public PackagedElement() {
 		ownedAttributes = new ArrayList<OwnedAttribute>();
 		ownedOperations = new ArrayList<OwnedOperation>();
 		ownedLiterals = new ArrayList<OwnedLiteral>();
 		packagedElements = new ArrayList<PackagedElement>();
+		templateBindings = new ArrayList<TemplateBinding>();
+		nestedClassifiers = new ArrayList<PackagedElement>();
 	}
 	
 	@XmlElement(name = "ownedAttribute")
@@ -79,6 +91,33 @@ public class PackagedElement {
 		this.type = type;
 	}
 	
+	@XmlAttribute(name = "isStatic")
+	public String getIsStatic() {
+		return isStatic;
+	}
+	
+	public void setIsStatic(String isStatic) {
+		this.isStatic = isStatic;
+	}
+	
+	@XmlAttribute(name = "isAbstract")
+	public String getIsAbstract() {
+		return isAbstract;
+	}
+	
+	public void setIsAbstract(String isAbstract) {
+		this.isAbstract = isAbstract;
+	}
+	
+	@XmlAttribute(name = "isFinal")
+	public String getIsFinal() {
+		return isFinal;
+	}
+	
+	public void setIsFinal(String isFinal) {
+		this.isFinal = isFinal;
+	}
+	
 	@XmlElement(name = "ownedLiteral")
 	public ArrayList<OwnedLiteral> getOwnedLiterals() {
 		return ownedLiterals;
@@ -97,6 +136,24 @@ public class PackagedElement {
 		this.packagedElements = packagedElements;
 	}
 	
+	@XmlElement(name = "templateBinding")
+	public ArrayList<TemplateBinding> getTemplateBindings() {
+		return templateBindings;
+	}
+	
+	public void setTemplateBindings(ArrayList<TemplateBinding> templateBindings) {
+		this.templateBindings = templateBindings;
+	}
+	
+	@XmlElement(name = "ownedTemplateSignature")
+	public OwnedTemplateSignature getOwnedTemplateSignature() {
+		return ownedTemplateSignature;
+	}
+	
+	public void setOwnedTemplateSignature(OwnedTemplateSignature ownedTemplateSignature) {
+		this.ownedTemplateSignature = ownedTemplateSignature;
+	}
+	
 	@XmlElement(name = "generalization")
 	public Generalization getGeneralization() {
 		return generalization;
@@ -113,5 +170,50 @@ public class PackagedElement {
 	
 	public void setInterfaceRealization(InterfaceRealization interfaceRealization) {
 		this.interfaceRealization = interfaceRealization;
+	}
+	
+	@XmlElement(name = "client")
+	public Client getClient() {
+		return client;
+	}
+	
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
+	@XmlElement(name = "supplier")
+	public Supplier getSupplier() {
+		return supplier;
+	}
+	
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+	
+	@XmlElement(name = "memberEnd")
+	public ArrayList<MemberEnd> getMemberEnds() {
+		return memberEnds;
+	}
+	
+	public void setMemberEnds(ArrayList<MemberEnd> memberEnds) {
+		this.memberEnds = memberEnds;
+	}
+	
+	@XmlElement(name = "ownedEnd")
+	public OwnedEnd getOwnedEnd() {
+		return ownedEnd;
+	}
+	
+	public void setOwnedEnd(OwnedEnd ownedEnd) {
+		this.ownedEnd = ownedEnd;
+	}
+	
+	@XmlElement(name = "nestedClassifier")
+	public ArrayList<PackagedElement> getNestedClassifiers() {
+		return nestedClassifiers;
+	}
+	
+	public void setNestedClassifiers(ArrayList<PackagedElement> nestedClassifiers) {
+		this.nestedClassifiers = nestedClassifiers;
 	}
 }

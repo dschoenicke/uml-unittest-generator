@@ -7,8 +7,12 @@ public class OwnedParameter {
 	
 	private String id;
 	private String name;
-	private String type;
+	private String direction;
+	private String associationType;
+	private String parameterType;
 	private DataType dataType;
+	private ConstrainingClassifier constrainingClassifier;
+	private OwnedParameteredElement ownedParameteredElement;
 	
 	public OwnedParameter() {}
 	
@@ -30,13 +34,31 @@ public class OwnedParameter {
 		this.name = name;
 	}
 	
+	@XmlAttribute(name = "direction")
+	public String getDirection() {
+		return direction;
+	}
+	
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	
 	@XmlAttribute(name = "type")
 	public String getAssociationType() {
-		return type;
+		return associationType;
 	}
 
-	public void setAssociationType(String type) {
-		this.type = type;
+	public void setAssociationType(String associationType) {
+		this.associationType = associationType;
+	}
+	
+	@XmlAttribute(namespace = "http://www.omg.org/spec/XMI/20131001", name = "type")
+	public String getParameterType() {
+		return parameterType;
+	}
+	
+	public void setParameterType(String parameterType) {
+		this.parameterType = parameterType;
 	}
 	
 	@XmlElement(name = "type")
@@ -46,5 +68,23 @@ public class OwnedParameter {
 
 	public void setDataType(DataType dataType) {
 		this.dataType = dataType;
+	}
+	
+	@XmlElement(name = "ownedParameteredElement") 
+	public OwnedParameteredElement getOwnedParameteredElement() {
+		return ownedParameteredElement;
+	}
+	
+	public void setOwnedParameteredElement(OwnedParameteredElement ownedParameteredElement) {
+		this.ownedParameteredElement = ownedParameteredElement;
+	}
+	
+	@XmlElement(name = "constrainingClassifier") 
+	public ConstrainingClassifier getConstrainingClassifier() {
+		return constrainingClassifier;
+	}
+	
+	public void setConstrainingClassifier(ConstrainingClassifier constrainingClassifier) {
+		this.constrainingClassifier = constrainingClassifier;
 	}
 }
