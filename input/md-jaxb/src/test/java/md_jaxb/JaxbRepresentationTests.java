@@ -2,6 +2,7 @@ package md_jaxb;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -10,6 +11,8 @@ import javax.xml.bind.JAXBException;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.OwnedOperation;
+import model.OwnedParameter;
 import model.PackagedElement;
 
 /**
@@ -29,6 +32,11 @@ public class JaxbRepresentationTests
 	 * A sample {@link model.PackagedElement} which should be checked
 	 */
 	private PackagedElement element;
+	
+	/**
+	 * A sample {@link model.OwnedOperation} of the {@link model.PackagedElement} which should be checked
+	 */
+	private OwnedOperation operation;
 	
 	/**
 	 * Auxiliary method to find a {@link model.PackagedElement} by its name
@@ -78,6 +86,9 @@ public class JaxbRepresentationTests
 				break;
 			}
 		}
+		
+		//PackageElement.setOwnedAttributes
+		operation = element.getOwnedOperations().get(14);
 	}
 	
 	/**
@@ -115,5 +126,40 @@ public class JaxbRepresentationTests
 	@Test
 	public void ownedOperationsTest() {
 		assertEquals(element.getOwnedOperations().size(), 41);
+	}
+	
+	/**
+	 * Checks if the operation is there
+	 */
+	@Test
+	public void ownedOperationFoundTest() {
+		assertNotNull(operation);
+	}
+	
+	/**
+	 * Checks the attributes of an {@link model.OwnedOperation}
+	 */
+	@Test
+	public void ownedOperationAttributesTest() {
+		assertEquals(operation.getName(), "setOwnedAttributes");
+		assertEquals(operation.getVisibility(), "public");
+	}
+	
+	/**
+	 * Checks the parameters of an {@link model.OwnedOperation}
+	 */
+	@Test
+	public void ownedOperationParameterTest() {
+		OwnedParameter returnType = operation.getOwnedParameters().get(0);
+		OwnedParameter methodParameter = operation.getOwnedParameters().get(1);
+		
+		assertEquals(operation.getOwnedParameters().size(), 2);
+		assertEquals(returnType.getDirection(), "return");
+		assertTrue(returnType.getDataType().getExtension().getReferenceExtension().getReferentPath().contains("void"));
+	
+		assertEquals(methodParameter.getName(), "ownedAttributes");
+		assertEquals(methodParameter.getAssociationType(), "_19_0_1_62d0212_1572550603923_570944_4931");
+		assertEquals(methodParameter.getLowerValue().getValue(), null);
+		assertEquals(methodParameter.getUpperValue().getValue(), "*");
 	}
 }
