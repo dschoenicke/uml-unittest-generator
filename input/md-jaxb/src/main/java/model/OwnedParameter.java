@@ -11,6 +11,8 @@ public class OwnedParameter {
 	private String associationType;
 	private String parameterType;
 	private DataType dataType;
+	private LowerValue lowerValue;
+	private UpperValue upperValue;
 	private ConstrainingClassifier constrainingClassifier;
 	private OwnedParameteredElement ownedParameteredElement;
 	
@@ -68,6 +70,24 @@ public class OwnedParameter {
 
 	public void setDataType(DataType dataType) {
 		this.dataType = dataType;
+	}
+	
+	@XmlElement(name = "lowerValue")
+	public LowerValue getLowerValue() {
+		return lowerValue;
+	}
+	
+	public void setLowerValue(LowerValue lowerValue) {
+		this.lowerValue = lowerValue;
+	}
+	
+	@XmlElement(name = "upperValue")
+	public UpperValue getUpperValue() {
+		return upperValue;
+	}
+	
+	public void setUpperValue(UpperValue upperValue) {
+		this.upperValue = upperValue;
 	}
 	
 	@XmlElement(name = "ownedParameteredElement") 

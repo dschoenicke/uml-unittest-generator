@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -11,8 +13,11 @@ public class OwnedAttribute {
 	private String aggregation;
 	private String associationType;
 	private DataType dataType;
+	private ArrayList<Extension> extensions;
 	
-	public OwnedAttribute() {}
+	public OwnedAttribute() {
+		extensions = new ArrayList<Extension>();
+	}
 	
 	@XmlAttribute(namespace = "http://www.omg.org/spec/XMI/20131001", name = "id")
 	public String getId() {
@@ -66,5 +71,14 @@ public class OwnedAttribute {
 
 	public void setDataType(DataType dataType) {
 		this.dataType = dataType;
+	}
+	
+	@XmlElement(namespace = "http://www.omg.org/spec/XMI/20131001", name = "Extenstion")
+	public ArrayList<Extension> getExtensions() {
+		return extensions;
+	}
+	
+	public void setExtensions(ArrayList<Extension> extensions) {
+		this.extensions = extensions;
 	}
 }
