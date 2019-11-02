@@ -10,8 +10,6 @@ import javax.xml.bind.annotation.XmlElement;
  *
  */
 public class ParameterSubstitution {
-
-	//TODO Add class primitive actual types
 	
 	private String id;
 	
@@ -24,6 +22,11 @@ public class ParameterSubstitution {
 	 * References the {@link PackagedElement} which replaces the {@link Parameter} by its id
 	 */
 	private String actual;
+	
+	/**
+	 * Reference to the type replacing the {@link Parameter} if it is a primitive type
+	 */
+	private Actual primitiveActual;
 	
 	/**
 	 * Default constructor
@@ -85,5 +88,24 @@ public class ParameterSubstitution {
 	 */
 	public void setActual(String actual) {
 		this.actual = actual;
+	}
+	
+	/**
+	 * Gets the {@link Actual} which describes the primitive type replacing the {@link Parameter}
+	 * 
+	 * @return the {@link Actual} which describes the primitive type replacing the {@link Parameter}
+	 */
+	@XmlElement(name = "actual")
+	public Actual getPrimitiveActual() {
+		return primitiveActual;
+	}
+
+	/**
+	 * Sets the {@link Actual} which describes the primitive type replacing the {@link Parameter}
+	 * 
+	 * @param primitiveActual the {@link Actual} which describes the primitive type replacing the {@link Parameter}
+	 */
+	public void setPrimitiveActual(Actual primitiveActual) {
+		this.primitiveActual = primitiveActual;
 	}
 }

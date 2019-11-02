@@ -11,9 +11,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class DataType {
 
 	/**
-	 * Reference to the specification of the datatype
+	 * {@link Extension} holding a reference to the specification of the datatype
 	 */
-	private String href;
+	private Extension extension;
 	
 	/**
 	 * Default constructor
@@ -21,21 +21,21 @@ public class DataType {
 	public DataType() {}
 	
 	/**
-	 * Gets the reference to the specification of the data type
+	 * Gets the {@link Extension} holding the specification of the data type
 	 * 
-	 * @return the reference to the specification
+	 * @return the {@link Extension} holding the specification of the data type
 	 */
 	@XmlAttribute
-	public String getHref() {
-		return href;
+	public Extension getExtension() {
+		return extension;
 	}
 	
 	/**
-	 * Sets the reference to the specification of the data type
+	 * Sets the {@link Extension} holding the specification of the data type
 	 * 
-	 * @param href the reference to the specification
+	 * @param extension the {@link Extension} holding the specification of the data type
 	 */
-	public void setHref(String href) {
-		this.href = href;
+	public void setExtension(Extension extension) {
+		this.extension = extension;
 	}
 }

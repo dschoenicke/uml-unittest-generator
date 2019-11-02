@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Represents an auxiliary node in the XML tree to extend the Magic Draw specification
- * Used to hold a {@link DiagramRepresentation} or a {@link ModelExtension}
+ * Used to hold a {@link DiagramRepresentation}, a {@link ModelExtension} or a {@link ReferenceExtension}
  * 
  * @author dschoenicke
  *
@@ -20,6 +20,11 @@ public class Extension {
 	 * Represents a diagram
 	 */
 	private DiagramRepresentation diagramRepresentation;
+	
+	/**
+	 * Determines the data type of a primitive type
+	 */
+	private ReferenceExtension referenceExtension;
 	
 	/**
 	 * Default constructor
@@ -62,5 +67,24 @@ public class Extension {
 	 */
 	public void setDiagramRepresentation(DiagramRepresentation diagramRepresentation) {
 		this.diagramRepresentation = diagramRepresentation;
+	}
+	
+	/**
+	 * Gets the {@link ReferenceExtension}
+	 * 
+	 * @return the {@link ReferenceExtension}
+	 */
+	@XmlElement(name = "referenceExtension")
+	public ReferenceExtension getReferenceExtension() {
+		return referenceExtension;
+	}
+	
+	/**
+	 * Sets the {@link ReferenceExtension}
+	 * 
+	 * @param referenceExtension the {@link ReferenceExtension}
+	 */
+	public void setReferenceExtension(ReferenceExtension referenceExtension) {
+		this.referenceExtension = referenceExtension;
 	}
 }
