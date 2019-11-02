@@ -1,6 +1,6 @@
 package model;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Represents a primitive data type which is described by a reference to its specification.
@@ -25,7 +25,7 @@ public class DataType {
 	 * 
 	 * @return the {@link Extension} holding the specification of the data type
 	 */
-	@XmlAttribute
+	@XmlElement(namespace = "http://www.omg.org/spec/XMI/20131001", name = "Extension")
 	public Extension getExtension() {
 		return extension;
 	}
