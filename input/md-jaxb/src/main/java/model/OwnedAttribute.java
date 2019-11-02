@@ -13,8 +13,6 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class OwnedAttribute {
 
-	//TODO Add default value
-	
 	/**
 	 * The id of the attribute
 	 */
@@ -29,6 +27,11 @@ public class OwnedAttribute {
 	 * The visibility of the attribute
 	 */
 	private String visibility;
+	
+	/**
+	 * The default value of the attribute
+	 */
+	private DefaultValue defaultValue;
 	
 	/**
 	 * Id of the {@link PackagedElement} which represents the association if 
@@ -129,6 +132,25 @@ public class OwnedAttribute {
 	 */
 	public void setVisibility(String visibility) {
 		this.visibility = visibility;
+	}
+	
+	/**
+	 * Gets the {@link DefaultValue} of the attribute
+	 * 
+	 * @return the {@link DefaultValue} of the attribute
+	 */
+	@XmlElement(name = "defaultValue")
+	public DefaultValue getDefaultValue() {
+		return defaultValue;
+	}
+	
+	/**
+	 * Sets the {@link DefaultValue} of the attribute
+	 * 
+	 * @param defaultValue the {@link DefaultValue} of the attribute
+	 */
+	public void setDefaultValue(DefaultValue defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 	
 	/**
