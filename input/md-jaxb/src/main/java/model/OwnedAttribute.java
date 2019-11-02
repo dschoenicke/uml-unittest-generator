@@ -29,6 +29,16 @@ public class OwnedAttribute {
 	private String visibility;
 	
 	/**
+	 * The {@link LowerValue} of the attribute
+	 */
+	private LowerValue lowerValue;
+	
+	/**
+	 * The {@link UpperValue} of the attribute
+	 */
+	private UpperValue upperValue;
+	
+	/**
 	 * The default value of the attribute
 	 */
 	private DefaultValue defaultValue;
@@ -132,6 +142,44 @@ public class OwnedAttribute {
 	 */
 	public void setVisibility(String visibility) {
 		this.visibility = visibility;
+	}
+	
+	/**
+	 * Gets the {@link LowerValue} of the attribute
+	 * 
+	 * @return the {@link LowerValue} of the attribute
+	 */
+	@XmlElement(name = "lowerValue")
+	public LowerValue getLowerValue() {
+		return lowerValue;
+	}
+	
+	/**
+	 * Sets the {@link LowerValue} of the attribute
+	 * 
+	 * @param lowerValue the {@link LowerValue} of the attribute
+	 */
+	public void setLowerValue(LowerValue lowerValue) {
+		this.lowerValue = lowerValue;
+	}
+	
+	/**
+	 * Gets the {@link UpperValue} of the attribute
+	 * 
+	 * @return the {@link UpperValue} of the attribute
+	 */
+	@XmlElement(name = "upperValue")
+	public UpperValue getUpperValue() {
+		return upperValue;
+	}
+	
+	/**
+	 * Sets the {@link UpperValue} of the attribute
+	 * 
+	 * @param upperValue the {@link UpperValue} of the attribute
+	 */
+	public void setUpperValue(UpperValue upperValue) {
+		this.upperValue = upperValue;
 	}
 	
 	/**
