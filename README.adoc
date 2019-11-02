@@ -1,5 +1,5 @@
 = uml-unittest-generator
 
-image:https://circleci.com/gh/dschoenicke/uml-unittest-generator.svg?style=svg["CircleCI", link="https://circleci.com/gh/dschoenicke/uml-unittest-generator"]
+image:https://circleci.com/gh/dschoenicke/uml-unittest-generator/tree/master.svg?style=svg&circle-token=780545d7ca8a2ad1c928eb4575fd649145884f9a["CircleCI", link="https://circleci.com/gh/dschoenicke/uml-unittest-generator/tree/master"]
 
 A tool to generate jUnit tests out of a given uml class diagram representation
