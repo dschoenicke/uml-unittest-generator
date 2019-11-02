@@ -18,7 +18,7 @@ public class JaxbRepresentationTests
 	private PackagedElement element;
 	
 	public PackagedElement checkForPackagedElement(PackagedElement elementToCheck, String name) {
-		if (elementToCheck.getName().equals(name)) {
+		if (elementToCheck.getName() != null && elementToCheck.getName().equals(name)) {
 			return elementToCheck;
 		}
 		
@@ -71,7 +71,7 @@ public class JaxbRepresentationTests
 	
 	@Test
 	public void ownedAttributeTest() {
-		assertEquals(element.getOwnedAttributes().size(), 22);
+		assertEquals(element.getOwnedAttributes().size(), 23);
 	}
 	
 	@Test
