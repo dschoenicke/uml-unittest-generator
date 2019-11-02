@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(namespace = "http://www.omg.org/spec/XMI/20131001", name = "XMI")
 public class Xmi {
 	
+	/**
+	 * The {@link Model} of the Magic Draw project
+	 */
 	private Model model;
 	
 	/**

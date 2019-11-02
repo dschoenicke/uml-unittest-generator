@@ -18,6 +18,9 @@ import model.Xmi;
  */
 public class JaxbRepresentation 
 {
+	/**
+	 * The representation of the root node of the xml file
+	 */
 	private Xmi xmi;
 	
 	/**
