@@ -69,9 +69,9 @@ public class PackagedElement {
 	private ArrayList<PackagedElement> packagedElements;
 	
 	/**
-	 * The list of the {@link TemplateBinding}s if the packaged element describes a class or an interface
+	 * The {@link TemplateBinding} if the packaged element describes a class or an interface
 	 */
-	private ArrayList<TemplateBinding> templateBindings;
+	private TemplateBinding templateBinding;
 	
 	/**
 	 * The list of the {@link OwnedTemplateSignature}s if the packaged element describes a class or an interface
@@ -115,14 +115,13 @@ public class PackagedElement {
  	
 	/**
 	 * Default constructor
-	 * Initializes lists for {@link OwnedAttribute}s, {@link OwnedOperation}s, {@link OwnedLiteral}s, {@link PackagedElement}s, {@link TemplateBinding}s and {@link MemberEnd}s
+	 * Initializes lists for {@link OwnedAttribute}s, {@link OwnedOperation}s, {@link OwnedLiteral}s, {@link PackagedElement}s and {@link MemberEnd}s
 	 */
 	public PackagedElement() {
 		ownedAttributes = new ArrayList<OwnedAttribute>();
 		ownedOperations = new ArrayList<OwnedOperation>();
 		ownedLiterals = new ArrayList<OwnedLiteral>();
 		packagedElements = new ArrayList<PackagedElement>();
-		templateBindings = new ArrayList<TemplateBinding>();
 		nestedClassifiers = new ArrayList<PackagedElement>();
 	}
 	
@@ -336,22 +335,22 @@ public class PackagedElement {
 	}
 	
 	/**
-	 * Gets the list of the {@link TemplateBinding}s
+	 * Gets the {@link TemplateBinding} of the element
 	 * 
-	 * @return the list of the {@link TemplateBinding}s
+	 * @return the {@link TemplateBinding}s
 	 */
 	@XmlElement(name = "templateBinding")
-	public ArrayList<TemplateBinding> getTemplateBindings() {
-		return templateBindings;
+	public TemplateBinding getTemplateBinding() {
+		return templateBinding;
 	}
-	
+
 	/**
-	 * Sets the list of the {@link TemplateBinding}s
+	 * Sets the {@link TemplateBinding} of the element
 	 * 
-	 * @param templateBindings the list of the {@link TemplateBinding}s
+	 * @param templateBinding the {@link TemplateBinding}
 	 */
-	public void setTemplateBindings(ArrayList<TemplateBinding> templateBindings) {
-		this.templateBindings = templateBindings;
+	public void setTemplateBinding(TemplateBinding templateBinding) {
+		this.templateBinding = templateBinding;
 	}
 	
 	/**

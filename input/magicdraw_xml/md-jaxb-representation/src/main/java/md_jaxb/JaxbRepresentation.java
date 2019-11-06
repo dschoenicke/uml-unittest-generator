@@ -16,7 +16,7 @@ import model.Xmi;
  * @author dschoenicke
  *
  */
-public class JaxbRepresentation 
+public class JaxbRepresentation
 {
 	/**
 	 * The representation of the root node of the xml file

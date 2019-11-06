@@ -49,16 +49,15 @@ public class OwnedOperation {
 	private ArrayList<OwnedParameter> ownedParameters;
 	
 	/**
-	 * List of the operation's {@link TemplateBinding}s
+	 * The operation's {@link TemplateBinding}
 	 */
-	private ArrayList<TemplateBinding> templateBindings;
+	private TemplateBinding templateBinding;
 	
 	/**
-	 * Default constructor, initializes the lists for {@link OwnedParameter}s and {@link TemplateBinding}s
+	 * Default constructor, initializes the list for {@link OwnedParameter}s
 	 */
 	public OwnedOperation() {
 		ownedParameters = new ArrayList<OwnedParameter>();
-		templateBindings = new ArrayList<TemplateBinding>();
 	}
 	
 	/**
@@ -195,21 +194,21 @@ public class OwnedOperation {
 	}
 	
 	/**
-	 * Gets the list of the {@link TemplateBinding}s
+	 * Gets the {@link TemplateBinding} of the operation
 	 * 
-	 * @return the list of the {@link TemplateBinding}s
+	 * @return the {@link TemplateBinding}s
 	 */
 	@XmlElement(name = "templateBinding")
-	public ArrayList<TemplateBinding> getTemplateBinding() {
-		return templateBindings;
+	public TemplateBinding getTemplateBinding() {
+		return templateBinding;
 	}
 
 	/**
-	 * Sets the list of the {@link TemplateBinding}s
+	 * Sets the {@link TemplateBinding} of the operation
 	 * 
-	 * @param templateBindings the list of the {@link TemplateBinding}s
+	 * @param templateBinding the {@link TemplateBinding}
 	 */
-	public void setTemplateBindings(ArrayList<TemplateBinding> templateBindings) {
-		this.templateBindings = templateBindings;
+	public void setTemplateBinding(TemplateBinding templateBinding) {
+		this.templateBinding = templateBinding;
 	}
 }
