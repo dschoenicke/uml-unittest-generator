@@ -81,6 +81,11 @@ public class OwnedAttribute {
 	private ArrayList<Extension> extensions;
 	
 	/**
+	 * The {@link TemplateBinding} of the attribute
+	 */
+	private TemplateBinding templateBinding;
+	
+	/**
 	 * Default constructor
 	 */
 	public OwnedAttribute() {
@@ -332,5 +337,24 @@ public class OwnedAttribute {
 	 */
 	public void setExtensions(ArrayList<Extension> extensions) {
 		this.extensions = extensions;
+	}
+	
+	/**
+	 * Gets the {@link TemplateBinding} of the attribute
+	 * 
+	 * @return the {@link TemplateBinding}s
+	 */
+	@XmlElement(name = "templateBinding")
+	public TemplateBinding getTemplateBinding() {
+		return templateBinding;
+	}
+
+	/**
+	 * Sets the {@link TemplateBinding} of the attribute
+	 * 
+	 * @param templateBinding the {@link TemplateBinding}
+	 */
+	public void setTemplateBinding(TemplateBinding templateBinding) {
+		this.templateBinding = templateBinding;
 	}
 }
