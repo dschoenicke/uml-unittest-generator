@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  */
 public class UmlClass extends UmlElement {
-
+	
 	/**
 	 * Determines whether the interface is static
 	 */
@@ -36,7 +36,12 @@ public class UmlClass extends UmlElement {
 	private ArrayList<UmlOperation> operations;
 	
 	/**
-	 * Constructor with name and visibility
+	 * List of {@link TemplateParameter}s of the class
+	 */
+	private ArrayList<UmlTemplateParameter> templateParameters;
+	
+	/**
+	 * Constructor with name and visibility, initializes the lists for {@link UmlAttribute}s, {@link UmlOperation}s and {@link UmlTemplateParameter}s 
 	 * 
 	 * @param name the name of the class
 	 * @param visibility the {@link UmlVisibility} of the class, initializes the list for {@link UmlAttribute}s and {@link UmlOperation}s
@@ -45,10 +50,11 @@ public class UmlClass extends UmlElement {
 		super(name, visibility);
 		attributes = new ArrayList<UmlAttribute>();
 		operations = new ArrayList<UmlOperation>();
+		templateParameters = new ArrayList<UmlTemplateParameter>();
 	}
 	
 	/**
-	 * Constructor with name, visibility and static-, final-, and abstract-classifiers, initializes the list for {@link UmlAttribute}s and {@link UmlOperation}s
+	 * Constructor with name, visibility and static-, final-, and abstract-classifiers, initializes the lists for {@link UmlAttribute}s, {@link UmlOperation}s and {@link UmlTemplateParameter}s 
 	 * 
 	 * @param name the name of the class
 	 * @param visibility the {@link UmlVisibility} of the class
@@ -63,8 +69,9 @@ public class UmlClass extends UmlElement {
 		this.isAbstract = isAbstract;
 		attributes = new ArrayList<UmlAttribute>();
 		operations = new ArrayList<UmlOperation>();
+		templateParameters = new ArrayList<UmlTemplateParameter>();
 	}
-
+	
 	/**
 	 * Returns true if the class is static
 	 * 
@@ -153,5 +160,23 @@ public class UmlClass extends UmlElement {
 	 */
 	public void addOperation(UmlOperation operation) {
 		operations.add(operation);
+	}
+	
+	/**
+	 * Returns the list of {@link UmlTemplateParameter}s
+	 * 
+	 * @return the list of {@link UmlTemplateParameter}s
+	 */
+	public ArrayList<UmlTemplateParameter> getTemplateParameters() {
+		return templateParameters;
+	}
+	
+	/**
+	 * Adds an {@link UmlTemplateParameter} to the list
+	 * 
+	 * @param templateParameter the {@link UmlTemplateParameter} to add
+	 */
+	public void addTemplateParameter(UmlTemplateParameter templateParameter) {
+		templateParameters.add(templateParameter);
 	}
 }

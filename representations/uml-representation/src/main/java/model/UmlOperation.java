@@ -35,7 +35,17 @@ public class UmlOperation {
 	private ArrayList<UmlParameter> parameters;
 	
 	/**
-	 * Constructor with name and visibility, initializes the list for the {@link UmlParameter}s
+	 * List of {@link UmlTemplateBinding}s of the operation
+	 */
+	private ArrayList<UmlTemplateBinding> templateBindings;
+	
+	/**
+	 * List of {@link UmlTemplateParameter}s of the operation
+	 */
+	private ArrayList<UmlTemplateParameter> templateParameters;
+	
+	/**
+	 * Constructor with name and visibility, initializes the list for the {@link UmlParameter}s, {@link UmlTemplateBinding}s and {@link UmlTemplateParameter}s
 	 * 
 	 * @param name the name of the element
 	 * @param visibility the {@link UmlVisibility} of the element
@@ -44,10 +54,12 @@ public class UmlOperation {
 		this.name = name;
 		this.visibility = visibility;
 		parameters = new ArrayList<UmlParameter>();
+		templateBindings = new ArrayList<UmlTemplateBinding>();
+		templateParameters = new ArrayList<UmlTemplateParameter>();
 	}
 	
 	/**
-	 * Constructor with name, visibility and static-, final-, and abstract-operationifiers, initializes the list for {@link UmlParameter}s
+	 * Constructor with name, visibility and static-, final-, and abstract-operationifiers, initializes the list for {@link UmlParameter}s, {@link UmlTemplateBinding}s and {@link UmlTemplateParameter}s
 	 * 
 	 * @param name the name of the operation
 	 * @param visibility the {@link UmlVisibility} of the operation
@@ -62,6 +74,8 @@ public class UmlOperation {
 		this.isFinal = isFinal;
 		this.isAbstract = isAbstract;
 		parameters = new ArrayList<UmlParameter>();
+		templateBindings = new ArrayList<UmlTemplateBinding>();
+		templateParameters = new ArrayList<UmlTemplateParameter>();
 	}
 	
 	/**
@@ -170,5 +184,41 @@ public class UmlOperation {
 	 */
 	public void addParameter(UmlParameter parameter) {
 		parameters.add(parameter);
+	}
+	
+	/**
+	 * Returns the list of {@link UmlTemplateBinding}s
+	 * 
+	 * @return the list of {@link UmlTemplateBinding}s
+	 */
+	public ArrayList<UmlTemplateBinding> getUmlTemplateBindings() {
+		return templateBindings;
+	}
+	
+	/**
+	 * Adds an {@link UmlTemplateBinding} to the list
+	 * 
+	 * @param templateBinding the {@link UmlTemplateBinding} to add
+	 */
+	public void addUmlTemplateBinding(UmlTemplateBinding templateBinding) {
+		templateBindings.add(templateBinding);
+	}
+	
+	/**
+	 * Returns the list of {@link UmlTemplateParameter}s
+	 * 
+	 * @return the list of {@link UmlTemplateParameter}s
+	 */
+	public ArrayList<UmlTemplateParameter> getTemplateParameters() {
+		return templateParameters;
+	}
+	
+	/**
+	 * Adds an {@link UmlTemplateParameter} to the list
+	 * 
+	 * @param templateParameter the {@link UmlTemplateParameter} to add
+	 */
+	public void addTemplateParameter(UmlTemplateParameter templateParameter) {
+		templateParameters.add(templateParameter);
 	}
 }

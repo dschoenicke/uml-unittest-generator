@@ -14,11 +14,6 @@ public class UmlParameter {
 	private String name;
 	
 	/**
-	 * The {@link UmlVisibility} of the parameter
-	 */
-	private UmlVisibility visibility;
-	
-	/**
 	 * The data type of the parameter
 	 */
 	private String type;
@@ -44,23 +39,20 @@ public class UmlParameter {
 	private UmlMultiplicityValue upperValue;
 	
 	/**
-	 * Constructor with name, visibility, type, direction and final classifier
+	 * Constructor with name, type, direction and final classifier
 	 * lowerValue and upperValue are set to {@literal UmlMultiplicityValue.ONE}
 	 * 
 	 * @param name the name of the parameter
-	 * @param visibility the {@link UmlVisibility} of the parameter
 	 * @param type the data type of the parameter
 	 * @param direction the {@link UmlParameterDirection} of the parameter
 	 * @param isFinal true if the parameter is final
 	 */
-	public UmlParameter(String name, 
-			UmlVisibility visibility,
+	public UmlParameter(String name,
 			String type,
 			UmlParameterDirection direction,
 			boolean isFinal) {
 		
 		this.name = name;
-		this.visibility = visibility;
 		this.type = type;
 		this.direction = direction;
 		this.isFinal = isFinal;
@@ -68,10 +60,9 @@ public class UmlParameter {
 	}
 	
 	/**
-	 * Constructor with name, visibility, type, direction, final classifier and mulitplicity values
+	 * Constructor with name, type, direction, final classifier and mulitplicity values
 	 * 
 	 * @param name the name of the parameter
-	 * @param visibility the {@link UmlVisibility} of the parameter
 	 * @param type the data type of the parameter
 	 * @param direction the {@link UmlParameterDirection} of the parameter
 	 * @param isFinal true if the parameter is final
@@ -79,7 +70,6 @@ public class UmlParameter {
 	 * @param uppperValue the upper {@link UmlMultiplicityValue}
 	 */
 	public UmlParameter(String name, 
-			UmlVisibility visibility,
 			String type,
 			UmlParameterDirection direction,
 			boolean isFinal,
@@ -87,7 +77,6 @@ public class UmlParameter {
 			UmlMultiplicityValue upperValue) {
 		
 		this.name = name;
-		this.visibility = visibility;
 		this.type = type;
 		this.direction = direction;
 		this.isFinal = isFinal;
@@ -111,24 +100,6 @@ public class UmlParameter {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * Gets the {@link UmlVisibility} of the parameter
-	 * 
-	 * @return the {@link UmlVisibility} of the parameter
-	 */
-	public UmlVisibility getVisibility() {
-		return visibility;
-	}
-
-	/**
-	 * Sets the {@link UmlVisibility} of the parameter
-	 * 
-	 * @param the {@link UmlVisibility} of the parameter
-	 */
-	public void setVisibility(UmlVisibility visibility) {
-		this.visibility = visibility;
 	}
 
 	/**
