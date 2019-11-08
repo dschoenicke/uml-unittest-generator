@@ -75,7 +75,7 @@ public class UmlInterface extends UmlElement {
 	/**
 	 * Adds an {@link UmlTemplateParameter} to the list
 	 * 
-	 * @param templateBinding the {@link UmlTemplateParameter} to add
+	 * @param templateParameter the {@link UmlTemplateParameter} to add
 	 */
 	public void addUmlTemplateParameter(UmlTemplateParameter templateParameter) {
 		templateParameters.add(templateParameter);

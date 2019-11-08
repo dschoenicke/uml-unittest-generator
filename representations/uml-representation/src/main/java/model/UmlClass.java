@@ -36,7 +36,7 @@ public class UmlClass extends UmlElement {
 	private ArrayList<UmlOperation> operations;
 	
 	/**
-	 * List of {@link TemplateParameter}s of the class
+	 * List of {@link UmlTemplateParameter}s of the class
 	 */
 	private ArrayList<UmlTemplateParameter> templateParameters;
 	

@@ -67,7 +67,7 @@ public class UmlParameter {
 	 * @param direction the {@link UmlParameterDirection} of the parameter
 	 * @param isFinal true if the parameter is final
 	 * @param lowerValue the lower {@link UmlMultiplicityValue}
-	 * @param uppperValue the upper {@link UmlMultiplicityValue}
+	 * @param upperValue the upper {@link UmlMultiplicityValue}
 	 */
 	public UmlParameter(String name, 
 			String type,
@@ -159,7 +159,7 @@ public class UmlParameter {
 	/**
 	 * Gets the lower {@link UmlMultiplicityValue} of the parameter
 	 * 
-	 * @return the lower {@link MultiplicityValue} of the parameter
+	 * @return the lower {@link UmlMultiplicityValue} of the parameter
 	 */
 	public UmlMultiplicityValue getLowerValue() {
 		return lowerValue;
@@ -168,7 +168,7 @@ public class UmlParameter {
 	/**
 	 * Sets the lower {@link UmlMultiplicityValue} of the parameter
 	 * 
-	 * @param lowerValue the lower {@link MultiplicityValue} of the parameter
+	 * @param lowerValue the lower {@link UmlMultiplicityValue} of the parameter
 	 */
 	public void setLowerValue(UmlMultiplicityValue lowerValue) {
 		this.lowerValue = lowerValue;
@@ -177,7 +177,7 @@ public class UmlParameter {
 	/**
 	 * Gets the upper {@link UmlMultiplicityValue} of the parameter
 	 * 
-	 * @return the upper {@link MultiplicityValue} of the parameter
+	 * @return the upper {@link UmlMultiplicityValue} of the parameter
 	 */
 	public UmlMultiplicityValue getUpperValue() {
 		return upperValue;
@@ -186,7 +186,7 @@ public class UmlParameter {
 	/**
 	 * Sets the upper {@link UmlMultiplicityValue} of the parameter
 	 * 
-	 * @param upperValue the upper {@link MultiplicityValue} of the parameter
+	 * @param upperValue the upper {@link UmlMultiplicityValue} of the parameter
 	 */
 	public void setUpperValue(UmlMultiplicityValue upperValue) {
 		this.upperValue = upperValue;
