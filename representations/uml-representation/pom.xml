@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.dschoenicke</groupId>
-  <artifactId>md-jaxb</artifactId>
+  <artifactId>uml-representation</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>md-jaxb</name>
+  <name>uml-representation</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -25,26 +25,12 @@
     </plugins>
   </build>
 
-
   <dependencies>
-  	<dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
-      <version>2.4.0-b180830.0359</version>
-	</dependency>
-  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-    
-    <dependency>
-      <groupId>com.dschoenicke</groupId>
-      <artifactId>uml-representation</artifactId>
-      <version>1.0.0</version>
-    </dependency>
-    
   </dependencies>
 </project>
