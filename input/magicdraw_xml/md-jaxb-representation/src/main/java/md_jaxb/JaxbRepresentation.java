@@ -6,6 +6,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import converter.UmlInputRepresentation;
 import model.Xmi;
 
 /**
@@ -16,7 +17,7 @@ import model.Xmi;
  * @author dschoenicke
  *
  */
-public class JaxbRepresentation 
+public class JaxbRepresentation implements UmlInputRepresentation
 {
 	/**
 	 * The representation of the root node of the xml file
