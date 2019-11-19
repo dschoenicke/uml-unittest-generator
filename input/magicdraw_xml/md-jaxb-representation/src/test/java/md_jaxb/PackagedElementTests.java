@@ -16,7 +16,7 @@ import model.PackagedElement;
  * @author dschoenicke
  *
  */
-public class PackagedElementTests extends JaxbRepresentationTests {
+public class PackagedElementTests extends MdxmlRepresentationTests {
 
 	/**
 	 * A sample {@link model.PackagedElement} which should be checked

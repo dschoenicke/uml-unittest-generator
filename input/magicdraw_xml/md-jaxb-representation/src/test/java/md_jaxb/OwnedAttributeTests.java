@@ -18,7 +18,7 @@ import model.PackagedElement;
  * @author dschoenicke
  *
  */
-public class OwnedAttributeTests extends JaxbRepresentationTests {
+public class OwnedAttributeTests extends MdxmlRepresentationTests {
 
 	/**
 	 * A sample {@link model.PackagedElement} which should be checked

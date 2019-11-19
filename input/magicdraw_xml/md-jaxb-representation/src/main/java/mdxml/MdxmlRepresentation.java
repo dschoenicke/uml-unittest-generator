@@ -1,4 +1,4 @@
-package md_jaxb;
+package mdxml;
 
 import java.io.File;
 
@@ -10,14 +10,14 @@ import converter.UmlInputRepresentation;
 import model.Xmi;
 
 /**
- * Class to provide an interface for the md-jaxb representation.
+ * Class to provide an interface for the md-xml representation.
  * Takes a String as path to a xml file and generates the representation with
  * {@link Xmi} as root node
  * 
  * @author dschoenicke
  *
  */
-public class JaxbRepresentation implements UmlInputRepresentation
+public class MdxmlRepresentation implements UmlInputRepresentation
 {
 	/**
 	 * The representation of the root node of the xml file
@@ -30,7 +30,7 @@ public class JaxbRepresentation implements UmlInputRepresentation
 	 * @param filepath the path to the xml file
 	 * @throws JAXBException {@link JAXBException} could be thrown if the xml file is invalid
 	 */
-	public JaxbRepresentation(String filepath) throws JAXBException {
+	public MdxmlRepresentation(String filepath) throws JAXBException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(Xmi.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         xmi = (Xmi)jaxbUnmarshaller.unmarshal(new File(filepath));

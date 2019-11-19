@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.xml.bind.JAXBException;
 
+import mdxml.MdxmlRepresentation;
 import model.PackagedElement;
 
 /**
@@ -12,7 +13,7 @@ import model.PackagedElement;
  * @author dschoenicke
  *
  */
-public class JaxbRepresentationTests
+public class MdxmlRepresentationTests
 {	
 	/**
 	 * Initialization method, initializing a {@link JaxbRepresentation} out of an sample xml file and
@@ -22,12 +23,12 @@ public class JaxbRepresentationTests
 	 * @return the sample {@link PackagedElement} used by the test classes
 	 */
 	public PackagedElement initializePackagedElement() throws JAXBException {
-		JaxbRepresentation representation;
+		MdxmlRepresentation representation;
 		PackagedElement element = null;
 		
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("md_jaxb.xml").getFile());
-		representation = new JaxbRepresentation(file.getAbsolutePath());
+		representation = new MdxmlRepresentation(file.getAbsolutePath());
 		
 		for (PackagedElement packagedElement : representation.getXmi().getModel().getPackagedElements()) {
 			element = checkForPackagedElement(packagedElement, "PackagedElement");

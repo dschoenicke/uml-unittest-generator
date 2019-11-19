@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
  * Holds {@link LowerValue}s and {@link UpperValue}s when used by an {@link OwnedAttribute}
  * or {@link OwnedDiagram}s when used by the {@link Model}
  * 
- * @author dscho
+ * @author dschoenicke
  *
  */
 public class ModelExtension {
