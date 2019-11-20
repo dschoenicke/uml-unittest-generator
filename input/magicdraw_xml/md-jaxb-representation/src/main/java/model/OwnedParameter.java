@@ -62,6 +62,11 @@ public class OwnedParameter {
 	private OwnedParameteredElement ownedParameteredElement;
 	
 	/**
+	 * Set to "true" if the parameter is final, null otherwise
+	 */
+	private String isFinal;
+	
+	/**
 	 * Default constructor
 	 */
 	public OwnedParameter() {}
@@ -254,5 +259,24 @@ public class OwnedParameter {
 	 */
 	public void setConstrainingClassifier(ConstrainingClassifier constrainingClassifier) {
 		this.constrainingClassifier = constrainingClassifier;
+	}
+	
+	/**
+	 * Gets the String which classifies whether the parameter is final
+	 * 
+	 * @return "true" if the parameter is final, null otherwise
+	 */
+	@XmlAttribute(name = "isFinal")
+	public String getIsFinal() {
+		return isFinal;
+	}
+	
+	/**
+	 * Sets the String which classifies whether the parameter is final
+	 * 
+	 * @param isFinal "true" if the parameter is final, null otherwise
+	 */
+	public void setIsFinal(String isFinal) {
+		this.isFinal = isFinal;
 	}
 }

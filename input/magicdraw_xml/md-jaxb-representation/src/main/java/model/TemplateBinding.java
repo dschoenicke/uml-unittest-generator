@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -22,14 +24,16 @@ public class TemplateBinding {
 	private String signature;
 	
 	/**
-	 * The {@link ParameterSubstitution} of this template binding
+	 * The list of {@link ParameterSubstitution}s of this template binding
 	 */
-	private ParameterSubstitution parameterSubstitution;
+	private ArrayList<ParameterSubstitution> parameterSubstitutions;
 	
 	/**
-	 * Default constructor
+	 * Default constructor, initializes the list of {@link ParameterSubstitution}s
 	 */
-	public TemplateBinding() {}
+	public TemplateBinding() {
+		parameterSubstitutions = new ArrayList<>();
+	}
 
 	/**
 	 * Gets the id of the template binding
@@ -70,21 +74,21 @@ public class TemplateBinding {
 	}
 
 	/**
-	 * Gets the {@link ParameterSubstitution}
+	 * Gets the {@link ParameterSubstitution}s
 	 * 
-	 * @return the {@link ParameterSubstitution}
+	 * @return the {@link ParameterSubstitution}s
 	 */
 	@XmlElement(name = "parameterSubstitution")
-	public ParameterSubstitution getParameterSubstitution() {
-		return parameterSubstitution;
+	public ArrayList<ParameterSubstitution> getParameterSubstitutions() {
+		return parameterSubstitutions;
 	}
 
 	/**
-	 * Sets the {@link ParameterSubstitution}
+	 * Sets the {@link ParameterSubstitution}s
 	 * 
-	 * @param parameterSubstitution the {@link ParameterSubstitution}
+	 * @param parameterSubstitution the {@link ParameterSubstitution}s
 	 */
-	public void setParameterSubstitution(ParameterSubstitution parameterSubstitution) {
-		this.parameterSubstitution = parameterSubstitution;
+	public void setParameterSubstitutions(ArrayList<ParameterSubstitution> parameterSubstitutions) {
+		this.parameterSubstitutions = parameterSubstitutions;
 	}
 }

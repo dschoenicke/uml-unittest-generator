@@ -69,9 +69,9 @@ public class PackagedElement {
 	private ArrayList<PackagedElement> packagedElements;
 	
 	/**
-	 * The {@link TemplateBinding} if the packaged element describes a class or an interface
+	 * The list of {@link TemplateBinding}s if the packaged element describes a class or an interface
 	 */
-	private TemplateBinding templateBinding;
+	private ArrayList<TemplateBinding> templateBindings;
 	
 	/**
 	 * The list of the {@link OwnedTemplateSignature}s if the packaged element describes a class or an interface
@@ -84,9 +84,9 @@ public class PackagedElement {
 	private Generalization generalization;
 	
 	/**
-	 * The object describing an {@link InterfaceRealization} if the packaged element describes an element which implements an interface
+	 * The list of {@link InterfaceRealization}s if the packaged element describes an element which implements interfaces
 	 */
-	private InterfaceRealization interfaceRealization;
+	private ArrayList<InterfaceRealization> interfaceRealizations;
 	
 	/**
 	 * The {@link Client} description if the packaged element describes an association
@@ -115,7 +115,7 @@ public class PackagedElement {
  	
 	/**
 	 * Default constructor
-	 * Initializes lists for {@link OwnedAttribute}s, {@link OwnedOperation}s, {@link OwnedLiteral}s, {@link PackagedElement}s and {@link MemberEnd}s
+	 * Initializes lists for {@link OwnedAttribute}s, {@link OwnedOperation}s, {@link OwnedLiteral}s, {@link TemplateBinding}s, {@link PackagedElement}s, {@link InterfaceRealization}s and {@link MemberEnd}s
 	 */
 	public PackagedElement() {
 		ownedAttributes = new ArrayList<OwnedAttribute>();
@@ -123,6 +123,8 @@ public class PackagedElement {
 		ownedLiterals = new ArrayList<OwnedLiteral>();
 		packagedElements = new ArrayList<PackagedElement>();
 		nestedClassifiers = new ArrayList<PackagedElement>();
+		templateBindings = new ArrayList<TemplateBinding>();
+		interfaceRealizations = new ArrayList<InterfaceRealization>();
 	}
 	
 	/**
@@ -335,13 +337,13 @@ public class PackagedElement {
 	}
 	
 	/**
-	 * Gets the {@link TemplateBinding} of the element
+	 * Gets the {@link TemplateBinding}s of the element
 	 * 
 	 * @return the {@link TemplateBinding}s
 	 */
 	@XmlElement(name = "templateBinding")
-	public TemplateBinding getTemplateBinding() {
-		return templateBinding;
+	public ArrayList<TemplateBinding> getTemplateBindings() {
+		return templateBindings;
 	}
 
 	/**
@@ -349,14 +351,14 @@ public class PackagedElement {
 	 * 
 	 * @param templateBinding the {@link TemplateBinding}
 	 */
-	public void setTemplateBinding(TemplateBinding templateBinding) {
-		this.templateBinding = templateBinding;
+	public void setTemplateBindings(ArrayList<TemplateBinding> templateBindings) {
+		this.templateBindings = templateBindings;
 	}
 	
 	/**
-	 * Gets the list of the {@link OwnedTemplateSignature}s
+	 * Gets the {@link OwnedTemplateSignature} of the element
 	 * 
-	 * @return the list of the {@link OwnedTemplateSignature}s
+	 * @return the {@link OwnedTemplateSignature} of the element
 	 */
 	@XmlElement(name = "ownedTemplateSignature")
 	public OwnedTemplateSignature getOwnedTemplateSignature() {
@@ -364,9 +366,9 @@ public class PackagedElement {
 	}
 	
 	/**
-	 * Sets the list of the {@link OwnedTemplateSignature}s
+	 * Sets the {@link OwnedTemplateSignature} of the element
 	 * 
-	 * @param ownedTemplateSignature the list of the {@link OwnedTemplateSignature}s
+	 * @param ownedTemplateSignature the {@link OwnedTemplateSignature} of the element
 	 */
 	public void setOwnedTemplateSignature(OwnedTemplateSignature ownedTemplateSignature) {
 		this.ownedTemplateSignature = ownedTemplateSignature;
@@ -392,22 +394,22 @@ public class PackagedElement {
 	}
 	
 	/**
-	 * Gets the {@link InterfaceRealization} of the element
+	 * Gets the {@link InterfaceRealization}s of the element
 	 * 
-	 * @return the {@link InterfaceRealization} of the element
+	 * @return the {@link InterfaceRealization}s of the element
 	 */
 	@XmlElement(name = "interfaceRealization")
-	public InterfaceRealization getInterfaceRealization() {
-		return interfaceRealization;
+	public ArrayList<InterfaceRealization> getInterfaceRealizations() {
+		return interfaceRealizations;
 	}
 	
 	/**
-	 * Sets the {@link InterfaceRealization} of the element
+	 * Sets the {@link InterfaceRealization}s of the element
 	 * 
-	 * @param interfaceRealization the {@link InterfaceRealization} of the element
+	 * @param interfaceRealization the {@link InterfaceRealization}s of the element
 	 */
-	public void setInterfaceRealization(InterfaceRealization interfaceRealization) {
-		this.interfaceRealization = interfaceRealization;
+	public void setInterfaceRealizations(ArrayList<InterfaceRealization> interfaceRealizations) {
+		this.interfaceRealizations = interfaceRealizations;
 	}
 	
 	/**

@@ -21,6 +21,11 @@ public class UpperValue {
 	private String value;
 	
 	/**
+	 * The type of the value
+	 */
+	private String type;
+	
+	/**
 	 * Default constructor
 	 */
 	public UpperValue() {}
@@ -60,5 +65,24 @@ public class UpperValue {
 	 */
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	/**
+	 * Gets the type of the value
+	 * 
+	 * @return the type of the value
+	 */
+	@XmlAttribute(namespace = "http://omg.org/spec/XMI/20131001", name = "type")
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * Sets the type of the value
+	 * 
+	 * @param type the type of the value
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 }

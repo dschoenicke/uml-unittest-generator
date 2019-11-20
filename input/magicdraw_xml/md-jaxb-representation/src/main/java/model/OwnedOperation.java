@@ -49,15 +49,21 @@ public class OwnedOperation {
 	private ArrayList<OwnedParameter> ownedParameters;
 	
 	/**
-	 * The operation's {@link TemplateBinding}
+	 * The operation's {@link TemplateBinding}s
 	 */
-	private TemplateBinding templateBinding;
+	private ArrayList<TemplateBinding> templateBindings;
 	
 	/**
-	 * Default constructor, initializes the list for {@link OwnedParameter}s
+	 * The operation's {@link OwnedTemplateSignature}
+	 */
+	private OwnedTemplateSignature ownedTemplateSignature;
+	
+	/**
+	 * Default constructor, initializes the lists for {@link OwnedParameter}s and {@link TemplateBinding}s
 	 */
 	public OwnedOperation() {
-		ownedParameters = new ArrayList<OwnedParameter>();
+		ownedParameters = new ArrayList<>();
+		templateBindings = new ArrayList<>();
 	}
 	
 	/**
@@ -194,21 +200,40 @@ public class OwnedOperation {
 	}
 	
 	/**
-	 * Gets the {@link TemplateBinding} of the operation
+	 * Gets the {@link TemplateBinding}s of the operation
 	 * 
 	 * @return the {@link TemplateBinding}s
 	 */
 	@XmlElement(name = "templateBinding")
-	public TemplateBinding getTemplateBinding() {
-		return templateBinding;
+	public ArrayList<TemplateBinding> getTemplateBindings() {
+		return templateBindings;
 	}
 
 	/**
-	 * Sets the {@link TemplateBinding} of the operation
+	 * Sets the {@link TemplateBinding}s of the operation
 	 * 
-	 * @param templateBinding the {@link TemplateBinding}
+	 * @param templateBindings the {@link TemplateBinding}s
 	 */
-	public void setTemplateBinding(TemplateBinding templateBinding) {
-		this.templateBinding = templateBinding;
+	public void setTemplateBindings(ArrayList<TemplateBinding> templateBindings) {
+		this.templateBindings = templateBindings;
+	}
+	
+	/**
+	 * Gets the {@link OwnedTemplateSignature} of the operation
+	 * 
+	 * @return the {@link OwnedTemplateSignature} of the operation
+	 */
+	@XmlElement(name = "ownedTemplateSignature")
+	public OwnedTemplateSignature getOwnedTemplateSignature() {
+		return ownedTemplateSignature;
+	}
+	
+	/**
+	 * Sets the {@link OwnedTemplateSignature} of the operation
+	 * 
+	 * @param ownedTemplateSignature the {@link OwnedTemplateSignature} of the operation
+	 */
+	public void setOwnedTemplateSignature(OwnedTemplateSignature ownedTemplateSignature) {
+		this.ownedTemplateSignature = ownedTemplateSignature;
 	}
 }
