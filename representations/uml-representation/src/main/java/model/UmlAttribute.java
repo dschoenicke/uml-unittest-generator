@@ -85,6 +85,7 @@ public class UmlAttribute {
 			UmlMultiplicityValue upperValue) {
 		
 		this.name = name;
+		this.visibility = visibility;
 		this.type = type;
 		this.isStatic = isStatic;
 		this.isFinal = isFinal;

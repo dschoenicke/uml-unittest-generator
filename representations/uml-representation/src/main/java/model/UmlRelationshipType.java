@@ -1,12 +1,12 @@
 package model;
 
 /**
- * Determines the type of an {@link UmlAssociation}
+ * Determines the type of an {@link UmlRelationship}
  * 
  * @author dschoenicke
  *
  */
-public enum UmlAssociationType {
+public enum UmlRelationshipType {
 	ASSOCIATION,
 	AGGREGATION,
 	COMPOSITION,

@@ -21,9 +21,9 @@ public class UmlDiagram {
 	private ArrayList<UmlElement> elements;
 	
 	/**
-	 * The list of {@link UmlAssociation}s of the diagram
+	 * The list of {@link UmlRelationship}s of the diagram
 	 */
-	private ArrayList<UmlAssociation> associations;
+	private ArrayList<UmlRelationship> relationships;
 	
 	/**
 	 * The list of {@link UmlPackage}s
@@ -31,14 +31,14 @@ public class UmlDiagram {
 	private ArrayList<UmlPackage> packages;
 	
 	/**
-	 * Constructor with the name of the diagram, initializes the lists of elements, packages and associations
+	 * Constructor with the name of the diagram, initializes the lists of elements, packages and relationships
 	 * 
 	 * @param name the name of the diagram
 	 */
 	public UmlDiagram(String name) {
 		this.name = name;
 		elements = new ArrayList<UmlElement>();
-		associations = new ArrayList<UmlAssociation>();
+		relationships = new ArrayList<UmlRelationship>();
 		packages = new ArrayList<UmlPackage>();
 	}
 	
@@ -79,21 +79,21 @@ public class UmlDiagram {
 	}
 	
 	/**
-	 * Gets the list of the diagram's {@link UmlAssociation}s
+	 * Gets the list of the diagram's {@link UmlRelationship}s
 	 * 
-	 * @return the list of {@link UmlAssociation}s
+	 * @return the list of {@link UmlRelationship}s
 	 */
-	public ArrayList<UmlAssociation> getAssociations() {
-		return associations;
+	public ArrayList<UmlRelationship> getRelationships() {
+		return relationships;
 	}
 	
 	/**
-	 * Adds an {@link UmlAssociation} to the list
+	 * Adds an {@link UmlRelationship} to the list
 	 * 
-	 * @param association the {@link UmlAssociation} to add to the list
+	 * @param relationship the {@link UmlRelationship} to add to the list
 	 */
-	public void addAssociation(UmlAssociation association) {
-		associations.add(association);
+	public void addRelationship(UmlRelationship relationship) {
+		relationships.add(relationship);
 	}
 	
 	/**

@@ -10,5 +10,5 @@ import model.UmlModel;
  *
  */
 public interface UmlInputRepresentation {
-
+	
 }

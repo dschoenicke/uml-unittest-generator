@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Defines possible values for multiplicity values in {@link UmlAttribute}s, {@link UmlAssociation}s and {@link UmlParameter}s
+ * Defines possible values for multiplicity values in {@link UmlAttribute}s, {@link UmlRelationship}s and {@link UmlParameter}s
  * 
  * @author dschoenicke
  *

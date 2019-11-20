@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Represents a template binding of an {@link UmlElement} or {@link UmlOperation}
  * 
@@ -9,59 +11,32 @@ package model;
 public class UmlTemplateBinding {
 
 	/**
-	 * The {@link UmlTemplateParameter} replaced by this template binding
+	 * List of {@link UmlParameterSubstitution}s of the template binding
 	 */
-	private UmlTemplateParameter templateParameter;
+	private ArrayList<UmlParameterSubstitution> parameterSubstitutions;
 	
 	/**
-	 * The name of the class replacing the {@link UmlTemplateParameter}
+	 * Constructor, initializes the list of {@link UmlParameterSubstitution}s
 	 */
-	private String substitutionType;
-	
-	/**
-	 * Constructor with template parameter and substitution type
-	 * 
-	 * @param templateParameter the {@link UmlTemplateParameter} replaced in this binding
-	 * @param substitutionType the name of the class replacing the {@link UmlTemplateParameter}
-	 */
-	public UmlTemplateBinding(UmlTemplateParameter templateParameter, String substitutionType) {
-		this.templateParameter = templateParameter;
-		this.substitutionType = substitutionType;
+	public UmlTemplateBinding() {
+		parameterSubstitutions = new ArrayList<>();
 	}
 	
 	/**
-	 * Gets the {@link UmlTemplateParameter}
+	 * Gets the list of {@link UmlParameterSubstitution}s
 	 * 
-	 * @return the {@link UmlTemplateParameter}
+	 * @return the list of {@link UmlParameterSubstitution}s
 	 */
-	public UmlTemplateParameter getTemplateParameter() {
-		return templateParameter;
+	public ArrayList<UmlParameterSubstitution> getParameterSubstitutions() {
+		return parameterSubstitutions;
 	}
 	
 	/**
-	 * Sets the {@link UmlTemplateParameter}
+	 * Adds an {@link UmlParameterSubstitution} to the list
 	 * 
-	 * @param templateParameter the {@link UmlTemplateParameter}
+	 * @param parameterSubstitution the {@link UmlParameterSubstitution} to add to the list
 	 */
-	public void setTemplateParameter(UmlTemplateParameter templateParameter) {
-		this.templateParameter = templateParameter;
-	}
-	
-	/**
-	 * Gets the name of the class replacing the {@link UmlTemplateParameter}
-	 * 
-	 * @return the name of the class replacing the {@link UmlTemplateParameter}
-	 */
-	public String getSubstitutionType() {
-		return substitutionType;
-	}
-	
-	/**
-	 * Sets the name of the class replacing the {@link UmlTemplateParameter}
-	 * 
-	 * @param substitutionType the name of the class replacing the {@link UmlTemplateParameter}
-	 */
-	public void setSubstitutionType(String substitutionType) {
-		this.substitutionType = substitutionType;
+	public void addParameterSubstitution(UmlParameterSubstitution parameterSubstitution) {
+		parameterSubstitutions.add(parameterSubstitution);
 	}
 }

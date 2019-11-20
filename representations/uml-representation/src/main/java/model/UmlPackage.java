@@ -21,9 +21,9 @@ public class UmlPackage {
 	private ArrayList<UmlElement> elements;
 	
 	/**
-	 * A list of {@link UmlAssociation}s of the package
+	 * A list of {@link UmlRelationship}s of the package
 	 */
-	private ArrayList<UmlAssociation> associations;
+	private ArrayList<UmlRelationship> relationships;
 	
 	/**
 	 * A list of {@link UmlPackage}s of the package
@@ -31,14 +31,14 @@ public class UmlPackage {
 	private ArrayList<UmlPackage> packages;
 	
 	/**
-	 * Constructor with name, initializes the list of {@link UmlElement}s, {@link UmlPackage}s and {@link UmlAssociation}s
+	 * Constructor with name, initializes the list of {@link UmlElement}s, {@link UmlPackage}s and {@link UmlRelationship}s
 	 * 
 	 * @param name the name of the package
 	 */
 	public UmlPackage(String name) {
 		this.name = name;
 		elements = new ArrayList<>();
-		associations = new ArrayList<>();
+		relationships = new ArrayList<>();
 		packages = new ArrayList<>();
 	}
 	
@@ -79,21 +79,21 @@ public class UmlPackage {
 	}
 	
 	/**
-	 * Gets the list of the package's {@link UmlAssociation}s
+	 * Gets the list of the package's {@link UmlRelationship}s
 	 * 
-	 * @return the list of {@link UmlAssociation}s
+	 * @return the list of {@link UmlRelationship}s
 	 */
-	public ArrayList<UmlAssociation> getAssociations() {
-		return associations;
+	public ArrayList<UmlRelationship> getRelationships() {
+		return relationships;
 	}
 	
 	/**
-	 * Adds an {@link UmlAssociation} to the list
+	 * Adds an {@link UmlRelationship} to the list
 	 * 
-	 * @param association the {@link UmlAssociation} to add to the list
+	 * @param relationship the {@link UmlRelationship} to add to the list
 	 */
-	public void addAssociation(UmlAssociation association) {
-		associations.add(association);
+	public void addRelationship(UmlRelationship relationship) {
+		relationships.add(relationship);
 	}
 	
 	/**
