@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 /**
  * Represents an interface
  * 
@@ -16,23 +14,17 @@ public class UmlInterface extends UmlElement {
 	private boolean  isAbstract;
 	
 	/**
-	 * List of {@link UmlTemplateParameter}s of the interface
-	 */
-	private ArrayList<UmlTemplateParameter> templateParameters;
-	
-	/**
-	 * Constructor with name and visibility, initializes the list of {@link UmlTemplateParameter}s
+	 * Constructor with name and visibility
 	 *  
 	 * @param name the name of the interface
 	 * @param visibility the {@link UmlVisibility} of the interface
 	 */
 	public UmlInterface(String name, UmlVisibility visibility) {
 		super(name, visibility);
-		templateParameters = new ArrayList<UmlTemplateParameter>();
 	}
 	
 	/**
-	 * Constructor with name, visibility and the abstract classifier, initializes the list of {@link UmlTemplateParameter}s
+	 * Constructor with name, visibility and the abstract classifier
 	 *  
 	 * @param name the name of the interface
 	 * @param visibility the {@link UmlVisibility} of the interface
@@ -41,7 +33,6 @@ public class UmlInterface extends UmlElement {
 	public UmlInterface(String name, UmlVisibility visibility, boolean isAbstract) {
 		super(name, visibility);
 		this.isAbstract = isAbstract;
-		templateParameters = new ArrayList<UmlTemplateParameter>();
 	}
 	
 	/**
@@ -60,24 +51,5 @@ public class UmlInterface extends UmlElement {
 	 */
 	public void setAbstract(boolean isAbstract) {
 		this.isAbstract = isAbstract;
-	}
-
-
-	/**
-	 * Returns the list of {@link UmlTemplateParameter}s
-	 * 
-	 * @return the list of {@link UmlTemplateParameter}s
-	 */
-	public ArrayList<UmlTemplateParameter> getUmlTemplateParameters() {
-		return templateParameters;
-	}
-	
-	/**
-	 * Adds an {@link UmlTemplateParameter} to the list
-	 * 
-	 * @param templateParameter the {@link UmlTemplateParameter} to add
-	 */
-	public void addUmlTemplateParameter(UmlTemplateParameter templateParameter) {
-		templateParameters.add(templateParameter);
 	}
 }

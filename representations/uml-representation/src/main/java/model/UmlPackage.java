@@ -3,65 +3,65 @@ package model;
 import java.util.ArrayList;
 
 /**
- * Represents a class diagram of the {@link UmlModel}
+ * Represents a package in an {@link UmlDiagram}
  * 
  * @author dschoenicke
  *
  */
-public class UmlDiagram {
+public class UmlPackage {
 
 	/**
-	 * The name of the diagram
+	 * The name of the package
 	 */
 	private String name;
 	
 	/**
-	 * The list of {@link UmlElement}s of the diagram
+	 * A list of {@link UmlElement}s of the package
 	 */
 	private ArrayList<UmlElement> elements;
 	
 	/**
-	 * The list of {@link UmlAssociation}s of the diagram
+	 * A list of {@link UmlAssociation}s of the package
 	 */
 	private ArrayList<UmlAssociation> associations;
 	
 	/**
-	 * The list of {@link UmlPackage}s
+	 * A list of {@link UmlPackage}s of the package
 	 */
 	private ArrayList<UmlPackage> packages;
 	
 	/**
-	 * Constructor with the name of the diagram, initializes the lists of elements, packages and associations
+	 * Constructor with name, initializes the list of {@link UmlElement}s, {@link UmlPackage}s and {@link UmlAssociation}s
 	 * 
-	 * @param name the name of the diagram
+	 * @param name the name of the package
 	 */
-	public UmlDiagram(String name) {
+	public UmlPackage(String name) {
 		this.name = name;
-		elements = new ArrayList<UmlElement>();
-		associations = new ArrayList<UmlAssociation>();
-		packages = new ArrayList<UmlPackage>();
+		elements = new ArrayList<>();
+		associations = new ArrayList<>();
+		packages = new ArrayList<>();
 	}
 	
 	/**
-	 * Gets the name of the diagram
+	 * Gets the name of the package
 	 * 
-	 * @return the name of the diagram
+	 * @return the name of the package
 	 */
 	public String getName() {
 		return name;
 	}
 	
 	/**
-	 * Sets the name of the diagram
+	 * Sets the name of the package
 	 * 
-	 * @param name the name of the diagram
+	 * @param name the name of the package
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
 	/**
-	 * Gets the list of the diagram's {@link UmlElement}s
+	 * Gets the list of {@link UmlElement}s
 	 * 
 	 * @return the list of {@link UmlElement}s
 	 */
@@ -72,14 +72,14 @@ public class UmlDiagram {
 	/**
 	 * Adds an {@link UmlElement} to the list
 	 * 
-	 * @param element the {@link UmlElement} to add to the list
+	 * @param element the {@link UmlElement} to add
 	 */
-	public void addElement(UmlElement element) {
+	public void addUmlElement(UmlElement element) {
 		elements.add(element);
 	}
 	
 	/**
-	 * Gets the list of the diagram's {@link UmlAssociation}s
+	 * Gets the list of the package's {@link UmlAssociation}s
 	 * 
 	 * @return the list of {@link UmlAssociation}s
 	 */
@@ -97,7 +97,7 @@ public class UmlDiagram {
 	}
 	
 	/**
-	 * Gets the list of the diagram's {@link UmlPackage}s
+	 * Gets the list of the package's {@link UmlPackage}s
 	 * 
 	 * @return the list of {@link UmlPackage}s
 	 */
@@ -113,4 +113,4 @@ public class UmlDiagram {
 	public void addPackage(UmlPackage umlPackage) {
 		packages.add(umlPackage);
 	}
- }
+}

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 /**
  * Represents a class
  * 
@@ -26,35 +24,17 @@ public class UmlClass extends UmlElement {
 	private boolean  isAbstract;
 	
 	/**
-	 * List of {@link UmlAttribute}s of the class
-	 */
-	private ArrayList<UmlAttribute> attributes;
-	
-	/**
-	 * List of {@link UmlOperation}s of the class
-	 */
-	private ArrayList<UmlOperation> operations;
-	
-	/**
-	 * List of {@link UmlTemplateParameter}s of the class
-	 */
-	private ArrayList<UmlTemplateParameter> templateParameters;
-	
-	/**
-	 * Constructor with name and visibility, initializes the lists for {@link UmlAttribute}s, {@link UmlOperation}s and {@link UmlTemplateParameter}s 
+	 * Constructor with name and visibility
 	 * 
 	 * @param name the name of the class
 	 * @param visibility the {@link UmlVisibility} of the class, initializes the list for {@link UmlAttribute}s and {@link UmlOperation}s
 	 */
 	public UmlClass(String name, UmlVisibility visibility) {
 		super(name, visibility);
-		attributes = new ArrayList<UmlAttribute>();
-		operations = new ArrayList<UmlOperation>();
-		templateParameters = new ArrayList<UmlTemplateParameter>();
 	}
 	
 	/**
-	 * Constructor with name, visibility and static-, final-, and abstract-classifiers, initializes the lists for {@link UmlAttribute}s, {@link UmlOperation}s and {@link UmlTemplateParameter}s 
+	 * Constructor with name, visibility and static-, final-, and abstract-classifiers
 	 * 
 	 * @param name the name of the class
 	 * @param visibility the {@link UmlVisibility} of the class
@@ -67,9 +47,6 @@ public class UmlClass extends UmlElement {
 		this.isStatic = isStatic;
 		this.isFinal = isFinal;
 		this.isAbstract = isAbstract;
-		attributes = new ArrayList<UmlAttribute>();
-		operations = new ArrayList<UmlOperation>();
-		templateParameters = new ArrayList<UmlTemplateParameter>();
 	}
 	
 	/**
@@ -124,59 +101,5 @@ public class UmlClass extends UmlElement {
 	 */
 	public void setAbstract(boolean isAbstract) {
 		this.isAbstract = isAbstract;
-	}
-
-	/**
-	 * Returns the list of {@link UmlAttribute}s
-	 * 
-	 * @return the list of {@link UmlAttribute}s
-	 */
-	public ArrayList<UmlAttribute> getAttributes() {
-		return attributes;
-	}
-
-	/**
-	 * Adds an {@link UmlAttribute} to the list
-	 * 
-	 * @param attribute the {@link UmlAttribute} to add
-	 */
-	public void addAttribute(UmlAttribute attribute) {
-		attributes.add(attribute);
-	}
-
-	/**
-	 * Returns the list of {@link UmlOperation}s
-	 * 
-	 * @return the list of {@link UmlOperation}s
-	 */
-	public ArrayList<UmlOperation> getOperations() {
-		return operations;
-	}
-
-	/**
-	 * Adds an {@link UmlOperation} to the list
-	 * 
-	 * @param operation the {@link UmlOperation} to add
-	 */
-	public void addOperation(UmlOperation operation) {
-		operations.add(operation);
-	}
-	
-	/**
-	 * Returns the list of {@link UmlTemplateParameter}s
-	 * 
-	 * @return the list of {@link UmlTemplateParameter}s
-	 */
-	public ArrayList<UmlTemplateParameter> getTemplateParameters() {
-		return templateParameters;
-	}
-	
-	/**
-	 * Adds an {@link UmlTemplateParameter} to the list
-	 * 
-	 * @param templateParameter the {@link UmlTemplateParameter} to add
-	 */
-	public void addTemplateParameter(UmlTemplateParameter templateParameter) {
-		templateParameters.add(templateParameter);
 	}
 }
