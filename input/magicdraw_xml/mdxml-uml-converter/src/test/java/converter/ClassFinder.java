@@ -3,30 +3,33 @@ package converter;
 import java.util.ArrayList;
 
 import model.UmlDiagram;
+import model.UmlElement;
 import model.UmlModel;
 import model.UmlPackage;
 
 public class ClassFinder {
 
-	public static UmlPackage findUmlPackageByName(String name, UmlModel model) {
+	public static UmlElement findUmlElementByName(String name, UmlModel model) {
 		for (UmlDiagram diagram : model.getDiagrams()) {
-			return searchUmlPackage(name, diagram.getPackages());
+			for (UmlPackage umlPackage : diagram.getPackages()) {
+				return searchUmlElement(name, umlPackage.getElements());
+			}
 		}
 		
 		return null;
 	}
 	
-	private static UmlPackage searchUmlPackage(String name, ArrayList<UmlPackage> packages) {
-		UmlPackage foundPackage = null;
+	private static UmlElement searchUmlElement(String name, ArrayList<UmlElement> elements) {
+		UmlElement foundElement = null;
 		
-		for (UmlPackage umlPackage : packages) {
-			if (umlPackage.getName().equals(name)) {
-				return umlPackage;
+		for (UmlElement umlElement : elements) {
+			if (umlElement.getName().equals(name)) {
+				return umlElement;
 			}
 			
-			foundPackage = searchUmlPackage(name, umlPackage.getPackages());
+			foundElement = searchUmlElement(name, umlElement.getInnerElements());
 		}
 		
-		return foundPackage;
+		return foundElement;
 	}
 }
