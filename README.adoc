@@ -3,3 +3,12 @@
 image:https://circleci.com/gh/dschoenicke/uml-unittest-generator/tree/master.svg?style=svg&circle-token=780545d7ca8a2ad1c928eb4575fd649145884f9a["CircleCI", link="https://circleci.com/gh/dschoenicke/uml-unittest-generator/tree/master"]
 
 A tool to generate jUnit tests out of a given uml class diagram representation
+
+    uml-unittest-generator
+    ├── input --> contains representations and converters for different input formats
+    │   ├── magicdraw_xml
+    │   ...
+    ├── representations --> contains the different representations which are interim results of the conversion
+    │   ├── uml-representation
+    │   ...
+    ├── output --> contains representations and converters for different output formats
