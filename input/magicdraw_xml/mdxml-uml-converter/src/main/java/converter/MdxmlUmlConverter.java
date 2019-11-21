@@ -15,6 +15,12 @@ import model.UmlModel;
 import model.UmlOperation;
 import model.UmlParameter;
 
+/**
+ * Main class of the converter implementing the {@link converter.UmlRepresentationConverter} interface of the uml representation
+ * 
+ * @author dschoenicke
+ *
+ */
 public class MdxmlUmlConverter implements UmlRepresentationConverter {
 
 	private MdxmlRepresentation mdxmlRepresentation;
@@ -33,10 +39,18 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 		PackageConverter.convertPackages(xmlModel, tmpModel);
 		DiagramConverter.convertDiagrams(xmlModel, tmpModel);
 		
-		return convertTemporaryToUmlModel(xmlModel, tmpModel);
+		return convertTemporaryToUmlModel(tmpModel);
 	}
 	
-	private UmlModel convertTemporaryToUmlModel(Model xmlModel, TemporaryModel tmpModel) {
+	/**
+	 * Auxiliary method to finish the conversion
+	 * Creates {@link model.UmlDiagram}s out of {@link converter.temporary.TemporaryDiagram}s 
+	 * Replace ids of {@link model.PackagedElement}s with the element names
+	 * 
+	 * @param tmpModel the {@link converter.temporary.TemporaryModel} containing all the maps with elements and ids
+	 * @return the converted {@link model.UmlModel}
+	 */
+	private UmlModel convertTemporaryToUmlModel(TemporaryModel tmpModel) {
 		UmlModel umlModel = new UmlModel(tmpModel.getName());
 		tmpModel.getElementIDs().forEach((elementID, element) -> {
 			for (UmlAttribute attribute : element.getAttributes()) {
