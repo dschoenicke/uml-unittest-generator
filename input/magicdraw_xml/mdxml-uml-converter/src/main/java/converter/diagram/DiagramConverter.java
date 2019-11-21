@@ -11,14 +11,14 @@ public class DiagramConverter {
 		for (OwnedDiagram diagram : xmlModel.getExtension().getModelExtension().getOwnedDiagrams()) {
 			if (diagram.getExtension().getDiagramRepresentation().getDiagramRepresentationObject().getType().equals("Class Diagram")) {
 				TemporaryDiagram tmpDiagram = new TemporaryDiagram(diagram.getName());
-				tmpModel.addTemporaryDiagram(new TemporaryDiagram(diagram.getName()));
+				tmpModel.addTemporaryDiagram(tmpDiagram);
 				
 				for (String elementid : diagram.getExtension().
 						getDiagramRepresentation().
 						getDiagramRepresentationObject().
 						getDiagramContents().
 						getUsedElements()) {
-				
+		
 					tmpDiagram.addUsedElement(elementid);
 				}
 			}

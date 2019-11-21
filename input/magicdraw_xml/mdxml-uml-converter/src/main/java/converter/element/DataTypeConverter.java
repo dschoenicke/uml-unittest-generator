@@ -8,18 +8,22 @@ import model.Extension;
 public class DataTypeConverter {
 	
 	public static String convertDataType(String elementReference, DataType dataType) {
-		return generateDataTypeString(elementReference, dataType.getExtension());
-	}
-	
-	public static String convertDataType(String elementReference, Actual actual) {
-		return generateDataTypeString(elementReference, actual.getExtension());
-	}
-		
-	private static String generateDataTypeString(String elementReference, Extension extension) {
 		if (elementReference != null) {
 			return elementReference;
 		}
 		
+		return generateDataTypeString(dataType.getExtension());
+	}
+	
+	public static String convertDataType(String elementReference, Actual actual) {
+		if (elementReference != null) {
+			return elementReference;
+		}
+		
+		return generateDataTypeString(actual.getExtension());
+	}
+	
+	private static String generateDataTypeString(Extension extension) {
 		String result = "";
 		
 		try {

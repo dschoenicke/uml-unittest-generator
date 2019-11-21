@@ -7,6 +7,10 @@ public class VisibilityConverter {
 	public static UmlVisibility convertVisibility(String visibility) {
 		UmlVisibility umlVisibility;
 		
+		if (visibility == null) {
+			return UmlVisibility.NONE;
+		}
+		
 		switch(visibility) {
 			case "public": {
 				umlVisibility = UmlVisibility.PUBLIC;

@@ -7,7 +7,6 @@ import model.OwnedEnd;
 import model.PackagedElement;
 import model.UmlAttribute;
 import model.UmlElement;
-import model.UmlPackage;
 import model.UmlRelationship;
 import model.UmlRelationshipType;
 
@@ -15,10 +14,6 @@ public class AssociationConverter {
 
 	public static void convertAssociation(PackagedElement packagedElement, TemporaryModel tmpModel) {
 		tmpModel.addRelationship(packagedElement.getId(), createAssociation(packagedElement, tmpModel));
-	}
-	
-	public static void convertAssociation(PackagedElement packagedElement, UmlPackage umlPackage, TemporaryModel tmpModel) {
-		umlPackage.addRelationship(createAssociation(packagedElement, tmpModel));
 	}
 	
 	private static UmlRelationship createAssociation(PackagedElement packagedElement, TemporaryModel tmpModel) {
@@ -43,7 +38,7 @@ public class AssociationConverter {
 			client = tmpModel.getElementIDs().get(attribute.getType());
 		}
 		else {
-			client = tmpModel.getElementIDs().get(ownedEnd.getEndType());
+			client = tmpModel.getElementIDs().get(ownedEnd.getAssociationType());
 			attribute = findTemporaryAttributeByAssociation(client, packagedElement.getId());
 			
 			if (attribute == null) {
@@ -63,7 +58,7 @@ public class AssociationConverter {
 			if (attribute instanceof TemporaryAttribute) {
 				TemporaryAttribute checkAttribute = (TemporaryAttribute) attribute;
 				
-				if (checkAttribute.getAssociation().equals(association)) {
+				if (checkAttribute.getAssociation() != null && checkAttribute.getAssociation().equals(association)) {
 					return checkAttribute;
 				}
 			}

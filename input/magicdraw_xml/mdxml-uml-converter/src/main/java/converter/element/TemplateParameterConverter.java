@@ -12,12 +12,20 @@ import model.UmlTemplateParameter;
 public class TemplateParameterConverter {
 
 	public static void convertTemplateParameters(OwnedTemplateSignature signature, UmlElement element, TemporaryModel tmpModel) {
+		if (signature == null) {
+			return;
+		}
+		
 		for (UmlTemplateParameter templateParameter : convertTemplateParameters(signature, tmpModel)) {
 			element.addTemplateParameter(templateParameter);
 		}
 	}
 	
 	public static void convertTemplateParameters(OwnedTemplateSignature signature, UmlOperation operation, TemporaryModel tmpModel) {
+		if (signature == null) {
+			return;
+		}
+		
 		for (UmlTemplateParameter templateParameter : convertTemplateParameters(signature, tmpModel)) {
 			operation.addTemplateParameter(templateParameter);
 		}

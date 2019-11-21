@@ -44,6 +44,11 @@ public class ElementConverter {
 				LiteralConverter.convertLiterals(packagedElement, element);
 				break;
 			}
+			case "uml:Package": {
+				for (PackagedElement childElement : packagedElement.getPackagedElements()) {
+					convertElement(childElement, tmpModel);
+				}
+			}
 			default: break;
 		}
 		
