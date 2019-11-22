@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,8 @@ import model.UmlAttribute;
 import model.UmlElement;
 import model.UmlMultiplicityValue;
 import model.UmlOperation;
+import model.UmlParameter;
+import model.UmlParameterDirection;
 
 public class UmlElementTest extends MdxmlUmlConverterTest {
 
@@ -48,6 +51,9 @@ public class UmlElementTest extends MdxmlUmlConverterTest {
 							assertEquals(attribute.getType(), convertGenericTypeString(field.getGenericType().toString()));
 						}
 					}
+					else {
+						assertEquals(attribute.getType(), field.getType().getSimpleName());
+					}
 					
 					found = true;
 				}
@@ -67,14 +73,74 @@ public class UmlElementTest extends MdxmlUmlConverterTest {
 					assertEquals(operation.isAbstract(), Modifier.isAbstract(method.getModifiers()));
 					assertEquals(operation.isStatic(), Modifier.isStatic(method.getModifiers()));
 					assertEquals(operation.isFinal(), Modifier.isFinal(method.getModifiers()));
-					//TODO: Parameter testen
-					
+					testOperationReturnType(operation, method);
+					testOperationParameters(operation, method);
 					found = true;
 				}
 			}
 			
 			assertTrue(found);
 		}
+	}
+	
+	private void testOperationReturnType(UmlOperation operation, Method method) {
+		boolean found = false;
+	
+		for (UmlParameter umlParameter : operation.getParameters()) {
+			if (umlParameter.getDirection() == UmlParameterDirection.RETURN) {
+				if (umlParameter.getUpperValue() == UmlMultiplicityValue.INFINITE) {
+					if (method.getReturnType().isArray()) {
+						assertEquals(umlParameter.getType() + "[]", method.getReturnType().getSimpleName());
+					}
+					else {
+						//TODO: Get Generic Type out of return value
+						//System.out.println(method.getReturnType().toGenericString());
+					}
+				}
+				else {
+					assertEquals(umlParameter.getType(), method.getReturnType().getSimpleName());
+				}
+				
+				found = true;
+			}
+		}
+		
+		assertTrue(found);
+	}
+		
+	private void testOperationParameters(UmlOperation operation, Method method) {
+		//TODO: Method parameters always have names arg0, arg1, ..., argn
+		/*
+		for (Parameter parameter : method.getParameters()) {
+			System.out.println("	" + parameter.getName());
+			boolean found = false;
+			
+			for (UmlParameter umlParameter : operation.getParameters()) {
+				/*if (umlParameter.getDirection() == UmlParameterDirection.IN) {
+					//System.out.println("	" + umlParameter.getName() + " " + parameter.getName());
+					
+					if (umlParameter.getName().equals(parameter.getName())) {
+						assertEquals(umlParameter.isFinal(), Modifier.isFinal(parameter.getModifiers()));
+					
+						if (umlParameter.getUpperValue() == UmlMultiplicityValue.INFINITE) {
+							if (parameter.getType().isArray()) {
+								assertEquals(umlParameter.getType() + "[]", parameter.getType().getSimpleName());
+							}
+							else {
+							//assertEquals(umlParameter.getType(), convertGenericTypeString(parameter.getGenericType().toString()));
+							}
+						}
+						else {
+							assertEquals(umlParameter.getType(), parameter.getType().getSimpleName());
+						}
+						
+						found = true;
+					}
+				}
+			}
+			
+			//assertTrue(found);
+		}*/
 	}
 	
 	private String convertGenericTypeString(String typeString) {
