@@ -1,0 +1,29 @@
+= uml-unittest-generator
+
+[options="header"]
+[cols="1, 3, 3"]
+|===
+|Version | Processing Date   | Author 
+|0.1	| November 22nd, 2019 | Daniel Schoenicke 
+|===
+
+:toc: left
+:numbered:
+
+== Architecture
+* Description of the overall architecture of the uml-unittest-generator
+
+== Input
+* Description of how to implement an input representation and converter with the mdxml representation as an example
+
+== Output
+* Description of how to implement an output representation and converter
+
+== Representations
+* Descriptions of all the representations with references to their respective javadocs
+
+=== Uml-Representation
+* Description of the uml representation
+
+== Converter
+* Descriptions of all the converters
