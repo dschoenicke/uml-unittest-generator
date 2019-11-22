@@ -48,6 +48,8 @@ public class UmlElementTest extends MdxmlUmlConverterTest {
 							assertEquals(attribute.getType() + "[]", field.getType().getSimpleName());
 						}
 						else {
+							System.out.println(field.getGenericType());
+							//TODO: Proper implementation to get the parameter type of an generic object
 							assertEquals(attribute.getType(), convertGenericTypeString(field.getGenericType().toString()));
 						}
 					}
@@ -110,7 +112,7 @@ public class UmlElementTest extends MdxmlUmlConverterTest {
 		
 	private void testOperationParameters(UmlOperation operation, Method method) {
 		//TODO: Method parameters always have names arg0, arg1, ..., argn
-		/*
+		
 		for (Parameter parameter : method.getParameters()) {
 			System.out.println("	" + parameter.getName());
 			boolean found = false;
