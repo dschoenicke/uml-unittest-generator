@@ -141,8 +141,9 @@ public class UmlElementTest extends MdxmlUmlConverterTest {
 				}
 			}
 			
-			//assertTrue(found);
-		}*/
+			//assertTrue(found);*/
+			}
+		}
 	}
 	
 	private String convertGenericTypeString(String typeString) {
