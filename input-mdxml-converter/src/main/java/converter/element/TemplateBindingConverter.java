@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import converter.temporary.TemporaryModel;
 import converter.temporary.TemporaryTemplateBinding;
-import model.ParameterSubstitution;
-import model.TemplateBinding;
-import model.UmlElement;
-import model.UmlOperation;
-import model.UmlParameterSubstitution;
-import model.UmlTemplateBinding;
+import mdxml.ParameterSubstitution;
+import mdxml.TemplateBinding;
+import uml.UmlElement;
+import uml.UmlOperation;
+import uml.UmlParameterSubstitution;
+import uml.UmlTemplateBinding;
 
 public class TemplateBindingConverter {
 

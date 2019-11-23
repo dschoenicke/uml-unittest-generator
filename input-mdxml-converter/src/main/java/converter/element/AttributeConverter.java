@@ -3,10 +3,10 @@ package converter.element;
 import converter.auxiliary.MultiplicityConverter;
 import converter.temporary.TemporaryAttribute;
 import converter.temporary.TemporaryModel;
-import model.OwnedAttribute;
-import model.PackagedElement;
-import model.UmlAttribute;
-import model.UmlElement;
+import mdxml.OwnedAttribute;
+import mdxml.PackagedElement;
+import uml.UmlAttribute;
+import uml.UmlElement;
 
 public class AttributeConverter {
 

@@ -1,19 +1,19 @@
 package converter;
 
-import converter.diagram.DiagramConverter;
-import converter.diagram.PackageConverter;
 import converter.element.DataTypeConverter;
 import converter.element.ElementConverter;
+import converter.packages.PackageConverter;
 import converter.relationship.RelationshipConverter;
-import converter.temporary.TemporaryDiagram;
 import converter.temporary.TemporaryModel;
+import converter.temporary.TemporaryRelationship;
+import core.representation.Node;
 import mdxml.MdxmlRepresentation;
-import model.Model;
-import model.UmlAttribute;
-import model.UmlDiagram;
-import model.UmlModel;
-import model.UmlOperation;
-import model.UmlParameter;
+import mdxml.Model;
+import mdxml.PackagedElement;
+import uml.UmlElement;
+import uml.UmlModel;
+import uml.UmlPackage;
+import uml.UmlRelationship;
 
 /**
  * Main class of the converter implementing the {@link converter.UmlRepresentationConverter} interface of the uml representation
@@ -23,8 +23,16 @@ import model.UmlParameter;
  */
 public class MdxmlUmlConverter implements UmlRepresentationConverter {
 
+	/**
+	 * The {@link mdxml.MdxmlRepresentation} which should be converted
+	 */
 	private MdxmlRepresentation mdxmlRepresentation;
  	
+	/**
+	 * Constructor, expecting a {@link mdxml.MdxmlRepresentation} which will be converted
+	 * 
+	 * @param mdxmlRepresentation the {@link mdxml.MdxmlRepresentation} to be converted
+	 */
 	public MdxmlUmlConverter(MdxmlRepresentation mdxmlRepresentation) {
 		this.mdxmlRepresentation = mdxmlRepresentation;
 	}
@@ -33,55 +41,91 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	public UmlModel convertToUmlRepresentation(UmlInputRepresentation inputRepresentation) {
 		Model xmlModel = mdxmlRepresentation.getXmi().getModel();
 		TemporaryModel tmpModel = new TemporaryModel(xmlModel.getName());
+		UmlModel umlModel = new UmlModel(xmlModel.getName());
 		
-		ElementConverter.convertElements(xmlModel.getPackagedElements(), tmpModel);
-		RelationshipConverter.convertRelationships(xmlModel.getPackagedElements(), tmpModel);
-		PackageConverter.convertPackages(xmlModel, tmpModel);
-		DiagramConverter.convertDiagrams(xmlModel, tmpModel);
+		for (Node node : xmlModel.getPackagedElements()) {
+			if (node instanceof PackagedElement) {
+				convertPackagedElement((PackagedElement) node, tmpModel, umlModel);
+			}
+		}
 		
-		return convertTemporaryToUmlModel(tmpModel);
+		resolveDataTypeReferences(tmpModel);
+		return umlModel;
 	}
 	
 	/**
-	 * Auxiliary method to finish the conversion
-	 * Creates {@link model.UmlDiagram}s out of {@link converter.temporary.TemporaryDiagram}s 
-	 * Replace ids of {@link model.PackagedElement}s with the element names
+	 * Static method to delegate the conversion of a given {@link PackagedElement} to the corresponding converter
 	 * 
-	 * @param tmpModel the {@link converter.temporary.TemporaryModel} containing all the maps with elements and ids
-	 * @return the converted {@link model.UmlModel}
+	 * @param packagedElement the {@link mdxml.PackagedElement} to convert
+	 * @param tmpModel the {@link converter.temporary.TemporaryModel} to add the converted element to
+	 * @param parent the parent {@link core.representation.Node} where the converted element should be added to
 	 */
-	private UmlModel convertTemporaryToUmlModel(TemporaryModel tmpModel) {
-		UmlModel umlModel = new UmlModel(tmpModel.getName());
-		tmpModel.getElementIDs().forEach((elementID, element) -> {
-			for (UmlAttribute attribute : element.getAttributes()) {
-				attribute.setType(DataTypeConverter.convertElementID(attribute.getType(), tmpModel));
-			}
-			
-			for (UmlOperation operation : element.getOperations()) {
-				for (UmlParameter parameter : operation.getParameters()) {
-					parameter.setType(DataTypeConverter.convertElementID(parameter.getType(), tmpModel));
+	private void convertPackagedElement(PackagedElement packagedElement, TemporaryModel tmpModel, Node parent) {
+		switch (packagedElement.getType()) {
+			case "uml:Package": {
+				UmlPackage umlPackage = PackageConverter.convertPackage(packagedElement, tmpModel);
+				
+				for (PackagedElement childElement : packagedElement.getPackagedElements()) {
+					convertPackagedElement(childElement, tmpModel, umlPackage);
 				}
+				
+				if (parent instanceof UmlModel) {
+					((UmlModel) parent).addPackage(umlPackage);
+				}
+				else if (parent instanceof UmlPackage) {
+					((UmlPackage) parent).addPackage(umlPackage);
+				}
+				
+				break;
+			}
+			case "uml:Class": 
+			case "uml:Interface":
+			case "uml:Enumeration": {
+				UmlElement element = ElementConverter.convertElement(packagedElement, tmpModel, parent);
+				
+				if (parent instanceof UmlModel) {
+					((UmlModel) parent).addElement(element);
+				}
+				else if (parent instanceof UmlPackage) {
+					((UmlPackage) parent).addElement(element);
+				}
+				
+				break;
+			}
+			case "uml:Association":
+			case "uml:Usage": {
+				UmlRelationship relationship = RelationshipConverter.convertRelationship(packagedElement, tmpModel);
+			
+				if (parent instanceof UmlModel) {
+					((UmlModel) parent).addRelationship(relationship);
+				}
+				else if (parent instanceof UmlPackage) {
+					((UmlPackage) parent).addRelationship(relationship);
+				}
+				
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * Auxiliary method to resolve references to {@link uml.UmlElement} to their name in {@link uml.UmlAttribute}- and {@link uml.UmlParameter} types
+	 *  
+	 * @param tmpModel the {@link converter.temporary.TemporaryModel} containing the mappings from ids to their respective elements
+	 */
+	private void resolveDataTypeReferences(TemporaryModel tmpModel) {
+		tmpModel.getRelationships().forEach((relationship) -> {
+			if (relationship instanceof TemporaryRelationship) {
+				RelationshipConverter.convertTemporaryRelationship((TemporaryRelationship)relationship, tmpModel);
 			}
 		});
 		
-		for (TemporaryDiagram tmpDiagram : tmpModel.getTemporaryDiagrams()) {
-			UmlDiagram diagram = new UmlDiagram(tmpDiagram.getName());
-			
-			for (String usedElement : tmpDiagram.getUsedElements()) {
-				if (tmpModel.getPackageIDs().containsKey(usedElement)) {
-					diagram.addPackage(tmpModel.getPackageIDs().get(usedElement));
-				}
-				else if (tmpModel.getElementIDs().containsKey(usedElement)) {
-					diagram.addElement(tmpModel.getElementIDs().get(usedElement));
-				}
-				else if (tmpModel.getRelationshipIDs().containsKey(usedElement)) {
-					diagram.addRelationship(tmpModel.getRelationshipIDs().get(usedElement));
-				}
-			}
-			
-			umlModel.addDiagram(diagram);
-		}
+		tmpModel.getAttributeIDs().forEach((attributeID, attribute) -> {
+			attribute.setType(DataTypeConverter.convertElementID(attribute.getType(), tmpModel));
+		});
 		
-		return umlModel;
+		tmpModel.getParameters().forEach((parameter) -> {
+			parameter.setType(DataTypeConverter.convertElementID(parameter.getType(), tmpModel));
+		});
 	}
 }

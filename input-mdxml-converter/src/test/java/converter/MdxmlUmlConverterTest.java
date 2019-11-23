@@ -1,13 +1,16 @@
 package converter;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 
 import javax.xml.bind.JAXBException;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import mdxml.MdxmlRepresentation;
-import model.UmlModel;
+import uml.UmlModel;
 
 public class MdxmlUmlConverterTest {
 	
@@ -21,6 +24,11 @@ public class MdxmlUmlConverterTest {
 		mdxmlRepresentation = new MdxmlRepresentation(file.getAbsolutePath());
 		MdxmlUmlConverter converter = new MdxmlUmlConverter(mdxmlRepresentation);
 		umlModel = converter.convertToUmlRepresentation(mdxmlRepresentation);
+	}
+	
+	@Test
+	public void testModelName() {
+		assertEquals(umlModel.getName(), mdxmlRepresentation.getXmi().getModel().getName());
 	}
 	
 	public UmlModel getUmlModel() {

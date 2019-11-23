@@ -1,6 +1,8 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents a primitive data type which is described by a reference to its specification.
@@ -8,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
-public class DataType {
+public class DataType implements Node {
 
 	/**
 	 * {@link Extension} holding a reference to the specification of the datatype

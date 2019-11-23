@@ -1,18 +1,19 @@
 package converter.relationship;
 
 import converter.temporary.TemporaryModel;
-import model.PackagedElement;
-import model.UmlRelationship;
-import model.UmlRelationshipType;
+import converter.temporary.TemporaryRelationship;
+import mdxml.PackagedElement;
+import uml.UmlRelationship;
+import uml.UmlRelationshipType;
 
 public class DependencyConverter {
 
-	public static void convertDependency(PackagedElement packagedElement, TemporaryModel tmpModel) {
-		UmlRelationship dependency = new UmlRelationship(
-				tmpModel.getElementIDs().get(packagedElement.getClient().getIdref()),
-				tmpModel.getElementIDs().get(packagedElement.getSupplier().getIdref()),
-				UmlRelationshipType.DEPENDENCY
-			);
-		tmpModel.addRelationship(packagedElement.getId(), dependency);
+	public static UmlRelationship convertDependency(PackagedElement packagedElement, TemporaryModel tmpModel) {
+		TemporaryRelationship dependency = new TemporaryRelationship();
+		dependency.setClientId(packagedElement.getClient().getIdref());
+		dependency.setSupplierId(packagedElement.getSupplier().getIdref());
+		dependency.setType(UmlRelationshipType.DEPENDENCY);
+		tmpModel.addRelationship(dependency);
+		return dependency;
 	}
 }

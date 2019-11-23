@@ -1,9 +1,11 @@
-package model;
+package mdxml;
 
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents a model in the given Magic Draw project
@@ -11,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
-public class Model {
+public class Model implements Node {
 
 	/**
 	 * The id of the model
@@ -27,11 +29,6 @@ public class Model {
 	 * The list of all {@link PackagedElement}s which occur in the model
 	 */
 	private ArrayList<PackagedElement> packagedElements;
-	
-	/**
-	 * The {@link Extension} which holds references to the diagrams of the model
-	 */
-	private Extension extension;
 	
 	/**
 	 * Default constructor
@@ -92,24 +89,5 @@ public class Model {
 	 */
 	public void setPackagedElements(ArrayList<PackagedElement> packagedElements) {
 		this.packagedElements = packagedElements;
-	}
-	
-	/**
-	 * Gets the {@link Extension}
-	 * 
-	 * @return the {@link Extension}
-	 */
-	@XmlElement(namespace = "http://www.omg.org/spec/XMI/20131001", name = "Extension")
-	public Extension getExtension() {
-		return extension;
-	}
-	
-	/**
-	 * Sets the {@link Extension}
-	 * 
-	 * @param extension the {@link Extension}
-	 */
-	public void setExtension(Extension extension) {
-		this.extension = extension;
 	}
 }

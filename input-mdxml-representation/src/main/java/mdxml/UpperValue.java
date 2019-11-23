@@ -1,6 +1,8 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
+
+import core.representation.Node;
 
 /**
  * Represents the upper value of an {@link OwnedParameter} or an {@link OwnedAttribute}
@@ -8,7 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author dschoenicke
  *
  */
-public class UpperValue {
+public class UpperValue implements Node {
 
 	/**
 	 * The id of the value

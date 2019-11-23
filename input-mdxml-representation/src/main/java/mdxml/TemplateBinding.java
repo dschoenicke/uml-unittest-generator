@@ -1,9 +1,11 @@
-package model;
+package mdxml;
 
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents a template binding by an {@link OwnedOperation} or {@link PackagedElement}
@@ -11,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
-public class TemplateBinding {
+public class TemplateBinding implements Node {
 
 	/**
 	 * The id of the template binding

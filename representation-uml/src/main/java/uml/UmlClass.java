@@ -1,4 +1,4 @@
-package model;
+package uml;
 
 /**
  * Represents a class

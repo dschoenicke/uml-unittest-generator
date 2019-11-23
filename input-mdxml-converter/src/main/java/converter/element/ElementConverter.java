@@ -1,23 +1,31 @@
 package converter.element;
 
-import java.util.ArrayList;
-
+import converter.relationship.GeneralizationConverter;
+import converter.relationship.InterfaceRealizationConverter;
 import converter.temporary.TemporaryModel;
-import model.PackagedElement;
-import model.UmlClass;
-import model.UmlElement;
-import model.UmlEnumeration;
-import model.UmlInterface;
+import core.representation.Node;
+import mdxml.PackagedElement;
+import uml.UmlClass;
+import uml.UmlElement;
+import uml.UmlEnumeration;
+import uml.UmlInterface;
 
+/**
+ * Class providing a static method to convert {@link mdxml.PackedElement} to an {@link uml.UmlElement}
+ * 
+ * @author dschoenicke
+ *
+ */
 public class ElementConverter {
 
-	public static void convertElements(ArrayList<PackagedElement> packagedElements, TemporaryModel tmpModel) {
-		for (PackagedElement packagedElement : packagedElements) {	
-			convertElement(packagedElement, tmpModel);
-		}
-	}
-	
-	public static UmlElement convertElement(PackagedElement packagedElement, TemporaryModel tmpModel) {
+	/**
+	 * Static method to convert a given {@link mdxml.PackagedElement} with the type 'uml:Class', 'uml:Interface' or 'uml:Enumeration' to an {@link UmlElement}, which will be added to the {@link converter.temporary.TemporaryModel}
+	 * Delegates the conversion of {@link mdxml.Generalization}s and {@link mdxml.InterfaceRealization}s to the corresponding {@link converter.relationship.GeneralizationConverter} or {@link converter.relationship.InterfaceRealizationConverter}
+	 * 
+	 * @param packagedElement the {@link mdxml.PackagedElement} to convert
+	 * @param tmpModel the {@link converter.temporary.TemporaryModel} to add the converted element to
+	 */
+	public static UmlElement convertElement(PackagedElement packagedElement, TemporaryModel tmpModel, Node parentNode) {
 		UmlElement element = null;
 		
 		switch (packagedElement.getType()) {
@@ -44,11 +52,6 @@ public class ElementConverter {
 				LiteralConverter.convertLiterals(packagedElement, element);
 				break;
 			}
-			case "uml:Package": {
-				for (PackagedElement childElement : packagedElement.getPackagedElements()) {
-					convertElement(childElement, tmpModel);
-				}
-			}
 			default: break;
 		}
 		
@@ -57,7 +60,18 @@ public class ElementConverter {
 			OperationConverter.convertOperations(packagedElement, element, tmpModel);
 			TemplateParameterConverter.convertTemplateParameters(packagedElement.getOwnedTemplateSignature(), element, tmpModel);
 			TemplateBindingConverter.convertTemplateBindings(packagedElement.getTemplateBindings(), element);
-			InnerElementConverter.convertInnerElements(packagedElement, element, tmpModel);
+			InnerElementConverter.convertInnerElements(packagedElement, element, tmpModel, parentNode);
+			GeneralizationConverter.convertInnerGeneralizations(packagedElement, tmpModel, parentNode);
+			InterfaceRealizationConverter.convertInnerInterfaceRealizations(packagedElement, tmpModel, parentNode);
+			
+			if (packagedElement.getGeneralization() != null) {
+				GeneralizationConverter.convertGeneralization(packagedElement, tmpModel, parentNode);
+			}
+			
+			if (!packagedElement.getInterfaceRealizations().isEmpty()) {
+				InterfaceRealizationConverter.convertInterfaceRealizations(packagedElement.getInterfaceRealizations(), tmpModel, parentNode);
+			}
+			
 			tmpModel.addElement(packagedElement.getId(), element);
 		}
 		

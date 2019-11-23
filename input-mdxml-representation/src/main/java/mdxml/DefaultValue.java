@@ -1,6 +1,8 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
+
+import core.representation.Node;
 
 /**
  * Represents the default value of an {@link OwnedAttribute}
@@ -8,7 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author dschoenicke
  *
  */
-public class DefaultValue {
+public class DefaultValue implements Node {
 
 	/**
 	 * The id of the default value

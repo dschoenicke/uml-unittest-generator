@@ -1,7 +1,9 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents a interface realization with the {@link Supplier} as the contract and the {@link Client}
@@ -9,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
-public class InterfaceRealization {
+public class InterfaceRealization implements Node {
 	
 	/**
 	 * The id of the InterfaceRealization

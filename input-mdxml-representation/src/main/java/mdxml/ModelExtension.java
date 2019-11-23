@@ -1,24 +1,17 @@
-package model;
-
-import java.util.ArrayList;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents an auxiliary node in the XML tree held by an {@link Extension}
  * Holds {@link LowerValue}s and {@link UpperValue}s when used by an {@link OwnedAttribute}
- * or {@link OwnedDiagram}s when used by the {@link Model}
  * 
  * @author dschoenicke
  *
  */
-public class ModelExtension {
-
-	/**
-	 * The list of {@link OwnedDiagram}s if the {@link Extension}, which holds this model extension, 
-	 * is used by the {@link Model}
-	 */
-	private ArrayList<OwnedDiagram> ownedDiagrams;
+public class ModelExtension implements Node {
 	
 	/**
 	 * The {@link LowerValue} of the {@link OwnedAttribute} which uses the {@link Extension} which holds this model extension
@@ -33,28 +26,7 @@ public class ModelExtension {
 	/**
 	 * Default constructor
 	 */
-	public ModelExtension() {
-		ownedDiagrams = new ArrayList<OwnedDiagram>();
-	}
-	
-	/**
-	 * Gets the list of {@link OwnedDiagram}s
-	 * 
-	 * @return the list of {@link OwnedDiagram}s
-	 */
-	@XmlElement(name = "ownedDiagram")
-	public ArrayList<OwnedDiagram> getOwnedDiagrams() {
-		return ownedDiagrams;
-	}
-	
-	/**
-	 * Sets the list of {@link OwnedDiagram}s
-	 * 
-	 * @param ownedDiagrams the list of {@link OwnedDiagram}s
-	 */
-	public void setOwnedDiagrams(ArrayList<OwnedDiagram> ownedDiagrams) {
-		this.ownedDiagrams = ownedDiagrams;
-	}
+	public ModelExtension() {}
 	
 	/**
 	 * Gets the {@link LowerValue} object

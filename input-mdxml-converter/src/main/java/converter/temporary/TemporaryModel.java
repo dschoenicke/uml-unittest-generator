@@ -3,40 +3,41 @@ package converter.temporary;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import model.UmlAttribute;
-import model.UmlElement;
-import model.UmlModel;
-import model.UmlPackage;
-import model.UmlRelationship;
-import model.UmlTemplateParameter;
+import uml.UmlAttribute;
+import uml.UmlElement;
+import uml.UmlPackage;
+import uml.UmlParameter;
+import uml.UmlRelationship;
+import uml.UmlTemplateParameter;
 
-public class TemporaryModel extends UmlModel {
+public class TemporaryModel {
 
-	private ArrayList<TemporaryDiagram> tmpDiagrams;
+	private String name;
 	private HashMap<String, UmlElement> elementIDs;
 	private HashMap<String, UmlPackage> packageIDs;
 	private HashMap<String, UmlTemplateParameter> templateParameterIDs;
-	private HashMap<String, UmlRelationship> relationshipIDs;
+	private ArrayList<UmlRelationship> relationships;
 	private HashMap<String, UmlAttribute> attributeIDs;
+	private ArrayList<UmlParameter> parameters;
 	
 	public TemporaryModel(String name) {
-		super(name);
-		tmpDiagrams = new ArrayList<>();
+		this.name = name;
 		elementIDs = new HashMap<>();
 		packageIDs = new HashMap<>();
 		templateParameterIDs = new HashMap<>();
-		relationshipIDs = new HashMap<>();
+		relationships = new ArrayList<>();
 		attributeIDs = new HashMap<>();
+		parameters = new ArrayList<>();
 	}
 	
-	public ArrayList<TemporaryDiagram> getTemporaryDiagrams() {
-		return tmpDiagrams;
+	public String getName() {
+		return name;
 	}
 	
-	public void addTemporaryDiagram(TemporaryDiagram tmpDiagram) {
-		tmpDiagrams.add(tmpDiagram);
+	public void setName(String name) {
+		this.name = name;
 	}
-	
+
 	public HashMap<String, UmlElement> getElementIDs() {
 		return elementIDs;
 	}
@@ -65,12 +66,12 @@ public class TemporaryModel extends UmlModel {
 		templateParameterIDs.put(parameterID, parameter);
 	}
 	
-	public HashMap<String, UmlRelationship> getRelationshipIDs() {
-		return relationshipIDs;
+	public ArrayList<UmlRelationship> getRelationships() {
+		return relationships;
 	}
 	
-	public void addRelationship(String relationshipID, UmlRelationship relationship) {
-		relationshipIDs.put(relationshipID, relationship);
+	public void addRelationship(UmlRelationship relationship) {
+		relationships.add(relationship);
 	}
 	
 	public HashMap<String, UmlAttribute> getAttributeIDs() {
@@ -79,5 +80,13 @@ public class TemporaryModel extends UmlModel {
 	
 	public void addAttribute(String attributeID, UmlAttribute attribute) {
 		attributeIDs.put(attributeID, attribute);
+	}
+	
+	public ArrayList<UmlParameter> getParameters() {
+		return parameters;
+	}
+	
+	public void addParameter(UmlParameter parameter) {
+		parameters.add(parameter);
 	}
 }

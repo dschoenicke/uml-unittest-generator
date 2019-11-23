@@ -1,6 +1,8 @@
-package model;
+package uml;
 
 import java.util.ArrayList;
+
+import core.representation.Node;
 
 /**
  * Abstract class extended by {@link UmlClass}es, {@link UmlInterface}s and {@link UmlEnumeration}s
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * @author dschoenicke
  *
  */
-public abstract class UmlElement {
+public abstract class UmlElement implements Node {
 
 	/**
 	 * The name of the element

@@ -1,6 +1,8 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
+
+import core.representation.Node;
 
 /**
  * Determines the data type of a primitive type by holding a reference to its specification
@@ -8,7 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author dschoenicke
  *
  */
-public class ReferenceExtension {
+public class ReferenceExtension implements Node {
 
 	/**
 	 * Reference to the primitive type

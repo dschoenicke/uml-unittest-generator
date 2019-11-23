@@ -3,11 +3,11 @@ package converter.element;
 import java.util.ArrayList;
 
 import converter.temporary.TemporaryModel;
-import model.OwnedParameter;
-import model.OwnedTemplateSignature;
-import model.UmlElement;
-import model.UmlOperation;
-import model.UmlTemplateParameter;
+import mdxml.OwnedParameter;
+import mdxml.OwnedTemplateSignature;
+import uml.UmlElement;
+import uml.UmlOperation;
+import uml.UmlTemplateParameter;
 
 public class TemplateParameterConverter {
 

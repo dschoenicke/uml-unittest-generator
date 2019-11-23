@@ -1,4 +1,4 @@
-package model;
+package uml;
 
 /**
  * Represents an interface

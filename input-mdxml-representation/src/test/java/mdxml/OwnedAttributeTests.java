@@ -9,11 +9,11 @@ import javax.xml.bind.JAXBException;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.OwnedAttribute;
-import model.PackagedElement;
+import mdxml.OwnedAttribute;
+import mdxml.PackagedElement;
 
 /**
- * Unit tests validating the correct parsing of {@link model.OwnedAttribute}s
+ * Unit tests validating the correct parsing of {@link mdxml.OwnedAttribute}s
  * 
  * @author dschoenicke
  *
@@ -21,22 +21,22 @@ import model.PackagedElement;
 public class OwnedAttributeTests extends MdxmlRepresentationTests {
 
 	/**
-	 * A sample {@link model.PackagedElement} which should be checked
+	 * A sample {@link mdxml.PackagedElement} which should be checked
 	 */
 	private PackagedElement element;
 	
 	/**
-	 * A sample {@link model.OwnedAttribute} of the {@link model.PackagedElement} which should be checked
+	 * A sample {@link mdxml.OwnedAttribute} of the {@link mdxml.PackagedElement} which should be checked
 	 */
 	private OwnedAttribute attribute;
 	
 	/**
-	 * A sample {@link model.OwnedAttribute} of an association of the {@link model.PackagedElement} which should be checked
+	 * A sample {@link mdxml.OwnedAttribute} of an association of the {@link mdxml.PackagedElement} which should be checked
 	 */
 	private OwnedAttribute associationAttribute;
 	
 	/**
-	 * Initializes the {@link PackagedElement} containing the {@link model.OwnedAttribute}s which should be tested
+	 * Initializes the {@link PackagedElement} containing the {@link mdxml.OwnedAttribute}s which should be tested
 	 * 
 	 * @throws JAXBException {@link JAXBException} could be thrown if the xml file is invalid
 	 */

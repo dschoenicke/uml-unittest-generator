@@ -5,7 +5,7 @@ import java.io.File;
 import javax.xml.bind.JAXBException;
 
 import mdxml.MdxmlRepresentation;
-import model.PackagedElement;
+import mdxml.PackagedElement;
 
 /**
  * Class extended by other test classes providing setup functions for the tests
@@ -42,11 +42,11 @@ public class MdxmlRepresentationTests
 	}
 	
 	/**
-	 * Auxiliary method to find a {@link model.PackagedElement} by its name
+	 * Auxiliary method to find a {@link mdxml.PackagedElement} by its name
 	 * 
-	 * @param elementToCheck the {@link model.PackagedElement} to check the name of
+	 * @param elementToCheck the {@link mdxml.PackagedElement} to check the name of
 	 * @param name the name of the searched {@link PackagedElement}
-	 * @return the {@link model.PackagedElement} if the names match, null otherwise
+	 * @return the {@link mdxml.PackagedElement} if the names match, null otherwise
 	 */
 	private PackagedElement checkForPackagedElement(PackagedElement elementToCheck, String name) {
 		if (elementToCheck.getName() != null && elementToCheck.getName().equals(name)) {

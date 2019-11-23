@@ -1,6 +1,8 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
+
+import core.representation.Node;
 
 /**
  * Represents a generalization relationship of a {@link PackagedElement} and its general
@@ -8,7 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author dschoenicke
  *
  */
-public class Generalization {
+public class Generalization implements Node {
 
 	/**
 	 * The id of the generalization

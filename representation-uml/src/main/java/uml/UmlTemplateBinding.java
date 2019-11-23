@@ -1,6 +1,8 @@
-package model;
+package uml;
 
 import java.util.ArrayList;
+
+import core.representation.Node;
 
 /**
  * Represents a template binding of an {@link UmlElement} or {@link UmlOperation}
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * @author dschoenicke
  *
  */
-public class UmlTemplateBinding {
+public class UmlTemplateBinding implements Node {
 
 	/**
 	 * List of {@link UmlParameterSubstitution}s of the template binding

@@ -1,6 +1,6 @@
 package converter;
 
-import model.UmlModel;
+import uml.UmlModel;
 
 /**
  * An interface providing the method which converts an {@link UmlInputRepresentation} into an {@link UmlModel}

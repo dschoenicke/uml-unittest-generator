@@ -1,14 +1,16 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
+
+import core.representation.Node;
 
 /**
  * References the end of an association with the id of the corresponding {@link PackagedElement}
  * 
- * @author dscho
+ * @author dschoenicke
  *
  */
-public class MemberEnd {
+public class MemberEnd implements Node {
 
 	/**
 	 * The id of the {@link PackagedElement} which acts as the association end

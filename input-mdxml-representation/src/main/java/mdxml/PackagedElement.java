@@ -1,9 +1,11 @@
-package model;
+package mdxml;
 
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents an element in the diagram. Can describe a package, a class, an interface, an enumeration or an association
@@ -11,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
-public class PackagedElement {
+public class PackagedElement implements Node {
 
 	/**
 	 * The id of the element

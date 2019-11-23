@@ -1,8 +1,8 @@
 package converter.temporary;
 
-import model.UmlAttribute;
-import model.UmlMultiplicityValue;
-import model.UmlVisibility;
+import uml.UmlAttribute;
+import uml.UmlMultiplicityValue;
+import uml.UmlVisibility;
 
 public class TemporaryAttribute extends UmlAttribute {
 	

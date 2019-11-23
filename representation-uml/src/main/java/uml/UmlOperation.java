@@ -1,8 +1,10 @@
-package model;
+package uml;
 
 import java.util.ArrayList;
 
-public class UmlOperation {
+import core.representation.Node;
+
+public class UmlOperation implements Node {
 
 	/**
 	 * The name of the operation

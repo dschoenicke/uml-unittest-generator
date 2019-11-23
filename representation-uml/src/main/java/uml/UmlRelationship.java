@@ -1,4 +1,6 @@
-package model;
+package uml;
+
+import core.representation.Node;
 
 /**
  * Represents an relationship with the involved {@link UmlElement}s, the {@link UmlMultiplicityValue}s and determined by an {@link UmlRelationshipType}
@@ -6,7 +8,7 @@ package model;
  * @author dschoenicke
  *
  */
-public class UmlRelationship {
+public class UmlRelationship implements Node {
 
 	/**
 	 * The owning end of the relationship
@@ -24,6 +26,11 @@ public class UmlRelationship {
 	 * The type of the relationship
 	 */
 	private UmlRelationshipType type;
+	
+	/**
+	 * Default constructor
+	 */
+	public UmlRelationship() {}
 	
 	/**
 	 * Constructor with client, supplier and type

@@ -1,4 +1,6 @@
-package model;
+package uml;
+
+import core.representation.Node;
 
 /**
  * Represents a literal of an {@link UmlEnumeration}
@@ -6,7 +8,7 @@ package model;
  * @author dschoenicke
  *
  */
-public class UmlLiteral {
+public class UmlLiteral implements Node {
 	
 	/**
 	 * Name of the literal

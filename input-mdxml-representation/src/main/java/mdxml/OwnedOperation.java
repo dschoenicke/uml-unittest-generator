@@ -1,9 +1,11 @@
-package model;
+package mdxml;
 
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents an operation inside a {@link PackagedElement}
@@ -11,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
-public class OwnedOperation {
+public class OwnedOperation implements Node {
 	
 	/**
 	 * The id of the operation

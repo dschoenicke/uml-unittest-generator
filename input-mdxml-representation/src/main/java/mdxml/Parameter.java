@@ -1,6 +1,8 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
+
+import core.representation.Node;
 
 /**
  * Represents a reference to an {@link OwnedParameter} in an {@link OwnedTemplateSignature}
@@ -8,7 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author dschoenicke
  *
  */
-public class Parameter {
+public class Parameter implements Node {
 
 	/**
 	 * The id referencing the {@link OwnedParameter}

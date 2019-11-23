@@ -1,7 +1,9 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents a substitution of a template {@link Parameter}
@@ -9,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
-public class ParameterSubstitution {
+public class ParameterSubstitution implements Node {
 	
 	private String id;
 	

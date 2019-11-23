@@ -1,27 +1,38 @@
 package converter.relationship;
 
 import converter.temporary.TemporaryModel;
-import model.PackagedElement;
-import model.UmlRelationship;
-import model.UmlRelationshipType;
+import converter.temporary.TemporaryRelationship;
+import core.representation.Node;
+import mdxml.PackagedElement;
+import uml.UmlModel;
+import uml.UmlPackage;
+import uml.UmlRelationshipType;
 
 public class GeneralizationConverter {
 
-	public static void convertGeneralization(PackagedElement packagedElement, TemporaryModel tmpModel) {
-		tmpModel.addRelationship(packagedElement.getGeneralization().getId(), createGeneralization(packagedElement, tmpModel));
+	public static void convertGeneralization(PackagedElement packagedElement, TemporaryModel tmpModel, Node parent) {
+		TemporaryRelationship tmpRelationship = createGeneralization(packagedElement);
+		tmpModel.addRelationship(tmpRelationship);
+	
+		if (parent instanceof UmlModel) {
+			((UmlModel) parent).addRelationship(tmpRelationship);
+		}
+		else if (parent instanceof UmlPackage) {
+			((UmlPackage) parent).addRelationship(tmpRelationship);
+		}
 	}
 	
-	public static void convertInnerGeneralizations(PackagedElement packagedElement, TemporaryModel tmpModel) {
+	public static void convertInnerGeneralizations(PackagedElement packagedElement, TemporaryModel tmpModel, Node parent) {
 		for (PackagedElement innerElement : packagedElement.getNestedClassifiers()) {
 			if (innerElement.getGeneralization() != null) {
-				convertGeneralization(innerElement, tmpModel);
+				convertGeneralization(innerElement, tmpModel, parent);
 			}
 		}
 	}
 	
-	private static UmlRelationship createGeneralization(PackagedElement packagedElement, TemporaryModel tmpModel) {
-		return new UmlRelationship(tmpModel.getElementIDs().get(packagedElement.getId()),
-				tmpModel.getElementIDs().get(packagedElement.getGeneralization().getGeneral()),
+	private static TemporaryRelationship createGeneralization(PackagedElement packagedElement) {
+		return new TemporaryRelationship(packagedElement.getId(),
+				packagedElement.getGeneralization().getGeneral(),
 				UmlRelationshipType.GENERALIZATION
 			);
 	}

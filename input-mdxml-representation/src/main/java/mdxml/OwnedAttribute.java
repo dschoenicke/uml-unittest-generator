@@ -1,9 +1,11 @@
-package model;
+package mdxml;
 
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents attributes of classes which are described by {@link PackagedElement}s
@@ -11,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
-public class OwnedAttribute {
+public class OwnedAttribute implements Node {
 
 	/**
 	 * The id of the attribute
@@ -76,7 +78,7 @@ public class OwnedAttribute {
 	private DataType dataType;
 	
 	/**
-	 * List of {@link Extension}s which hold the {@link LowerValue} and {@link UpperValue} of the attribute
+	 * List of {@link Extension}s which hold the {@link LowerValue} and {@link UpperValue} of the attribute if their value is '1'
 	 */
 	private ArrayList<Extension> extensions;
 	

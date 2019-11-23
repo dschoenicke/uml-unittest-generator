@@ -1,4 +1,6 @@
-package model;
+package uml;
+
+import core.representation.Node;
 
 /**
  * Represents an template parameter of a generic {@link UmlClass} or {@link UmlInterface}
@@ -6,7 +8,7 @@ package model;
  * @author dschoenicke
  *
  */
-public class UmlTemplateParameter {
+public class UmlTemplateParameter implements Node {
 	
 	/**
 	 * The name of the template parameter

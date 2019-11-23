@@ -1,9 +1,9 @@
 package converter.element;
 
 import converter.temporary.TemporaryModel;
-import model.Actual;
-import model.DataType;
-import model.Extension;
+import mdxml.Actual;
+import mdxml.DataType;
+import mdxml.Extension;
 
 public class DataTypeConverter {
 	

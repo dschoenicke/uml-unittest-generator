@@ -1,10 +1,10 @@
 package converter.element;
 
 import converter.temporary.TemporaryModel;
-import model.OwnedOperation;
-import model.PackagedElement;
-import model.UmlElement;
-import model.UmlOperation;
+import mdxml.OwnedOperation;
+import mdxml.PackagedElement;
+import uml.UmlElement;
+import uml.UmlOperation;
 
 public class OperationConverter {
 
@@ -17,7 +17,7 @@ public class OperationConverter {
 					ClassifierConverter.convertClassifier(ownedOperation.getIsAbstract())
 			);
 			
-			ParameterConverter.convertParameters(ownedOperation, operation);
+			ParameterConverter.convertParameters(ownedOperation, operation, tmpModel);
 			TemplateParameterConverter.convertTemplateParameters(ownedOperation.getOwnedTemplateSignature(), operation, tmpModel);
 			TemplateBindingConverter.convertTemplateBindings(ownedOperation.getTemplateBindings(), operation);
 			element.addOperation(operation);

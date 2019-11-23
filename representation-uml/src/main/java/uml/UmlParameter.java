@@ -1,4 +1,6 @@
-package model;
+package uml;
+
+import core.representation.Node;
 
 /**
  * Represents a parameter of an {@link UmlOperation}
@@ -6,7 +8,7 @@ package model;
  * @author dschoenicke
  *
  */
-public class UmlParameter {
+public class UmlParameter implements Node {
 
 	/**
 	 * The name of the parameter

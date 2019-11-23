@@ -1,6 +1,7 @@
 package converter;
 
-import model.UmlModel;
+import core.representation.Node;
+import uml.UmlModel;
 
 /**
  * Interface used as a wrapper for the representation objects of a representation which should be converted into 
@@ -9,6 +10,6 @@ import model.UmlModel;
  * @author dschoenicke
  *
  */
-public interface UmlInputRepresentation {
+public interface UmlInputRepresentation extends Node {
 	
 }

@@ -1,7 +1,11 @@
-package model;
+package mdxml;
+
+import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import core.representation.Node;
 
 /**
  * Represents parameters of {@link OwnedOperation}s and {@link OwnedTemplateSignature}s
@@ -9,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
-public class OwnedParameter {
+public class OwnedParameter implements Node {
 	
 	/**
 	 * The id of the parameter
@@ -62,14 +66,21 @@ public class OwnedParameter {
 	private OwnedParameteredElement ownedParameteredElement;
 	
 	/**
+	 * The list of {@link Extension}s holding a {@link LowerValue} or an {@link UpperValue} with the value '1'
+	 */
+	private ArrayList<Extension> extensions;
+	
+	/**
 	 * Set to "true" if the parameter is final, null otherwise
 	 */
 	private String isFinal;
 	
 	/**
-	 * Default constructor
+	 * Default constructor, initializes the list of {@link Extension}s
 	 */
-	public OwnedParameter() {}
+	public OwnedParameter() {
+		extensions = new ArrayList<>();
+	}
 	
 	/**
 	 * Gets the id of the parameter
@@ -278,5 +289,24 @@ public class OwnedParameter {
 	 */
 	public void setIsFinal(String isFinal) {
 		this.isFinal = isFinal;
+	}
+	
+	/**
+	 * Gets the {@link Extension}s which hold the {@link LowerValue} and {@link UpperValue} of the parameter
+	 * 
+	 * @return the list of {@link Extension}s
+	 */
+	@XmlElement(namespace = "http://www.omg.org/spec/XMI/20131001", name = "Extension")
+	public ArrayList<Extension> getExtensions() {
+		return extensions;
+	}
+	
+	/**
+	 * Sets the {@link Extension}s which hold the {@link LowerValue} and {@link UpperValue} of the parameter
+	 * 
+	 * @param extensions the list of {@link Extension}s
+	 */
+	public void setExtensions(ArrayList<Extension> extensions) {
+		this.extensions = extensions;
 	}
 }

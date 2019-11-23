@@ -1,4 +1,6 @@
-package model;
+package uml;
+
+import core.representation.Node;
 
 /**
  * Determines the type of an {@link UmlRelationship}
@@ -6,7 +8,7 @@ package model;
  * @author dschoenicke
  *
  */
-public enum UmlRelationshipType {
+public enum UmlRelationshipType implements Node {
 	ASSOCIATION,
 	AGGREGATION,
 	COMPOSITION,

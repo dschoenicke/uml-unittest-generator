@@ -1,14 +1,16 @@
-package model;
+package uml;
 
 import java.util.ArrayList;
 
+import core.representation.Node;
+
 /**
- * Represents a package in an {@link UmlDiagram}
+ * Represents a package in an {@link UmlModel}
  * 
  * @author dschoenicke
  *
  */
-public class UmlPackage {
+public class UmlPackage implements Node {
 
 	/**
 	 * The name of the package
@@ -74,7 +76,7 @@ public class UmlPackage {
 	 * 
 	 * @param element the {@link UmlElement} to add
 	 */
-	public void addUmlElement(UmlElement element) {
+	public void addElement(UmlElement element) {
 		elements.add(element);
 	}
 	

@@ -1,14 +1,15 @@
 package converter.element;
 
 import converter.auxiliary.MultiplicityConverter;
-import model.OwnedOperation;
-import model.OwnedParameter;
-import model.UmlOperation;
-import model.UmlParameter;
+import converter.temporary.TemporaryModel;
+import mdxml.OwnedOperation;
+import mdxml.OwnedParameter;
+import uml.UmlOperation;
+import uml.UmlParameter;
 
 public class ParameterConverter {
 
-	public static void convertParameters(OwnedOperation ownedOperation, UmlOperation operation) {
+	public static void convertParameters(OwnedOperation ownedOperation, UmlOperation operation, TemporaryModel tmpModel) {
 	
 		for (OwnedParameter ownedParameter : ownedOperation.getOwnedParameters()) {
 			
@@ -22,6 +23,7 @@ public class ParameterConverter {
 			);
 			
 			operation.addParameter(parameter);
+			tmpModel.addParameter(parameter);
 		}
 	}
 }

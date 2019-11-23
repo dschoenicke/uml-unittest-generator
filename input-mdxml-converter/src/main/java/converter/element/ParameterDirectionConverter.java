@@ -1,6 +1,6 @@
 package converter.element;
 
-import model.UmlParameterDirection;
+import uml.UmlParameterDirection;
 
 public class ParameterDirectionConverter {
 

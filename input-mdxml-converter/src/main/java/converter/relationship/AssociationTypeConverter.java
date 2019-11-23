@@ -1,6 +1,6 @@
 package converter.relationship;
 
-import model.UmlRelationshipType;
+import uml.UmlRelationshipType;
 
 public class AssociationTypeConverter {
 

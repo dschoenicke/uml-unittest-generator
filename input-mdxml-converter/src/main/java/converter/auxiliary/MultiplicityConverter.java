@@ -1,11 +1,11 @@
 package converter.auxiliary;
 
-import model.LowerValue;
-import model.UmlMultiplicityValue;
-import model.UpperValue;
+import mdxml.LowerValue;
+import mdxml.UpperValue;
+import uml.UmlMultiplicityValue;
 
 /**
- * Class providing static methods to convert {@link model.LowerValue}s and {@link model.UpperValue} to an {@link model.UmlMultiplicityValue}
+ * Class providing static methods to convert {@link mdxml.LowerValue}s and {@link mdxml.UpperValue} to an {@link uml.UmlMultiplicityValue}
  * 
  * @author dschoenicke
  *
@@ -13,10 +13,10 @@ import model.UpperValue;
 public class MultiplicityConverter {
 
 	/**
-	 * Converts a {@link model.LowerValue} to the corresponding {@link model.UmlMultiplicityValue}, returns {@link model.UmlMultiplicityValue#ONE} if the {@link model.LowerValue} is {@literal null}
+	 * Converts a {@link mdxml.LowerValue} to the corresponding {@link uml.UmlMultiplicityValue}, returns {@link uml.UmlMultiplicityValue#ONE} if the {@link mdxml.LowerValue} is {@literal null}
 	 * 
-	 * @param lowerValue the {@link model.LowerValue} to be converted, can be {@literal null}
-	 * @return the converted {@link model.UmlMultiplicityValue}
+	 * @param lowerValue the {@link mdxml.LowerValue} to be converted, can be {@literal null}
+	 * @return the converted {@link uml.UmlMultiplicityValue}
 	 */
 	public static UmlMultiplicityValue convertLowerValue(LowerValue lowerValue) {
 		if (lowerValue != null) {
@@ -27,10 +27,10 @@ public class MultiplicityConverter {
 	}
 	
 	/**
-	 * Converts a {@link model.UpperValue} to the corresponding {@link model.UmlMultiplicityValue}, returns {@link model.UmlMultiplicityValue#ONE} if the {@link model.UpperValue} is {@literal null}
+	 * Converts a {@link mdxml.UpperValue} to the corresponding {@link uml.UmlMultiplicityValue}, returns {@link uml.UmlMultiplicityValue#ONE} if the {@link mdxml.UpperValue} is {@literal null}
 	 * 
-	 * @param upperValue the {@link model.UpperValue} to be converted, can be {@literal null}
-	 * @return the converted {@link model.UmlMultiplicityValue}
+	 * @param upperValue the {@link mdxml.UpperValue} to be converted, can be {@literal null}
+	 * @return the converted {@link uml.UmlMultiplicityValue}
 	 */
 	public static UmlMultiplicityValue convertUpperValue(UpperValue upperValue) {
 		if (upperValue != null) {
@@ -41,12 +41,12 @@ public class MultiplicityConverter {
 	}
 	
 	/**
-	 * Converts an {@link model.UmlMultiplicityValue} out of a given value<br>
-	 * <b>Note:</b> If the given value is a {@link model.LowerValue} and is equal to the {@link model.UpperValue}, the value is determined by the type of the value
+	 * Converts an {@link uml.UmlMultiplicityValue} out of a given value<br>
+	 * <b>Note:</b> If the given value is a {@link mdxml.LowerValue} and is equal to the {@link mdxml.UpperValue}, the value is determined by the type of the value
 	 * 
 	 * @param value the value as a String, can be '0', '1', '*' or {@literal null}
 	 * @param type the type of the value, can be 'uml:LiteralInteger' or 'uml:LiteralUnlimitedNatural'
-	 * @return the converted {@link model.UmlMultiplicityValue}
+	 * @return the converted {@link uml.UmlMultiplicityValue}
 	 */
 	private static UmlMultiplicityValue convertMultiplicityValue(String value, String type) {
 		if (value != null) {

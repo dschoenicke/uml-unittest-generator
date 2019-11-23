@@ -1,6 +1,6 @@
 package converter.element;
 
-import model.UmlVisibility;
+import uml.UmlVisibility;
 
 public class VisibilityConverter {
 

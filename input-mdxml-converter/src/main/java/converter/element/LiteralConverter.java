@@ -1,10 +1,10 @@
 package converter.element;
 
-import model.OwnedLiteral;
-import model.PackagedElement;
-import model.UmlElement;
-import model.UmlEnumeration;
-import model.UmlLiteral;
+import mdxml.OwnedLiteral;
+import mdxml.PackagedElement;
+import uml.UmlElement;
+import uml.UmlEnumeration;
+import uml.UmlLiteral;
 
 public class LiteralConverter {
 

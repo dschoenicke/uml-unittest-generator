@@ -8,10 +8,10 @@ import javax.xml.bind.JAXBException;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.PackagedElement;
+import mdxml.PackagedElement;
 
 /**
- * Unit tests validating the correct parsing of {@link model.PackagedElement}s
+ * Unit tests validating the correct parsing of {@link mdxml.PackagedElement}s
  * 
  * @author dschoenicke
  *
@@ -19,7 +19,7 @@ import model.PackagedElement;
 public class PackagedElementTests extends MdxmlRepresentationTests {
 
 	/**
-	 * A sample {@link model.PackagedElement} which should be checked
+	 * A sample {@link mdxml.PackagedElement} which should be checked
 	 */
 	private PackagedElement element;
 	
@@ -42,7 +42,7 @@ public class PackagedElementTests extends MdxmlRepresentationTests {
 	}
 	
 	/**
-	 * Checks the attributes of the {@link model.PackagedElement}
+	 * Checks the attributes of the {@link mdxml.PackagedElement}
 	 */
 	@Test 
 	public void packagedElementAttributeTest() {
@@ -55,7 +55,7 @@ public class PackagedElementTests extends MdxmlRepresentationTests {
 	}
 	
 	/**
-	 * Checks whether the correct number of {@link model.OwnedAttribute}s of the {@link model.PackagedElement} have been found
+	 * Checks whether the correct number of {@link mdxml.OwnedAttribute}s of the {@link mdxml.PackagedElement} have been found
 	 */
 	@Test
 	public void packagedElementOwnedAttributeTest() {
@@ -63,7 +63,7 @@ public class PackagedElementTests extends MdxmlRepresentationTests {
 	}
 	
 	/**
-	 * Checks whether the correct number of {@link model.OwnedOperation}s of the {@link model.PackagedElement} have been found
+	 * Checks whether the correct number of {@link mdxml.OwnedOperation}s of the {@link mdxml.PackagedElement} have been found
 	 */
 	@Test
 	public void packagedElementOwnedOperationsTest() {

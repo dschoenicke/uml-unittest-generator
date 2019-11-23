@@ -1,7 +1,9 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import core.representation.Node;
 
 /**
  * Class representing the root node of the xml file
@@ -10,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement(namespace = "http://www.omg.org/spec/XMI/20131001", name = "XMI")
-public class Xmi {
+public class Xmi implements Node {
 	
 	/**
 	 * The {@link Model} of the Magic Draw project

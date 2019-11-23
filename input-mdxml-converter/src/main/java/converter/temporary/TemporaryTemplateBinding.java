@@ -2,7 +2,7 @@ package converter.temporary;
 
 import java.util.HashMap;
 
-import model.UmlTemplateBinding;
+import uml.UmlTemplateBinding;
 
 public class TemporaryTemplateBinding extends UmlTemplateBinding {
 	

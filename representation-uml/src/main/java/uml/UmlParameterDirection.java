@@ -1,4 +1,6 @@
-package model;
+package uml;
+
+import core.representation.Node;
 
 /**
  * Defines possible directions for {@link UmlParameter}s
@@ -6,7 +8,7 @@ package model;
  * @author dschoenicke
  *
  */
-public enum UmlParameterDirection {
+public enum UmlParameterDirection implements Node {
 	IN,
 	INOUT,
 	OUT,

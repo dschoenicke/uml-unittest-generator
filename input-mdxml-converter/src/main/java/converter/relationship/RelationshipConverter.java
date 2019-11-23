@@ -1,57 +1,67 @@
 package converter.relationship;
 
-import java.util.ArrayList;
-
+import converter.temporary.TemporaryAttribute;
 import converter.temporary.TemporaryModel;
-import model.PackagedElement;
+import converter.temporary.TemporaryRelationship;
+import mdxml.PackagedElement;
+import uml.UmlElement;
+import uml.UmlRelationship;
+import uml.UmlRelationshipType;
 
 public class RelationshipConverter {
 	
-	public static void convertRelationships(ArrayList<PackagedElement> packagedElements, TemporaryModel tmpModel) {
-		for (PackagedElement packagedElement : packagedElements) {
-			switch (packagedElement.getType()) {
-				case "uml:Association": {
-					AssociationConverter.convertAssociation(packagedElement, tmpModel);
-					break;
-				}
-				case "uml:Usage": {
-					DependencyConverter.convertDependency(packagedElement, tmpModel);
-					break;
-				}
-				case "uml:Interface": {
-					if (packagedElement.getGeneralization() != null) {
-						GeneralizationConverter.convertGeneralization(packagedElement, tmpModel);
-					}
-					
-					GeneralizationConverter.convertInnerGeneralizations(packagedElement, tmpModel);
-					InterfaceRealizationConverter.convertInnerInterfaceRealizations(packagedElement, tmpModel);
-					
-					break;
-				}
-				case "uml:Class": {
-					if (packagedElement.getGeneralization() != null) {
-						GeneralizationConverter.convertGeneralization(packagedElement, tmpModel);
-					}
-					else if (!packagedElement.getInterfaceRealizations().isEmpty()) {
-						InterfaceRealizationConverter.convertInterfaceRealizations(packagedElement.getInterfaceRealizations(), tmpModel);
-					}
-					
-					GeneralizationConverter.convertInnerGeneralizations(packagedElement, tmpModel);
-					InterfaceRealizationConverter.convertInnerInterfaceRealizations(packagedElement, tmpModel);
-					
-					break;
-				}
-				case "uml:Enumeration": {
-					GeneralizationConverter.convertInnerGeneralizations(packagedElement, tmpModel);
-					InterfaceRealizationConverter.convertInnerInterfaceRealizations(packagedElement, tmpModel);
-					break;
-				}
-				case "uml:Package": {
-					convertRelationships(packagedElement.getPackagedElements(), tmpModel);
-					break;
-				}
-				default: break;
+	public static UmlRelationship convertRelationship(PackagedElement packagedElement, TemporaryModel tmpModel) {
+		UmlRelationship relationship = null;
+		
+		switch (packagedElement.getType()) {
+			case "uml:Association": {
+				relationship = AssociationConverter.convertAssociation(packagedElement, tmpModel);
+				break;
+			}
+			case "uml:Usage": {
+				relationship = DependencyConverter.convertDependency(packagedElement, tmpModel);
+				break;
+			}
+			default: break;
+		}
+		
+		return relationship;
+	}
+	
+	public static void convertTemporaryRelationship(TemporaryRelationship tmpRelationship, TemporaryModel tmpModel) {
+		UmlElement client = null;
+		UmlElement supplier = null;
+		UmlRelationshipType type = null;
+		
+		if (tmpRelationship.getClient() != null && tmpRelationship.getClient() != null) {
+			client = tmpModel.getElementIDs().get(tmpRelationship.getClientId());
+			supplier = tmpModel.getElementIDs().get(tmpRelationship.getSupplierId());
+			type = tmpRelationship.getType();
+		}
+		else if (tmpRelationship.getFirstMember() != null && tmpRelationship.getSecondMember() != null) {
+			TemporaryAttribute clientAttribute = (TemporaryAttribute)tmpModel.getAttributeIDs().get(tmpRelationship.getFirstMember().getIdref());
+			supplier = tmpModel.getElementIDs().get(clientAttribute.getType());
+			
+			if (tmpRelationship.getOwnedEnd() != null) {
+				client = tmpModel.getElementIDs().get(tmpRelationship.getOwnedEnd().getAssociationType());
+			}
+			else {
+				client = tmpModel.getElementIDs().get(
+					 	tmpModel.getAttributeIDs().get(
+					 		tmpRelationship.getSecondMember().getIdref()
+					 	).getType());
+			}
+			
+			if (clientAttribute.getAggregation() == null) {
+				type = UmlRelationshipType.ASSOCIATION;
+			}
+			else {
+				type = clientAttribute.getAggregation().equals("shared") ? UmlRelationshipType.AGGREGATION : UmlRelationshipType.COMPOSITION;
 			}
 		}
+		
+		tmpRelationship.setClient(client);
+		tmpRelationship.setSupplier(supplier);
+		tmpRelationship.setType(type);
 	}
 }

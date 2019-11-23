@@ -1,6 +1,8 @@
-package model;
+package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
+
+import core.representation.Node;
 
 /**
  * Describes an element which is parametered by an {@link OwnedParameter}
@@ -8,7 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author dschoenicke
  *
  */
-public class OwnedParameteredElement {
+public class OwnedParameteredElement implements Node {
 
 	/**
 	 * The id of the OwnedParameteredElement
