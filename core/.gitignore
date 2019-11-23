@@ -2,7 +2,7 @@
 /target/
 
 #Eclipse
-/.settings/
-.classpath
+.settings/
 .project
+.classpath
 .factorypath

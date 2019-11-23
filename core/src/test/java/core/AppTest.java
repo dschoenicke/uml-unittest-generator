@@ -1,4 +1,4 @@
-package com.dschoenicke.uml_unittest_generator;
+package core;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
