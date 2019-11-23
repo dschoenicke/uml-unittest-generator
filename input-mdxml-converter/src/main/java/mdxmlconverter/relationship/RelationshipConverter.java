@@ -1,5 +1,7 @@
 package mdxmlconverter.relationship;
 
+import static org.junit.Assert.assertNotNull;
+
 import mdxml.PackagedElement;
 import mdxmlconverter.temporary.TemporaryAttribute;
 import mdxmlconverter.temporary.TemporaryModel;
@@ -54,10 +56,13 @@ public class RelationshipConverter {
 		UmlElement supplier = null;
 		UmlRelationshipType type = null;
 		
-		if (tmpRelationship.getClient() != null && tmpRelationship.getClient() != null) {
+		if (tmpRelationship.getClient() != null && tmpRelationship.getSupplier() != null) {
 			client = tmpModel.getElementIDs().get(tmpRelationship.getClientId());
 			supplier = tmpModel.getElementIDs().get(tmpRelationship.getSupplierId());
 			type = tmpRelationship.getType();
+			
+			assertNotNull("The packagedElement with id " + tmpRelationship.getClientId() + " has not been converted to an UmlElement!", client);
+			assertNotNull("The packagedElement with id " + tmpRelationship.getSupplierId() + " has not been converted to an UmlElement!", supplier);
 		}
 		else if (tmpRelationship.getFirstMember() != null && tmpRelationship.getSecondMember() != null) {
 			TemporaryAttribute clientAttribute = (TemporaryAttribute)tmpModel.getAttributeIDs().get(tmpRelationship.getFirstMember().getIdref());

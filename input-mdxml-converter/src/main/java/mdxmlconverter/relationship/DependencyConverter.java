@@ -1,5 +1,7 @@
 package mdxmlconverter.relationship;
 
+import static org.junit.Assert.assertNotNull;
+
 import mdxml.PackagedElement;
 import mdxmlconverter.temporary.TemporaryModel;
 import mdxmlconverter.temporary.TemporaryRelationship;
@@ -21,6 +23,9 @@ public class DependencyConverter {
 	 * @return the converted {@link mdxmlconverter.temporary.TemporaryRelationship}
 	 */
 	public static TemporaryRelationship convertDependency(PackagedElement packagedElement, TemporaryModel tmpModel) {
+		assertNotNull("The client of an packagedElement of type 'uml:Usage' must not be null!\nOccurance in packagedElement with id " + packagedElement.getId(), packagedElement.getClient());
+		assertNotNull("The supplier of an packagedElement of type 'uml:Usage' must not be null!\nOccurance in packagedElement with id " + packagedElement.getId(), packagedElement.getSupplier());
+		
 		TemporaryRelationship dependency = new TemporaryRelationship();
 		dependency.setClientId(packagedElement.getClient().getIdref());
 		dependency.setSupplierId(packagedElement.getSupplier().getIdref());

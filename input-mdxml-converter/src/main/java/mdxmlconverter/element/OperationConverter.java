@@ -1,5 +1,7 @@
 package mdxmlconverter.element;
 
+import static org.junit.Assert.assertNotNull;
+
 import mdxml.OwnedOperation;
 import mdxml.PackagedElement;
 import mdxmlconverter.temporary.TemporaryModel;
@@ -26,6 +28,7 @@ public class OperationConverter {
 	 */
 	public static void convertOperations(PackagedElement packagedElement, UmlElement element, TemporaryModel tmpModel) {
 		for (OwnedOperation ownedOperation : packagedElement.getOwnedOperations()) {
+			assertNotNull("The name of an ownedOperation must not be null!\nOccurance in PackagedElement " + element.getName(), ownedOperation.getName());
 			UmlOperation operation = new UmlOperation(ownedOperation.getName(),
 					ModifierConverter.convertAccessModifier(ownedOperation.getVisibility()),
 					ModifierConverter.convertNonAccessModifier(ownedOperation.getIsStatic()),

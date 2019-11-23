@@ -1,5 +1,7 @@
 package mdxmlconverter.element;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 
 import mdxml.OwnedParameter;
@@ -62,6 +64,10 @@ public class TemplateParameterConverter {
 		ArrayList<UmlTemplateParameter> parameters = new ArrayList<>();
 		
 		for (OwnedParameter ownedParameter : signature.getOwnedParameters()) {
+			assertNotNull("The id of an ownedParameter must not be null!\nOccurance in ownedTemplateSignature with id " + signature.getId(), ownedParameter.getId());
+			assertNotNull("The ownedParameteredElement of an ownedParameter must not be null!\nOccurance in ownedTemplateSignature with id " + signature.getId(), ownedParameter.getOwnedParameteredElement());
+			assertNotNull("The name of an ownedParameteredElement must not be null!\nOccurance in ownedParameteredElement with id " + signature.getId(), ownedParameter.getOwnedParameteredElement().getId());
+			
 			try {
 				UmlTemplateParameter templateParameter = new UmlTemplateParameter(
 						ownedParameter.getOwnedParameteredElement().getName(),

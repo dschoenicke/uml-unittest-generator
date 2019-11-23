@@ -1,5 +1,7 @@
 package mdxmlconverter.element;
 
+import static org.junit.Assert.assertNotNull;
+
 import mdxml.Actual;
 import mdxml.DataType;
 import mdxml.Extension;
@@ -25,6 +27,8 @@ public class DataTypeConverter {
 			return elementReference;
 		}
 		
+		assertNotNull("The dataType must not be null!", dataType);
+		assertNotNull("The extension of the dataType must not be null!", dataType.getExtension());
 		return generateDataTypeString(dataType.getExtension());
 	}
 	

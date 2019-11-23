@@ -1,5 +1,7 @@
 package mdxmlconverter.element;
 
+import static org.junit.Assert.assertNotNull;
+
 import mdxml.OwnedAttribute;
 import mdxml.PackagedElement;
 import mdxmlconverter.auxiliary.MultiplicityConverter;
@@ -24,8 +26,10 @@ public class AttributeConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link mdxmlconverter.temporary.TemporaryAttribute} will be added
 	 */
 	public static void convertAttributes(PackagedElement packagedElement, UmlElement element, TemporaryModel tmpModel) {
-		for (OwnedAttribute ownedAttribute : packagedElement.getOwnedAttributes()) {
-	
+		for (OwnedAttribute ownedAttribute : packagedElement.getOwnedAttributes()) {		
+			assertNotNull("The id of OwnedAttribute must not be null!\nOccurance in " + element.getName(), ownedAttribute.getId());
+			assertNotNull("The name of OwnedAttribute with id " + ownedAttribute.getId() + " must not be null!\nOccurance in " + element.getName(), ownedAttribute.getName());
+			
 			UmlAttribute attribute = new TemporaryAttribute(ownedAttribute.getName(), 
 					ModifierConverter.convertAccessModifier(ownedAttribute.getVisibility()), 
 					DataTypeConverter.convertDataType(ownedAttribute.getAssociationType(), ownedAttribute.getDataType()), 

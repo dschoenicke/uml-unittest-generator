@@ -1,5 +1,7 @@
 package mdxmlconverter.relationship;
 
+import static org.junit.Assert.assertNotNull;
+
 import core.representation.Node;
 import mdxml.PackagedElement;
 import mdxmlconverter.temporary.TemporaryModel;
@@ -24,6 +26,7 @@ public class GeneralizationConverter {
 	 * @param parent the {@link core.representation.Node} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
 	 */
 	public static void convertGeneralization(PackagedElement packagedElement, TemporaryModel tmpModel, Node parent) {
+		assertNotNull("The general of a generalization must not be null!\nOccurance in packagedElement " + packagedElement.getName());
 		TemporaryRelationship tmpRelationship = new TemporaryRelationship(packagedElement.getId(),
 				packagedElement.getGeneralization().getGeneral(),
 				UmlRelationshipType.GENERALIZATION);

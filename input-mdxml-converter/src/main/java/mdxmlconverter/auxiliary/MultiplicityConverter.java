@@ -1,5 +1,7 @@
 package mdxmlconverter.auxiliary;
 
+import static org.junit.Assert.assertNotNull;
+
 import mdxml.LowerValue;
 import mdxml.UpperValue;
 import uml.UmlMultiplicityValue;
@@ -20,6 +22,7 @@ public class MultiplicityConverter {
 	 */
 	public static UmlMultiplicityValue convertLowerValue(LowerValue lowerValue) {
 		if (lowerValue != null) {
+			assertNotNull("The xmi:type of a mdxml.LowerValue must not be null!");
 			return convertMultiplicityValue(lowerValue.getValue(), lowerValue.getType());
 		}
 		
@@ -34,6 +37,7 @@ public class MultiplicityConverter {
 	 */
 	public static UmlMultiplicityValue convertUpperValue(UpperValue upperValue) {
 		if (upperValue != null) {
+			assertNotNull("The xmi:type of a mdxml.UpperValue must not be null!");
 			return convertMultiplicityValue(upperValue.getValue(), upperValue.getType());
 		}
 		

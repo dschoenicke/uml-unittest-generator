@@ -1,5 +1,7 @@
 package mdxmlconverter.element;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 
 import mdxml.ParameterSubstitution;
@@ -57,6 +59,8 @@ public class TemplateBindingConverter {
 			TemporaryTemplateBinding tmpBinding = new TemporaryTemplateBinding();
 			
 			for (ParameterSubstitution parameterSubstitution : templateBinding.getParameterSubstitutions()) {
+				assertNotNull("The formal of a parameterSubstitution must not be null!\nOccurance in parameterSubstitution with id " + parameterSubstitution.getId(), parameterSubstitution.getFormal());
+				
 				tmpBinding.addTemporarySubstitution(
 						parameterSubstitution.getFormal(), 
 						DataTypeConverter.convertDataType(parameterSubstitution.getActual(), parameterSubstitution.getPrimitiveActual())

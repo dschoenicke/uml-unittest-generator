@@ -1,5 +1,7 @@
 package mdxmlconverter.relationship;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 
 import core.representation.Node;
@@ -28,6 +30,9 @@ public class InterfaceRealizationConverter {
 	 */
 	public static void convertInterfaceRealizations(ArrayList<InterfaceRealization> realizations, TemporaryModel tmpModel, Node parentNode) {
 		for (InterfaceRealization realization : realizations) {
+			assertNotNull("The client of an interfaceRealization must not be null!\nOccurance in interfaceRealization " + realization.getId());
+			assertNotNull("The contract of an interfaceRealization must not be null!\nOccurance in interfaceRealization " + realization.getId());
+			
 			TemporaryRelationship tmpRelationship = new TemporaryRelationship(realization.getClient().getIdref(),
 					realization.getContract(),
 					UmlRelationshipType.INTERFACEREALIZATION);

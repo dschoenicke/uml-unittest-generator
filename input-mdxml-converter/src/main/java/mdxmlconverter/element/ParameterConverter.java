@@ -1,5 +1,8 @@
 package mdxmlconverter.element;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
+
 import mdxml.OwnedOperation;
 import mdxml.OwnedParameter;
 import mdxmlconverter.auxiliary.MultiplicityConverter;
@@ -25,6 +28,8 @@ public class ParameterConverter {
 	public static void convertParameters(OwnedOperation ownedOperation, UmlOperation operation, TemporaryModel tmpModel) {
 	
 		for (OwnedParameter ownedParameter : ownedOperation.getOwnedParameters()) {
+			assertNotNull("The direction of an ownedParameter must not be null!\nOccurance in " + operation.getName() + "(), parameter with id " + ownedParameter.getId());
+			assertFalse("The name of an ownedParameter with direction 'in' must not be null!\nOccurance in " + operation.getName() + "() with id " + ownedOperation.getId(), (ownedParameter.getName() == null && ownedParameter.getDirection().equals("in")));
 			
 			UmlParameter parameter = new UmlParameter(
 					ownedParameter.getName(),

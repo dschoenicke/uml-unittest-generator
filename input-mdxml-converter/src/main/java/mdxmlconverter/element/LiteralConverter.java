@@ -1,5 +1,8 @@
 package mdxmlconverter.element;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import mdxml.OwnedLiteral;
 import mdxml.PackagedElement;
 import uml.UmlElement;
@@ -22,9 +25,11 @@ public class LiteralConverter {
 	 */
 	public static void convertLiterals(PackagedElement packagedElement, UmlElement element) {
 		if (element instanceof UmlEnumeration) {
+			assertTrue("The PackagedElement " + packagedElement.getType() + " must be of type 'uml:Enumeration'", element instanceof UmlEnumeration);
 			UmlEnumeration enumeration = (UmlEnumeration) element;
 			
 			for (OwnedLiteral ownedLiteral : packagedElement.getOwnedLiterals()) {
+				assertNotNull("The ownedLiteral with id " + ownedLiteral.getId() + " must not be null!\nOccurance in " + packagedElement.getName());
 				enumeration.addUmlLiteral(new UmlLiteral(ownedLiteral.getName()));
 			}
 		}
