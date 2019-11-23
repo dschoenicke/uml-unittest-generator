@@ -1,4 +1,3 @@
-converter
 core
 core.representation
 mdxml
@@ -9,4 +8,4 @@ mdxmlconverter.packages
 mdxmlconverter.relationship
 mdxmlconverter.temporary
 uml
-uml.converter
+uml.converterinterface

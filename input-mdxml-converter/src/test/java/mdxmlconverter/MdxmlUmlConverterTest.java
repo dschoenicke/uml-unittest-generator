@@ -1,4 +1,4 @@
-package converter;
+package mdxmlconverter;
 
 import static org.junit.Assert.assertEquals;
 

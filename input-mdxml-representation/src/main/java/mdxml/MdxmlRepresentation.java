@@ -6,7 +6,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import uml.converter.UmlInputRepresentation;
+import uml.converterinterface.UmlInputRepresentation;
 
 /**
  * Class to provide an interface for the md-xml representation.

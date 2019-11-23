@@ -66,7 +66,7 @@ public class UmlAttribute implements Node {
 	}
 	
 	/**
-	 * Constructor with name, visibility, type, static- and final classifiers, default value and multiplicty values
+	 * Constructor with name, visibility, type, static- and final classifiers, default value and multiplicity values
 	 * 
 	 * @param name the name of the attribute
 	 * @param visibility the {@link UmlVisibility} of the attribute

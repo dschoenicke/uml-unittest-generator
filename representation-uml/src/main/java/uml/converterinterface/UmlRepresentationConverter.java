@@ -1,4 +1,4 @@
-package uml.converter;
+package uml.converterinterface;
 
 import uml.UmlModel;
 

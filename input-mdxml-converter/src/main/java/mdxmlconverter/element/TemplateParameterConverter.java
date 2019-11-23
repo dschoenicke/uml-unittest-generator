@@ -9,8 +9,21 @@ import uml.UmlElement;
 import uml.UmlOperation;
 import uml.UmlTemplateParameter;
 
+/**
+ * Class providing static methods to convert {@link mdxml.OwnedTemplateSignature}s to {@link uml.UmlTemplateParameter}s
+ * 
+ * @author dschoenicke
+ *
+ */
 public class TemplateParameterConverter {
 
+	/**
+	 * Static method converting a given {@link mdxml.OwnedTemplateSignature} with its {@link mdxml.Parameter}s to {@link uml.UmlTemplateParameter}s and adds them to the owning {@link uml.UmlElement}
+	 * 
+	 * @param signature the {@link mdxml.OwnedTemplateSignature} which {@link mdxml.Parameter}s should be converted
+	 * @param element the {@link uml.UmlElement} to which the converted {@link uml.UmlTemplateParameter}s should be added
+	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link uml.UmlTemplateParameter}s should be added
+	 */
 	public static void convertTemplateParameters(OwnedTemplateSignature signature, UmlElement element, TemporaryModel tmpModel) {
 		if (signature == null) {
 			return;
@@ -21,6 +34,13 @@ public class TemplateParameterConverter {
 		}
 	}
 	
+	/**
+	 * Static method converting a given {@link mdxml.OwnedTemplateSignature} with its {@link mdxml.Parameter}s to {@link uml.UmlTemplateParameter}s and adds them to the owning {@link uml.UmlOperation}
+	 * 
+	 * @param signature the {@link mdxml.OwnedTemplateSignature} which {@link mdxml.Parameter}s should be converted
+	 * @param operation the {@link uml.UmlOperation} to which the converted {@link uml.UmlTemplateParameter}s should be added
+	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link uml.UmlTemplateParameter}s should be added
+	 */
 	public static void convertTemplateParameters(OwnedTemplateSignature signature, UmlOperation operation, TemporaryModel tmpModel) {
 		if (signature == null) {
 			return;
@@ -31,6 +51,13 @@ public class TemplateParameterConverter {
 		}
 	}
 	
+	/**
+	 * Static method to which the actual conversion of a {@link mdxml.OwnedTemplateSignature} is delegated
+	 * 
+	 * @param signature the {@link mdxml.OwnedTemplateSignature} which {@link mdxml.Parameter}s should be converted
+	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link uml.UmlTemplateParameter}s should be added
+	 * @return a list of converted{@link uml.UmlTemplateParameter}s
+	 */
 	private static ArrayList<UmlTemplateParameter> convertTemplateParameters(OwnedTemplateSignature signature, TemporaryModel tmpModel) {
 		ArrayList<UmlTemplateParameter> parameters = new ArrayList<>();
 		

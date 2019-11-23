@@ -14,11 +14,11 @@ import uml.UmlElement;
 import uml.UmlModel;
 import uml.UmlPackage;
 import uml.UmlRelationship;
-import uml.converter.UmlInputRepresentation;
-import uml.converter.UmlRepresentationConverter;
+import uml.converterinterface.UmlInputRepresentation;
+import uml.converterinterface.UmlRepresentationConverter;
 
 /**
- * Main class of the converter implementing the {@link uml.converter.UmlRepresentationConverter} interface of the uml representation
+ * Main class of the converter implementing the {@link uml.converterinterface.UmlRepresentationConverter} interface of the uml representation
  * 
  * @author dschoenicke
  *
@@ -42,7 +42,7 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	@Override
 	public UmlModel convertToUmlRepresentation(UmlInputRepresentation inputRepresentation) {
 		Model xmlModel = mdxmlRepresentation.getXmi().getModel();
-		TemporaryModel tmpModel = new TemporaryModel(xmlModel.getName());
+		TemporaryModel tmpModel = new TemporaryModel();
 		UmlModel umlModel = new UmlModel(xmlModel.getName());
 		
 		for (Node node : xmlModel.getPackagedElements()) {
@@ -65,7 +65,7 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	private void convertPackagedElement(PackagedElement packagedElement, TemporaryModel tmpModel, Node parent) {
 		switch (packagedElement.getType()) {
 			case "uml:Package": {
-				UmlPackage umlPackage = PackageConverter.convertPackage(packagedElement, tmpModel);
+				UmlPackage umlPackage = PackageConverter.convertPackage(packagedElement);
 				
 				for (PackagedElement childElement : packagedElement.getPackagedElements()) {
 					convertPackagedElement(childElement, tmpModel, umlPackage);

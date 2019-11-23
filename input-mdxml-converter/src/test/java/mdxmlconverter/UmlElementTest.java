@@ -1,4 +1,4 @@
-package converter;
+package mdxmlconverter;
 
 public class UmlElementTest extends MdxmlUmlConverterTest {
 

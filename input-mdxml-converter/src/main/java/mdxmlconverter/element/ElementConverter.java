@@ -33,23 +33,23 @@ public class ElementConverter {
 		switch (packagedElement.getType()) {
 			case "uml:Class": {
 				element = new UmlClass(packagedElement.getName(), 
-						VisibilityConverter.convertVisibility(packagedElement.getVisibility()), 
-						ClassifierConverter.convertClassifier(packagedElement.getIsStatic()),
-						ClassifierConverter.convertClassifier(packagedElement.getIsFinal()),
-						ClassifierConverter.convertClassifier(packagedElement.getIsAbstract())
+						ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
+						ModifierConverter.convertNonAccessModifier(packagedElement.getIsStatic()),
+						ModifierConverter.convertNonAccessModifier(packagedElement.getIsFinal()),
+						ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract())
 					);
 				break;
 			}
 			case "uml:Interface": {
 				element = new UmlInterface(packagedElement.getName(), 
-						VisibilityConverter.convertVisibility(packagedElement.getVisibility()), 
-						ClassifierConverter.convertClassifier(packagedElement.getIsAbstract())
+						ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
+						ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract())
 					);
 				break;
 			}
 			case "uml:Enumeration": {
 				element = new UmlEnumeration(packagedElement.getName(), 
-						VisibilityConverter.convertVisibility(packagedElement.getVisibility())
+						ModifierConverter.convertAccessModifier(packagedElement.getVisibility())
 					);
 				LiteralConverter.convertLiterals(packagedElement, element);
 				break;
@@ -62,9 +62,9 @@ public class ElementConverter {
 			OperationConverter.convertOperations(packagedElement, element, tmpModel);
 			TemplateParameterConverter.convertTemplateParameters(packagedElement.getOwnedTemplateSignature(), element, tmpModel);
 			TemplateBindingConverter.convertTemplateBindings(packagedElement.getTemplateBindings(), element);
-			InnerElementConverter.convertInnerElements(packagedElement, element, tmpModel, parentNode);
-			GeneralizationConverter.convertInnerGeneralizations(packagedElement, tmpModel, parentNode);
-			InterfaceRealizationConverter.convertInnerInterfaceRealizations(packagedElement, tmpModel, parentNode);
+			NestedElementConverter.convertNestedElements(packagedElement, element, tmpModel, parentNode);
+			GeneralizationConverter.convertNestedGeneralizations(packagedElement, tmpModel, parentNode);
+			InterfaceRealizationConverter.convertNestedInterfaceRealizations(packagedElement, tmpModel, parentNode);
 			
 			if (packagedElement.getGeneralization() != null) {
 				GeneralizationConverter.convertGeneralization(packagedElement, tmpModel, parentNode);
