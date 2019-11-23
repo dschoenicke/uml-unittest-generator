@@ -52,10 +52,29 @@ public abstract class UmlElement implements Node {
 	 * 
 	 * @param name the name of the element
 	 * @param visibility the {@link UmlVisibility} of the element
+	 * @param isStatic true if the class is static
 	 */
 	protected UmlElement(String name, UmlVisibility visibility) {
 		this.name = name;
 		this.visibility = visibility;
+		templateBindings = new ArrayList<>();
+		attributes = new ArrayList<UmlAttribute>();
+		operations = new ArrayList<UmlOperation>();
+		templateParameters = new ArrayList<UmlTemplateParameter>();
+		innerElements = new ArrayList<>();
+	}
+	
+	/**
+	 * Constructor with name, {@link UmlVisibility} and static-classifier, initializes the list of {@link UmlTemplateBinding}s, {@link UmlTemplateParameter}s, {@link UmlAttribute}s, {@link UmlOperation}s and inner elements 
+	 * 
+	 * @param name the name of the element
+	 * @param visibility the {@link UmlVisibility} of the element
+	 * @param isStatic true if the class is static
+	 */
+	protected UmlElement(String name, UmlVisibility visibility, boolean isStatic) {
+		this.name = name;
+		this.visibility = visibility;
+		this.isStatic = isStatic;
 		templateBindings = new ArrayList<>();
 		attributes = new ArrayList<UmlAttribute>();
 		operations = new ArrayList<UmlOperation>();
@@ -188,5 +207,28 @@ public abstract class UmlElement implements Node {
 	 */
 	public void addInnerElement(UmlElement element) {
 		innerElements.add(element);
+	}
+	
+	/**
+	 * Determines whether the interface is static
+	 */
+	private boolean  isStatic;
+	
+	/**
+	 * Returns true if the element is static
+	 * 
+	 * @return true if the element is static
+	 */
+	public boolean isStatic() {
+		return isStatic;
+	}
+
+	/**
+	 * Sets the static value
+	 * 
+	 * @param isStatic the static value
+	 */
+	public void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
 	}
 }

@@ -115,4 +115,20 @@ public class UmlPackage implements Node {
 	public void addPackage(UmlPackage umlPackage) {
 		packages.add(umlPackage);
 	}
+	
+	/**
+	 * Returns a list of all {@link UmlPackage}s regardless of their hierarchy
+	 * 
+	 * @return a list of all {@link UmlPackage}s
+	 */
+	public ArrayList<UmlPackage> getPackagesAsList() {
+		ArrayList<UmlPackage> packages = new ArrayList<UmlPackage>();
+		
+		for (UmlPackage umlPackage : this.getPackages()) {
+			packages.add(umlPackage);
+			packages.addAll(umlPackage.getPackagesAsList());
+		}
+		
+		return packages;
+	}
 }

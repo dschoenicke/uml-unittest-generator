@@ -7,12 +7,6 @@ package uml;
  *
  */
 public class UmlClass extends UmlElement {
-	
-	/**
-	 * Determines whether the interface is static
-	 */
-	private boolean  isStatic;
-	
 	/**
 	 * Determines whether the class is final
 	 */
@@ -43,28 +37,9 @@ public class UmlClass extends UmlElement {
 	 * @param isAbstract true if the class is abstract
 	 */
 	public UmlClass(String name, UmlVisibility visibility, boolean isStatic, boolean isFinal, boolean isAbstract) {
-		super(name, visibility);
-		this.isStatic = isStatic;
+		super(name, visibility, isStatic);
 		this.isFinal = isFinal;
 		this.isAbstract = isAbstract;
-	}
-	
-	/**
-	 * Returns true if the class is static
-	 * 
-	 * @return true if the class is static
-	 */
-	public boolean isStatic() {
-		return isStatic;
-	}
-
-	/**
-	 * Sets the static value
-	 * 
-	 * @param isStatic the static value
-	 */
-	public void setStatic(boolean isStatic) {
-		this.isStatic = isStatic;
 	}
 
 	/**

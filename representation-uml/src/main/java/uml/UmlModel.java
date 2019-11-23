@@ -114,4 +114,52 @@ public class UmlModel implements Node {
 	public void addRelationship(UmlRelationship relationship) {
 		relationships.add(relationship);
 	}
+	
+	/**
+	 * Returns a list of all {@link UmlPackage}s regardless of their hierarchy
+	 * 
+	 * @return a list of all {@link UmlPackage}s
+	 */
+	public ArrayList<UmlPackage> getPackagesAsList() {
+		ArrayList<UmlPackage> ownedPackages = new ArrayList<>();
+		
+		for (UmlPackage umlPackage : getPackages()) {
+			ownedPackages.add(umlPackage);
+			ownedPackages.addAll(umlPackage.getPackagesAsList());
+		}
+		
+		return ownedPackages;
+	}
+	
+	/**
+	 * Returns a list of all {@link UmlElement}s regardless of their hierarchy
+	 * 
+	 * @return a list of all {@link UmlElement}s
+	 */
+	public ArrayList<UmlElement> getElementsAsList() {
+		ArrayList<UmlElement> ownedElements = new ArrayList<>();
+		ownedElements.addAll(getElements());
+		
+		for (UmlPackage umlPackage : getPackagesAsList()) {
+			ownedElements.addAll(umlPackage.getElements());
+		}
+		
+		return ownedElements;
+	}
+	
+	/**
+	 * Returns a list of all {@link UmlRelationship}s regardless of their hierarchy
+	 * 
+	 * @return a list of all {@link UmlRelationship}s
+	 */
+	public ArrayList<UmlRelationship> getRelationshipsAsList() {
+		ArrayList<UmlRelationship> ownedRelationships = new ArrayList<>();
+		ownedRelationships.addAll(getRelationships());
+		
+		for (UmlPackage umlPackage : getPackagesAsList()) {
+			ownedRelationships.addAll(umlPackage.getRelationships());
+		}
+		
+		return ownedRelationships;
+	}
 }
