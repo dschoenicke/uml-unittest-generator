@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import mdxml.MdxmlRepresentation;
+import mdxmlconverter.MdxmlUmlConverter;
 import uml.UmlModel;
 
 public class MdxmlUmlConverterTest {
