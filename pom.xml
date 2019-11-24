@@ -17,28 +17,36 @@
 		<module>input-mdxml-converter</module>
 		<module>representation-uml</module>
     	<module>representation-code</module>
-  </modules>
+  	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<javac.target>11</javac.target>
+    	<junit.version>4.12</junit.version>
+	</properties>
 
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-        			<version>3.1.2</version>
-     			</plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<compilerVersion>${javac.target}</compilerVersion>
+					<source>${javac.target}</source>
+					<target>${javac.target}</target>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
  		</plugins>
 	</build>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
 
 	<dependencies>
 		<dependency>
       		<groupId>junit</groupId>
      		<artifactId>junit</artifactId>
-     		<version>4.12</version>
+     		<version>${junit.version}</version>
     	</dependency>
     
     	<dependency>
