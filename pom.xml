@@ -16,6 +16,7 @@
 		<module>input-mdxml-representation</module>
 		<module>input-mdxml-converter</module>
 		<module>representation-uml</module>
+    	<module>representation-code</module>
   </modules>
 
 	<build>

@@ -8,7 +8,7 @@
 		<version>1.0.0</version>
 	</parent>
 
-	<name>mdxml-uml-converter</name>
+	<name>input-mdxml-converter</name>
 	<artifactId>input-mdxml-converter</artifactId>
 	
 	<properties>

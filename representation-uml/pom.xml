@@ -8,7 +8,7 @@
 		<version>1.0.0</version>
 	</parent>
 
-	<name>uml-representation</name>
+	<name>representation-uml</name>
 	<artifactId>representation-uml</artifactId>
 
 	<properties>
