@@ -12,6 +12,5 @@ public enum UmlVisibility implements Node {
 	PUBLIC,
 	PRIVATE,
 	PROTECTED,
-	PACKAGE,
-	NONE;
+	DEFAULT
 }

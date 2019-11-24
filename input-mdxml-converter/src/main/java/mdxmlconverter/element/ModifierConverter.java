@@ -20,7 +20,7 @@ public class ModifierConverter {
 		UmlVisibility umlVisibility;
 		
 		if (visibility == null) {
-			return UmlVisibility.NONE;
+			return UmlVisibility.DEFAULT;
 		}
 		
 		switch(visibility) {
@@ -36,12 +36,8 @@ public class ModifierConverter {
 				umlVisibility = UmlVisibility.PROTECTED;
 				break;
 			}
-			case "package": {
-				umlVisibility = UmlVisibility.PACKAGE;
-				break;
-			}
 			default: {
-				umlVisibility = UmlVisibility.NONE;
+				umlVisibility = UmlVisibility.DEFAULT;
 				break;
 			}
 		}

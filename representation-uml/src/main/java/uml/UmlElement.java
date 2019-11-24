@@ -52,7 +52,6 @@ public abstract class UmlElement implements Node {
 	 * 
 	 * @param name the name of the element
 	 * @param visibility the {@link UmlVisibility} of the element
-	 * @param isStatic true if the class is static
 	 */
 	protected UmlElement(String name, UmlVisibility visibility) {
 		this.name = name;

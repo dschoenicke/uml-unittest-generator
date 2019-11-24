@@ -16,7 +16,7 @@ public class UmlEnumeration extends UmlElement {
 	private ArrayList<UmlLiteral> literals;
 	
 	/**
-	 * Default constructor, instanciates the list of literals
+	 * Default constructor, initializes the list of literals
 	 * 
 	 * @param name the name of the enumeration
 	 * @param visibility the {@link UmlVisibility} of the enumeration
