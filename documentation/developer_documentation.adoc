@@ -1,3 +1,7 @@
+:toc: left
+:numbered:
+:toclevels: 2
+
 = uml-unittest-generator
 
 [options="header"]
@@ -6,9 +10,6 @@
 |Version | Processing Date   | Author 
 |0.1	| November 22nd, 2019 | Daniel Schoenicke 
 |===
-
-:toc: left
-:numbered:
 
 == Architecture
 * Description of the overall architecture of the uml-unittest-generator
@@ -20,10 +21,46 @@
 * Description of how to implement an output representation and converter
 
 == Representations
-* Descriptions of all the representations with references to their respective javadocs
+During the conversion process, the input diagram is converted
+to several representations before an output is generated. The following section contains descriptions
+of each of these representations and references to their respective javadocs.
 
-=== Uml-Representation
-* Description of the uml representation
+=== UML-Representation
+The UML representation presentation acts as the first abstraction of the input class diagram within
+the application. The diagram representation of a modeling tool has to be converted to this representation
+in a first step. Therefore, the UML representation provides an interface for a converter, which converts
+a diagram representation of a modeling tool to the UML representation.
+
+==== Package: uml
+link:javadoc/uml/package-summary.html[Javadoc of the uml package]
+
+The uml package contains all model classes of the representation. The representation has a tree structure
+with an instance of _UmlModel_ as the root node. The _UmlModel_ holds lists of _UmlElements_ and _UmlRelationships_,
+which are not assigned to a package. Furthermore it holds a list of _UmlPackages_, which contain _UmlElements_, _UmlRelationships_
+and _UmlPackages_.
+
+_UmlElement_ is an abstract class, which is extended by _UmlClass_, _UmlInterface_ and _UmlEnumeration_. These three subclasses
+are distinguished by their non access modifiers. Furthermore, _UmlEnumerations_ have a list of _UmlLiterals_.
+
+_UmlElements_ have a list of _UmlAttributes_ and _UmlOperations_, as well as lists of _UmlTemplateBindings_ and _UmlTemplateParameters_.
+The enumeration _UmlVisibility_ determines the access modifier of _UmlElements_, _UmlAttributes_ and _UmlOperations_. The _UmlParameters_
+of _UmlOperations_ have a direction, determined by the _UmlParameterDirection_ - enumeration, which helps to distinguish input- and return parameters. 
+Furthermore, the multiplicity of _UmlAttributes_ and _UmlParameters_ is determined by the _UmlMultiplicityValue_ - enumeration, which describes
+the upper and lower value of the multiplicity.
+
+_UmlTemplateBindings_ have one or more _UmlParameterSubstitution_, which maps the type of the substitute to the corresponding _UmlTemplateParameter_.
+
+Relationships are described by an _UmlRelationship_ object, which has a client and a supplier, both as a reference to an _UmlElement_. If the relationship
+is undirected, the assignment of client and supplier is arbitrary. The type of the relationship is determined by the _UmlRelationshipType_ - enumeration.
+
+==== Package: uml.converterinterface
+link:javadoc/uml/converterinterface/package-summary.html[Javadoc of the uml.converterinterface package]
+
+This package contains an interface, which defines a conversion method, that returns the converted _UmlModel_ out of a given _UmlInputRepresentation_.
+The _UmlInputRepresentation_ - interface needs to be implemented by the root object of the input representation to be converted.
+
+=== Code-Representation
+* Description of the code representation
 
 == Converter
 * Descriptions of all the converters
