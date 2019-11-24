@@ -2,13 +2,37 @@
 
 image:https://circleci.com/gh/dschoenicke/uml-unittest-generator/tree/master.svg?style=svg&circle-token=780545d7ca8a2ad1c928eb4575fd649145884f9a["CircleCI", link="https://circleci.com/gh/dschoenicke/uml-unittest-generator/tree/master"]
 
-A tool to generate jUnit tests out of a given uml class diagram representation
+A tool to generate jUnit tests out of a given UML class diagram representation. + 
+A diagram representation of a modeling tool is converted in multiple steps to a final representation,
+which can be converted to actual test files. +
+The core project provides the conversion of Magic Draw diagrams to jUnit test files. + 
+The application is extensible for further input diagram representations and output test cases.
 
-    uml-unittest-generator
-    ├── input --> contains representations and converters for different input formats
-    │   ├── magicdraw_xml
-    │   ...
-    ├── representations --> contains the different representations which are interim results of the conversion
-    │   ├── uml-representation
-    │   ...
-    ├── output --> contains representations and converters for different output formats
+A documentation containing all necessary information about the architecture, representations, converters
+and instructions on how to write input/output converters, can be found link:documentation/developer_documentation.adoc[here].
+
+== Building the project
+To build the project locally, use the commands `mvn install` or `mvn package`. +
+The build requires *JDK 11* or later. 
+
+The code is organized in the following subprojects: +
+....
+uml-unittest-converter
+├── core
+├── input-mdxml-converter
+├── input-mdxml-representation
+├── representation-uml
+├── representation-code
+More projects to follow
+....
+
+The different projects containing the internal representations are designated with
+the prefix `representation-[name]`. A project for an input representation and its converter, which converts it
+to the _UML representation_ is designated with the prefix `input-[name]-representation` and `input-[name]-converter`. + 
+The same rule applies for output converters: `output-[name]-converter`. + 
+The `core` project acts as a coordinator, which acts as the actual application, delegation the conversion steps
+to the corresponding subprojects.
+
+== Usage
+_tba_
+
