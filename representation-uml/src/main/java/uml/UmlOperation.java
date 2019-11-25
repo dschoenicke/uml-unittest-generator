@@ -223,4 +223,20 @@ public class UmlOperation implements Node {
 	public void addTemplateParameter(UmlTemplateParameter templateParameter) {
 		templateParameters.add(templateParameter);
 	}
+	
+	/**
+	 * Returns true, if the operation is a constructor.<br>
+	 * A constructor is defined as a method without a {@link UmlParameter} with {@link UmlParameterDirection#RETURN}
+	 * 
+	 * @return true, if the operation is a constructor, false otherwise
+	 */
+	public boolean isConstructor() {
+		for (UmlParameter parameter : parameters) {
+			if (parameter.getDirection() == UmlParameterDirection.RETURN) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 }
