@@ -10,3 +10,8 @@ mdxmlconverter.relationship
 mdxmlconverter.temporary
 uml
 uml.converterinterface
+umlcodeconverter
+umlcodeconverter.element
+umlcodeconverter.packages
+umlcodeconverter.relationship
+umlcodeconverter.temporary
