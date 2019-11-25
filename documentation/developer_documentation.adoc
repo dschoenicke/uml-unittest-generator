@@ -60,7 +60,18 @@ This package contains an interface, which defines a conversion method, that retu
 The _UmlInputRepresentation_ - interface needs to be implemented by the root object of the input representation to be converted.
 
 === Code-Representation
-* Description of the code representation
+link:javadoc/code/package-summary.html[Javadoc of the code package]
+
+The code representation aims to provide compatibility to the Java Reflection API. The representation contains no relationships, as they are implicated
+via the class fields and references to super classes and interfaces, which is held by each _CodeElement_. 
+
+Furthermore, the modifiers of a _CodeElement_, _CodeField_, _CodeMethod_ and _CodeParameter_ are represented by an
+integer value calculated in the same way, as Java Reflection does (see: link:https://docs.oracle.com/javase/8/docs/api/constant-values.html#java.lang.reflect.Modifier.ABSTRACT[List of java.reflect.Modifier enum constants]).
+Therefore, the class _CodeModifier_ extends the class java.lang.reflect.Modifier and adds a method to calculate the integer modifier
+out of a _CodeVisibility_ and boolean values for the _static_, _final_ and _abstract_ modifier.
+
+While the UML representation can contain _CodeElements_ at the top level without a _UmlPackage_, the _CodeElements_ without a package in the diagram
+are grouped into a _CodePackage_ with the name of the model.
 
 == Converter
 * Descriptions of all the converters
