@@ -7,7 +7,7 @@ import java.lang.reflect.Modifier;
  * or a {@link CodeParameter} to an integer value to use the methods inherited by {@link java.lang.reflect.Modifier}. 
  * 
  * @author dschoenicke
- * @see <a href="https://docs.oracle.com/javase/8/docs/api/constant-values.html#java.lang.reflect.Modifier.ABSTRACT"></a>
+ * @see <a href="https://docs.oracle.com/javase/8/docs/api/constant-values.html#java.lang.reflect.Modifier.ABSTRACT">List of Modifier enumeration constants</a>
  *
  */
 public class CodeModifier extends Modifier {
@@ -32,6 +32,20 @@ public class CodeModifier extends Modifier {
 				boolToInt(isStatic) * STATIC + 
 				boolToInt(isFinal) * FINAL + 
 				boolToInt(isAbstract) * ABSTRACT;
+	}
+	
+	/**
+	 * Returns true if the given set of modifiers contains the default access modifier by
+	 * substracting the values of the non access modifiers from the modifier set.
+	 * If the modifier set contains the default access modifier, the result of the substractions has to be '0'.
+	 * 
+	 * @param mod a set of modifiers
+	 * @return true if mod includes the default access modifier
+	 */
+	public static boolean hasDefaultAccess(int mod) {
+		return mod - boolToInt(isAbstract(mod)) * ABSTRACT
+				- boolToInt(isStatic(mod)) * STATIC
+				- boolToInt(isFinal(mod)) * FINAL == 0;
 	}
 	
 	/**
