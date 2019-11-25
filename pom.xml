@@ -17,7 +17,8 @@
 		<module>input-mdxml-converter</module>
 		<module>representation-uml</module>
     	<module>representation-code</module>
-  	</modules>
+    	<module>converter-uml-code</module>
+  </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
