@@ -11,15 +11,41 @@ import java.util.ArrayList;
 public class CodeRepresentation implements CodeParent {
 	
 	/**
+	 * The name of the representation
+	 */
+	private String name;
+	
+	/**
 	 * The list of all {@link CodePackage}s of the model
 	 */
 	private ArrayList<CodePackage> packages;
 	
 	/**
-	 * Default constructor, initializes the list of {@link CodePackage}s
+	 * Constructor with name, initializes the list of {@link CodePackage}s
+	 * 
+	 * @param name the name of the representation
 	 */
-	public CodeRepresentation() {
+	public CodeRepresentation(String name) {
+		this.name = name;
 		packages = new ArrayList<>();
+	}
+
+	/**
+	 * Gets the name of the representation
+	 * 
+	 * @return the name of the representation
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * Sets the name of the representation
+	 * 
+	 * @param name the name of the representation
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	/**

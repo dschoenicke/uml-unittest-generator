@@ -26,6 +26,11 @@ public abstract class CodeElement implements CodeParent {
 	private ArrayList<CodeField> fields;
 	
 	/**
+	 * The list of {@link CodeConstructor}s of the element
+	 */
+	private ArrayList<CodeConstructor> constructors;
+	
+	/**
 	 * The list of {@link CodeMethod}s of the element
 	 */
 	private ArrayList<CodeMethod> methods;
@@ -53,7 +58,7 @@ public abstract class CodeElement implements CodeParent {
 	/**
 	 * Constructor with name, {@link CodeParent} and modifiers.<br>
 	 * The modifiers are converted to an int value usable for the {@link CodeModifier} methods.<br>
-	 * Initializes the lists of {@link CodeField}s, {@link CodeMethod}s, {@link CodeTemplateBinding}s, {@link CodeTemplateParameter}s and nested {@link CodeElement}s.
+	 * Initializes the lists of {@link CodeField}s, {@link CodeConstructor}s, {@link CodeMethod}s, {@link CodeTemplateBinding}s, {@link CodeTemplateParameter}s and nested {@link CodeElement}s.
 	 * 
 	 * @param name the name of the element
 	 * @param parent the {@link CodeParent} of the element
@@ -73,6 +78,7 @@ public abstract class CodeElement implements CodeParent {
 		this.parent = parent;
 		modifiers = CodeModifier.convertModifierValue(visibility, isStatic, isFinal, isAbstract);
 		fields = new ArrayList<>();
+		constructors = new ArrayList<>();
 		methods = new ArrayList<>();
 		templateBindings = new ArrayList<>();
 		templateParameters = new ArrayList<>();
@@ -131,6 +137,24 @@ public abstract class CodeElement implements CodeParent {
 	 */
 	public void addField(CodeField field) {
 		fields.add(field);
+	}
+	
+	/**
+	 * Gets the list of {@link CodeConstructor}s
+	 * 
+	 * @return the list of {@link CodeConstructor}s
+	 */
+	public ArrayList<CodeConstructor> getConstructors() {
+		return constructors;
+	}
+
+	/**
+	 * Adds a {@link CodeConstructor} to the list
+	 * 
+	 * @param constructor the {@link CodeConstructor} to add to the list
+	 */
+	public void addConstructor(CodeConstructor constructor) {
+		constructors.add(constructor);
 	}
 
 	/**
