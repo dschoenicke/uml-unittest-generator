@@ -2,15 +2,13 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Auxiliary class representing the type replacing a {@link Parameter} in a {@link ParameterSubstitution} if the replacing type is a primitive type
  * 
  * @author dschoenicke
  *
  */
-public class Actual implements Node {
+public class Actual {
 
 	/**
 	 * The {@link Extension} holding the {@link ReferenceExtension} which determines the data type

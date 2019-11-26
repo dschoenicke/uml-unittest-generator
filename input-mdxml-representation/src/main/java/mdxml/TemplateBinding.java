@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents a template binding by an {@link OwnedOperation} or {@link PackagedElement}
  * 
  * @author dschoenicke
  *
  */
-public class TemplateBinding implements Node {
+public class TemplateBinding {
 
 	/**
 	 * The id of the template binding

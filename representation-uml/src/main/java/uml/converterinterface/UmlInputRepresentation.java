@@ -1,6 +1,5 @@
 package uml.converterinterface;
 
-import core.representation.Node;
 import uml.UmlModel;
 
 /**
@@ -10,6 +9,6 @@ import uml.UmlModel;
  * @author dschoenicke
  *
  */
-public interface UmlInputRepresentation extends Node {
+public interface UmlInputRepresentation {
 	
 }

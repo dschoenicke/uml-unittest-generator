@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents attributes of classes which are described by {@link PackagedElement}s
  * 
  * @author dschoenicke
  *
  */
-public class OwnedAttribute implements Node {
+public class OwnedAttribute {
 
 	/**
 	 * The id of the attribute

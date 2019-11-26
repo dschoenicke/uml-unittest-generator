@@ -1,14 +1,12 @@
 package uml;
 
-import core.representation.Node;
-
 /**
  * Represents an attribute of an {@link UmlClass}
  * 
  * @author dschoenicke
  *
  */
-public class UmlAttribute implements Node {
+public class UmlAttribute {
 
 	/**
 	 * The name of the attribute

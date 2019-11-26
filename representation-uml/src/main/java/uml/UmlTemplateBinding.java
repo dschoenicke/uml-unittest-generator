@@ -2,15 +2,13 @@ package uml;
 
 import java.util.ArrayList;
 
-import core.representation.Node;
-
 /**
  * Represents a template binding of an {@link UmlElement} or {@link UmlOperation}
  * 
  * @author dschoenicke
  *
  */
-public class UmlTemplateBinding implements Node {
+public class UmlTemplateBinding {
 
 	/**
 	 * List of {@link UmlParameterSubstitution}s of the template binding

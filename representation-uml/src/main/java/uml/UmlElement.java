@@ -2,15 +2,13 @@ package uml;
 
 import java.util.ArrayList;
 
-import core.representation.Node;
-
 /**
  * Abstract class extended by {@link UmlClass}es, {@link UmlInterface}s and {@link UmlEnumeration}s
  * 
  * @author dschoenicke
  *
  */
-public abstract class UmlElement implements Node {
+public abstract class UmlElement implements UmlParent {
 
 	/**
 	 * The name of the element

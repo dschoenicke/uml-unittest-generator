@@ -2,8 +2,6 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents an auxiliary node in the XML tree held by an {@link Extension}
  * Holds {@link LowerValue}s and {@link UpperValue}s when used by an {@link OwnedAttribute}
@@ -11,7 +9,7 @@ import core.representation.Node;
  * @author dschoenicke
  *
  */
-public class ModelExtension implements Node {
+public class ModelExtension {
 	
 	/**
 	 * The {@link LowerValue} of the {@link OwnedAttribute} which uses the {@link Extension} which holds this model extension

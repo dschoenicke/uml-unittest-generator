@@ -2,15 +2,13 @@ package uml;
 
 import java.util.ArrayList;
 
-import core.representation.Node;
-
 /**
  * Represents the UML model with its {@link UmlPackage}s, {@link UmlElement}s and {@link UmlRelationship}s
  * 
  * @author dschoenicke
  *
  */
-public class UmlModel implements Node {
+public class UmlModel implements UmlParent {
 	/**
 	 * Name of the model
 	 */

@@ -1,14 +1,12 @@
 package uml;
 
-import core.representation.Node;
-
 /**
  * Represents a parameter of an {@link UmlOperation}
  * 
  * @author dschoenicke
  *
  */
-public class UmlParameter implements Node {
+public class UmlParameter {
 
 	/**
 	 * The name of the parameter

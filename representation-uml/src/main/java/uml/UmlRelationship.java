@@ -1,14 +1,12 @@
 package uml;
 
-import core.representation.Node;
-
 /**
  * Represents an relationship with the involved {@link UmlElement}s, the {@link UmlMultiplicityValue}s and determined by an {@link UmlRelationshipType}
  * 
  * @author dschoenicke
  *
  */
-public class UmlRelationship implements Node {
+public class UmlRelationship {
 
 	/**
 	 * The owning end of the relationship

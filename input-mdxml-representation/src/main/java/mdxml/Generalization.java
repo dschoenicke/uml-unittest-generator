@@ -2,15 +2,13 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import core.representation.Node;
-
 /**
  * Represents a generalization relationship of a {@link PackagedElement} and its general
  * 
  * @author dschoenicke
  *
  */
-public class Generalization implements Node {
+public class Generalization {
 
 	/**
 	 * The id of the generalization

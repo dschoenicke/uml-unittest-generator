@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents an element in the diagram. Can describe a package, a class, an interface, an enumeration or an association
  * 
  * @author dschoenicke
  *
  */
-public class PackagedElement implements Node {
+public class PackagedElement {
 
 	/**
 	 * The id of the element

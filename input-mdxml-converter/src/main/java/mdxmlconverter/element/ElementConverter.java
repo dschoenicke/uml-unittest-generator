@@ -1,6 +1,5 @@
 package mdxmlconverter.element;
 
-import core.representation.Node;
 import mdxml.PackagedElement;
 import mdxmlconverter.relationship.GeneralizationConverter;
 import mdxmlconverter.relationship.InterfaceRealizationConverter;
@@ -9,6 +8,7 @@ import uml.UmlClass;
 import uml.UmlElement;
 import uml.UmlEnumeration;
 import uml.UmlInterface;
+import uml.UmlParent;
 
 /**
  * Class providing a static method to convert {@link mdxml.PackagedElement} to an {@link uml.UmlElement}
@@ -27,7 +27,7 @@ public class ElementConverter {
 	 * @param parentNode the parent {@link core.representation.Node} to add the converted {@link uml.UmlElement} to
 	 * @return the converted {@link uml.UmlElement}
 	 */
-	public static UmlElement convertElement(PackagedElement packagedElement, TemporaryModel tmpModel, Node parentNode) {
+	public static UmlElement convertElement(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
 		UmlElement element = null;
 		
 		switch (packagedElement.getType()) {
@@ -62,16 +62,16 @@ public class ElementConverter {
 			OperationConverter.convertOperations(packagedElement, element, tmpModel);
 			TemplateParameterConverter.convertTemplateParameters(packagedElement.getOwnedTemplateSignature(), element, tmpModel);
 			TemplateBindingConverter.convertTemplateBindings(packagedElement.getTemplateBindings(), element);
-			NestedElementConverter.convertNestedElements(packagedElement, element, tmpModel, parentNode);
-			GeneralizationConverter.convertNestedGeneralizations(packagedElement, tmpModel, parentNode);
-			InterfaceRealizationConverter.convertNestedInterfaceRealizations(packagedElement, tmpModel, parentNode);
+			NestedElementConverter.convertNestedElements(packagedElement, element, tmpModel, parent);
+			GeneralizationConverter.convertNestedGeneralizations(packagedElement, tmpModel, parent);
+			InterfaceRealizationConverter.convertNestedInterfaceRealizations(packagedElement, tmpModel, parent);
 			
 			if (packagedElement.getGeneralization() != null) {
-				GeneralizationConverter.convertGeneralization(packagedElement, tmpModel, parentNode);
+				GeneralizationConverter.convertGeneralization(packagedElement, tmpModel, parent);
 			}
 			
 			if (!packagedElement.getInterfaceRealizations().isEmpty()) {
-				InterfaceRealizationConverter.convertInterfaceRealizations(packagedElement.getInterfaceRealizations(), tmpModel, parentNode);
+				InterfaceRealizationConverter.convertInterfaceRealizations(packagedElement.getInterfaceRealizations(), tmpModel, parent);
 			}
 			
 			tmpModel.addElement(packagedElement.getId(), element);

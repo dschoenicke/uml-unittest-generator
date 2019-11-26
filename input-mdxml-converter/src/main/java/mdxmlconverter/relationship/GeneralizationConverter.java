@@ -2,12 +2,12 @@ package mdxmlconverter.relationship;
 
 import static org.junit.Assert.assertNotNull;
 
-import core.representation.Node;
 import mdxml.PackagedElement;
 import mdxmlconverter.temporary.TemporaryModel;
 import mdxmlconverter.temporary.TemporaryRelationship;
 import uml.UmlModel;
 import uml.UmlPackage;
+import uml.UmlParent;
 import uml.UmlRelationshipType;
 
 /**
@@ -25,7 +25,7 @@ public class GeneralizationConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
 	 * @param parent the {@link core.representation.Node} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
 	 */
-	public static void convertGeneralization(PackagedElement packagedElement, TemporaryModel tmpModel, Node parent) {
+	public static void convertGeneralization(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
 		assertNotNull("The general of a generalization must not be null!\nOccurance in packagedElement " + packagedElement.getName());
 		TemporaryRelationship tmpRelationship = new TemporaryRelationship(packagedElement.getId(),
 				packagedElement.getGeneralization().getGeneral(),
@@ -48,7 +48,7 @@ public class GeneralizationConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship}s should be added
 	 * @param parent the {@link core.representation.Node} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship}s should be added
 	 */
-	public static void convertNestedGeneralizations(PackagedElement packagedElement, TemporaryModel tmpModel, Node parent) {
+	public static void convertNestedGeneralizations(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
 		for (PackagedElement innerElement : packagedElement.getNestedClassifiers()) {
 			if (innerElement.getGeneralization() != null) {
 				convertGeneralization(innerElement, tmpModel, parent);

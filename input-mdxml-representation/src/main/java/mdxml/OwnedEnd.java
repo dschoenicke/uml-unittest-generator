@@ -2,15 +2,13 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import core.representation.Node;
-
 /**
  * Describes the owned end of an association
  * 
  * @author dschoenicke
  *
  */
-public class OwnedEnd implements Node {
+public class OwnedEnd {
 
 	/**
 	 * Id of the ownedEnd

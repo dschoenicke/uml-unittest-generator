@@ -2,15 +2,13 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import core.representation.Node;
-
 /**
  * Describes a constraining classifier of an {@link OwnedParameter} in an {@link OwnedTemplateSignature}.
  * 
  * @author dschoenicke
  *
  */
-public class ConstrainingClassifier implements Node {
+public class ConstrainingClassifier {
 
 	/**
 	 * References the {@link PackagedElement} which acts as the constraining classifier

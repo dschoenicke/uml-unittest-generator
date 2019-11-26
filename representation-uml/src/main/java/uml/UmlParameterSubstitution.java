@@ -1,14 +1,12 @@
 package uml;
 
-import core.representation.Node;
-
 /**
  * Represents a parameter substitution of an {@link UmlTemplateBinding}
  * 
  * @author dschoenicke
  *
  */
-public class UmlParameterSubstitution implements Node {
+public class UmlParameterSubstitution {
 	
 	/**
 	 * The {@link UmlTemplateParameter}s replaced by this template binding

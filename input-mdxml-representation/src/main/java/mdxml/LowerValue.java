@@ -2,15 +2,13 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import core.representation.Node;
-
 /**
  * Represents the lower value of an {@link OwnedParameter} or an {@link OwnedAttribute}
  * 
  * @author dschoenicke
  *
  */
-public class LowerValue implements Node {
+public class LowerValue {
 
 	/**
 	 * The id of the value

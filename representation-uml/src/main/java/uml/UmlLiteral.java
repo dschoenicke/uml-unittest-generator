@@ -1,14 +1,12 @@
 package uml;
 
-import core.representation.Node;
-
 /**
  * Represents a literal of an {@link UmlEnumeration}
  * 
  * @author dschoenicke
  *
  */
-public class UmlLiteral implements Node {
+public class UmlLiteral {
 	
 	/**
 	 * Name of the literal

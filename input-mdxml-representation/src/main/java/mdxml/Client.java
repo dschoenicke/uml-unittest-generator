@@ -2,8 +2,6 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import core.representation.Node;
-
 /**
  * Represents the client class of an {@link InterfaceRealization} or Association.
  * Associations are represented as {@link PackagedElement}.
@@ -11,7 +9,7 @@ import core.representation.Node;
  * @author dschoenicke
  *
  */
-public class Client implements Node {
+public class Client {
 
 	/**
 	 * References the {@link PackagedElement} which acts as a client by its id

@@ -2,8 +2,6 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents an auxiliary node in the XML tree to extend the Magic Draw specification
  * Used to hold a {@link ModelExtension} or a {@link ReferenceExtension}
@@ -11,7 +9,7 @@ import core.representation.Node;
  * @author dschoenicke
  *
  */
-public class Extension implements Node {
+public class Extension {
 	
 	/**
 	 * A {@link ModelExtension} which is an auxiliary class to hold values

@@ -2,9 +2,7 @@ package uml;
 
 import java.util.ArrayList;
 
-import core.representation.Node;
-
-public class UmlOperation implements Node {
+public class UmlOperation {
 
 	/**
 	 * The name of the operation

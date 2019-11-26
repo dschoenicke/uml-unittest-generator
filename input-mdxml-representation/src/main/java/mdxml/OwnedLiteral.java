@@ -2,15 +2,13 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import core.representation.Node;
-
 /**
  * Represents enumeration literals held by a {@link PackagedElement} representing the enumeration
  * 
  * @author dschoenicke
  *
  */
-public class OwnedLiteral implements Node {
+public class OwnedLiteral {
 
 	/**
 	 * The id of the literal

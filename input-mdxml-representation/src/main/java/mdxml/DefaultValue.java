@@ -2,15 +2,13 @@ package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import core.representation.Node;
-
 /**
  * Represents the default value of an {@link OwnedAttribute}
  * 
  * @author dschoenicke
  *
  */
-public class DefaultValue implements Node {
+public class DefaultValue {
 
 	/**
 	 * The id of the default value

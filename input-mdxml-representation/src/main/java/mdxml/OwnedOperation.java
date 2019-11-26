@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents an operation inside a {@link PackagedElement}
  * 
  * @author dschoenicke
  *
  */
-public class OwnedOperation implements Node {
+public class OwnedOperation {
 	
 	/**
 	 * The id of the operation

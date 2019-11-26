@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents a model in the given Magic Draw project
  * 
  * @author dschoenicke
  *
  */
-public class Model implements Node {
+public class Model {
 
 	/**
 	 * The id of the model

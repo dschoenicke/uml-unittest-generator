@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents a template signature of a {@link PackagedElement} which represents a class or an interface
  * 
  * @author dschoenicke
  *
  */
-public class OwnedTemplateSignature implements Node {
+public class OwnedTemplateSignature {
 
 	/**
 	 * The id of the template signature

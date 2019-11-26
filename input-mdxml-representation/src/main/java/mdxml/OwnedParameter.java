@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents parameters of {@link OwnedOperation}s and {@link OwnedTemplateSignature}s
  * 
  * @author dschoenicke
  *
  */
-public class OwnedParameter implements Node {
+public class OwnedParameter {
 	
 	/**
 	 * The id of the parameter

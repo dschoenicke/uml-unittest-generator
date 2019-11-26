@@ -3,15 +3,13 @@ package mdxml;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import core.representation.Node;
-
 /**
  * Represents a substitution of a template {@link Parameter}
  * 
  * @author dschoenicke
  *
  */
-public class ParameterSubstitution implements Node {
+public class ParameterSubstitution {
 	
 	private String id;
 	

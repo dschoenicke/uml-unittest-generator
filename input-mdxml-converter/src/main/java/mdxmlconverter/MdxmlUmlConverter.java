@@ -3,7 +3,6 @@ package mdxmlconverter;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import core.representation.Node;
 import mdxml.MdxmlRepresentation;
 import mdxml.Model;
 import mdxml.PackagedElement;
@@ -16,6 +15,7 @@ import mdxmlconverter.temporary.TemporaryRelationship;
 import uml.UmlElement;
 import uml.UmlModel;
 import uml.UmlPackage;
+import uml.UmlParent;
 import uml.UmlRelationship;
 import uml.converterinterface.UmlInputRepresentation;
 import uml.converterinterface.UmlRepresentationConverter;
@@ -50,10 +50,8 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 		TemporaryModel tmpModel = new TemporaryModel();
 		UmlModel umlModel = new UmlModel(xmlModel.getName());
 		
-		for (Node node : xmlModel.getPackagedElements()) {
-			if (node instanceof PackagedElement) {
-				convertPackagedElement((PackagedElement) node, tmpModel, umlModel);
-			}
+		for (PackagedElement packagedElement : xmlModel.getPackagedElements()) {
+			convertPackagedElement(packagedElement, tmpModel, umlModel);
 		}
 		
 		resolveDataTypeReferences(tmpModel);
@@ -67,7 +65,7 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to add the converted element to
 	 * @param parent the parent {@link core.representation.Node} where the converted element should be added to
 	 */
-	private void convertPackagedElement(PackagedElement packagedElement, TemporaryModel tmpModel, Node parent) {
+	private void convertPackagedElement(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
 		assertNotNull("The id of a PackagedElement must not be null!", packagedElement.getId());
 		assertNotNull("The xmi:type of a PackagedElement must not be null!\nOccurance in PackagedElement with id " + packagedElement.getType(), packagedElement.getId());
 		
