@@ -24,8 +24,9 @@ public class GeneralizationConverter {
 	 * @param packagedElement the {@link mdxml.PackagedElement} which {@link mdxml.Generalization} should be converted
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
 	 * @param parent the {@link core.representation.Node} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
+	 * @return the converted {@link mdxmlconverter.temporary.TemporaryRelationship}
 	 */
-	public static void convertGeneralization(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
+	public static TemporaryRelationship convertGeneralization(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
 		assertNotNull("The general of a generalization must not be null!\nOccurance in packagedElement " + packagedElement.getName());
 		TemporaryRelationship tmpRelationship = new TemporaryRelationship(packagedElement.getId(),
 				packagedElement.getGeneralization().getGeneral(),
@@ -39,6 +40,8 @@ public class GeneralizationConverter {
 		else if (parent instanceof UmlPackage) {
 			((UmlPackage) parent).addRelationship(tmpRelationship);
 		}
+		
+		return tmpRelationship;
 	}
 	
 	/**

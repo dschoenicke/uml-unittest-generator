@@ -31,12 +31,15 @@ public class AssociationConverter {
 		MemberEnd firstMember = packagedElement.getMemberEnds().get(0);
 		MemberEnd secondMember = packagedElement.getMemberEnds().get(1);
 		OwnedEnd ownedEnd = packagedElement.getOwnedEnd();
-	
+		TemporaryRelationship relationship;
+		
 		if (ownedEnd == null) {
-			return new TemporaryRelationship(firstMember, secondMember);
+			relationship = new TemporaryRelationship(firstMember, secondMember);
+		}
+		else {
+			relationship = new TemporaryRelationship(firstMember, secondMember, ownedEnd);
 		}
 		
-		TemporaryRelationship relationship = new TemporaryRelationship(firstMember, secondMember, ownedEnd);
 		tmpModel.addRelationship(relationship);
 		return relationship;
 	}
