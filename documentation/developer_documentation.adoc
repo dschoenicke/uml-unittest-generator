@@ -1,6 +1,7 @@
 :toc: left
 :numbered:
 :toclevels: 2
+:sectlinks:
 
 = uml-unittest-generator
 
@@ -8,18 +9,43 @@
 [cols="1, 3, 3"]
 |===
 |Version | Processing Date   | Author 
-|0.1	| November 22nd, 2019 | Daniel Schoenicke 
+|0.2	| November 28th, 2019 | Daniel Schoenicke 
 |===
 
-== Architecture
-* Description of the overall architecture of the uml-unittest-generator
+== Context
+* Task description
 
+== Constraints
+* Definition of constraints for the input diagrams
+
+== Architecture
+[caption="Figure 1: Top Level Architecture"]
+image:diagrams/top-level-diagram.svg[top level architecture]
+
+The project _uml-unittest-generator_ is a Maven parent project, which consists
+of the _core_-module and additional modules of input representations and converters, 
+as well as output converters. +
+The _core_ module contains the three representations (_Uml, Code, Test_), which are
+Maven modules themselves, and the two converters for these representations. The representations
+abstract an input diagram step-by-step to an output format. +
+
+For more information on the representations, see chapter <<#representations>>. + 
+For more information on the converters, see chapter <<#converters>>.
+
+_Representation-uml_ acts as an interface for input diagrams, to which an input representation
+needs to be converted (see <<#input>> for a description of the _mdxml-uml-converter_). +
+To generate an output other than _jUnit Structure Tests_, another output converter using _representation-test_
+as input needs to be implemented (see <<#output>> for a description of the _test-junit-converter_).
+
+[#input]
 == Input
 * Description of how to implement an input representation and converter with the mdxml representation as an example
 
+[#output]
 == Output
 * Description of how to implement an output representation and converter
 
+[#representations]
 == Representations
 During the conversion process, the input diagram is converted
 to several representations before an output is generated. The following section contains descriptions
@@ -73,5 +99,13 @@ out of a _CodeVisibility_ and boolean values for the _static_, _final_ and _abst
 While the UML representation can contain _CodeElements_ at the top level without a _UmlPackage_, the _CodeElements_ without a package in the diagram
 are grouped into a _CodePackage_ with the name of the model.
 
-== Converter
+[#converters]
+== Converters
 * Descriptions of all the converters
+
+=== converter-uml-code
+
+=== converter-code-test
+
+== Tests
+* Description of the test strategy
