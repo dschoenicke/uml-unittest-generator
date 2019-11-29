@@ -2,6 +2,7 @@
 :numbered:
 :toclevels: 2
 :sectlinks:
+:project_name: uml-unittest-generator
 
 = uml-unittest-generator
 
@@ -9,12 +10,13 @@
 [cols="1, 3, 3"]
 |===
 |Version | Processing Date   | Author 
-|0.2	| November 28th, 2019 | Daniel Schoenicke 
+|0.2	| November 29th, 2019 | Daniel Schoenicke 
 |===
 
 == Context
 * Task description
 
+[#constraints]
 == Constraints
 * Definition of constraints for the input diagrams
 
@@ -22,7 +24,7 @@
 [caption="Figure 1: Top Level Architecture"]
 image:diagrams/top-level-diagram.svg[top level architecture]
 
-The project _uml-unittest-generator_ is a Maven parent project, which consists
+The project _{project_name}_ is a Maven parent project, which consists
 of the _core_-module and additional modules of input representations and converters, 
 as well as output converters. +
 The _core_ module contains the three representations (_Uml, Code, Test_), which are
@@ -33,17 +35,9 @@ For more information on the representations, see chapter <<#representations>>. +
 For more information on the converters, see chapter <<#converters>>.
 
 _Representation-uml_ acts as an interface for input diagrams, to which an input representation
-needs to be converted (see <<#input>> for a description of the _mdxml-uml-converter_). +
+needs to be converted (see <<#input>> for a description of the _input-mdxml-representation_ and _input-mdxml-converter_). +
 To generate an output other than _jUnit Structure Tests_, another output converter using _representation-test_
 as input needs to be implemented (see <<#output>> for a description of the _test-junit-converter_).
-
-[#input]
-== Input
-* Description of how to implement an input representation and converter with the mdxml representation as an example
-
-[#output]
-== Output
-* Description of how to implement an output representation and converter
 
 [#representations]
 == Representations
@@ -106,6 +100,48 @@ are grouped into a _CodePackage_ with the name of the model.
 === converter-uml-code
 
 === converter-code-test
+
+[#input]
+== Input
+To use the _{project_name}_, an input class diagram has to be converted to the _UML representation_. +
+This requires at least the implementation of a converter and possibly a representation of the input diagram. + 
+This chapter describes on the example of the _input-mdmxl-representation_ and _input-mdxml-converter_, 
+how such a representation and converter can be implemented.
+
+=== input-mdxml-representation
+link:../javadoc/mdxml/package-summary.html[Javadoc of the mdxml package]
+
+MagicDraw provides the ability to save projects in an XML file. As a first step, this XML representation is converted into
+the _input-mdxml-representation_ by unmarshalling the XML elements to Java objects with link:https://github.com/eclipse-ee4j/jaxb-ri[JAXB]. +
+This conversion doesn't transform the elements of the XML file, it only leaves out some superfluous elements and attributes, which aren't
+needed for the conversion to the _UML representation_. +
+As described in the <<#constraints>> section, an input model must only describe one coherent application. Therefore, information about the separate
+diagrams of the project is discarded. +
+The whole _input-mdxml-representation_ is a tree structure, like all the other <<#representations>>. The root class _MdxmlRepresentation_ takes the
+path to the XML file as an argument in its constructor, where it initializes the JAXB environment. This root class implements the link:javadoc/uml/converterinterface/UmlInputRepresentation.html[UmlInputRepresentation]
+interface, provided by the _UML Representation_, which is necessary for the _input-mdxml-converter_.
+
+=== input-mdxml-converter
+link:../javadoc/mdxmlconverter/package-summary.html[Javadoc of the input-mdxml-converter]
+
+A converter converting an input representation to the _UML representation_ must have a central class implementing the link:/javadoc/uml/converterinterface/UmlRepresentationConverter.html[UmlRepresentationConverter] interface
+with its _convertToUmlRepresentation_ method. This method requires an object of type _UmlInputRepresentation_ which should be the root class of the input representation.
+This method acts as the main conversion method and must return an converted _UmlModel_. 
+
+Besides this class, the _input-mdxml-converter_ consists out of four packages, which contain converters for modifiers, elements (with their attributes, methods, template parameters, etc.), relationships and packages,
+as well as the package _mdxmlconverter.temporary_, which contains auxiliary classes to store the ids used by MagicDraw's XML representation to reference other elements, relationships, etc. During the conversion of each part of the 
+representation, the converted object is stored with its corresponding mdxml-id in a map, which is later used to resolve these references and replace mdxml ids with the actual objects.
+
+=== Summary - How to write an input converter
+To convert an uml class diagram to the _UML representation_ follow these steps:
+
+* Model the diagram according to the defined <<#constraints>>.
+* Transform the project into a representation with a root class implementing the _UmlInputRepresentation_ interface.
+* Implement a converter using the _UmlRepresentationConverter_ interface to convert the input representation to the _UML-representation_.
+
+[#output]
+== Output
+* Description of how to implement an output representation and converter
 
 == Tests
 * Description of the test strategy
