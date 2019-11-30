@@ -15,7 +15,7 @@ import uml.UmlRelationshipType;
 public class AssociationTypeConverterTest {
 
 	/**
-	 * Tests whether {@link AssociationRelationshipConverter} returns {@link uml.UmlRelationshipType#AGGREGATION} for input string 'shared'.
+	 * Tests whether {@link AssociationTypeConverter} returns {@link uml.UmlRelationshipType#AGGREGATION} for input string 'shared'.
 	 */
 	@Test 
 	public void testSharedRelationship() {
@@ -23,7 +23,7 @@ public class AssociationTypeConverterTest {
 	}
 	
 	/**
-	 * Tests whether {@link AssociationRelationshipConverter} returns {@link uml.UmlRelationshipType#COMPOSITION} for input string 'composite'.
+	 * Tests whether {@link AssociationTypeConverter} returns {@link uml.UmlRelationshipType#COMPOSITION} for input string 'composite'.
 	 */
 	@Test 
 	public void testCompositeRelationship() {
@@ -31,7 +31,7 @@ public class AssociationTypeConverterTest {
 	}
 	
 	/**
-	 * Tests whether {@link AssociationRelationshipConverter} returns {@link uml.UmlRelationshipType#ASSOCIATION} for an arbitrary input string'.
+	 * Tests whether {@link AssociationTypeConverter} returns {@link uml.UmlRelationshipType#ASSOCIATION} for an arbitrary input string'.
 	 */
 	@Test 
 	public void testArbitraryRelationship() {

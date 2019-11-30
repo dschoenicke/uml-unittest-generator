@@ -115,18 +115,18 @@ public class UmlPackage implements UmlParent {
 	}
 	
 	/**
-	 * Returns a list of all {@link UmlPackage}s regardless of their hierarchy
+	 * Returns a list of all sub {@link UmlPackage}s regardless of their hierarchy
 	 * 
-	 * @return a list of all {@link UmlPackage}s
+	 * @return a list of all sub {@link UmlPackage}s
 	 */
 	public ArrayList<UmlPackage> getPackagesAsList() {
-		ArrayList<UmlPackage> packages = new ArrayList<UmlPackage>();
+		ArrayList<UmlPackage> ownedpackages = new ArrayList<UmlPackage>();
 		
 		for (UmlPackage umlPackage : this.getPackages()) {
-			packages.add(umlPackage);
-			packages.addAll(umlPackage.getPackagesAsList());
+			ownedpackages.add(umlPackage);
+			ownedpackages.addAll(umlPackage.getPackagesAsList());
 		}
 		
-		return packages;
+		return ownedpackages;
 	}
 }

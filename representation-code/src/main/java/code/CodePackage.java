@@ -96,4 +96,20 @@ public class CodePackage implements CodeParent {
 	public CodeParent getParent() {
 		return parent;
 	}
+	
+	/**
+	 * Returns a list of all sub {@link CodePackage}s regardless of their hierarchy
+	 * 
+	 * @return a list of all sub {@link CodePackage}s
+	 */
+	public ArrayList<CodePackage> getPackagesAsList() {
+		ArrayList<CodePackage> ownedpackages = new ArrayList<CodePackage>();
+		
+		for (CodePackage codePackage : this.getPackages()) {
+			ownedpackages.add(codePackage);
+			ownedpackages.addAll(codePackage.getPackagesAsList());
+		}
+		
+		return ownedpackages;
+	}
 }

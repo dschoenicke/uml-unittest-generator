@@ -1,10 +1,12 @@
 code
 core
-core.representation
+coretest
+coretest.auxiliary
+coretest.umlcodeconverter
 mdxml
 mdxmlconverter
-mdxmlconverter.auxiliary
 mdxmlconverter.element
+mdxmlconverter.multiplicity
 mdxmlconverter.packages
 mdxmlconverter.relationship
 mdxmlconverter.temporary

@@ -63,7 +63,7 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	 * 
 	 * @param packagedElement the {@link mdxml.PackagedElement} to convert
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to add the converted element to
-	 * @param parent the parent {@link core.representation.Node} where the converted element should be added to
+	 * @param parent the parent {@link uml.UmlParent} where the converted element should be added to
 	 */
 	private void convertPackagedElement(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
 		assertNotNull("The id of a PackagedElement must not be null!", packagedElement.getId());

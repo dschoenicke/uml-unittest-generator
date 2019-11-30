@@ -10,12 +10,4 @@
 
 	<name>representation-uml</name>
 	<artifactId>representation-uml</artifactId>
-
-  	<dependencies>
-  		<dependency>
-  			<groupId>${project.groupId}</groupId>
-  			<artifactId>core</artifactId>
-  			<version>${project.version}</version>
-  		</dependency>
-  	</dependencies>
 </project>

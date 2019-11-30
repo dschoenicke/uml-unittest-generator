@@ -24,7 +24,7 @@ public class ElementConverter {
 	 * 
 	 * @param packagedElement the {@link mdxml.PackagedElement} to convert
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to add the converted element to
-	 * @param parentNode the parent {@link core.representation.Node} to add the converted {@link uml.UmlElement} to
+	 * @param parent the parent {@link uml.UmlParent} to add the converted {@link uml.UmlElement} to
 	 * @return the converted {@link uml.UmlElement}
 	 */
 	public static UmlElement convertElement(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {

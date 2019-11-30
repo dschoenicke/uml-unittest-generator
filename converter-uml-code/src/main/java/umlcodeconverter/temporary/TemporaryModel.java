@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import code.CodeElement;
+import code.CodePackage;
 import code.CodeTemplateBinding;
 import code.CodeTemplateParameter;
 import uml.UmlElement;
+import uml.UmlPackage;
 import uml.UmlParameterSubstitution;
 import uml.UmlTemplateParameter;
 
@@ -14,13 +16,19 @@ import uml.UmlTemplateParameter;
  * Auxiliary class providing a map of incompletely converted {@link code.CodeTemplateBinding}s as value
  * and a list of {@link uml.UmlParameterSubstitution}s as value, and the map of {@link uml.UmlTemplateParameter}s
  * as key and {@link code.CodeTemplateParameter}s as value.<br>
- * Furthermore, this class holds a list of {@link uml.UmlElement}s and {@link code.CodeElement}s to be used by the {@link umlcodeconverter.relationship.RelationshipConverter}
+ * Furthermore, this class holds a map of {@link uml.UmlPackage} and {@link code.CodePackage}s to be used by the {@link umlcodeconverter.element.ElementConverter}, 
+ * as well as a map of{@link uml.UmlElement}s and {@link code.CodeElement}s to be used by the {@link umlcodeconverter.relationship.RelationshipConverter}
  * 
  * @author dschoenicke
  *
  */
 public class TemporaryModel {
 
+	/**
+	 * The map containing the {@link uml.UmlPackage}s as key and the corresponding converted {@link code.CodePackage} as value.
+	 */
+	private HashMap<UmlPackage, CodePackage> convertedPackages;
+	
 	/**
 	 * The map containing incompletely converted {@link uml.UmlTemplateBinding}s as key and a list of {@link uml.UmlParameterSubstitution}s as value
 	 */
@@ -37,9 +45,10 @@ public class TemporaryModel {
 	private HashMap<UmlElement, CodeElement> convertedElements;
 	
 	/**
-	 * Constructor, initializing the map of incompletely converted template bindings, converted template parameters and converted elements
+	 * Constructor, initializing the map of incompletely converted template bindings, converted template parameters, converted packages and converted elements
 	 */
 	public TemporaryModel() {
+		convertedPackages = new HashMap<>();
 		temporaryTemplateBindings = new HashMap<>();
 		convertedTemplateParameters = new HashMap<>();
 		convertedElements = new HashMap<>();
@@ -81,6 +90,25 @@ public class TemporaryModel {
 	 */
 	public void addConvertedTemplateParameter(UmlTemplateParameter umlTemplateParameter, CodeTemplateParameter codeTemplateParameter) {
 		convertedTemplateParameters.put(umlTemplateParameter, codeTemplateParameter);
+	}
+	
+	/**
+	 * Gets the map of {@link uml.UmlPackage}s and {@link code.CodePackage}s
+	 * 
+	 * @return the map of {@link uml.UmlPackage}s and {@link code.CodePackage}s
+	 */
+	public HashMap<UmlPackage, CodePackage> getConvertedPackages() {
+		return convertedPackages;
+	}
+	
+	/**
+	 * Adds an {@link uml.UmlPackage} and the corresponding {@link code.CodePackage} to the map
+	 * 
+	 * @param umlPackage the {@link uml.UmlPackage} as key 
+	 * @param codePackage the converted {@link code.CodePackage} as value
+	 */
+	public void addConvertedPackage(UmlPackage umlPackage, CodePackage codePackage) {
+		convertedPackages.put(umlPackage, codePackage);
 	}
 	
 	/**

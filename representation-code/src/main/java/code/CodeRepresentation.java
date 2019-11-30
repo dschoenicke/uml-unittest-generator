@@ -65,4 +65,35 @@ public class CodeRepresentation implements CodeParent {
 	public void addPackage(CodePackage codePackage) {
 		packages.add(codePackage);
 	}
+	
+	/**
+	 * Returns a list of all {@link CodePackage}s regardless of their hierarchy
+	 * 
+	 * @return a list of all {@link CodePackage}s
+	 */
+	public ArrayList<CodePackage> getPackagesAsList() {
+		ArrayList<CodePackage> ownedPackages = new ArrayList<>();
+		
+		for (CodePackage codePackage : getPackages()) {
+			ownedPackages.add(codePackage);
+			ownedPackages.addAll(codePackage.getPackagesAsList());
+		}
+		
+		return ownedPackages;
+	}
+	
+	/**
+	 * Returns a list of all {@link CodeElement}s regardless of their hierarchy
+	 * 
+	 * @return a list of all {@link CodeElement}s
+	 */
+	public ArrayList<CodeElement> getElementsAsList() {
+		ArrayList<CodeElement> ownedElements = new ArrayList<>();
+		
+		for (CodePackage codePackage : getPackagesAsList()) {
+			ownedElements.addAll(codePackage.getElements());
+		}
+		
+		return ownedElements;
+	}
 }

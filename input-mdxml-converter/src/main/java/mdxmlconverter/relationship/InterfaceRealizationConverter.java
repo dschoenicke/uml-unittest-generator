@@ -26,7 +26,7 @@ public class InterfaceRealizationConverter {
 	 * 
 	 * @param realizations the list of {@link mdxml.InterfaceRealization}s which should be converted
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
-	 * @param parentNode the {@link core.representation.Node} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
+	 * @param parent the {@link uml.UmlParent} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
 	 */
 	public static void convertInterfaceRealizations(ArrayList<InterfaceRealization> realizations, TemporaryModel tmpModel, UmlParent parent) {
 		for (InterfaceRealization realization : realizations) {
@@ -53,7 +53,7 @@ public class InterfaceRealizationConverter {
 	 * 
 	 * @param packagedElement the {@link mdxml.PackagedElement} containing the nested elements which {@link mdxml.InterfaceRealization}s should be converted
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship}s should be added
-	 * @param parentNode the {@link core.representation.Node} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship}s should be added
+	 * @param parent the {@link uml.UmlParent} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship}s should be added
 	 */
 	public static void convertNestedInterfaceRealizations(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
 		for (PackagedElement innerElement : packagedElement.getNestedClassifiers()) {
