@@ -1,4 +1,4 @@
-package mdxmlconverter.auxiliary;
+package mdxmlconverter.multiplicity;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -57,14 +57,17 @@ public class MultiplicityConverter {
 			switch(value) {
 				case "0": return UmlMultiplicityValue.ZERO;
 				case "*": return UmlMultiplicityValue.INFINITE;
+				default: break;
 			}
 		}
 		else {
-			if (type.equals("uml:LiteralInteger")) {
-				return UmlMultiplicityValue.ZERO;
-			}
-			else if (type.equals("uml:LiteralUnlimitedNatural")) {
-				return UmlMultiplicityValue.INFINITE;
+			if (type != null) {
+				if (type.equals("uml:LiteralInteger")) {
+					return UmlMultiplicityValue.ZERO;
+				}
+				else if (type.equals("uml:LiteralUnlimitedNatural")) {
+					return UmlMultiplicityValue.INFINITE;
+				}
 			}
 		}
 		

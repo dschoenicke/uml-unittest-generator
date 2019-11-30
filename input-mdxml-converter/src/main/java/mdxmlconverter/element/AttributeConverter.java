@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import mdxml.OwnedAttribute;
 import mdxml.PackagedElement;
-import mdxmlconverter.auxiliary.MultiplicityConverter;
+import mdxmlconverter.multiplicity.MultiplicityConverter;
 import mdxmlconverter.temporary.TemporaryAttribute;
 import mdxmlconverter.temporary.TemporaryModel;
 import uml.UmlAttribute;

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 
 import mdxml.OwnedOperation;
 import mdxml.OwnedParameter;
-import mdxmlconverter.auxiliary.MultiplicityConverter;
+import mdxmlconverter.multiplicity.MultiplicityConverter;
 import mdxmlconverter.temporary.TemporaryModel;
 import uml.UmlOperation;
 import uml.UmlParameter;
