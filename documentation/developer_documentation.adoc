@@ -93,6 +93,18 @@ out of a _CodeVisibility_ and boolean values for the _static_, _final_ and _abst
 While the UML representation can contain _CodeElements_ at the top level without a _UmlPackage_, the _CodeElements_ without a package in the diagram
 are grouped into a _CodePackage_ with the name of the model.
 
+=== Test-Representation
+link:javadoc/test/package-summary.html[Javadoc of the test package]
+
+The test representation represents the structure of the test suite to be created. It consists out of a _TestRepresentation_ as root element, 
+which has the name of the project and a list of _TestPackages_. The package structure should be consistent to the package structure of the implementation,
+which will be checked. _TestPackages_ contain sub _TestPackages_ and _TestClasses_. Each _TestClass_ represents a _CodeElement_ which will be tested in the class.
+The _TestClass_ contains _TestMethods_ which are the actual methods executed in the test runs. _TestMethods_ will be created for each field, constructor and method
+of an element. 
+
+_TestMethods_ contain a list of _TestAssertions_ which are the actual assertions to be checked in the method. _TestAssertions_ have a _TestAssertionType_, 
+which determines the type of assertion to be used, to implement the _TestAssertion_ in the actual test method.
+
 [#converters]
 == Converters
 * Descriptions of all the converters
