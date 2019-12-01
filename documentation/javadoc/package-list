@@ -10,6 +10,7 @@ mdxmlconverter.multiplicity
 mdxmlconverter.packages
 mdxmlconverter.relationship
 mdxmlconverter.temporary
+test
 uml
 uml.converterinterface
 umlcodeconverter
