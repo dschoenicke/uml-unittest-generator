@@ -18,6 +18,7 @@ The build requires *JDK 11* or later.
 The code is organized in the following subprojects: +
 ....
 uml-unittest-converter
+├── converter-code-test
 ├── converter-uml-code
 ├── core
 ├── input-mdxml-converter

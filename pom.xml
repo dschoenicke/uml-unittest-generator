@@ -19,6 +19,7 @@
     	<module>representation-code</module>
     	<module>representation-test</module>
     	<module>converter-uml-code</module>
+    	<module>converter-code-test</module>
   </modules>
 
 	<properties>
