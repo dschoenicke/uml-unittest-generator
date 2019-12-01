@@ -97,7 +97,7 @@ public class TestPackage implements TestParent {
 	/**
 	 * Adds a {@link TestClass} to the list
 	 * 
-	 * @param the {@link TestClass} to add to the list
+	 * @param testClass the {@link TestClass} to add to the list
 	 */
 	public void addTestClass(TestClass testClass) {
 		testClasses.add(testClass);
