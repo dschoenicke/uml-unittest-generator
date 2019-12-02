@@ -16,7 +16,7 @@ public abstract class CodeElement implements CodeParent {
 	private String name;
 	
 	/**
-	 * The {@link CodeParent} of the element
+	 * The parent {@link CodeParent} of the element
 	 */
 	private CodeParent parent;
 	
@@ -61,7 +61,7 @@ public abstract class CodeElement implements CodeParent {
 	 * Initializes the lists of {@link CodeField}s, {@link CodeConstructor}s, {@link CodeMethod}s, {@link CodeTemplateBinding}s, {@link CodeTemplateParameter}s and nested {@link CodeElement}s.
 	 * 
 	 * @param name the name of the element
-	 * @param parent the {@link CodeParent} of the element
+	 * @param parent the parent {@link CodeParent} of the element
 	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the element
 	 * @param isAbstract determines whether the element is abstract
 	 * @param isStatic determines whether the element is static
@@ -104,16 +104,16 @@ public abstract class CodeElement implements CodeParent {
 	}
 
 	/**
-	 * Gets the {@link CodeParent} of the element
+	 * Gets the parent {@link CodeParent} of the element
 	 * 
-	 * @return the {@link CodeParent} of the element
+	 * @return the parent {@link CodeParent} of the element
 	 */
 	public CodeParent getParent() {
 		return parent;
 	}
 
 	/**
-	 * Sets the {@link CodeParent} of the element
+	 * Sets the parent {@link CodeParent} of the element
 	 * 
 	 * @param parent the {@link CodeParent} of the element
 	 */
@@ -245,5 +245,18 @@ public abstract class CodeElement implements CodeParent {
 	 */
 	public void setModifiers(int modifiers) {
 		this.modifiers = modifiers;
+	}
+	
+	/**
+	 * Gets the qualified name of the package by creating it out of its name and the name of the parent elements
+	 * 
+	 * @return the qualified name of the package
+	 */
+	public String getQualifiedName() {
+		if (parent instanceof CodePackage) {
+			return ((CodePackage) parent).getQualifiedName() + "." + this.name;
+		}
+		
+		return ((CodeElement) parent).getQualifiedName() + "." + this.name;
 	}
 }

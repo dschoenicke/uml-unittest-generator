@@ -1,6 +1,7 @@
 package mdxml;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Describes a constraining classifier of an {@link OwnedParameter} in an {@link OwnedTemplateSignature}.
@@ -14,6 +15,11 @@ public class ConstrainingClassifier {
 	 * References the {@link PackagedElement} which acts as the constraining classifier
 	 */
 	private String idref;
+	
+	/**
+	 * The extension holding the {@link ReferenceExtension} if the constraining classifier is a primitive type
+	 */
+	private Extension extension;
 	
 	/**
 	 * Default constructor
@@ -37,5 +43,24 @@ public class ConstrainingClassifier {
 	 */
 	public void setIdref(String idref) {
 		this.idref = idref;
+	}
+	
+	/**
+	 * Gets the {@link Extension} holding the {@link ReferenceExtension} to the primitive type acting as the constraining classifier
+	 * 
+	 * @return the {@link Extension} holding the {@link ReferenceExtension} to the primitive type acting as the constraining classifier
+	 */
+	@XmlElement(namespace = "http://www.omg.org/spec/XMI/20131001", name = "Extension")
+	public Extension getExtension() {
+		return extension;
+	}
+	
+	/**
+	 * Sets the {@link Extension} holding the {@link ReferenceExtension} to the primitive type acting as the constraining classifier
+	 * 
+	 * @param extension the {@link Extension} holding the {@link ReferenceExtension} to the primitive type acting as the constraining classifier
+	 */
+	public void setExtension(Extension extension) {
+		this.extension = extension;
 	}
 }

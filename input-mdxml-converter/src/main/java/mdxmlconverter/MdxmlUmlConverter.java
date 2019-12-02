@@ -119,7 +119,7 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	}
 	
 	/**
-	 * Auxiliary method to resolve references to {@link uml.UmlElement} to their name in {@link uml.UmlAttribute}- and {@link uml.UmlParameter} types
+	 * Auxiliary method to resolve references to {@link uml.UmlElement} to their name in {@link uml.UmlAttribute}-, {@link uml.UmlTemplateParameter}- and {@link uml.UmlParameter} types
 	 *  
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} containing the mappings from ids to their respective elements
 	 */
@@ -136,6 +136,10 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 		
 		tmpModel.getParameters().forEach((parameter) -> {
 			parameter.setType(DataTypeConverter.convertElementID(parameter.getType(), tmpModel));
+		});
+		
+		tmpModel.getTemplateParameterIDs().forEach((parameterid, templateParameter) -> {
+			templateParameter.setType(DataTypeConverter.convertElementID(templateParameter.getType(), tmpModel));
 		});
 	}
 }

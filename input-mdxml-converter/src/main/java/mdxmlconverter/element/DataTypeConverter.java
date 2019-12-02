@@ -53,7 +53,7 @@ public class DataTypeConverter {
 	 * @param extension the {@link mdxml.Extension} containing the {@link mdxml.ReferenceExtension} which contains the qualified name
 	 * @return the simple name of the data type
 	 */
-	private static String generateDataTypeString(Extension extension) {
+	public static String generateDataTypeString(Extension extension) {
 		String result = "";
 		
 		try {

@@ -20,22 +20,9 @@ public class CodeTemplateParameter {
 	
 	/**
 	 * The constraining type of the template parameter
-	 * Is empty if there is no constrain
+	 * Is 'java.lang.Object' if there is no constrain
 	 */
 	private String type;
-	
-	/**
-	 * Constructor with the name and {@link CodeParent} only, if there is no constraining type
-	 * In this case the type is left empty
-	 * 
-	 * @param name the name of the template parameter
-	 * @param parent the {@link CodeParent} of the template parameter
-	 */
-	public CodeTemplateParameter(String name, CodeParent parent) {
-		this.name = name;
-		this.parent = parent;
-		type = "";
-	}
 	
 	/**
 	 * Constructor with the name, {@link CodeParent} and a constraining type

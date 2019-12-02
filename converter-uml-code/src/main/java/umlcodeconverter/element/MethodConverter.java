@@ -39,7 +39,7 @@ public class MethodConverter {
 			CodeMethod method = new CodeMethod(
 					operation.getName(),
 					codeElement,
-					returnParameter.getName(),
+					returnParameter.getType(),
 					(returnParameter.getUpperValue() == UmlMultiplicityValue.INFINITE),
 					ModifierConverter.convertAccessModifier(operation.getVisibility()),
 					operation.isAbstract(),

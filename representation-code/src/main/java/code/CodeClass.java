@@ -26,7 +26,7 @@ public class CodeClass extends CodeElement {
 	 * Initializes the list of {@link CodeInterface}s implemented by this class
 	 * 
 	 * @param name the name of the class
-	 * @param parent the {@link CodeParent} of the class
+	 * @param parent the parent {@link CodeParent} of the class
 	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the class
 	 * @param isAbstract determines whether the class is abstract
 	 * @param isStatic determines whether the class is static

@@ -21,18 +21,24 @@ public class TestPackage implements TestParent {
 	private TestParent parent;
 	
 	/**
+	 * The list of sub {@link TestPackage}s of the package
+	 */
+	private ArrayList<TestPackage> packages;
+	
+	/**
 	 * The list of {@link TestClass}es of the package
 	 */
 	private ArrayList<TestClass> testClasses;
 	
 	/**
-	 * Constructor with name and {@link TestParent}, initializes the list of {@link TestClass}es.
+	 * Constructor with name and {@link TestParent}, initializes the list of {@link TestPackage}s and {@link TestClass}es.
 	 * @param name the name of the package
 	 * @param parent the {@link TestParent} of the package
 	 */
 	public TestPackage(String name, TestParent parent) {
 		this.name = name;
 		this.parent = parent;
+		packages = new ArrayList<>();
 		testClasses = new ArrayList<>();
 	}
 	
@@ -83,6 +89,24 @@ public class TestPackage implements TestParent {
 	 */
 	public void setParent(TestParent parent) {
 		this.parent = parent;
+	}
+	
+	/**
+	 * Gets the list of {@link TestPackage}s of the package
+	 * 
+	 * @return the list of {@link TestPackage}s of the package
+	 */
+	public ArrayList<TestPackage> getPackages() {
+		return packages;
+	}
+	
+	/**
+	 * Adds a {@link TestPackage} to the list
+	 * 
+	 * @param testPackage the {@link TestPackage} to add to the list
+	 */
+	public void addPackage(TestPackage testPackage) {
+		packages.add(testPackage);
 	}
 	
 	/**

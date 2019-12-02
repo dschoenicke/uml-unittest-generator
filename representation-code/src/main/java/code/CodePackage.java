@@ -112,4 +112,17 @@ public class CodePackage implements CodeParent {
 		
 		return ownedpackages;
 	}
+	
+	/**
+	 * Gets the qualified name of the package by creating it out of its name and the name of the parent elements
+	 * 
+	 * @return the qualified name of the package
+	 */
+	public String getQualifiedName() {
+		if (this.parent instanceof CodeRepresentation) {
+			return this.name;
+		}
+		
+		return ((CodePackage) this.parent).getQualifiedName() + "." + this.name;
+	}
 }

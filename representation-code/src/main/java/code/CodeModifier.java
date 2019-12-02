@@ -49,6 +49,24 @@ public class CodeModifier extends Modifier {
 	}
 	
 	/**
+	 * Returns a string containing the modifier names of the given set of modifiers
+	 * 
+	 * @param mod a set of modifiers
+	 * @return the string containing the modifier names
+	 */
+	public static String toString(int mod) {
+		String modifiers = "";
+		modifiers = (hasDefaultAccess(mod)) ? "default" : "";
+		modifiers += (isPublic(mod)) ? "public" : "";
+		modifiers += (isPrivate(mod)) ? "private" : "";
+		modifiers += (isProtected(mod)) ? "protected" : "";
+		modifiers += (isStatic(mod)) ? " static" : "";
+		modifiers += (isFinal(mod)) ? " final" : "";
+		modifiers += (isAbstract(mod)) ? " abstract" : "";
+		return modifiers;
+	}
+	
+	/**
 	 * Auxiliary method converting a boolean to an int value
 	 * 
 	 * @param bool the boolean to be converted

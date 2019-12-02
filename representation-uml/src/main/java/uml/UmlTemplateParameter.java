@@ -15,20 +15,9 @@ public class UmlTemplateParameter {
 	
 	/**
 	 * The constraining type of the template parameter
-	 * Is empty if there is no constrain
+	 * Is 'java.lang.Object' if there is no constrain
 	 */
 	private String type;
-	
-	/**
-	 * Constructor with the name only, if there is no constraining type
-	 * In this case the type is left empty
-	 * 
-	 * @param name the name of the template parameter
-	 */
-	public UmlTemplateParameter(String name) {
-		this.name = name;
-		type = "";
-	}
 	
 	/**
 	 * Constructor with the name and a constraining type

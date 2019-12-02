@@ -60,17 +60,18 @@ public class ElementConverter {
 	 * 
 	 * @param element the {@link uml.UmlElement} to be converted
 	 * @param umlPackage the {@link uml.UmlPackage} used to get the {@link code.CodePackage} out of the map of the {@link umlcodeconverter.temporary.TemporaryModel}. Can be {@literal null} in case of the conversion of a nested {@link uml.UmlElement} 
-	 * @param parent the {@link code.CodeParent} to add the converted {@link code.CodePackage} to. Can be {@literal null} in which case it needs to be taken out of the map in the {@link umlcodeconverter.temporary.TemporaryModel} with the {@link uml.UmlPackage} as key.
+	 * @param parent the {@link code.CodeParent} to add the converted {@link code.CodeElement} to. Can be {@literal null} in which case it needs to be taken out of the map in the {@link umlcodeconverter.temporary.TemporaryModel} with the {@link uml.UmlPackage} as key.
 	 * @param tmpModel the {@link umlcodeconverter.temporary.TemporaryModel} containing the maps to add temporary {@link code.CodeTemplateBinding}s and converted {@link code.CodeTemplateParameter}s and {@link code.CodeElement}s to
 	 * @return the converted {@link code.CodeElement}
 	 */
 	public static CodeElement convertElement(UmlElement element, UmlPackage umlPackage, CodeParent parent, TemporaryModel tmpModel) {
 		if (parent == null) {
-			parent = tmpModel.getConvertedPackages().get(umlPackage);
+			parent= tmpModel.getConvertedPackages().get(umlPackage);
 		}
 		
-		assertNotNull("There was no CodePackage found to add the CodeElement " + element.getName() + " to!", parent);
-		
+		assertNotNull("There was no CodePackage found to add the CodeElement " + element.getName() + " to!" +
+				(umlPackage != null ? ("\nA package with name " + umlPackage.getName() + " is expected!") : ""), parent);
+				
 		CodeElement codeElement = null;
 		
 		if (element instanceof UmlClass) {

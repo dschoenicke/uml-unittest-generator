@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 
+import mdxml.ConstrainingClassifier;
 import mdxml.OwnedParameter;
 import mdxml.OwnedTemplateSignature;
 import mdxmlconverter.temporary.TemporaryModel;
@@ -68,10 +69,24 @@ public class TemplateParameterConverter {
 			assertNotNull("The ownedParameteredElement of an ownedParameter must not be null!\nOccurance in ownedTemplateSignature with id " + signature.getId(), ownedParameter.getOwnedParameteredElement());
 			assertNotNull("The name of an ownedParameteredElement must not be null!\nOccurance in ownedParameteredElement with id " + signature.getId(), ownedParameter.getOwnedParameteredElement().getId());
 			
+			String constrainingClassifierString = "java.lang.Object";
+			ConstrainingClassifier constrainingClassifier = ownedParameter.getConstrainingClassifier();
+			
+			if (constrainingClassifier != null) {
+				if (constrainingClassifier.getIdref() != null) {
+					constrainingClassifierString = constrainingClassifier.getIdref(); 
+				}
+				else {
+					assertNotNull("The id and Extension of an ConstrainingClassifier must not both be null!\nOccurance in ownedParameter with id " + ownedParameter.getId(), constrainingClassifier.getExtension());
+					assertNotNull("The id and Extension.ReferenceExtension of an ConstrainingClassifier must not both be null!\nOccurance in ownedParameter with id " + ownedParameter.getId(), constrainingClassifier.getExtension().getReferenceExtension());
+					constrainingClassifierString = DataTypeConverter.generateDataTypeString(constrainingClassifier.getExtension());
+				}
+			}
+			
 			try {
 				UmlTemplateParameter templateParameter = new UmlTemplateParameter(
 						ownedParameter.getOwnedParameteredElement().getName(),
-						(ownedParameter.getConstrainingClassifier() != null) ? ownedParameter.getConstrainingClassifier().getIdref() : ""
+						constrainingClassifierString
 					);
 				tmpModel.addTemplateParameter(ownedParameter.getId(), templateParameter);
 				parameters.add(templateParameter);

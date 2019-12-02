@@ -56,7 +56,7 @@ public class RelationshipConverter {
 		UmlElement supplier = null;
 		UmlRelationshipType type = null;
 		
-		if (tmpRelationship.getClient() != null && tmpRelationship.getSupplier() != null) {
+		if (tmpRelationship.getClientId() != null && tmpRelationship.getSupplierId() != null) {
 			client = tmpModel.getElementIDs().get(tmpRelationship.getClientId());
 			supplier = tmpModel.getElementIDs().get(tmpRelationship.getSupplierId());
 			type = tmpRelationship.getType();

@@ -8,7 +8,6 @@ import code.CodeRepresentation;
 import uml.UmlAttribute;
 import uml.UmlClass;
 import uml.UmlElement;
-import uml.UmlInterface;
 import uml.UmlModel;
 import uml.UmlMultiplicityValue;
 import uml.UmlOperation;

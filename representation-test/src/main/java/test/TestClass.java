@@ -85,9 +85,9 @@ public class TestClass {
 	/**
 	 * Adds a {@link TestMethod} to the list
 	 * 
-	 * @param methods the {@link TestMethod} to add to the list
+	 * @param method the {@link TestMethod} to add to the list
 	 */
-	public void setMethods(ArrayList<TestMethod> methods) {
-		this.methods = methods;
+	public void addMethod(TestMethod method) {
+		methods.add(method);
 	}
 }
