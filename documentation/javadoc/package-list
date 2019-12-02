@@ -1,4 +1,9 @@
 code
+codetestconverter
+codetestconverter.assertions
+codetestconverter.packages
+codetestconverter.temporary
+codetestconverter.testclass
 core
 coretest
 coretest.auxiliary
