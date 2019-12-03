@@ -1,52 +1,34 @@
 package umlcodeconverter;
 
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
+import org.junit.Test;
 
 import code.CodeRepresentation;
-import uml.UmlAttribute;
 import uml.UmlClass;
-import uml.UmlElement;
 import uml.UmlModel;
-import uml.UmlMultiplicityValue;
-import uml.UmlOperation;
-import uml.UmlParameter;
-import uml.UmlParameterDirection;
-import uml.UmlVisibility;
+import uml.UmlPackage;
 
+/**
+ * Tests the {@link UmlCodeConverter}.
+ * 
+ * @author dschoenicke
+ *
+ */
 public class UmlCodeConverterTest {
 	
-	private UmlModel umlModel;
-	private CodeRepresentation codeRepresentation;
-	private ArrayList<UmlElement> umlElements;
-	private ArrayList<UmlOperation> umlOperations;
-	private ArrayList<UmlAttribute> umlAttributes;
-	
-	@Before
-	public void init() {
-		umlModel = new UmlModel("TestModel");
-		UmlClass testClass = new UmlClass("TestClass", UmlVisibility.PUBLIC);
-		testClass.addAttribute(new UmlAttribute("TestClassAttribute",
-					UmlVisibility.PRIVATE,
-					"String",
-					true,
-					false,
-					"",
-					UmlMultiplicityValue.ONE,
-					UmlMultiplicityValue.INFINITE
-				));
-		
-		UmlOperation testClassConstructor = new UmlOperation("TestModel", UmlVisibility.PROTECTED);
-		testClassConstructor.addParameter(new UmlParameter("testParameter", "int", UmlParameterDirection.RETURN, false));
-		testClass.addOperation(testClassConstructor);
-		
-		//UmlInterface testInterface = new UmlInterface() {
-			
-		//}
-	}
-	
-	public UmlModel getUmlModel() {
-		return umlModel;
+	/**
+	 * Checks if {@link UmlCodeConverter#convertUmlToCodeRepresentation} assigns the name of the {@link uml.UmlModel} to the {@link code.CodeRepresentation}.
+	 */
+	@Test
+	public void testUmlCodeConverter() {
+		UmlModel mockUmlModel = new UmlModel("testmodel");
+		UmlPackage mockUmlPackage = new UmlPackage("testpackage");
+		UmlClass mockUmlClass = new UmlClass("testclass", null);
+		mockUmlModel.addElement(mockUmlClass);
+		mockUmlModel.addPackage(mockUmlPackage);
+		UmlCodeConverter converter = new UmlCodeConverter();
+		CodeRepresentation codeRepresentation = converter.convertUmlToCodeRepresentation(mockUmlModel);
+		assertEquals(codeRepresentation.getName(), mockUmlModel.getName());
 	}
 }

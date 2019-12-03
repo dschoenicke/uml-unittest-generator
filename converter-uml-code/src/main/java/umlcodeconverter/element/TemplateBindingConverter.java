@@ -47,7 +47,7 @@ public class TemplateBindingConverter {
 	 * @param codeParent the {@link code.CodeParent} to add the converted {@link code.CodeTemplateBinding} to
 	 * @param tmpModel the {@link umlcodeconverter.temporary.TemporaryModel} containing the map to add the temporary {@link code.CodeTemplateBinding} to
 	 */
-	private static void convertTemporaryTemplateBinding(UmlTemplateBinding templateBinding, CodeParent codeParent, TemporaryModel tmpModel) {
+	static void convertTemporaryTemplateBinding(UmlTemplateBinding templateBinding, CodeParent codeParent, TemporaryModel tmpModel) {
 		CodeTemplateBinding codeTemplateBinding = new CodeTemplateBinding();
 		tmpModel.addTemporaryTemplateBinding(codeTemplateBinding, templateBinding.getParameterSubstitutions());
 		

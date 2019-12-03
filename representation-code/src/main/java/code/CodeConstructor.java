@@ -9,11 +9,6 @@ import java.util.ArrayList;
  *
  */
 public class CodeConstructor implements CodeParent {
-
-	/**
-	 * The name of the constructor
-	 */
-	private String name;
 	
 	/**
 	 * The {@link CodeParent} of the constructor
@@ -41,20 +36,14 @@ public class CodeConstructor implements CodeParent {
 	private ArrayList<CodeTemplateParameter> templateParameters;
 	
 	/**
-	 * Constructor with name, {@link CodeParent} and modifiers.
+	 * Constructor with {@link CodeParent} and modifiers.
 	 * The modifiers are converted to an int value usable for the {@link CodeModifier} constructors.<br>
 	 * Initializes the lists for {@link CodeParameter}s, {@link CodeTemplateBinding}s and {@link CodeTemplateParameter}s
 	 * 
-	 * @param name the name of the constructor
 	 * @param parent the {@link CodeParent} element of the constructor
 	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the field
 	 */
-	public CodeConstructor(String name,
-			CodeParent parent,
-			CodeVisibility visibility
-			) {
-		
-		this.name = name;
+	public CodeConstructor(CodeParent parent, CodeVisibility visibility) {
 		this.parent = parent;
 		this.modifiers = CodeModifier.convertModifierValue(visibility, false, false, false);
 		parameters = new ArrayList<CodeParameter>();
@@ -69,16 +58,7 @@ public class CodeConstructor implements CodeParent {
 	 * @return the name of the constructor
 	 */
 	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name of the constructor
-	 * 
-	 * @param name the name of the constructor
-	 */
-	public void setName(String name) {
-		this.name = name;
+		return parent.getName();
 	}
 	
 	/**

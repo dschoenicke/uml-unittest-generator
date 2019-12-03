@@ -20,20 +20,22 @@ public class ModifierConverter {
 	public static CodeVisibility convertAccessModifier(UmlVisibility visibility) {
 		CodeVisibility codeVisibility = CodeVisibility.DEFAULT;
 		
-		switch (visibility) {
-			case PUBLIC: {
-				codeVisibility = CodeVisibility.PUBLIC;
-				break;
+		if (visibility != null) {
+			switch (visibility) {
+				case PUBLIC: {
+					codeVisibility = CodeVisibility.PUBLIC;
+					break;
+				}
+				case PRIVATE: {
+					codeVisibility = CodeVisibility.PRIVATE;
+					break;
+				}
+				case PROTECTED: {
+					codeVisibility = CodeVisibility.PROTECTED;
+					break;
+				}
+				default: break;
 			}
-			case PRIVATE: {
-				codeVisibility = CodeVisibility.PRIVATE;
-				break;
-			}
-			case PROTECTED: {
-				codeVisibility = CodeVisibility.PROTECTED;
-				break;
-			}
-			default: break;
 		}
 		
 		return codeVisibility;

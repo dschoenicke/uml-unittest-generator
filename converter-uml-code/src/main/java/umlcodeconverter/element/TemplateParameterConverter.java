@@ -48,7 +48,7 @@ public class TemplateParameterConverter {
 	 * @param tmpModel the {@link umlcodeconverter.temporary.TemporaryModel} containing the maps for converted {@link code.CodeTemplateParameter}s
 	 * @return the converted {@link code.CodeTemplateParameter}
 	 */
-	private static CodeTemplateParameter convertTemplateParameter(UmlTemplateParameter templateParameter, CodeParent codeParent, TemporaryModel tmpModel) {
+	 static CodeTemplateParameter convertTemplateParameter(UmlTemplateParameter templateParameter, CodeParent codeParent, TemporaryModel tmpModel) {
 		CodeTemplateParameter codeTemplateParameter = new CodeTemplateParameter(templateParameter.getName(), codeParent, templateParameter.getType());
 		tmpModel.addConvertedTemplateParameter(templateParameter, codeTemplateParameter);
 		return codeTemplateParameter;

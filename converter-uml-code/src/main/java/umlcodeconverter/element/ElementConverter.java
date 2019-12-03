@@ -100,7 +100,7 @@ public class ElementConverter {
 					((UmlEnumeration) element).isStatic(),
 					false
 				);
-			
+		
 			LiteralConverter.convertLiterals((UmlEnumeration) element, (CodeEnumeration) codeElement);
 		}
 		

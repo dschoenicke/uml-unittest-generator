@@ -50,8 +50,8 @@ public class PackageConverter {
 			((CodePackage) parent).addPackage(codePackage);
 		}
 		
-		tmpModel.addConvertedPackage(umlPackage, codePackage);
 		assertNotNull("The conversion of UmlPackage " + umlPackage.getName() + " failed!", codePackage);
+		tmpModel.addConvertedPackage(umlPackage, codePackage);
 		convertPackages(umlPackage.getPackages(), codePackage, tmpModel);
 	}
 }

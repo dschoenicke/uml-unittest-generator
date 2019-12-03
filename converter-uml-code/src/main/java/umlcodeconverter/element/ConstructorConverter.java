@@ -29,11 +29,8 @@ public class ConstructorConverter {
 				continue;
 			}
 			
-			CodeConstructor constructor = new CodeConstructor(
-					operation.getName(),
-					codeElement,
-					ModifierConverter.convertAccessModifier(operation.getVisibility())
-				);
+			CodeConstructor constructor = new CodeConstructor(codeElement,
+					ModifierConverter.convertAccessModifier(operation.getVisibility()));
 			
 			ParameterConverter.convertParameters(operation, constructor);
 			TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), constructor, tmpModel);

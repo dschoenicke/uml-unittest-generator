@@ -52,7 +52,7 @@ public class ParameterConverter {
 	 * @param parent the {@link code.CodeParent} to which the converted {@link code.CodeParameter} should be added to
 	 * @return the converted {@link code.CodeParameter}
 	 */
-	private static CodeParameter createParameter(UmlParameter parameter, CodeParent parent) {
+	static CodeParameter createParameter(UmlParameter parameter, CodeParent parent) {
 		return new CodeParameter(
 						parameter.getName(),
 						parent,
