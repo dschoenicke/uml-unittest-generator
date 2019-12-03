@@ -44,6 +44,8 @@ public class DataTypeConverter {
 			return elementReference;
 		}
 		
+		assertNotNull("The dataType must not be null!", actual);
+		assertNotNull("The extension of the actual must not be null!", actual.getExtension());
 		return generateDataTypeString(actual.getExtension());
 	}
 	
@@ -54,13 +56,10 @@ public class DataTypeConverter {
 	 * @return the simple name of the data type
 	 */
 	public static String generateDataTypeString(Extension extension) {
-		String result = "";
-		
-		try {
-			result = extension.getReferenceExtension().getReferentPath();
-			result = result.substring(result.lastIndexOf("::") + 2);
-		}
-		catch(NullPointerException np) {}
+		assertNotNull("The ReferenceExtension of the Extension must not be null!", extension.getReferenceExtension());
+		assertNotNull("The ReferentPath of the ReferenceExtension must not be null!", extension.getReferenceExtension().getReferentPath());
+		String result = extension.getReferenceExtension().getReferentPath();
+		result = result.substring(result.lastIndexOf("::") + 2);
 		
 		return result;
 	}

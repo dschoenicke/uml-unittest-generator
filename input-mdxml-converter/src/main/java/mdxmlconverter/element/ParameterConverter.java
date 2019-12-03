@@ -32,7 +32,7 @@ public class ParameterConverter {
 			assertFalse("The name of an ownedParameter with direction 'in' must not be null!\nOccurance in " + operation.getName() + "() with id " + ownedOperation.getId(), (ownedParameter.getName() == null && ownedParameter.getDirection().equals("in")));
 			
 			UmlParameter parameter = new UmlParameter(
-					ownedParameter.getName(),
+					(ownedParameter.getName() == null) ? "" : ownedParameter.getName(),
 					DataTypeConverter.convertDataType(ownedParameter.getAssociationType(), ownedParameter.getDataType()),
 					ParameterDirectionConverter.convertDirection(ownedParameter.getDirection()),
 					ModifierConverter.convertNonAccessModifier(ownedParameter.getIsFinal()),

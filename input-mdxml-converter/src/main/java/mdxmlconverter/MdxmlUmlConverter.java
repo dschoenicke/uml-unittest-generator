@@ -65,7 +65,7 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to add the converted element to
 	 * @param parent the parent {@link uml.UmlParent} where the converted element should be added to
 	 */
-	private void convertPackagedElement(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
+	void convertPackagedElement(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
 		assertNotNull("The id of a PackagedElement must not be null!", packagedElement.getId());
 		assertNotNull("The xmi:type of a PackagedElement must not be null!\nOccurance in PackagedElement with id " + packagedElement.getType(), packagedElement.getId());
 		
@@ -123,7 +123,7 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	 *  
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} containing the mappings from ids to their respective elements
 	 */
-	private void resolveDataTypeReferences(TemporaryModel tmpModel) {
+	void resolveDataTypeReferences(TemporaryModel tmpModel) {
 		tmpModel.getRelationships().forEach((relationship) -> {
 			if (relationship instanceof TemporaryRelationship) {
 				RelationshipConverter.convertTemporaryRelationship((TemporaryRelationship)relationship, tmpModel);

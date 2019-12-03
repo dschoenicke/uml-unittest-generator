@@ -61,13 +61,13 @@ public class TemplateParameterConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link uml.UmlTemplateParameter}s should be added
 	 * @return a list of converted{@link uml.UmlTemplateParameter}s
 	 */
-	private static ArrayList<UmlTemplateParameter> convertTemplateParameters(OwnedTemplateSignature signature, TemporaryModel tmpModel) {
+	public static ArrayList<UmlTemplateParameter> convertTemplateParameters(OwnedTemplateSignature signature, TemporaryModel tmpModel) {
 		ArrayList<UmlTemplateParameter> parameters = new ArrayList<>();
 		
 		for (OwnedParameter ownedParameter : signature.getOwnedParameters()) {
 			assertNotNull("The id of an ownedParameter must not be null!\nOccurance in ownedTemplateSignature with id " + signature.getId(), ownedParameter.getId());
 			assertNotNull("The ownedParameteredElement of an ownedParameter must not be null!\nOccurance in ownedTemplateSignature with id " + signature.getId(), ownedParameter.getOwnedParameteredElement());
-			assertNotNull("The name of an ownedParameteredElement must not be null!\nOccurance in ownedParameteredElement with id " + signature.getId(), ownedParameter.getOwnedParameteredElement().getId());
+			assertNotNull("The name of an ownedParameteredElement must not be null!\nOccurance in ownedParameteredElement with id " + signature.getId(), ownedParameter.getOwnedParameteredElement().getName());
 			
 			String constrainingClassifierString = "java.lang.Object";
 			ConstrainingClassifier constrainingClassifier = ownedParameter.getConstrainingClassifier();
@@ -83,14 +83,9 @@ public class TemplateParameterConverter {
 				}
 			}
 			
-			try {
-				UmlTemplateParameter templateParameter = new UmlTemplateParameter(
-						ownedParameter.getOwnedParameteredElement().getName(),
-						constrainingClassifierString
-					);
-				tmpModel.addTemplateParameter(ownedParameter.getId(), templateParameter);
-				parameters.add(templateParameter);
-			} catch(NullPointerException np) {}
+			UmlTemplateParameter templateParameter = new UmlTemplateParameter(ownedParameter.getOwnedParameteredElement().getName(), constrainingClassifierString);
+			tmpModel.addTemplateParameter(ownedParameter.getId(), templateParameter);
+			parameters.add(templateParameter);
 		}
 		
 		return parameters;

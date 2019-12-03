@@ -25,9 +25,9 @@ public class NestedElementConverter {
 	 */
 	public static void convertNestedElements(PackagedElement packagedElement, UmlElement element, TemporaryModel tmpModel, UmlParent parent) {
 		for (PackagedElement innerElement : packagedElement.getNestedClassifiers()) {
-			assertNotNull("The id of a nestedClassifier must not be null!\nOccurance in " + element.getName(), packagedElement.getId());
-			assertNotNull("The xmi:type of a nestedClassifier must not be null!\nOccurance in PackagedElement with id " + packagedElement.getType(), packagedElement.getId());
-			assertNotNull("The name of a nestedClassifier must not be null!\nOccurance in nestedClassifier with id " + packagedElement.getId(), packagedElement.getName());
+			assertNotNull("The id of a nestedClassifier must not be null!\nOccurance in " + element.getName(), innerElement.getId());
+			assertNotNull("The xmi:type of a nestedClassifier must not be null!\nOccurance in PackagedElement with id " + packagedElement.getId(), innerElement.getType());
+			assertNotNull("The name of a nestedClassifier must not be null!\nOccurance in nestedClassifier with id " + packagedElement.getId(), innerElement.getName());
 			
 			element.addInnerElement(ElementConverter.convertElement(innerElement, tmpModel, parent));
 		}

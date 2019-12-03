@@ -52,11 +52,12 @@ public class TemplateBindingConverter {
 	 * @param templateBindings the list of {@link mdxml.TemplateBinding}s which should be converted
 	 * @return the list of converted {@link mdxmlconverter.temporary.TemporaryTemplateBinding}s
 	 */
-	private static ArrayList<TemporaryTemplateBinding> convertTemporaryTemplateBindings(ArrayList<TemplateBinding> templateBindings) {
+	public static ArrayList<TemporaryTemplateBinding> convertTemporaryTemplateBindings(ArrayList<TemplateBinding> templateBindings) {
 		ArrayList<TemporaryTemplateBinding> tmpBindings = new ArrayList<>();
 		
 		for (TemplateBinding templateBinding : templateBindings) {
 			TemporaryTemplateBinding tmpBinding = new TemporaryTemplateBinding();
+			tmpBindings.add(tmpBinding);
 			
 			for (ParameterSubstitution parameterSubstitution : templateBinding.getParameterSubstitutions()) {
 				assertNotNull("The formal of a parameterSubstitution must not be null!\nOccurance in parameterSubstitution with id " + parameterSubstitution.getId(), parameterSubstitution.getFormal());
