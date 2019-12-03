@@ -3,6 +3,8 @@ package mdxmlconverter.relationship;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,6 +40,11 @@ public class GeneralizationConverterTest {
 	private TemporaryModel mockTmpModel;
 	
 	/**
+	 * A {@link mdxml.PackagedElement} acting as a nest host to test {@link mdxmlconverter.relationship.GeneralizationConverter#convertNestedGeneralizations}.
+	 */
+	private PackagedElement parentElement;
+	
+	/**
 	 * Initializes the needed mock elements
 	 */
 	@Before
@@ -48,6 +55,10 @@ public class GeneralizationConverterTest {
 		mockGeneralization.setGeneral("generalID");
 		mockPackagedElement.setGeneralization(mockGeneralization);
 		mockTmpModel = new TemporaryModel();
+		parentElement = new PackagedElement();
+		ArrayList<PackagedElement> elementList = new ArrayList<>();
+		elementList.add(mockPackagedElement);
+		parentElement.setNestedClassifiers(elementList);
 	}
 	
 	/**
@@ -72,6 +83,20 @@ public class GeneralizationConverterTest {
 		UmlPackage mockPackage = new UmlPackage("mockPackage");
 		TemporaryRelationship tmpRelationship = GeneralizationConverter.convertGeneralization(mockPackagedElement, mockTmpModel, mockPackage);
 		assertTrue(mockTmpModel.getRelationships().contains(tmpRelationship));
+		assertTrue(mockPackage.getRelationships().contains(tmpRelationship));
+		assertEquals(tmpRelationship.getClientId(), mockPackagedElement.getId());
+		assertEquals(tmpRelationship.getSupplierId(), mockGeneralization.getGeneral());
+		assertEquals(tmpRelationship.getType(), UmlRelationshipType.GENERALIZATION);
+	}
+	
+	/**
+	 * Tests {@link GeneralizationConverter#convertNestedGeneralizations}
+	 */
+	@Test
+	public void testNestedGeneralizationConverter() {
+		UmlPackage mockPackage = new UmlPackage("mockPackage");
+		GeneralizationConverter.convertNestedGeneralizations(parentElement, mockTmpModel, mockPackage);
+		TemporaryRelationship tmpRelationship = (TemporaryRelationship) mockTmpModel.getRelationships().get(0);
 		assertTrue(mockPackage.getRelationships().contains(tmpRelationship));
 		assertEquals(tmpRelationship.getClientId(), mockPackagedElement.getId());
 		assertEquals(tmpRelationship.getSupplierId(), mockGeneralization.getGeneral());
