@@ -43,7 +43,7 @@ public class PropertyAssertionConverter {
 			codeElement.getQualifiedName() + " is expected to be an interface!"));
 		} 
 		else if (codeElement instanceof CodeEnumeration) {
-			testMethod.addAssertion(new TestAssertion(TestAssertionType.ISINTERFACE, 
+			testMethod.addAssertion(new TestAssertion(TestAssertionType.ISENUMERATION, 
 			codeElement.getQualifiedName() + " is expected to be an enumeration!"));
 		}
 		

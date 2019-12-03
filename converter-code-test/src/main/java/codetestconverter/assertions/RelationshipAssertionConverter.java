@@ -29,7 +29,7 @@ public class RelationshipAssertionConverter {
 	 */
 	public static void createRelationshipAssertions(CodeElement codeElement, TestMethod testMethod) {
 		CodeElement superClass = null;
-		ArrayList<CodeElement> superInterfaces = new ArrayList<>();
+		ArrayList<CodeInterface> superInterfaces = new ArrayList<>();
 		
 		if (codeElement instanceof CodeClass) {
 			superClass = ((CodeClass) codeElement).getSuperClass();
@@ -65,7 +65,7 @@ public class RelationshipAssertionConverter {
 	 * @param superClass the {@link code.CodeElement} acting as the super class, can be {@literal null}
 	 * @return the created {@link test.TestAssertion}
 	 */
-	private static TestAssertion createSuperClassAssertion(CodeElement codeElement, CodeElement superClass) {
+	static TestAssertion createSuperClassAssertion(CodeElement codeElement, CodeElement superClass) {
 		TestAssertion assertion = null;
 		
 		if (superClass == null) {
@@ -85,17 +85,17 @@ public class RelationshipAssertionConverter {
 	 * and whether the {@link code.CodeElement} implements a specific super interface.
 	 * 
 	 * @param codeElement the {@link code.CodeElement} which super interfaces should be checked.
-	 * @param superInterfaces a list of {@link code.CodeElement}s acting as super interfaces of the given {@link code.CodeElement}, for which the {@link test.TestAssertion}s should be created.
+	 * @param arrayList a list of {@link code.CodeElement}s acting as super interfaces of the given {@link code.CodeElement}, for which the {@link test.TestAssertion}s should be created.
 	 * @return the list of created {@link test.TestAssertion}s
 	 */
-	private static ArrayList<TestAssertion> createSuperInterfaceAssertions(CodeElement codeElement, ArrayList<CodeElement> superInterfaces) {
+	static ArrayList<TestAssertion> createSuperInterfaceAssertions(CodeElement codeElement, ArrayList<CodeInterface> arrayList) {
 		ArrayList<TestAssertion> assertions = new ArrayList<TestAssertion>();
 		String keyword = (codeElement instanceof CodeInterface ? "extend" : "implement");
 		assertions.add(new TestAssertion(TestAssertionType.COUNT,
-				codeElement.getName() + " is expected to " + keyword + " " + superInterfaces.size() + " Interfaces!"));
+				codeElement.getName() + " is expected to " + keyword + " " + arrayList.size() + " Interfaces!"));
 		
 		
-		for (CodeElement superInterface : superInterfaces) {
+		for (CodeElement superInterface : arrayList) {
 			assertions.add(new TestAssertion(TestAssertionType.HASSUPERINTERFACE,
 					codeElement.getName() + " is expected to " + keyword + " the interface " + superInterface.getName() + "!"));
 		}
