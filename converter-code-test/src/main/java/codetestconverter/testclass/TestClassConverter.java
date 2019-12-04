@@ -37,7 +37,7 @@ public class TestClassConverter {
 	 * @param codeElement the {@link code.CodeElement} to be converted.
 	 * @param parentPackage the {@link test.TestPackage} to which the converted {@link test.TestClass} should be added.
 	 */
-	private static void convertTestClass(CodeElement codeElement, TestPackage parentPackage) {
+	static void convertTestClass(CodeElement codeElement, TestPackage parentPackage) {
 		TestClass testClass = new TestClass(codeElement.getName() + "Test", parentPackage);
 		parentPackage.addTestClass(testClass);
 		TestMethodConverter.createTestMethods(codeElement, testClass);

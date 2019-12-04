@@ -30,7 +30,7 @@ public class ConstructorAssertionConverter {
 					codeElement.getConstructors().size() + " constructors!"));
 
 		for (CodeConstructor codeConstructor : codeElement.getConstructors()) {
-			String parameterList = ParameterConverter.createParameterList(codeConstructor.getParameters());
+			String parameterList = ParameterConverter.createParameterTypeList(codeConstructor.getParameters());
 			
 			testMethod.addAssertion(new TestAssertion(TestAssertionType.HASCONSTRUCTOR,
 				codeElement.getQualifiedName() + " is expected to have a constructor with\n" + 

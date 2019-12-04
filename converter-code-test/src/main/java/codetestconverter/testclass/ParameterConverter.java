@@ -18,7 +18,7 @@ public class ParameterConverter {
 	 * @param parameters the {@link code.CodeParameter}s to be converted into a string.
 	 * @return the converted string enumerating the given {@link code.CodeParameter}s.
 	 */
-	public static String createParameterList(ArrayList<CodeParameter> parameters) {
+	public static String createParameterTypeList(ArrayList<CodeParameter> parameters) {
 		String parameterList = "";
 		
 		for (CodeParameter parameter : parameters) {

@@ -30,7 +30,7 @@ public class MethodAssertionConverter {
 					codeElement.getMethods().size() + " methods!"));
 	
 		for (CodeMethod codeMethod : codeElement.getMethods()) {
-			String parameterList = ParameterConverter.createParameterList(codeMethod.getParameters());
+			String parameterList = ParameterConverter.createParameterTypeList(codeMethod.getParameters());
 			
 			testMethod.addAssertion(new TestAssertion(TestAssertionType.HASMETHOD,
 				codeElement.getQualifiedName() + " is expected to have a method " + codeMethod.getName() + 
