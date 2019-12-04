@@ -93,6 +93,7 @@ out of a _CodeVisibility_ and boolean values for the _static_, _final_ and _abst
 While the UML representation can contain _CodeElements_ at the top level without a _UmlPackage_, the _CodeElements_ without a package in the diagram
 are grouped into a _CodePackage_ with the name of the model.
 
+[#test-representation]
 === Test-Representation
 link:javadoc/test/package-summary.html[Javadoc of the test package]
 
@@ -155,5 +156,53 @@ To convert an uml class diagram to the _UML representation_ follow these steps:
 == Output
 * Description of how to implement an output representation and converter
 
-== Tests
-* Description of the test strategy
+== Test Plan
+This section provides an overview about the jUnit Tests of the application.
+
+=== Representations
+Since the different representations of the _core_ project mainly contain getter and setter methods, only additional functionality is tested. The additional tested functions are:
+
+==== UML Representation
+[options="header"]
+|===
+|Method | Tested in: 
+|uml.UmlModel.getPackagesAsList() | umltest.UmlModelTests.testPackagesAsList()
+|uml.UmlModel.getElementsAsList() | umltest.UmlModelTests.testElementsAsList()
+|uml.UmlModel.getRelationshipsAsList() | umltest.UmlModelTests.testRelationshipsAsList()
+|uml.UmlPackage.getPackagesAsList() | umltest.UmlPackageTests.testPackagesAsList()
+|uml.UmlPackage.getElementsAsList() | umltest.UmlPackageTests.testElementsAsList()
+|uml.UmlPackage.getRelationshipsAsList() | umltest.UmlPackageTests.testRelationshipsAsList()
+|=== 
+
+==== Code Representation
+[options="header"]
+|===
+|Method | Tested in: 
+|code.CodeRepresentation.getPackagesAsList() | codetest.CodeRepresentationTests.testPackagesAsList()
+|code.CodePackage.getPackagesAsList() | codetest.CodePackageTests.testPackagesAsList()
+|code.CodePackage.getElementsAsList() | codetest.CodePackageTests.testElementsAsList()
+|code.CodePackage.getQualifiedName() | codetest.CodePackageTests.testQualifiedName()
+|code.CodeElement.getQualifiedName() | codetest.CodeElementTest.testQualifiedName()
+|code.CodeModifier.hasDefaultAccess() | codetest.CodeModifierTests.testDefaultAccess()
+|code.CodeModifier.convertModifierValue() | codetest.CodeModifierTests.testModifierValueConversion()
+|===
+
+==== Test Representation
+[options="header"]
+|===
+|Method | Tested in: 
+|test.TestPackage.getQualifiedName() | test.TestPackageTest.testQualifiedName()
+|test.TestClass.getQualifiedName() | test.TestClassTest.testQualifiedName()
+|===
+
+=== Converters
+The two <<#converters>> provide unit tests for all of their functions. The _core_ project contains an 
+End-to-End test in which a given diagram is converted to its <<#test-representation>>. During the conversion process,
+the created representations are compared to each other to check, if all elements have been converted correctly. +
+It is possible to extend this End-to-End test with other input diagrams of different input representations. +
+The End to End tests can be found in _core/src/test/e2e_.
+
+=== Input/Output Converters
+Input and output converters and potential representations related to them have to be tested independently. This includes unit tests for additional
+functionalities of the representation (getters and setters don't have to be tested!). For the converter, unit tests as well as an integration test
+must be provided.
