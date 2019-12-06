@@ -23,10 +23,10 @@ uml-unittest-converter
 ├── core
 ├── input-mdxml-converter
 ├── input-mdxml-representation
+├── output-junit-converter
 ├── representation-code
 ├── representation-test
 ├── representation-uml
-More projects to follow
 ....
 
 The different projects containing the internal representations are designated with

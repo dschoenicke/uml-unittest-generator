@@ -20,6 +20,7 @@
     	<module>representation-test</module>
     	<module>converter-uml-code</module>
     	<module>converter-code-test</module>
+    	<module>output-junit-converter</module>
   </modules>
 
 	<properties>
