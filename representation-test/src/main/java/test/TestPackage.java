@@ -67,7 +67,7 @@ public class TestPackage implements TestParent {
 	 */
 	public String getQualifiedName() {
 		if (this.parent instanceof TestRepresentation) {
-			return this.parent.getName() + "." + this.name;
+			return this.name;
 		}
 		
 		return ((TestPackage) this.parent).getQualifiedName() + "." + this.name;
@@ -125,5 +125,21 @@ public class TestPackage implements TestParent {
 	 */
 	public void addTestClass(TestClass testClass) {
 		testClasses.add(testClass);
+	}
+	
+	/**
+	 * Gets all {@link TestClass}es of the package and its sub packages.
+	 * 
+	 * @return all {@link TestClass}es of the package and its sub packages.
+	 */
+	public ArrayList<TestClass> getTestClassesAsList() {
+		ArrayList<TestClass> returnTestClasses = new ArrayList<>();
+		returnTestClasses.addAll(this.getTestClasses());
+		
+		for (TestPackage subPackage : this.getPackages()) {
+			returnTestClasses.addAll(subPackage.getTestClassesAsList());
+		}
+		
+		return returnTestClasses;
 	}
 }

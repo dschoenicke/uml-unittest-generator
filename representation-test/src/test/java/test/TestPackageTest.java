@@ -34,7 +34,6 @@ public class TestPackageTest {
 	 */
 	@Test
 	public void testQualifiedName() {
-		assertEquals(mockSubPackage.getQualifiedName(), mockParentPackage.getParent().getName() + "." + 
-				mockParentPackage.getName() + "." + mockSubPackage.getName());
+		assertEquals(mockSubPackage.getQualifiedName(), mockParentPackage.getName() + "." + mockSubPackage.getName());
 	}
 }

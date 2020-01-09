@@ -1,6 +1,6 @@
 package test;
 
-import java.util.ArrayList;
+import test.testobjects.ClassUnderTest;
 
 /**
  * Represents a test class, which contains reflection bases {@link TestMethod}s for its properties, fields, constructors and methods
@@ -21,9 +21,9 @@ public class TestClass {
 	private TestPackage parent;
 	
 	/**
-	 * The list of {@link TestMethod}s executed in this test class
+	 * The {@link test.testobjects.ClassUnderTest} which this test class contains the tests for.
 	 */
-	private ArrayList<TestMethod> methods;
+	private ClassUnderTest classUnderTest;
 	
 	/**
 	 * Constructor with name and parent {@link TestPackage}, initializes the list of {@link TestMethod}s
@@ -34,7 +34,6 @@ public class TestClass {
 	public TestClass(String name, TestPackage parent) {
 		this.name = name;
 		this.parent = parent;
-		methods = new ArrayList<>();
 	}
 
 	/**
@@ -74,20 +73,29 @@ public class TestClass {
 	}
 
 	/**
-	 * Gets the list of {@link TestMethod}s of the test class
+	 * Gets the {@link test.testobjects.ClassUnderTest} which this test class contains the tests for.
 	 * 
-	 * @return the list of {@link TestMethod}s of the test class
+	 * @return the {@link test.testobjects.ClassUnderTest} which this test class contains the tests for.
 	 */
-	public ArrayList<TestMethod> getMethods() {
-		return methods;
+	public ClassUnderTest getClassUnderTest() {
+		return classUnderTest;
 	}
-
+	
 	/**
-	 * Adds a {@link TestMethod} to the list
+	 * Sets the {@link test.testobjects.ClassUnderTest} which this test class contains the tests for.
 	 * 
-	 * @param method the {@link TestMethod} to add to the list
+	 * @param classUnderTest the {@link test.testobjects.ClassUnderTest} which this test class contains the tests for.
 	 */
-	public void addMethod(TestMethod method) {
-		methods.add(method);
+	public void setClassUnderTest(ClassUnderTest classUnderTest) {
+		this.classUnderTest = classUnderTest;
+	}
+	
+	/**
+	 * Gets the qualified name of the test class
+	 * 
+	 * @return the qualified name of the test class
+	 */
+	public String getQualifiedName() {
+		return this.parent.getQualifiedName() + "." + this.name;
 	}
 }

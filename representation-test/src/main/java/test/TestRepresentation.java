@@ -64,4 +64,19 @@ public class TestRepresentation implements TestParent {
 	public void addPackage(TestPackage testPackage) {
 		packages.add(testPackage);
 	}
+	
+	/**
+	 * Gets all {@link TestClass}es of the representation and its {@link TestPackages}.
+	 * 
+	 * @return all {@link TestClass}es of the representation and its {@link TestPackages}.
+	 */
+	public ArrayList<TestClass> getTestClassesAsList() {
+		ArrayList<TestClass> returnTestClasses = new ArrayList<>();
+		
+		for (TestPackage subPackage : this.getPackages()) {
+			returnTestClasses.addAll(subPackage.getTestClassesAsList());
+		}
+		
+		return returnTestClasses;
+	}
 }
