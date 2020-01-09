@@ -31,8 +31,7 @@ public class CodeTestConverter {
 		TestRepresentation testRepresentation = new TestRepresentation(codeRepresentation.getName());
 		TemporaryModel tmpModel = new TemporaryModel();
 		PackageConverter.convertPackages(codeRepresentation, testRepresentation, tmpModel);
-		TestClassConverter.convertTestClasses(testRepresentation.getPackages(), tmpModel);
-		
+		TestClassConverter.convertTestClasses(tmpModel);
 		return testRepresentation;
 	}
 }

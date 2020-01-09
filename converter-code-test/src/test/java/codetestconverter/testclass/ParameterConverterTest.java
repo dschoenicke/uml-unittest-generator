@@ -2,12 +2,12 @@ package codetestconverter.testclass;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.Before;
 import org.junit.Test;
 
+import code.CodeMethod;
 import code.CodeParameter;
+import code.CodeVisibility;
 
 /**
  * Tests the {@link ParameterConverter}.
@@ -18,15 +18,42 @@ import code.CodeParameter;
 public class ParameterConverterTest {
 
 	/**
-	 * Test {@link ParameterConverter#createParameterTypeList}.
+	 * Mocks a {@link code.CodeMethod} to be used in the tests.
+	 */
+	CodeMethod mockCodeMethod;
+	
+	/**
+	 * Initializes the mock elements.
+	 */
+	@Before
+	public void init() {
+		mockCodeMethod = new CodeMethod("testMethod", null, null, false, CodeVisibility.PRIVATE, false, false, false);
+		mockCodeMethod.addParameter(new CodeParameter("param1", null, "String", false, false, false));
+		mockCodeMethod.addParameter(new CodeParameter("param2", null, "Float", false, true, false));
+		mockCodeMethod.addParameter(new CodeParameter("param3", null, "Integer", false, false, false));
+	}
+	
+	/**
+	 * Tests {@link ParameterConverter#createParameterList}.
 	 */
 	@Test
-	public void testParameterConverter() {
-		ArrayList<CodeParameter> parameters = new ArrayList<>();
-		CodeParameter param1 = new CodeParameter("param1", null, "String", false, false);
-		CodeParameter param2 = new CodeParameter("param2", null, "Float", true, false);
-		CodeParameter param3 = new CodeParameter("param3", null, "Integer", false, false);
-		parameters.addAll(List.of(param1, param2, param3));
-		assertEquals(ParameterConverter.createParameterTypeList(parameters), "String, Float[], Integer");
+	public void testParameterListConverter() {
+		assertEquals(ParameterConverter.createParameterList(mockCodeMethod.getParameters()), "String, Float[], Integer");
+	}
+	
+	/**
+	 * Tests {@link ParameterConverter#createParameterTypeList}.
+	 */
+	@Test
+	public void testParameterTypeListConverter() {
+		assertEquals(ParameterConverter.createParameterTypeList(mockCodeMethod.getParameters()), "String.class, Float.class[], Integer.class");
+	}
+	
+	/**
+	 * Tests {@link ParameterConverter#createParameterTypeList} with a {@link code.CodeMethod}.
+	 */
+	@Test
+	public void testMethodParameterTypeListConverter() {
+		assertEquals(ParameterConverter.createParameterTypeList(mockCodeMethod), "testMethod, String.class, Float.class[], Integer.class");
 	}
 }

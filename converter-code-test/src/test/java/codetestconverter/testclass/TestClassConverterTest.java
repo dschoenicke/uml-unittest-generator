@@ -18,37 +18,37 @@ public class TestClassConverterTest {
 	/**
 	 * Mocks a {@link test.TestRepresentation} to be used in the test.
 	 */
-	private TestRepresentation mockTestRepresentation;
+	TestRepresentation mockTestRepresentation;
 	
 	/**
 	 * Mocks a {@link test.TestPackage} to be used in the test.
 	 */
-	private TestPackage mockTestPackage;
+	TestPackage mockTestPackage;
 	
 	/**
 	 * Mocks a {@link codetestconverter.temporary.TemporaryModel}
 	 */
-	private TemporaryModel mockTmpModel;
+	TemporaryModel mockTmpModel;
 	
 	/**
 	 * Mocks a {@link code.CodeRepresentation} to be used in the test.
 	 */
-	private CodeRepresentation mockCodeRepresentation;
+	CodeRepresentation mockCodeRepresentation;
 	
 	/**
 	 * Mocks a {@link code.CodePackage} to be used in the test.
 	 */
-	private CodePackage mockCodePackage;
+	CodePackage mockCodePackage;
 	
 	/**
 	 * Mocks a {@link code.CodeClass} to be used in the test.
 	 */
-	private CodeClass mockCodeClass;
+	CodeClass mockCodeClass;
 	
 	/**
 	 * Mocks a nested {@link code.CodeClass} to be used in the test.
 	 */
-	private CodeClass mockNestedClass;
+	CodeClass mockNestedClass;
 	
 	/**
 	 * Initializes the mock elements.
@@ -72,9 +72,9 @@ public class TestClassConverterTest {
 	 */
 	@Test
 	public void testTestClassConverter() {
-		TestClassConverter.convertTestClasses(mockTestRepresentation.getPackages(), mockTmpModel);
-		assertEquals(mockTestPackage.getTestClasses().size(), 2);
-		assertEquals(mockTestPackage.getTestClasses().get(0).getName(), "classTest");
-		assertEquals(mockTestPackage.getTestClasses().get(1).getName(), "nestedclassTest");
+		TestClassConverter.convertTestClasses(mockTmpModel);
+		assertEquals(2, mockTestPackage.getTestClasses().size());
+		assertEquals("classTest", mockTestPackage.getTestClasses().get(0).getName());
+		assertEquals("nestedclassTest", mockTestPackage.getTestClasses().get(1).getName());
 	}
 }
