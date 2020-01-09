@@ -52,11 +52,12 @@ public class ParameterConverter {
 	 * @param parent the {@link code.CodeParent} to which the converted {@link code.CodeParameter} should be added to
 	 * @return the converted {@link code.CodeParameter}
 	 */
-	static CodeParameter createParameter(UmlParameter parameter, CodeParent parent) {
+	public static CodeParameter createParameter(UmlParameter parameter, CodeParent parent) {
 		return new CodeParameter(
-						parameter.getName(),
+						(parameter.getDirection() == UmlParameterDirection.IN ? parameter.getName() : ""),
 						parent,
 						parameter.getType(),
+						(parameter.getLowerValue() == UmlMultiplicityValue.ZERO),
 						(parameter.getUpperValue() == UmlMultiplicityValue.INFINITE),
 						parameter.isFinal()
 					);

@@ -30,7 +30,7 @@ public class MethodConverter {
 	 */
 	public static void convertMethods(UmlElement element, CodeElement codeElement, TemporaryModel tmpModel) {
 		for (UmlOperation operation : element.getOperations()) {
-			if (operation.isConstructor()) {
+			if (operation.isConstructor() && operation.getName().equals(element.getName())) {
 				continue;
 			}
 			
@@ -39,7 +39,7 @@ public class MethodConverter {
 			CodeMethod method = new CodeMethod(
 					operation.getName(),
 					codeElement,
-					returnParameter.getType(),
+					ParameterConverter.createParameter(returnParameter, null),
 					(returnParameter.getUpperValue() == UmlMultiplicityValue.INFINITE),
 					ModifierConverter.convertAccessModifier(operation.getVisibility()),
 					operation.isAbstract(),
@@ -47,6 +47,7 @@ public class MethodConverter {
 					operation.isFinal()
 				);
 			
+			method.getReturnType().setParent(method);
 			ParameterConverter.convertParameters(operation, method);
 			TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), method, tmpModel);
 			TemplateBindingConverter.convertTemplateBindings(operation.getUmlTemplateBindings(), method, tmpModel);

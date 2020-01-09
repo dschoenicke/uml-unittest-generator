@@ -8,6 +8,7 @@ import code.CodeEnumeration;
 import code.CodeInterface;
 import code.CodeMethod;
 import code.CodePackage;
+import code.CodeParameter;
 import code.CodeRepresentation;
 import code.CodeTemplateBinding;
 import code.CodeTemplateParameter;
@@ -225,7 +226,7 @@ public class TestInitializer {
 		mockCodeRepresentation.addPackage(mockCodePackage);
 		mockCodeClass = new CodeClass("codeClass", mockCodePackage, CodeVisibility.PUBLIC, false, false, false);
 		mockCodeEnumeration = new CodeEnumeration("codeEnumeration", mockCodePackage, CodeVisibility.PUBLIC, false, false, false);
-		mockCodeMethod = new CodeMethod("mockCodeMethod", mockCodeClass, "String", false, CodeVisibility.PUBLIC, false, false, false);
+		mockCodeMethod = new CodeMethod("mockCodeMethod", mockCodeClass, new CodeParameter("", null, "String", false, false, false), false, CodeVisibility.PUBLIC, false, false, false);
 		mockCodeConstructor = new CodeConstructor(mockCodeClass, CodeVisibility.PRIVATE);
 		
 		mockCodeTemplateParameter = new CodeTemplateParameter("T", mockCodeClass, "java.lang.Object");

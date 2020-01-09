@@ -25,7 +25,7 @@ public class ConstructorConverter {
 	 */
 	public static void convertConstructors(UmlElement element, CodeElement codeElement, TemporaryModel tmpModel) {
 		for (UmlOperation operation : element.getOperations()) {
-			if (!operation.isConstructor()) {
+			if (!operation.isConstructor() || !operation.getName().equals(element.getName())) {
 				continue;
 			}
 			
