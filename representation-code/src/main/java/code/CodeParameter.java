@@ -24,6 +24,11 @@ public class CodeParameter {
 	private int modifiers;
 	
 	/**
+	 * Determines whether the parameter can be {@literal null}
+	 */
+	private boolean canBeNull;
+	
+	/**
 	 * Determines whether the parameter has a multiplicity
 	 */
 	private boolean hasMultiplicity;
@@ -34,24 +39,27 @@ public class CodeParameter {
 	private CodeParent parent;
 	
 	/**
-	 * Constructor with name, {@link CodeParent}, data type, a value whether the parameter has a multiplicity and modifiers<br>
+	 * Constructor with name, {@link CodeParent}, data type, values determining whether the parameter can be {@literal null} or has a multiplicity and modifiers<br>
 	 * The modifiers are converted to an int value usable for the {@link CodeModifier} methods.<br>
 	 * 
 	 * @param name the name of the parameter
 	 * @param parent the {@link CodeParent} of the parameter
 	 * @param type the data type of the parameter
+	 * @param canBeNull true if the parameter can be {@literal null}
 	 * @param hasMultiplicity true if the parameter has a multiplicity
 	 * @param isFinal determines whether the parameter is final
 	 */
 	public CodeParameter(String name, 
 			CodeParent parent,
 			String type,
+			boolean canBeNull,
 			boolean hasMultiplicity,
 			boolean isFinal) {
 		
 		this.name = name;
 		this.type = type;
 		this.parent = parent;
+		this.canBeNull = canBeNull;
 		this.hasMultiplicity = hasMultiplicity;
 		this.modifiers = CodeModifier.convertModifierValue(CodeVisibility.DEFAULT, false, isFinal, false);
 	}
@@ -126,6 +134,24 @@ public class CodeParameter {
 	 */
 	public void setHasMultiplicity(boolean hasMultiplicity) {
 		this.hasMultiplicity = hasMultiplicity;
+	}
+	
+	/**
+	 * Returns true, if the parameter can be {@literal null}
+	 * 
+	 * @return true, if the parameter can be {@literal null}
+	 */
+	public boolean canBeNull() {
+		return canBeNull;
+	}
+
+	/**
+	 * Sets the value determining whether the parameter can be {@literal null}
+	 * 
+	 * @param canBeNull the value determining whether the parameter can be {@literal null}
+	 */
+	public void setCanBeNull(boolean canBeNull) {
+		this.canBeNull = canBeNull;
 	}
 
 	/**

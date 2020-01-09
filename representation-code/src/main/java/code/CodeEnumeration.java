@@ -16,14 +16,9 @@ public class CodeEnumeration extends CodeElement {
 	private ArrayList<CodeLiteral> literals;
 	
 	/**
-	 * The list of {@link CodeInterface}s implemented by this class
-	 */
-	private ArrayList<CodeInterface> interfaces;
-	
-	/**
 	 * Constructor with name, {@link CodeParent} and modifiers.<br>
 	 * For further information see {@link CodeElement#CodeElement}
-	 * Initializes the list of {@link CodeLiteral}s and {@link CodeInterface}s
+	 * Initializes the list of {@link CodeLiteral}s
 	 * 
 	 * @param name the name of the enumeration
 	 * @param parent the {@link CodeParent} of the enumeration
@@ -41,7 +36,6 @@ public class CodeEnumeration extends CodeElement {
 		
 		super(name, parent, visibility, isAbstract, isStatic, isFinal);
 		literals = new ArrayList<>();
-		interfaces = new ArrayList<>();
 	}
 	
 	/**
@@ -60,23 +54,5 @@ public class CodeEnumeration extends CodeElement {
 	 */
 	public void addCodeLiteral(CodeLiteral literal) {
 		literals.add(literal);
-	}
-	
-	/**
-	 * Gets the list of implemented {@link CodeInterface}s
-	 * 
-	 * @return the list of implemented {@link CodeInterface}s
-	 */
-	public ArrayList<CodeInterface> getInterfaces() {
-		return interfaces;
-	}
-	
-	/**
-	 * Adds a implemented {@link CodeInterface} to the list
-	 * 
-	 * @param codeInterface the implemented {@link CodeInterface} to add to the list
-	 */
-	public void addInterface(CodeInterface codeInterface) {
-		interfaces.add(codeInterface);
 	}
 }

@@ -1,7 +1,5 @@
 package code;
 
-import java.util.ArrayList;
-
 /**
  * Class representing a class, extending {@link CodeElement}
  * 
@@ -16,14 +14,8 @@ public class CodeClass extends CodeElement {
 	private CodeClass superClass;
 	
 	/**
-	 * The list of {@link CodeInterface}s implemented by this class
-	 */
-	private ArrayList<CodeInterface> interfaces;
-	
-	/**
 	 * Constructor with name, {@link CodeParent} and modifiers.<br>
 	 * For further information see {@link CodeElement#CodeElement}
-	 * Initializes the list of {@link CodeInterface}s implemented by this class
 	 * 
 	 * @param name the name of the class
 	 * @param parent the parent {@link CodeParent} of the class
@@ -40,7 +32,6 @@ public class CodeClass extends CodeElement {
 			boolean isFinal) {
 		
 		super(name, parent, visibility, isAbstract, isStatic, isFinal);
-		interfaces = new ArrayList<>();
 	}
 	
 	/**
@@ -59,23 +50,5 @@ public class CodeClass extends CodeElement {
 	 */
 	public void setSuperClass(CodeClass superClass) {
 		this.superClass = superClass;
-	}
-	
-	/**
-	 * Gets the list of implemented {@link CodeInterface}s
-	 * 
-	 * @return the list of implemented {@link CodeInterface}s
-	 */
-	public ArrayList<CodeInterface> getInterfaces() {
-		return interfaces;
-	}
-	
-	/**
-	 * Adds a implemented {@link CodeInterface} to the list
-	 * 
-	 * @param codeInterface the implemented {@link CodeInterface} to add to the list
-	 */
-	public void addInterface(CodeInterface codeInterface) {
-		interfaces.add(codeInterface);
 	}
 }

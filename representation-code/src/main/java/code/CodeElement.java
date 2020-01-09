@@ -46,6 +46,11 @@ public abstract class CodeElement implements CodeParent {
 	private ArrayList<CodeTemplateParameter> templateParameters;
 	
 	/**
+	 * The list of implemented or extended {@link CodeInterface}s of the element
+	 */
+	private ArrayList<CodeInterface> interfaces;
+	
+	/**
 	 * The list of nested elements of the element
 	 */
 	private ArrayList<CodeElement> nestedElements;
@@ -58,7 +63,7 @@ public abstract class CodeElement implements CodeParent {
 	/**
 	 * Constructor with name, {@link CodeParent} and modifiers.<br>
 	 * The modifiers are converted to an int value usable for the {@link CodeModifier} methods.<br>
-	 * Initializes the lists of {@link CodeField}s, {@link CodeConstructor}s, {@link CodeMethod}s, {@link CodeTemplateBinding}s, {@link CodeTemplateParameter}s and nested {@link CodeElement}s.
+	 * Initializes the lists of {@link CodeField}s, {@link CodeConstructor}s, {@link CodeMethod}s, {@link CodeTemplateBinding}s, {@link CodeTemplateParameter}s, {@link CodeInterface}s and nested {@link CodeElement}s.
 	 * 
 	 * @param name the name of the element
 	 * @param parent the parent {@link CodeParent} of the element
@@ -82,6 +87,7 @@ public abstract class CodeElement implements CodeParent {
 		methods = new ArrayList<>();
 		templateBindings = new ArrayList<>();
 		templateParameters = new ArrayList<>();
+		interfaces = new ArrayList<>();
 		nestedElements = new ArrayList<>();
 	}
 
@@ -210,6 +216,24 @@ public abstract class CodeElement implements CodeParent {
 	public void addTemplateParameter(CodeTemplateParameter templateParameter) {
 		templateParameters.add(templateParameter);
 	}
+	
+	/**
+	 * Gets the list of implemented or extended {@link CodeInterface}s
+	 * 
+	 * @return the list of implemented or extended {@link CodeInterface}s
+	 */
+	public ArrayList<CodeInterface> getInterfaces() {
+		return interfaces;
+	}
+	
+	/**
+	 * Adds an implemented or extended {@link CodeInterface} to the list
+	 * 
+	 * @param codeInterface the implemented or extended {@link CodeInterface} to add to the list
+	 */
+	public void addInterface(CodeInterface codeInterface) {
+		interfaces.add(codeInterface);
+	}
 
 	/**
 	 * Gets the list of nested elements
@@ -257,6 +281,6 @@ public abstract class CodeElement implements CodeParent {
 			return ((CodePackage) parent).getQualifiedName() + "." + this.name;
 		}
 		
-		return ((CodeElement) parent).getQualifiedName() + "." + this.name;
+		return ((CodeElement) parent).getQualifiedName() + "$" + this.name;
 	}
 }

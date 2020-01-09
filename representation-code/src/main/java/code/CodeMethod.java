@@ -23,7 +23,7 @@ public class CodeMethod implements CodeParent {
 	/**
 	 * The return type of the method
 	 */
-	private String returnType;
+	private CodeParameter returnType;
 	
 	/**
 	 * An integer representing the {@link CodeModifier} determining the method's modifiers
@@ -57,16 +57,16 @@ public class CodeMethod implements CodeParent {
 	 * 
 	 * @param name the name of the method
 	 * @param parent the {@link CodeParent} element of the method
-	 * @param returnType the return type of the attribute
+	 * @param returnType the {@link CodeParameter} representing the return type of the method
 	 * @param hasMultiplicity true if the field has a multiplicity
-	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the field
-	 * @param isAbstract determines whether the field is abstract
-	 * @param isStatic determines whether the field is static
-	 * @param isFinal determines whether the field is final
+	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the method
+	 * @param isAbstract determines whether the method is abstract
+	 * @param isStatic determines whether the method is static
+	 * @param isFinal determines whether the method is final
 	 */
 	public CodeMethod(String name,
 			CodeParent parent,
-			String returnType,
+			CodeParameter returnType,
 			boolean hasMultiplicity,
 			CodeVisibility visibility,
 			boolean isAbstract,
@@ -144,7 +144,7 @@ public class CodeMethod implements CodeParent {
 	 * 
 	 * @return the return type of the method
 	 */
-	public String getReturnType() {
+	public CodeParameter getReturnType() {
 		return returnType;
 	}
 	
@@ -153,7 +153,7 @@ public class CodeMethod implements CodeParent {
 	 * 
 	 * @param returnType the return type of the method
 	 */
-	public void setReturnType(String returnType) {
+	public void setReturnType(CodeParameter returnType) {
 		this.returnType = returnType;
 	}
 	
