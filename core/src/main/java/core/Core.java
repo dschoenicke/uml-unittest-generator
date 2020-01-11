@@ -42,7 +42,7 @@ public class Core {
 			}
 		}
 		else {
-			System.out.println("\n\u001B[91mYou have to give file paths for the input diagram and an output directory!\n" + 
+			System.out.println("\n" + (char)27 + "[31m" + "You have to give file paths for the input diagram and an output directory!\n" + 
 					"Mandatory parameters: [input-file] [output-directory]\n\u001B[0m");
 		}
 	}
