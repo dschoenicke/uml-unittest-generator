@@ -1,42 +1,22 @@
 package uml;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Represents a literal of an {@link UmlEnumeration}
  * 
  * @author dschoenicke
  *
  */
+
+@Getter
+@RequiredArgsConstructor
 public class UmlLiteral {
 	
 	/**
 	 * Name of the literal
 	 */
-	private String name;
-	
-	/**
-	 * Constructor with the literals name as a parameter
-	 * 
-	 * @param name the name of the literal
-	 */
-	public UmlLiteral(String name) {
-		this.name = name;
-	}
-	
-	/**
-	 * Gets the name of the literal
-	 * 
-	 * @return the name of the literal
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Sets the name of the literal
-	 * 
-	 * @param name the name of the literal
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+	@NonNull private String name;
 }

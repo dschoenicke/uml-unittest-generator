@@ -49,7 +49,7 @@ public class DataTypeConverterTest {
 		mockActual.setExtension(extension);
 		mockDataType.setExtension(extension);
 		mockTmpModel = new TemporaryModel();
-		mockTmpModel.addElement("1234", new UmlClass("TestClass", UmlVisibility.PUBLIC));
+		mockTmpModel.addElement("1234", new UmlClass("TestClass", UmlVisibility.PUBLIC, false, false, false));
 	}
 	
 	/**

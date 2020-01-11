@@ -3,6 +3,7 @@ package codetestconverter.temporary;
 import java.util.HashMap;
 
 import code.CodePackage;
+import lombok.Getter;
 import test.TestPackage;
 
 /**
@@ -11,6 +12,7 @@ import test.TestPackage;
  * @author dschoenicke
  *
  */
+@Getter
 public class TemporaryModel {
 
 	/**
@@ -23,15 +25,6 @@ public class TemporaryModel {
 	 */
 	public TemporaryModel() {
 		convertedPackages = new HashMap<>();
-	}
-	
-	/**
-	 * Gets the map of {@link code.CodePackage}s and {@link test.TestPackage}s.
-	 * 
-	 * @return the map of {@link code.CodePackage}s and {@link test.TestPackage}s.
-	 */
-	public HashMap<CodePackage, TestPackage> getConvertedPackages() {
-		return convertedPackages;
 	}
 	
 	/**

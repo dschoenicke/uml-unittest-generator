@@ -56,7 +56,7 @@ public class OperationConverterTest {
 	 */
 	@Test
 	public void testOperationConverter() {
-		UmlClass mockClass = new UmlClass(null, null);
+		UmlClass mockClass = new UmlClass(null, null, false, false, false);
 		TemporaryModel mockTmpModel = new TemporaryModel();
 		OperationConverter.convertOperations(mockPackagedElement, mockClass, mockTmpModel);
 		UmlOperation umlOperation = mockClass.getOperations().get(0);

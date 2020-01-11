@@ -109,7 +109,7 @@ public class ElementConverter {
 		ConstructorConverter.convertConstructors(element, codeElement, tmpModel);
 		MethodConverter.convertMethods(element, codeElement, tmpModel);
 		TemplateParameterConverter.convertTemplateParameters(element.getTemplateParameters(), codeElement, tmpModel);
-		TemplateBindingConverter.convertTemplateBindings(element.getUmlTemplateBindings(), codeElement, tmpModel);
+		TemplateBindingConverter.convertTemplateBindings(element.getTemplateBindings(), codeElement, tmpModel);
 		
 		for (UmlElement nestedElement : element.getInnerElements()) {
 			codeElement.addNestedElement(convertElement(nestedElement, null, codeElement, tmpModel));

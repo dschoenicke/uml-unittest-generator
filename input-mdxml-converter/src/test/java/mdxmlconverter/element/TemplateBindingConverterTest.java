@@ -93,9 +93,9 @@ public class TemplateBindingConverterTest {
 	@Test
 	public void testConvertTemplateBindingsWithElement() {
 		ArrayList<TemporaryTemplateBinding> tmpTemplateBindings = TemplateBindingConverter.convertTemporaryTemplateBindings(mockTemplateBindings);
-		UmlClass umlClass = new UmlClass("TestClass", UmlVisibility.PUBLIC);
+		UmlClass umlClass = new UmlClass("TestClass", UmlVisibility.PUBLIC, false, false, false);
 		TemplateBindingConverter.convertTemplateBindings(mockTemplateBindings, umlClass);
-		assertEquals(tmpTemplateBindings.get(0).getParameterSubstitutions(), umlClass.getUmlTemplateBindings().get(0).getParameterSubstitutions());
+		assertEquals(tmpTemplateBindings.get(0).getParameterSubstitutions(), umlClass.getTemplateBindings().get(0).getParameterSubstitutions());
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class TemplateBindingConverterTest {
 		ArrayList<TemporaryTemplateBinding> tmpTemplateBindings = TemplateBindingConverter.convertTemporaryTemplateBindings(mockTemplateBindings);
 		UmlOperation umlOperation = new UmlOperation("TestOperation", UmlVisibility.PUBLIC);
 		TemplateBindingConverter.convertTemplateBindings(mockTemplateBindings, umlOperation);
-		assertEquals(tmpTemplateBindings.get(0).getParameterSubstitutions(), umlOperation.getUmlTemplateBindings().get(0).getParameterSubstitutions());
+		assertEquals(tmpTemplateBindings.get(0).getParameterSubstitutions(), umlOperation.getTemplateBindings().get(0).getParameterSubstitutions());
 	}
 	
 	/**

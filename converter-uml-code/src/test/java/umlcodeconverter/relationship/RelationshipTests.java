@@ -85,7 +85,7 @@ public class RelationshipTests {
 		mockClass = new CodeClass("mockClass", null, CodeVisibility.PACKAGE, false, false, false);
 		mockInterface = new CodeInterface("mockInterface", null, CodeVisibility.PACKAGE, false, false, false);
 		mockEnumeration = new CodeEnumeration("mockEnumeration", null, CodeVisibility.PACKAGE, false, false, false);
-		mockUmlClass = new UmlClass("mockClass", null);
+		mockUmlClass = new UmlClass("mockClass", null, false, false, false);
 		mockUmlInterface = new UmlInterface("mockInterface", null);
 		mockUmlEnumeration = new UmlEnumeration("mockEnumeration", null);
 		mockTmpModel.addConvertedElement(mockUmlClass, mockClass);

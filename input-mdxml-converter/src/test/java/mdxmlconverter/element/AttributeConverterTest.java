@@ -60,7 +60,7 @@ public class AttributeConverterTest {
 	 */
 	@Test
 	public void testAttributeConverter() {
-		UmlClass mockClass = new UmlClass("Test", UmlVisibility.PUBLIC);
+		UmlClass mockClass = new UmlClass("Test", UmlVisibility.PUBLIC, false, false, false);
 		AttributeConverter.convertAttributes(mockPackagedElement, mockClass, mockTmpModel);
 		UmlAttribute umlAttribute = mockClass.getAttributes().get(0);
 		assertEquals(umlAttribute, mockTmpModel.getAttributeIDs().get(mockOwnedAttribute.getId()));

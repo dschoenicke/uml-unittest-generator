@@ -24,7 +24,7 @@ public class UmlCodeConverterTest {
 	public void testUmlCodeConverter() {
 		UmlModel mockUmlModel = new UmlModel("testmodel");
 		UmlPackage mockUmlPackage = new UmlPackage("testpackage");
-		UmlClass mockUmlClass = new UmlClass("testclass", null);
+		UmlClass mockUmlClass = new UmlClass("testclass", null, false, false, false);
 		mockUmlModel.addElement(mockUmlClass);
 		mockUmlModel.addPackage(mockUmlPackage);
 		UmlCodeConverter converter = new UmlCodeConverter();

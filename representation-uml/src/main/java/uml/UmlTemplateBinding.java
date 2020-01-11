@@ -2,12 +2,15 @@ package uml;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 /**
  * Represents a template binding of an {@link UmlElement} or {@link UmlOperation}
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public class UmlTemplateBinding {
 
 	/**
@@ -20,15 +23,6 @@ public class UmlTemplateBinding {
 	 */
 	public UmlTemplateBinding() {
 		parameterSubstitutions = new ArrayList<>();
-	}
-	
-	/**
-	 * Gets the list of {@link UmlParameterSubstitution}s
-	 * 
-	 * @return the list of {@link UmlParameterSubstitution}s
-	 */
-	public ArrayList<UmlParameterSubstitution> getParameterSubstitutions() {
-		return parameterSubstitutions;
 	}
 	
 	/**

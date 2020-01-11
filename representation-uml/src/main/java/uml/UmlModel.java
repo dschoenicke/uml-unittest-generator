@@ -2,12 +2,15 @@ package uml;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 /**
  * Represents the UML model with its {@link UmlPackage}s, {@link UmlElement}s and {@link UmlRelationship}s
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public class UmlModel implements UmlParent {
 	/**
 	 * Name of the model
@@ -42,33 +45,6 @@ public class UmlModel implements UmlParent {
 	}
 	
 	/**
-	 * Gets the name of the model
-	 * 
-	 * @return the name of the model
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/** 
-	 * Sets the name of the model
-	 * 
-	 * @param name the name of the model
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	/**
-	 * Gets the list of {@link UmlPackage}s
-	 * 
-	 * @return the list of {@link UmlPackage}s
-	 */
-	public ArrayList<UmlPackage> getPackages() {
-		return packages;
-	}
-	
-	/**
 	 * Adds a {@link UmlPackage} to the list
 	 * 
 	 * @param umlPackage the {@link UmlPackage} to add to the list
@@ -78,30 +54,12 @@ public class UmlModel implements UmlParent {
 	}
 	
 	/**
-	 * Gets the list of {@link UmlElement}s
-	 * 
-	 * @return the list of {@link UmlElement}s
-	 */
-	public ArrayList<UmlElement> getElements() {
-		return elements;
-	}
-	
-	/**
 	 * Adds a {@link UmlElement} to the list
 	 * 
 	 * @param element the {@link UmlElement} to add to the list
 	 */
 	public void addElement(UmlElement element) {
 		elements.add(element);
-	}
-	
-	/**
-	 * Gets the list of {@link UmlRelationship}s
-	 * 
-	 * @return the list of {@link UmlRelationship}s
-	 */
-	public ArrayList<UmlRelationship> getRelationships() {
-		return relationships;
 	}
 	
 	/**

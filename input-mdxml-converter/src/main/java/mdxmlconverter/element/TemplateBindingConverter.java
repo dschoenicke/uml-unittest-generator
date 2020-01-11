@@ -29,7 +29,7 @@ public class TemplateBindingConverter {
 	 */
 	public static void convertTemplateBindings(ArrayList<TemplateBinding> templateBindings, UmlOperation operation) {
 		for (TemporaryTemplateBinding tmpBinding : convertTemporaryTemplateBindings(templateBindings)) {
-			operation.addUmlTemplateBinding(tmpBinding);
+			operation.addTemplateBinding(tmpBinding);
 		}
 	}
 	
@@ -41,7 +41,7 @@ public class TemplateBindingConverter {
 	 */
 	public static void convertTemplateBindings(ArrayList<TemplateBinding> templateBindings, UmlElement element) {
 		for (TemporaryTemplateBinding tmpBinding : convertTemporaryTemplateBindings(templateBindings)) {
-			element.addUmlTemplateBinding(tmpBinding);
+			element.addTemplateBinding(tmpBinding);
 		}
 	}
 	

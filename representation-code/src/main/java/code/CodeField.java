@@ -1,8 +1,8 @@
 package code;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Represents a field of a {@link CodeElement}
@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
  *
  */
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CodeField {
 	
 	/**
@@ -32,7 +32,7 @@ public class CodeField {
 	/**
 	 * The default value of the field
 	 */
-	@NonNull private String defaultValue;
+	private String defaultValue;
 	
 	/**
 	 * Determines whether the field is allowed to be {@literal null}

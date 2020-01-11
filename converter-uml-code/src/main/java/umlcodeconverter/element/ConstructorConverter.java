@@ -34,7 +34,7 @@ public class ConstructorConverter {
 			
 			ParameterConverter.convertParameters(operation, constructor);
 			TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), constructor, tmpModel);
-			TemplateBindingConverter.convertTemplateBindings(operation.getUmlTemplateBindings(), constructor, tmpModel);
+			TemplateBindingConverter.convertTemplateBindings(operation.getTemplateBindings(), constructor, tmpModel);
 			codeElement.addConstructor(constructor);
 		}
 	}

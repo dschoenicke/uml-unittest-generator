@@ -9,5 +9,4 @@ package uml;
 public interface UmlParent {
 	
 	public String getName();
-	
 }

@@ -67,11 +67,11 @@ public class UmlModelMaps {
 		
 		topLevelPackage.addPackage(subPackage1);
 		topLevelPackage.addPackage(subPackage2);
-		topLevelPackage.addElement(new UmlClass("topLevelPackageElement", UmlVisibility.PUBLIC));
-		subPackage1.addElement(new UmlClass("subPackage1Element", UmlVisibility.PUBLIC));
-		subPackage2.addElement(new UmlClass("subPackage2Element", UmlVisibility.PUBLIC));
+		topLevelPackage.addElement(new UmlClass("topLevelPackageElement", UmlVisibility.PUBLIC, false, false, false));
+		subPackage1.addElement(new UmlClass("subPackage1Element", UmlVisibility.PUBLIC, false, false, false));
+		subPackage2.addElement(new UmlClass("subPackage2Element", UmlVisibility.PUBLIC, false, false, false));
 		testModel.addPackage(topLevelPackage);
-		testModel.addElement(new UmlClass("topLevelElement", UmlVisibility.PUBLIC));
+		testModel.addElement(new UmlClass("topLevelElement", UmlVisibility.PUBLIC, false, false, false));
 		
 		HashMap<String, UmlPackage> testPackageMap = createUmlPackageMap(testModel);
 		HashMap<String, UmlElement> testElementMap = createUmlElementMap(testModel);

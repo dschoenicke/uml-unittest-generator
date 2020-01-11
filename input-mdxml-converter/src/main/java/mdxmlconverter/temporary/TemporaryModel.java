@@ -3,6 +3,7 @@ package mdxmlconverter.temporary;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import lombok.Getter;
 import uml.UmlAttribute;
 import uml.UmlElement;
 import uml.UmlParameter;
@@ -16,6 +17,7 @@ import uml.UmlTemplateParameter;
  * @author dschoenicke
  *
  */
+@Getter
 public class TemporaryModel {
 
 	/**
@@ -55,15 +57,6 @@ public class TemporaryModel {
 	}
 	
 	/**
-	 * Gets the map of {@link mdxml.PackagedElement}-ids and the referenced {@link uml.UmlElement}s
-	 * 
-	 * @return the map of {@link mdxml.PackagedElement}-ids and the referenced {@link uml.UmlElement}s
-	 */
-	public HashMap<String, UmlElement> getElementIDs() {
-		return elementIDs;
-	}
-	
-	/**
 	 * Adds an id of an {@link mdxml.PackagedElement} and the corresponding {@link uml.UmlElement} to the map
 	 * 
 	 * @param elementID the id of the {@link mdxml.PackagedElement}
@@ -72,16 +65,7 @@ public class TemporaryModel {
 	public void addElement(String elementID, UmlElement element) {
 		elementIDs.put(elementID, element);
 	}
-	
-	/**
-	 * Gets the map of {@link mdxml.Parameter}-ids and the referenced {@link uml.UmlTemplateParameter}s
-	 * 
-	 * @return the map of {@link mdxml.Parameter}-ids and the referenced {@link uml.UmlTemplateParameter}s
-	 */
-	public HashMap<String, UmlTemplateParameter> getTemplateParameterIDs() {
-		return templateParameterIDs;
-	}
-	
+
 	/**
 	 * Adds an id of an {@link mdxml.Parameter} and the corresponding {@link uml.UmlTemplateParameter} to the map
 	 * 
@@ -93,15 +77,6 @@ public class TemporaryModel {
 	}
 	
 	/**
-	 * Gets the map of {@link mdxml.PackagedElement}-ids and the referenced {@link uml.UmlRelationship}s
-	 * 
-	 * @return the map of {@link mdxml.PackagedElement}-ids and the referenced {@link uml.UmlRelationship}s
-	 */
-	public ArrayList<UmlRelationship> getRelationships() {
-		return relationships;
-	}
-	
-	/**
 	 * Adds an {@link uml.UmlRelationship} to the list
 	 * 
 	 * @param relationship the {@link uml.UmlRelationship} to add to the list
@@ -109,16 +84,7 @@ public class TemporaryModel {
 	public void addRelationship(UmlRelationship relationship) {
 		relationships.add(relationship);
 	}
-	
-	/**
-	 * Gets the map of {@link mdxml.OwnedAttribute}-ids and the referenced {@link uml.UmlAttribute}s
-	 * 
-	 * @return the map of {@link mdxml.OwnedAttribute}-ids and the referenced {@link uml.UmlAttribute}s
-	 */
-	public HashMap<String, UmlAttribute> getAttributeIDs() {
-		return attributeIDs;
-	}
-	
+
 	/**
 	 * Adds an id of an {@link mdxml.OwnedAttribute} and the corresponding {@link uml.UmlAttribute} to the map
 	 * 
@@ -127,15 +93,6 @@ public class TemporaryModel {
 	 */
 	public void addAttribute(String attributeID, UmlAttribute attribute) {
 		attributeIDs.put(attributeID, attribute);
-	}
-	
-	/**
-	 * Gets the map of {@link mdxml.OwnedParameter}-ids and the referenced {@link uml.UmlParameter}s
-	 * 
-	 * @return the map of {@link mdxml.OwnedParameter}-ids and the referenced {@link uml.UmlParameter}s
-	 */
-	public ArrayList<UmlParameter> getParameters() {
-		return parameters;
 	}
 	
 	/**

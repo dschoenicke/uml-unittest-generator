@@ -1,5 +1,7 @@
 package mdxmlconverter.temporary;
 
+import lombok.Getter;
+import lombok.Setter;
 import mdxml.MemberEnd;
 import mdxml.OwnedEnd;
 import uml.UmlRelationship;
@@ -11,6 +13,8 @@ import uml.UmlRelationshipType;
  * @author dschoenicke
  *
  */
+@Getter
+@Setter
 public class TemporaryRelationship extends UmlRelationship {
 
 	/**
@@ -82,96 +86,6 @@ public class TemporaryRelationship extends UmlRelationship {
 		super();
 		this.firstMember = firstMember;
 		this.secondMember = secondMember;
-		this.ownedEnd = ownedEnd;
-	}
-
-	/**
-	 * Gets the reference to the {@link mdxml.PackagedElement} representing the client element
-	 * 
-	 * @return the reference to the {@link mdxml.PackagedElement} representing the client element
-	 */
-	public String getClientId() {
-		return clientId;
-	}
-
-	/**
-	 * Sets the reference to the {@link mdxml.PackagedElement} representing the client element
-	 * 
-	 * @param clientId the reference to the {@link mdxml.PackagedElement} representing the client element
-	 */
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
-	}
-
-	/**
-	 * Gets the reference to the {@link mdxml.PackagedElement} representing the supplier element
-	 * 
-	 * @return the reference to the {@link mdxml.PackagedElement} representing the supplier element
-	 */
-	public String getSupplierId() {
-		return supplierId;
-	}
-
-	/**
-	 * Sets the reference to the {@link mdxml.PackagedElement} representing the supplier element
-	 * 
-	 * @param supplierId the reference to the {@link mdxml.PackagedElement} representing the supplier element
-	 */
-	public void setSupplierId(String supplierId) {
-		this.supplierId = supplierId;
-	}
-	
-	/**
-	 * Gets the first {@link mdxml.MemberEnd} holding a reference to the {@link mdxml.OwnedAttribute} of the client element
-	 * 
-	 * @return the first {@link mdxml.MemberEnd}
-	 */
-	public MemberEnd getFirstMember() {
-		return firstMember;
-	}
-
-	/**
-	 * Sets the first {@link mdxml.MemberEnd} holding a reference to the {@link mdxml.OwnedAttribute} of the client element
-	 * 
-	 * @param firstMember the first {@link mdxml.MemberEnd}
-	 */
-	public void setFirstMember(MemberEnd firstMember) {
-		this.firstMember = firstMember;
-	}
-
-	/**
-	 * Gets the second {@link mdxml.MemberEnd} holding a reference to the {@link mdxml.OwnedAttribute} of the supplier element
-	 * 
-	 * @return the second {@link mdxml.MemberEnd}
-	 */
-	public MemberEnd getSecondMember() {
-		return secondMember;
-	}
-
-	/**
-	 * Sets the second {@link mdxml.MemberEnd} holding a reference to the {@link mdxml.OwnedAttribute} of the supplier element
-	 * 
-	 * @param secondMember the second {@link mdxml.MemberEnd}
-	 */
-	public void setSecondMember(MemberEnd secondMember) {
-		this.secondMember = secondMember;
-	}
-
-	/**
-	 * Gets the {@link mdxml.OwnedEnd} holding a reference to the client element
-	 * 
-	 * @return the {@link mdxml.OwnedEnd}
-	 */
-	public OwnedEnd getOwnedEnd() {
-		return ownedEnd;
-	}
-
-	/**
-	 * Sets the {@link mdxml.OwnedEnd} holding a reference to the client element
-	 * 
-	 * @param ownedEnd the {@link mdxml.OwnedEnd}
-	 */
-	public void setOwnedEnd(OwnedEnd ownedEnd) {
 		this.ownedEnd = ownedEnd;
 	}
 }

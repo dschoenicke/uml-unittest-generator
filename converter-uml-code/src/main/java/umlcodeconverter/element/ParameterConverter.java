@@ -57,7 +57,7 @@ public class ParameterConverter {
 		return new CodeParameter(
 						(parameter.getDirection() == UmlParameterDirection.IN ? parameter.getName() : ""),
 						parameter.getType(),
-						CodeModifier.convertModifierValue(null, false, parameter.isFinal(), false),
+						CodeModifier.convertModifierValue(null, false, parameter.getIsFinal(), false),
 						(parameter.getLowerValue() == UmlMultiplicityValue.ZERO),
 						(parameter.getUpperValue() == UmlMultiplicityValue.INFINITE),
 						parent

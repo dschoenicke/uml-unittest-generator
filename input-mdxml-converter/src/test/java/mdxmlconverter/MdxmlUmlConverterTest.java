@@ -18,10 +18,13 @@ import mdxmlconverter.temporary.TemporaryModel;
 import mdxmlconverter.temporary.TemporaryRelationship;
 import uml.UmlClass;
 import uml.UmlModel;
+import uml.UmlMultiplicityValue;
 import uml.UmlPackage;
 import uml.UmlParameter;
+import uml.UmlParameterDirection;
 import uml.UmlRelationshipType;
 import uml.UmlTemplateParameter;
+import uml.UmlVisibility;
 
 /**
  * Tests the {@link MdxmlUmlConverter}
@@ -76,11 +79,11 @@ public class MdxmlUmlConverterTest {
 		mockTmpModel = new TemporaryModel();
 		mockUmlModel = new UmlModel("");
 		
-		mockTmpModel.addElement("123", new UmlClass("TestElement", null));
+		mockTmpModel.addElement("123", new UmlClass("TestElement", null, false, false, false));
 		mockTmpModel.addRelationship(new TemporaryRelationship());
-		mockTmpModel.addAttribute("789", new TemporaryAttribute(null, null, "123", false, false, null, null, null, null, null));
-		mockTmpModel.addParameter(new UmlParameter(null, "123", null, false));
-		mockTmpModel.addTemplateParameter("456", new UmlTemplateParameter(null, "123"));
+		mockTmpModel.addAttribute("789", new TemporaryAttribute("", UmlVisibility.PACKAGE, "123", false, false, null, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE, null, null));
+		mockTmpModel.addParameter(new UmlParameter("", "123", UmlParameterDirection.IN, false, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE));
+		mockTmpModel.addTemplateParameter("456", new UmlTemplateParameter("321", "123"));
 		
 		ArrayList<PackagedElement> packagedElements = new ArrayList<>();
 	

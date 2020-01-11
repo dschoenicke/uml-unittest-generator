@@ -51,7 +51,7 @@ public class MethodConverter {
 			method.getReturnType().setParent(method);
 			ParameterConverter.convertParameters(operation, method);
 			TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), method, tmpModel);
-			TemplateBindingConverter.convertTemplateBindings(operation.getUmlTemplateBindings(), method, tmpModel);
+			TemplateBindingConverter.convertTemplateBindings(operation.getTemplateBindings(), method, tmpModel);
 			codeElement.addMethod(method);
 		}
 	}

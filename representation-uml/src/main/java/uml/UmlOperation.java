@@ -2,6 +2,9 @@ package uml;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
+@Getter
 public class UmlOperation {
 
 	/**
@@ -79,105 +82,6 @@ public class UmlOperation {
 	}
 	
 	/**
-	 * Gets the name of the element
-	 * 
-	 * @return the name of the element
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Sets the name of the element
-	 * 
-	 * @param name the name of the element
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	/**
-	 * Gets the {@link UmlVisibility} of the element
-	 * 
-	 * @return the {@link UmlVisibility} of the element
-	 */
-	public UmlVisibility getVisibility() {
-		return visibility;
-	}
-	
-	/**
-	 * Sets the {@link UmlVisibility} of the element
-	 * 
-	 * @param visibility the {@link UmlVisibility} of the element
-	 */
-	public void setVisibility(UmlVisibility visibility) {
-		this.visibility = visibility;
-	}
-	
-	/**
-	 * Returns true if the operation is static
-	 * 
-	 * @return true if the operation is static
-	 */
-	public boolean isStatic() {
-		return isStatic;
-	}
-
-	/**
-	 * Sets the static value
-	 * 
-	 * @param isStatic the static value
-	 */
-	public void setStatic(boolean isStatic) {
-		this.isStatic = isStatic;
-	}
-
-	/**
-	 * Returns true if the operation is final
-	 * 
-	 * @return true if the operation is final
-	 */
-	public boolean isFinal() {
-		return isFinal;
-	}
-
-	/**
-	 * Sets the final value
-	 * 
-	 * @param isFinal the final value
-	 */
-	public void setFinal(boolean isFinal) {
-		this.isFinal = isFinal;
-	}
-
-	/**
-	 * Returns true if the operation is abstract
-	 * 
-	 * @return true if the operation is abstract
-	 */
-	public boolean isAbstract() {
-		return isAbstract;
-	}
-
-	/**
-	 * Sets the abstract value
-	 * 
-	 * @param isAbstract the abstract value
-	 */
-	public void setAbstract(boolean isAbstract) {
-		this.isAbstract = isAbstract;
-	}
-	
-	/**
-	 * Gets the list of {@link UmlParameter}s
-	 * 
-	 * @return the list of {@link UmlParameter}s
-	 */
-	public ArrayList<UmlParameter> getParameters() {
-		return parameters;
-	}
-	
-	/**
 	 * Adds an {@link UmlParameter} to the list
 	 * 
 	 * @param parameter the {@link UmlParameter} to add to the list 
@@ -187,30 +91,12 @@ public class UmlOperation {
 	}
 	
 	/**
-	 * Returns the list of {@link UmlTemplateBinding}s
-	 * 
-	 * @return the list of {@link UmlTemplateBinding}s
-	 */
-	public ArrayList<UmlTemplateBinding> getUmlTemplateBindings() {
-		return templateBindings;
-	}
-	
-	/**
 	 * Adds an {@link UmlTemplateBinding} to the list
 	 * 
 	 * @param templateBinding the {@link UmlTemplateBinding} to add
 	 */
-	public void addUmlTemplateBinding(UmlTemplateBinding templateBinding) {
+	public void addTemplateBinding(UmlTemplateBinding templateBinding) {
 		templateBindings.add(templateBinding);
-	}
-	
-	/**
-	 * Returns the list of {@link UmlTemplateParameter}s
-	 * 
-	 * @return the list of {@link UmlTemplateParameter}s
-	 */
-	public ArrayList<UmlTemplateParameter> getTemplateParameters() {
-		return templateParameters;
 	}
 	
 	/**

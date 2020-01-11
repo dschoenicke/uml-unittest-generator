@@ -2,12 +2,15 @@ package uml;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 /**
  * Represents an enumeration in a class diagramm
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public class UmlEnumeration extends UmlElement {
 
 	/**
@@ -22,7 +25,7 @@ public class UmlEnumeration extends UmlElement {
 	 * @param visibility the {@link UmlVisibility} of the enumeration
 	 */
 	public UmlEnumeration(String name, UmlVisibility visibility) {
-		super(name, visibility);
+		super(name, visibility, false);
 		literals = new ArrayList<UmlLiteral>();
 	}
 	
@@ -34,17 +37,8 @@ public class UmlEnumeration extends UmlElement {
 	 * @param literals the {@link UmlLiteral}s to set for the enumeration
 	 */
 	public UmlEnumeration(String name, UmlVisibility visibility, ArrayList<UmlLiteral> literals) {
-		super(name, visibility);
+		super(name, visibility, false);
 		this.literals = literals;
-	}
-	
-	/**
-	 * Get the list of the enumeration's {@link UmlLiteral}s
-	 * 
-	 * @return the list of the {@link UmlLiteral}s
-	 */
-	public ArrayList<UmlLiteral> getLiterals() {
-		return literals;
 	}
 	
 	/**

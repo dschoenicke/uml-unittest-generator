@@ -52,7 +52,7 @@ public class NestedElementConverterTest {
 	 */
 	@Test
 	public void testNestedElementConverter() {
-		UmlClass umlClass = new UmlClass(null, null);
+		UmlClass umlClass = new UmlClass(null, null, false, false, false);
 		NestedElementConverter.convertNestedElements(mockOuterPackagedElement, umlClass, new TemporaryModel(), new UmlPackage(null));
 		assertEquals(umlClass.getInnerElements().get(0).getName(), mockNestedPackagedElement.getName());
 		assertTrue(umlClass.getInnerElements().get(0) instanceof UmlClass);

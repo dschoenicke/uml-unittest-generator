@@ -1,5 +1,7 @@
 package mdxmlconverter.temporary;
 
+import lombok.Getter;
+import lombok.Setter;
 import uml.UmlAttribute;
 import uml.UmlMultiplicityValue;
 import uml.UmlVisibility;
@@ -10,6 +12,7 @@ import uml.UmlVisibility;
  * @author dschoenicke
  *
  */
+@Getter
 public class TemporaryAttribute extends UmlAttribute {
 	
 	/**
@@ -22,7 +25,7 @@ public class TemporaryAttribute extends UmlAttribute {
 	 * Describes the aggregation type if the attribute is realized by an aggregation
 	 * @see mdxml.OwnedAttribute#aggregation
 	 */
-	private String aggregation;
+	@Setter private String aggregation;
 	
 	/**
 	 * Constructor extending the {@link uml.UmlAttribute} constructor with association and aggregation
@@ -49,42 +52,6 @@ public class TemporaryAttribute extends UmlAttribute {
 			String aggregation) {
 		super(name, visibility, type, isStatic, isFinal, defaultValue, lowerValue, upperValue);
 		this.association = association;
-		this.aggregation = aggregation;
-	}
-
-	/**
-	 * Gets the association reference of the attribute
-	 * 
-	 * @return the association reference of the attribute
-	 */
-	public String getAssociation() {
-		return association;
-	}
-
-	/**
-	 * Sets the association reference of the attribute
-	 * 
-	 * @param association the association reference of the attribute
-	 */
-	public void setAssociation(String association) {
-		this.association = association;
-	}
-
-	/**
-	 * Gets the aggregation type of the attribute
-	 * 
-	 * @return the aggregation type of the attribute
-	 */
-	public String getAggregation() {
-		return aggregation;
-	}
-
-	/**
-	 * Sets the aggregation type of the attribute
-	 * 
-	 * @param aggregation the aggregation type of the attribute
-	 */
-	public void setAggregation(String aggregation) {
 		this.aggregation = aggregation;
 	}
 }

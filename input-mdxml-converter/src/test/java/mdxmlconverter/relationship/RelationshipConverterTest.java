@@ -18,7 +18,9 @@ import mdxmlconverter.temporary.TemporaryAttribute;
 import mdxmlconverter.temporary.TemporaryModel;
 import mdxmlconverter.temporary.TemporaryRelationship;
 import uml.UmlClass;
+import uml.UmlMultiplicityValue;
 import uml.UmlRelationshipType;
+import uml.UmlVisibility;
 
 /**
  * Tests {@link RelationshipConverter#convertRelationship} and {@link RelationshipConverter#convertTemporaryRelationship}.
@@ -82,11 +84,11 @@ public class RelationshipConverterTest {
 		mockPackagedElement.setMemberEnds(mockMemberEnds);
 		mockPackagedElement.setClient(new Client());
 		mockPackagedElement.setSupplier(new Supplier());
-		mockClientClass = new UmlClass("mockClient", null);
-		mockSupplierClass = new UmlClass("mockSupplier", null);
+		mockClientClass = new UmlClass("mockClient", null, false, false, false);
+		mockSupplierClass = new UmlClass("mockSupplier", null, false, false, false);
 		
 		mockTmpModel = new TemporaryModel();
-		mockTmpAttribute = new TemporaryAttribute(null, null, "1234", false, false, null, null, null, null, null);
+		mockTmpAttribute = new TemporaryAttribute("", UmlVisibility.PACKAGE, "1234", false, false, null, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE, null, null);
 		
 		mockPackagedClient.setId("123");
 		mockPackagedClient.setName("mockClient");
@@ -169,7 +171,7 @@ public class RelationshipConverterTest {
 	@Test
 	public void testConvertTemporaryUndirectedComposition() {
 		mockTmpAttribute.setAggregation("composite");
-		mockTmpModel.addAttribute("456", new TemporaryAttribute(null, null, "123", false, false, null, null, null, null, null));
+		mockTmpModel.addAttribute("456", new TemporaryAttribute("", UmlVisibility.PACKAGE, "123", false, false, null, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE, null, null));
 		mockTmpRelationship.getSecondMember().setIdref("456");
 		RelationshipConverter.convertTemporaryRelationship(mockTmpRelationship, mockTmpModel);
 		assertEquals(mockTmpRelationship.getClient(), mockClientClass);

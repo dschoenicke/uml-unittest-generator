@@ -7,6 +7,7 @@ import code.CodeElement;
 import code.CodePackage;
 import code.CodeTemplateBinding;
 import code.CodeTemplateParameter;
+import lombok.Getter;
 import uml.UmlElement;
 import uml.UmlPackage;
 import uml.UmlParameterSubstitution;
@@ -22,6 +23,7 @@ import uml.UmlTemplateParameter;
  * @author dschoenicke
  *
  */
+@Getter
 public class TemporaryModel {
 
 	/**
@@ -53,16 +55,7 @@ public class TemporaryModel {
 		convertedTemplateParameters = new HashMap<>();
 		convertedElements = new HashMap<>();
 	}
-	
-	/**
-	 * Gets the map of temporary {@link code.CodeTemplateBinding}s and their {@link uml.UmlParameterSubstitution}s
-	 * 
-	 * @return the map of temporary {@link code.CodeTemplateBinding}s and their {@link uml.UmlParameterSubstitution}s
-	 */
-	public HashMap<CodeTemplateBinding, ArrayList<UmlParameterSubstitution>> getTemporaryTemplateBindings() {
-		return temporaryTemplateBindings;
-	}
-	
+
 	/**
 	 * Adds a temporary {@link code.CodeTemplateBinding} and the {@link uml.UmlParameterSubstitution}s to the list
 	 * 
@@ -71,15 +64,6 @@ public class TemporaryModel {
 	 */
 	public void addTemporaryTemplateBinding(CodeTemplateBinding templateBinding, ArrayList<UmlParameterSubstitution> parameterSubstitutions) {
 		temporaryTemplateBindings.put(templateBinding, parameterSubstitutions);
-	}
-	
-	/**
-	 * Gets the map of {@link uml.UmlTemplateParameter}s and {@link code.CodeTemplateParameter}s
-	 * 
-	 * @return the map of {@link uml.UmlTemplateParameter}s and {@link code.CodeTemplateParameter}s
-	 */
-	public HashMap<UmlTemplateParameter, CodeTemplateParameter> getConvertedTemplateParameters() {
-		return convertedTemplateParameters;
 	}
 	
 	/**
@@ -93,15 +77,6 @@ public class TemporaryModel {
 	}
 	
 	/**
-	 * Gets the map of {@link uml.UmlPackage}s and {@link code.CodePackage}s
-	 * 
-	 * @return the map of {@link uml.UmlPackage}s and {@link code.CodePackage}s
-	 */
-	public HashMap<UmlPackage, CodePackage> getConvertedPackages() {
-		return convertedPackages;
-	}
-	
-	/**
 	 * Adds an {@link uml.UmlPackage} and the corresponding {@link code.CodePackage} to the map
 	 * 
 	 * @param umlPackage the {@link uml.UmlPackage} as key 
@@ -109,15 +84,6 @@ public class TemporaryModel {
 	 */
 	public void addConvertedPackage(UmlPackage umlPackage, CodePackage codePackage) {
 		convertedPackages.put(umlPackage, codePackage);
-	}
-	
-	/**
-	 * Gets the map of {@link uml.UmlElement}s and {@link code.CodeElement}s
-	 * 
-	 * @return the map of {@link uml.UmlElement}s and {@link code.CodeElement}s
-	 */
-	public HashMap<UmlElement, CodeElement> getConvertedElements() {
-		return convertedElements;
 	}
 	
 	/**

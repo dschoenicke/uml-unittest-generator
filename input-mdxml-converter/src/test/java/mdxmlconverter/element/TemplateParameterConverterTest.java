@@ -92,7 +92,7 @@ public class TemplateParameterConverterTest {
 		mockSignature.setOwnedParameters(ownedParameters);
 		
 		mockTmpModel = new TemporaryModel();
-		mockTmpModel.addElement("123", new UmlClass("TestElement", UmlVisibility.PUBLIC));
+		mockTmpModel.addElement("123", new UmlClass("TestElement", UmlVisibility.PUBLIC, false, false, false));
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class TemplateParameterConverterTest {
 	 */
 	@Test
 	public void testConvertTemplateParametersElement() {
-		UmlClass mockElement = new UmlClass("Test", UmlVisibility.PUBLIC);
+		UmlClass mockElement = new UmlClass("Test", UmlVisibility.PUBLIC, false, false, false);
 		TemplateParameterConverter.convertTemplateParameters(null, mockElement, mockTmpModel);
 		assertEquals(mockElement.getTemplateParameters().size(), 0);
 		TemplateParameterConverter.convertTemplateParameters(mockSignature, mockElement, mockTmpModel);

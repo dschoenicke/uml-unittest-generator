@@ -179,8 +179,8 @@ public class TestInitializer {
 		umlPackage.addPackage(umlSubPackage);
 		mockUmlModel.addPackage(umlPackage);
 		
-		mockUmlClass = new UmlClass("umlClass", UmlVisibility.PUBLIC);
-		mockInnerUmlClass = new UmlClass("innerClass", UmlVisibility.PACKAGE);
+		mockUmlClass = new UmlClass("umlClass", UmlVisibility.PUBLIC, false, false, false);
+		mockInnerUmlClass = new UmlClass("innerClass", UmlVisibility.PACKAGE, false, false, false);
 		mockUmlClass.addInnerElement(mockInnerUmlClass);
 		umlPackage.addElement(mockUmlClass);
 		umlPackage.addElement(mockInnerUmlClass);
@@ -195,8 +195,8 @@ public class TestInitializer {
 		umlSubPackage.addElement(mockUmlInterface);
 		
 		mockUmlOperation = new UmlOperation("umlOperation", UmlVisibility.PUBLIC);
-		mockUmlParameter = new UmlParameter("param", "int", UmlParameterDirection.IN, false);
-		mockUmlReturnParameter = new UmlParameter("", "String", UmlParameterDirection.RETURN, false);
+		mockUmlParameter = new UmlParameter("param", "int", UmlParameterDirection.IN, false, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE);
+		mockUmlReturnParameter = new UmlParameter("", "String", UmlParameterDirection.RETURN, false, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE);
 		mockUmlOperation.addParameter(mockUmlParameter);
 		mockUmlOperation.addParameter(mockUmlReturnParameter);
 		mockUmlConstructor = new UmlOperation("umlClass", UmlVisibility.PUBLIC);
@@ -214,11 +214,11 @@ public class TestInitializer {
 		mockUmlParameterSubstitution = new UmlParameterSubstitution(mockUmlTemplateParameter, "mockClass");
 		mockUmlTemplateBinding.addParameterSubstitution(mockUmlParameterSubstitution);
 		
-		mockUmlClass.addUmlTemplateBinding(mockUmlTemplateBinding);
+		mockUmlClass.addTemplateBinding(mockUmlTemplateBinding);
 		mockUmlClass.addTemplateParameter(mockUmlTemplateParameter);
-		mockUmlOperation.addUmlTemplateBinding(mockUmlTemplateBinding);
+		mockUmlOperation.addTemplateBinding(mockUmlTemplateBinding);
 		mockUmlOperation.addTemplateParameter(mockUmlTemplateParameter);
-		mockUmlConstructor.addUmlTemplateBinding(mockUmlTemplateBinding);
+		mockUmlConstructor.addTemplateBinding(mockUmlTemplateBinding);
 		mockUmlConstructor.addTemplateParameter(mockUmlTemplateParameter);
 		
 		mockCodeRepresentation = new CodeRepresentation("codeRepresentation");

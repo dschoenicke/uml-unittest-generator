@@ -24,9 +24,9 @@ public class TemplateBindingConverterTest extends TestInitializer {
 		assertEquals(mockCodeMethod.getTemplateBindings().size(), 0);
 		assertEquals(mockCodeConstructor.getTemplateBindings().size(), 0);
 		
-		TemplateBindingConverter.convertTemplateBindings(mockUmlClass.getUmlTemplateBindings(), mockCodeClass, mockTmpModel);
-		TemplateBindingConverter.convertTemplateBindings(mockUmlOperation.getUmlTemplateBindings(), mockCodeMethod, mockTmpModel);
-		TemplateBindingConverter.convertTemplateBindings(mockUmlConstructor.getUmlTemplateBindings(), mockCodeConstructor, mockTmpModel);
+		TemplateBindingConverter.convertTemplateBindings(mockUmlClass.getTemplateBindings(), mockCodeClass, mockTmpModel);
+		TemplateBindingConverter.convertTemplateBindings(mockUmlOperation.getTemplateBindings(), mockCodeMethod, mockTmpModel);
+		TemplateBindingConverter.convertTemplateBindings(mockUmlConstructor.getTemplateBindings(), mockCodeConstructor, mockTmpModel);
 		
 		assertEquals(mockCodeClass.getTemplateBindings().size(), 1);
 		assertEquals(mockCodeMethod.getTemplateBindings().size(), 1);

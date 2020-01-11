@@ -2,6 +2,7 @@ package mdxmlconverter.temporary;
 
 import java.util.HashMap;
 
+import lombok.Getter;
 import uml.UmlTemplateBinding;
 
 /**
@@ -10,6 +11,7 @@ import uml.UmlTemplateBinding;
  * @author dschoenicke
  *
  */
+@Getter
 public class TemporaryTemplateBinding extends UmlTemplateBinding {
 	
 	/**
@@ -23,15 +25,6 @@ public class TemporaryTemplateBinding extends UmlTemplateBinding {
 	public TemporaryTemplateBinding() {
 		parameterSubstitutionMap = new HashMap<>();
 	}	
-	
-	/**
-	 * Gets the map containing the parameter substitution information
-	 * 
-	 * @return the map containing the parameter substitution information
-	 */
-	public HashMap<String, String> getParameterSubstitutionMap() {
-		return parameterSubstitutionMap;
-	}
 	
 	/**
 	 * Adds a reference to an {@link uml.UmlTemplateParameter} and the data type of the substitution to the map
