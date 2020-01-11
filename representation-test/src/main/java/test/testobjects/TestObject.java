@@ -1,5 +1,9 @@
 package test.testobjects;
 
-public interface TestObject {
-
-}
+/**
+ * Interface implemented by all elements under test.
+ * 
+ * @author dschoenicke
+ *
+ */
+public interface TestObject {}

@@ -1,7 +1,5 @@
 package outputjunit;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.util.List;
 
@@ -12,6 +10,7 @@ import org.junit.Test;
 import test.TestClass;
 import test.TestPackage;
 import test.TestRepresentation;
+import test.testobjects.ClassUnderTest;
 
 /**
  * Tests the {@link OutputJUnitConverter}.
@@ -67,9 +66,9 @@ public class OutputJunitConverterTest {
 		mockSubTestPackage = new TestPackage("subpackage", mockTestPackage1);
 		mockTestRepresentation.getPackages().addAll(List.of(mockTestPackage1, mockTestPackage2));
 		mockTestPackage1.addPackage(mockSubTestPackage);
-		mockTestFile1 = new TestClass("firsttestclass", mockTestPackage1);
-		mockTestFile2 = new TestClass("secondtestclass", mockTestPackage2);
-		mockSubTestFile = new TestClass("subtestclass", mockSubTestPackage);
+		mockTestFile1 = new TestClass("firsttestclass", mockTestPackage1, new ClassUnderTest(null, null, 0, null));
+		mockTestFile2 = new TestClass("secondtestclass", mockTestPackage2, new ClassUnderTest(null, null, 0, null));
+		mockSubTestFile = new TestClass("subtestclass", mockSubTestPackage, new ClassUnderTest(null, null, 0, null));
 		mockTestPackage1.addTestClass(mockTestFile1);
 		mockTestPackage2.addTestClass(mockTestFile2);
 		mockSubTestPackage.addTestClass(mockSubTestFile);

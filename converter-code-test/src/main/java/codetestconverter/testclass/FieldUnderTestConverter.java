@@ -41,7 +41,7 @@ public class FieldUnderTestConverter {
 	 */
 	 public static void convertEnumConstantsUnderTest(CodeEnumeration codeEnumeration, ClassUnderTest classUnderTest) {
 		 for (CodeLiteral enumConstant : codeEnumeration.getCodeLiterals()) {
-			 classUnderTest.addEnumConstant(new EnumConstantUnderTest(enumConstant.getName()));
+			 new EnumConstantUnderTest(enumConstant.getName(), classUnderTest);
 		 }
 	 }
 }

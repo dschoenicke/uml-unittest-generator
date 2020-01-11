@@ -2,12 +2,15 @@ package test.testobjects;
 
 import java.util.ArrayList;
 
+import lombok.Data;
+
 /**
  * Represents a constructor of a {@link ClassUnderTest}.
  * 
  * @author dschoenicke
  *
  */
+@Data
 public class ConstructorUnderTest implements TestObject {
 	
 	/**
@@ -37,52 +40,7 @@ public class ConstructorUnderTest implements TestObject {
 		this.modifiers = modifiers;
 		this.parent = parent;
 		parameters = new ArrayList<>();
-		parent.addConstructor(this);
-	}
-	
-	/**
-	 * Gets the modifier value of the constructor under test.
-	 * 
-	 * @return the modifier value of the constructor.
-	 */
-	public int getModifiers() {
-		return modifiers;
-	}
-	
-	/**
-	 * Sets the modifier value of the constructor under test.
-	 * 
-	 * @param modifiers the modifier value of the constructor.
-	 */
-	public void setModifiers(int modifiers) {
-		this.modifiers = modifiers;
-	}
-	
-	/**
-	 * Gets the parent {@link ClassUnderTest} of the constructor under test.
-	 * 
-	 * @return the parent {@link ClassUnderTest} of the constructor under test.
-	 */
-	public ClassUnderTest getParent() {
-		return parent;
-	}
-	
-	/**
-	 * Sets the parent {@link ClassUnderTest} of the constructor under test.
-	 * 
-	 * @return parent the parent {@link ClassUnderTest} of the constructor under test.
-	 */
-	public void setParent(ClassUnderTest parent) {
-		this.parent = parent;
-	}
-	
-	/**
-	 * Gets the list of {@link ParameterUnderTest} of the constructor under test.
-	 * 
-	 * @return the list of {@link ParameterUnderTest} of the constructor under test.
-	 */
-	public ArrayList<ParameterUnderTest> getParameters() {
-		return parameters;
+		parent.getConstructors().add(this);
 	}
 	
 	/**

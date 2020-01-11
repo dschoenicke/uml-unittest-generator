@@ -26,11 +26,11 @@ public class FieldTestConverter {
 					+ "\t\t\tassertEquals(" + fieldUnderTest.getModifiers() + ", fieldUnderTest.getModifiers(), "
 					+ "\"The modifiers of " + classUnderTest.getQualifiedName() + "." + fieldUnderTest.getName() + " do not match!\");\n";
 			
-			if (fieldUnderTest.canBeNull() && !fieldUnderTest.hasMultiplicity()) {
+			if (fieldUnderTest.isCanBeNull() && !fieldUnderTest.isHasMultiplicity()) {
 				fieldTestString += "\t\t\tassertEquals(\"Optional\", fieldUnderTest.getType().getSimpleName(), "
 						+ "\"The field " + fieldUnderTest.getName() + " in " + classUnderTest.getQualifiedName() + " is expected to be an Optional!\");";
 			}
-			else if (fieldUnderTest.hasMultiplicity()) {
+			else if (fieldUnderTest.isHasMultiplicity()) {
 				fieldTestString += "\n\t\t\tif (fieldUnderTest.getClass().isArray()) {\n" 
 						+ "\t\t\t\tassertEquals(\"" + fieldUnderTest.getType() + "[]\", fieldUnderTest.getType().getSimpleName(), "
 						+ "\"" + classUnderTest.getQualifiedName() + "." + fieldUnderTest.getName() + " is expected to have type " + fieldUnderTest.getType() + "[]!\");\n"

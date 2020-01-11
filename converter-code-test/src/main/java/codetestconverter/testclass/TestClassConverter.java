@@ -38,8 +38,7 @@ public class TestClassConverter {
 	 * @param parent the {@link test.TestPackage} containing the converted {@link test.TestClass}.
 	 */
 	static void convertTestClass(CodeElement codeElement, TestPackage parent) {
-		TestClass testClass = new TestClass(codeElement.getName() + "Test", parent);
-		testClass.setClassUnderTest(ClassUnderTestConverter.convertClassUnderTest(codeElement));
+		TestClass testClass = new TestClass(codeElement.getName() + "Test", parent, ClassUnderTestConverter.convertClassUnderTest(codeElement));
 		testClass.getClassUnderTest().setNestHost(Optional.empty());
 		parent.addTestClass(testClass);
 		
@@ -56,8 +55,7 @@ public class TestClassConverter {
 	 * @param nestHost the {@link test.testobjects.ClassUnderTest} acting as the nest host of the element.
 	 */
 	static void convertTestClass(CodeElement codeElement, TestPackage parent, ClassUnderTest nestHost) {
-		TestClass testClass = new TestClass(codeElement.getName() + "Test", parent);
-		testClass.setClassUnderTest(ClassUnderTestConverter.convertClassUnderTest(codeElement));
+		TestClass testClass = new TestClass(codeElement.getName() + "Test", parent, ClassUnderTestConverter.convertClassUnderTest(codeElement));
 		testClass.getClassUnderTest().setNestHost(Optional.of(nestHost));
 		parent.addTestClass(testClass);
 		

@@ -1,11 +1,14 @@
 package test.testobjects;
 
+import lombok.Data;
+
 /**
  * Represents a template parameter of a {@link ClassUnderTest}
  * 
  * @author dschoenicke
  *
  */
+@Data
 public class TemplateParameterUnderTest implements TestObject {
 
 	/**
@@ -35,60 +38,6 @@ public class TemplateParameterUnderTest implements TestObject {
 		this.parameterName = parameterName;
 		this.boundedType = boundedType;
 		this.parent = parent;
-		parent.addTemplateParameter(this);
-	}
-	
-	/**
-	 * Gets the parameter name of the template parameter.
-	 * 
-	 * @return the parameter name of the template parameter.
-	 */
-	public String getParameterName() {
-		return parameterName;
-	}
-	
-	/**
-	 * Sets the parameter name of the template parameter.
-	 * 
-	 * @param parameterName the parameter name of the template parameter.
-	 */
-	public void setParameterName(String parameterName) {
-		this.parameterName = parameterName;
-	}
-	
-	/**
-	 * Gets the qualified name of the bounded type of the template parameter.
-	 * 
-	 * @return the qualified name of the bounded type of the template parameter.
-	 */
-	public String getBoundedType() {
-		return boundedType;
-	}
-	
-	/**
-	 * Sets the qualified name of the bounded type of the template parameter.
-	 * 
-	 * @param boundedType the qualified name of the bounded type of the template parameter.
-	 */
-	public void setBoundedType(String boundedType) {
-		this.boundedType = boundedType;
-	}
-	
-	/**
-	 * Gets the parent {@link ClassUnderTest} of the template parameter.
-	 * 
-	 * @return the parent {@link ClassUnderTest} of the template parameter.
-	 */
-	public ClassUnderTest getParent() {
-		return parent;
-	}
-	
-	/**
-	 * Sets the parent {@link ClassUnderTest} of the template parameter.
-	 * 
-	 * @return parent the parent {@link ClassUnderTest} of the template parameter.
-	 */
-	public void setParent(ClassUnderTest parent) {
-		this.parent = parent;
+		parent.getTemplateParameters().add(this);
 	}
 }

@@ -2,12 +2,15 @@ package test;
 
 import java.util.ArrayList;
 
+import lombok.Data;
+
 /**
  * Represents the root class of the test representation which has the project name as name and a list of {@link TestPackage}s.
  * 
- * @author dscho
+ * @author dschoenicke
  *
  */
+@Data
 public class TestRepresentation implements TestParent {
 	/**
 	 * 
@@ -28,34 +31,7 @@ public class TestRepresentation implements TestParent {
 		this.name = name;
 		packages = new ArrayList<>();
 	}
-	   
-	/**
-	* Gets the name of the representation
-	* 
-	* @return the name of the representation
-	*/
-	public String getName() {
-		return name;
-	}
-	   
-	/**
-	* Sets the name of the representation
-	* 
-	* @param name the name of the representation
-	*/
-	public void setName(String name) {
-		this.name = name;
-	}
-	   
-	/**
-	* Gets the list of {@link TestPackage}s
-	* 
-	* @return the list of {@link TestPackage}s
-	*/
-	public ArrayList<TestPackage> getPackages() {
-		return packages;
-	}
-	   
+	
 	/**
 	* Adds a {@link TestPackage} to the list
 	* 
