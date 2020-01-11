@@ -6,6 +6,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import lombok.Data;
 import uml.converterinterface.UmlInputRepresentation;
 
 /**
@@ -16,6 +17,7 @@ import uml.converterinterface.UmlInputRepresentation;
  * @author dschoenicke
  *
  */
+@Data
 public class MdxmlRepresentation implements UmlInputRepresentation
 {
 	/**
@@ -33,23 +35,5 @@ public class MdxmlRepresentation implements UmlInputRepresentation
 		JAXBContext jaxbContext = JAXBContext.newInstance(Xmi.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         xmi = (Xmi)jaxbUnmarshaller.unmarshal(new File(filepath));
-	}
-	
-	/**
-	 * Gets the {@link Xmi} which acts as the root node of the xml file
-	 * 
-	 * @return the {@link Xmi}
-	 */
-	public Xmi getXmi() {
-		return xmi;
-	}
-	
-	/**
-	 * Sets the {@link Xmi} which acts as the root node of the xml file
-	 * 
-	 * @param xmi the {@link Xmi}
-	 */
-	public void setXmi(Xmi xmi) {
-		this.xmi = xmi;
 	}
 }

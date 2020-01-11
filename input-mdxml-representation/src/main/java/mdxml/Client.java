@@ -1,6 +1,11 @@
 package mdxml;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents the client class of an {@link InterfaceRealization} or Association.
@@ -9,34 +14,14 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author dschoenicke
  *
  */
+@Data
+@XmlAccessorType(XmlAccessType.FIELD)
+@NoArgsConstructor
 public class Client {
 
 	/**
 	 * References the {@link PackagedElement} which acts as a client by its id
 	 */
-	private String idref;
-	
-	/**
-	 * Default constructor
-	 */
-	public Client() {}
-	
-	/**
-	 * Gets the id as a reference to the {@link PackagedElement} which acts as the client
-	 * 
-	 * @return the id of the {@link PackagedElement}
-	 */
 	@XmlAttribute(namespace = "http://www.omg.org/spec/XMI/20131001", name = "idref")
-	public String getIdref() {
-		return idref;
-	}
-	
-	/**
-	 * Sets the id as a reference to the {@link PackagedElement} which acts as the client
-	 * 
-	 * @param idref the id of the {@link PackagedElement}
-	 */
-	public void setIdref(String idref) {
-		this.idref = idref;
-	}
+	private String idref;
 }

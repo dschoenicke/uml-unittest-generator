@@ -1,7 +1,12 @@
 package mdxml;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Class representing the root node of the xml file
@@ -9,35 +14,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author dschoenicke
  *
  */
+@Data
+@NoArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(namespace = "http://www.omg.org/spec/XMI/20131001", name = "XMI")
 public class Xmi {
 	
 	/**
 	 * The {@link Model} of the Magic Draw project
 	 */
-	private Model model;
-	
-	/**
-	 * Default constructor
-	 */
-	public Xmi() {}
-	
-	/**
-	 * Gets the {@link Model} which represents the model of the Magic Draw project
-	 * 
-	 * @return the {@link Model}
-	 */
 	@XmlElement(namespace = "http://www.omg.org/spec/UML/20131001", name = "Model")
-	public Model getModel() {
-		return model;
-	}
-
-	/**
-	 * Sets the {@link Model} which represents the model of the Magic Draw project
-	 * 
-	 * @param model the {@link Model}
-	 */
-	public void setModel(Model model) {
-		this.model = model;
-	}
+	private Model model;
 }

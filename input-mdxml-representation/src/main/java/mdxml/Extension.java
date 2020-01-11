@@ -1,6 +1,11 @@
 package mdxml;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents an auxiliary node in the XML tree to extend the Magic Draw specification
@@ -9,58 +14,20 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
+@Data
+@NoArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Extension {
 	
 	/**
 	 * A {@link ModelExtension} which is an auxiliary class to hold values
 	 */
+	@XmlElement(name = "modelExtension")
 	private ModelExtension modelExtension;
 	
 	/**
 	 * Determines the data type of a primitive type
 	 */
-	private ReferenceExtension referenceExtension;
-	
-	/**
-	 * Default constructor
-	 */
-	public Extension() {}
-	
-	/**
-	 * Gets the {@link ModelExtension}
-	 * 
-	 * @return the {@link ModelExtension}
-	 */
-	@XmlElement(name = "modelExtension")
-	public ModelExtension getModelExtension() {
-		return modelExtension;
-	}
-	
-	/**
-	 * Sets the {@link ModelExtension}
-	 * 
-	 * @param modelExtension the {@link ModelExtension}
-	 */
-	public void setModelExtension(ModelExtension modelExtension) {
-		this.modelExtension = modelExtension;
-	}
-	
-	/**
-	 * Gets the {@link ReferenceExtension}
-	 * 
-	 * @return the {@link ReferenceExtension}
-	 */
 	@XmlElement(name = "referenceExtension")
-	public ReferenceExtension getReferenceExtension() {
-		return referenceExtension;
-	}
-	
-	/**
-	 * Sets the {@link ReferenceExtension}
-	 * 
-	 * @param referenceExtension the {@link ReferenceExtension}
-	 */
-	public void setReferenceExtension(ReferenceExtension referenceExtension) {
-		this.referenceExtension = referenceExtension;
-	}
+	private ReferenceExtension referenceExtension;
 }

@@ -1,6 +1,11 @@
 package mdxml;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents a reference to an {@link OwnedParameter} in an {@link OwnedTemplateSignature}
@@ -8,34 +13,14 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author dschoenicke
  *
  */
+@Data
+@NoArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Parameter {
 
 	/**
 	 * The id referencing the {@link OwnedParameter}
 	 */
-	private String idref;
-	
-	/**
-	 * Default constructor
-	 */
-	public Parameter() {}
-	
-	/**
-	 * Gets the id referencing the {@link OwnedParameter}
-	 * 
-	 * @return the id referencing the {@link OwnedParameter}
-	 */
 	@XmlAttribute(namespace = "http://www.omg.org/spec/XMI/20131001", name = "idref")
-	public String getIdref() {
-		return idref;
-	}
-	
-	/**
-	 * Sets the id referencing the {@link OwnedParameter}
-	 * 
-	 * @param idref the id referencing the {@link OwnedParameter}
-	 */
-	public void setIdref(String idref) {
-		this.idref = idref;
-	}
+	private String idref;
 }

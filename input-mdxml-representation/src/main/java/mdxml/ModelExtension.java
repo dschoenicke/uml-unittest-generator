@@ -1,6 +1,11 @@
 package mdxml;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents an auxiliary node in the XML tree held by an {@link Extension}
@@ -9,58 +14,20 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
+@Data
+@NoArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModelExtension {
 	
 	/**
 	 * The {@link LowerValue} of the {@link OwnedAttribute} which uses the {@link Extension} which holds this model extension
 	 */
+	@XmlElement(name = "lowerValue")
 	private LowerValue lowerValue;
 	
 	/**
 	 * The {@link UpperValue} of the {@link OwnedAttribute} which uses the {@link Extension} which holds this model extension
 	 */
-	private UpperValue upperValue;
-	
-	/**
-	 * Default constructor
-	 */
-	public ModelExtension() {}
-	
-	/**
-	 * Gets the {@link LowerValue} object
-	 * 
-	 * @return the {@link LowerValue} object
-	 */
-	@XmlElement(name = "lowerValue")
-	public LowerValue getLowerValue() {
-		return lowerValue;
-	}
-	
-	/**
-	 * Sets the {@link LowerValue} object
-	 * 
-	 * @param lowerValue the {@link LowerValue} object
-	 */
-	public void setLowerValue(LowerValue lowerValue) {
-		this.lowerValue = lowerValue;
-	}
-	
-	/**
-	 * Gets the {@link UpperValue} object
-	 * 
-	 * @return the {@link UpperValue} object
-	 */
 	@XmlElement(name = "upperValue")
-	public UpperValue getUpperValue() {
-		return upperValue;
-	}
-	
-	/**
-	 * Sets the {@link UpperValue} object
-	 * 
-	 * @param upperValue the {@link UpperValue} object
-	 */
-	public void setUpperValue(UpperValue upperValue) {
-		this.upperValue = upperValue;
-	}
+	private UpperValue upperValue;
 }

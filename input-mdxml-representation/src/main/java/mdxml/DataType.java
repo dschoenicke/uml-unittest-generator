@@ -1,6 +1,11 @@
 package mdxml;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents a primitive data type which is described by a reference to its specification.
@@ -8,34 +13,14 @@ import javax.xml.bind.annotation.XmlElement;
  * @author dschoenicke
  *
  */
+@Data
+@XmlAccessorType(XmlAccessType.FIELD)
+@NoArgsConstructor
 public class DataType {
 
 	/**
 	 * {@link Extension} holding a reference to the specification of the datatype
 	 */
-	private Extension extension;
-	
-	/**
-	 * Default constructor
-	 */
-	public DataType() {}
-	
-	/**
-	 * Gets the {@link Extension} holding the specification of the data type
-	 * 
-	 * @return the {@link Extension} holding the specification of the data type
-	 */
 	@XmlElement(namespace = "http://www.omg.org/spec/XMI/20131001", name = "Extension")
-	public Extension getExtension() {
-		return extension;
-	}
-	
-	/**
-	 * Sets the {@link Extension} holding the specification of the data type
-	 * 
-	 * @param extension the {@link Extension} holding the specification of the data type
-	 */
-	public void setExtension(Extension extension) {
-		this.extension = extension;
-	}
+	private Extension extension;
 }

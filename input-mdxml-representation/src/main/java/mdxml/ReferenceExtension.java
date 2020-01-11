@@ -1,6 +1,11 @@
 package mdxml;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Determines the data type of a primitive type by holding a reference to its specification
@@ -8,34 +13,14 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author dschoenicke
  *
  */
+@Data
+@NoArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ReferenceExtension {
 
 	/**
 	 * Reference to the primitive type
 	 */
-	private String referentPath;
-	
-	/**
-	 * Default constructor
-	 */
-	public ReferenceExtension() {}
-	
-	/**
-	 * Gets the referentPath determining the data type
-	 * 
-	 * @return the referentPath
-	 */
 	@XmlAttribute(name = "referentPath")
-	public String getReferentPath() {
-		return referentPath;
-	}
-	
-	/**
-	 * Sets the referentPath determining the data type
-	 * 
-	 * @param referentPath the referentPath
-	 */
-	public void setReferentPath(String referentPath) {
-		this.referentPath = referentPath;
-	}
+	private String referentPath;
 }
