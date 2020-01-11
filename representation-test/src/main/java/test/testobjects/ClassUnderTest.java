@@ -22,9 +22,19 @@ public class ClassUnderTest implements TestObject {
 	private Optional<String> superClass;
 	
 	/**
+	 * The {@link ClassUnderTest} acting as the nest host of the class under test. Can be {@literal null}.
+	 */
+	private Optional<ClassUnderTest> nestHost;
+	
+	/**
 	 * A list of qualified names of interfaces of the class under test.
 	 */
 	private ArrayList<String> interfaces;
+	
+	/**
+	 * The {@link ClassUnderTestType} of the class under test.
+	 */
+	private ClassUnderTestType type;
 	
 	/**
 	 * The modifier value of the class under test.
@@ -57,15 +67,17 @@ public class ClassUnderTest implements TestObject {
 	private ArrayList<EnumConstantUnderTest> enumConstants;
 	
 	/**
-	 * Constructor with qualified name, modifiers and a potential super class of the class under test.<br>
+	 * Constructor with qualified name, {@link ClassUnderTestType}, modifiers and a potential super class of the class under test.<br>
 	 * Initializes the lists of {@link TemplateParameterUnderTest}, {@link FieldUnderTest}, {@link ConstructorUnderTes}, {@link MethodUnderTest} and {@link EnumConstantUnderTest}.
 	 * 
 	 * @param qualifiedName the fully qualified name of the class under test.
+	 * @param type the {@link ClassUnderTestType} of the class under test.
 	 * @param modifiers the modifier value of the class under test.
 	 * @param superClass the potential super class of the class under test. Can be {@literal null}.
 	 */
-	public ClassUnderTest(String qualifiedName, int modifiers, Optional<String> superClass) {
+	public ClassUnderTest(String qualifiedName, ClassUnderTestType type, int modifiers, Optional<String> superClass) {
 		this.qualifiedName = qualifiedName;
+		this.type = type;
 		this.superClass = superClass;
 		this.modifiers = modifiers;
 		templateParameters = new ArrayList<>();
@@ -95,7 +107,25 @@ public class ClassUnderTest implements TestObject {
 	}
 	
 	/**
-	 * Gets the qualified potential super class of the class under test.
+	 * Gets the {@link ClassUnderTestType} of the class under test.
+	 * 
+	 * @return the {@link ClassUnderTestType} of the class under test.
+	 */
+	public ClassUnderTestType getType() {
+		return type;
+	}
+	
+	/**
+	 * Sets the {@link ClassUnderTestType} of the class under test.
+	 * 
+	 * @param the {@link ClassUnderTestType} of the class under test.
+	 */
+	public void setType(ClassUnderTestType type) {
+		this.type = type;
+	}
+	
+	/**
+	 * Gets the qualified name of the potential super class of the class under test.
 	 * 
 	 * @return the potential super class of the class under test, can be {@literal null}.
 	 */
@@ -104,12 +134,30 @@ public class ClassUnderTest implements TestObject {
 	}
 	
 	/**
-	 * Sets the potential super class of the class under test.
+	 * Sets the qualified name of the potential super class of the class under test.
 	 * 
 	 * @param superClass the potential super class of the class, can be {@literal null}.
 	 */
 	public void setSuperClass(Optional<String> superClass) {
 		this.superClass = superClass;
+	}
+	
+	/**
+	 * Gets the potential {@link ClassUnderTest} acting as the nest host of the class.
+	 * 
+	 * @return the potential {@link ClassUnderTest} acting as the nest host of the class. Can be {@literal null}.
+	 */
+	public Optional<ClassUnderTest> getNestHost() {
+		return nestHost;
+	}
+	
+	/**
+	 * Sets the potential {@link ClassUnderTest} acting as the nest host of the class.
+	 * 
+	 * @param the potential {@link ClassUnderTest} acting as the nest host of the class. Can be {@literal null}.
+	 */
+	public void setNestHost(Optional<ClassUnderTest> nestHost) {
+		this.nestHost = nestHost;
 	}
 	
 	/**
@@ -236,5 +284,15 @@ public class ClassUnderTest implements TestObject {
 	 */
 	public void addEnumConstant(EnumConstantUnderTest enumConstant) {
 		enumConstants.add(enumConstant);
+	}
+	
+	/**
+	 * Enumeration describing the class type of the {@link ClassUnderTest}
+	 * 
+	 * @author dschoenicke
+	 *
+	 */
+	public static enum ClassUnderTestType {
+		CLASS, ENUM, INTERFACE;
 	}
 }

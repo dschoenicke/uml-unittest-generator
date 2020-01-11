@@ -10,5 +10,5 @@ public enum UmlVisibility {
 	PUBLIC,
 	PRIVATE,
 	PROTECTED,
-	DEFAULT
+	PACKAGE
 }

@@ -18,7 +18,10 @@ public class MethodTestConverter {
 					+ "\t\t\tassertEquals(" + methodUnderTest.getModifiers() + ", methodUnderTest.getModifiers(), \"The modifiers of the method " + methodUnderTest.getName() + " with "
 					+ (methodUnderTest.getParameters().isEmpty() ? "no parameters" : "parameters " + ParameterTestConverter.createParameterList(methodUnderTest.getParameters()))
 					+ " in " + classUnderTest.getQualifiedName() + " do not match!\");\n"
-					+ "\t\t\t//TODO: Check return type\n";
+					+ "\t\t\tassertEquals(\"" + methodUnderTest.getReturnType().getType() + "\", methodUnderTest.getReturnType().getSimpleName(), "
+					+ "\"" + classUnderTest.getQualifiedName() + "." + methodUnderTest.getName() + "() with "
+					+ (methodUnderTest.getParameters().isEmpty() ? "no parameters" : "parameters " + ParameterTestConverter.createParameterList(methodUnderTest.getParameters()))
+					+ " is expected to return " + methodUnderTest.getReturnType().getType() + "!\");\n";
 
 					if (!methodUnderTest.getParameters().isEmpty()) {
 						methodTestString += "\n" + ParameterTestConverter.createParameterTests(methodUnderTest, methodUnderTest.getParameters());

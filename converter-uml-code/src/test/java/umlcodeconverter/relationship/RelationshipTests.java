@@ -82,9 +82,9 @@ public class RelationshipTests {
 	@Before
 	public void init() {
 		mockTmpModel = new TemporaryModel();
-		mockClass = new CodeClass("mockClass", null, CodeVisibility.DEFAULT, false, false, false);
-		mockInterface = new CodeInterface("mockInterface", null, CodeVisibility.DEFAULT, false, false, false);
-		mockEnumeration = new CodeEnumeration("mockEnumeration", null, CodeVisibility.DEFAULT, false, false, false);
+		mockClass = new CodeClass("mockClass", null, CodeVisibility.PACKAGE, false, false, false);
+		mockInterface = new CodeInterface("mockInterface", null, CodeVisibility.PACKAGE, false, false, false);
+		mockEnumeration = new CodeEnumeration("mockEnumeration", null, CodeVisibility.PACKAGE, false, false, false);
 		mockUmlClass = new UmlClass("mockClass", null);
 		mockUmlInterface = new UmlInterface("mockInterface", null);
 		mockUmlEnumeration = new UmlEnumeration("mockEnumeration", null);

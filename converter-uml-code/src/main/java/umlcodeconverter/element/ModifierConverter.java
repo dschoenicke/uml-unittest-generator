@@ -18,7 +18,7 @@ public class ModifierConverter {
 	 * @return the converted {@link code.CodeVisibility}
 	 */
 	public static CodeVisibility convertAccessModifier(UmlVisibility visibility) {
-		CodeVisibility codeVisibility = CodeVisibility.DEFAULT;
+		CodeVisibility codeVisibility = CodeVisibility.PACKAGE;
 		
 		if (visibility != null) {
 			switch (visibility) {

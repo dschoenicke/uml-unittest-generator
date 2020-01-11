@@ -9,7 +9,7 @@ package code;
  */
 public enum CodeVisibility {
 
-	DEFAULT(0),
+	PACKAGE(0),
 	PUBLIC(1),
 	PRIVATE(2),
 	PROTECTED(4);

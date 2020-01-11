@@ -21,9 +21,9 @@ public class ModifierConverterTest {
 	 */
 	@Test
 	public void testAccessModifier() {
-		assertEquals(ModifierConverter.convertAccessModifier(null), UmlVisibility.DEFAULT);
-		assertEquals(ModifierConverter.convertAccessModifier("---"), UmlVisibility.DEFAULT);
-		assertEquals(ModifierConverter.convertAccessModifier("public"), UmlVisibility.PUBLIC);
+		assertEquals(ModifierConverter.convertAccessModifier(null), UmlVisibility.PUBLIC);
+		assertEquals(ModifierConverter.convertAccessModifier("---"), UmlVisibility.PUBLIC);
+		assertEquals(ModifierConverter.convertAccessModifier("package"), UmlVisibility.PACKAGE);
 		assertEquals(ModifierConverter.convertAccessModifier("private"), UmlVisibility.PRIVATE);
 		assertEquals(ModifierConverter.convertAccessModifier("protected"), UmlVisibility.PROTECTED);
 	}

@@ -32,7 +32,7 @@ public class CodeModifierTest {
 	 */
 	@Test
 	public void testDefaultAccess() {
-		CodeClass codeClass = new CodeClass("test", null, CodeVisibility.DEFAULT, true, false, true);
+		CodeClass codeClass = new CodeClass("test", null, CodeVisibility.PACKAGE, true, false, true);
 		assertTrue("codeClass is expected to have default access!", CodeModifier.hasDefaultAccess(codeClass.getModifiers()));
 	}
 }

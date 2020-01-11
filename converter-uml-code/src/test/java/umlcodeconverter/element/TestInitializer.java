@@ -180,7 +180,7 @@ public class TestInitializer {
 		mockUmlModel.addPackage(umlPackage);
 		
 		mockUmlClass = new UmlClass("umlClass", UmlVisibility.PUBLIC);
-		mockInnerUmlClass = new UmlClass("innerClass", UmlVisibility.DEFAULT);
+		mockInnerUmlClass = new UmlClass("innerClass", UmlVisibility.PACKAGE);
 		mockUmlClass.addInnerElement(mockInnerUmlClass);
 		umlPackage.addElement(mockUmlClass);
 		umlPackage.addElement(mockInnerUmlClass);

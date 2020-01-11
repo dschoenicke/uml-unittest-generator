@@ -61,7 +61,7 @@ public class CodeParameter {
 		this.parent = parent;
 		this.canBeNull = canBeNull;
 		this.hasMultiplicity = hasMultiplicity;
-		this.modifiers = CodeModifier.convertModifierValue(CodeVisibility.DEFAULT, false, isFinal, false);
+		this.modifiers = CodeModifier.convertModifierValue(CodeVisibility.PACKAGE, false, isFinal, false);
 	}
 	
 	/**

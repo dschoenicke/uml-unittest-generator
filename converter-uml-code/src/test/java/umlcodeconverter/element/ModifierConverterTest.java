@@ -20,8 +20,8 @@ public class ModifierConverterTest {
 	 */
 	@Test
 	public void testModifierConverter() {
-		assertEquals(ModifierConverter.convertAccessModifier(null), CodeVisibility.DEFAULT);
-		assertEquals(ModifierConverter.convertAccessModifier(UmlVisibility.DEFAULT), CodeVisibility.DEFAULT);
+		assertEquals(ModifierConverter.convertAccessModifier(null), CodeVisibility.PACKAGE);
+		assertEquals(ModifierConverter.convertAccessModifier(UmlVisibility.PACKAGE), CodeVisibility.PACKAGE);
 		assertEquals(ModifierConverter.convertAccessModifier(UmlVisibility.PUBLIC), CodeVisibility.PUBLIC);
 		assertEquals(ModifierConverter.convertAccessModifier(UmlVisibility.PRIVATE), CodeVisibility.PRIVATE);
 		assertEquals(ModifierConverter.convertAccessModifier(UmlVisibility.PROTECTED), CodeVisibility.PROTECTED);

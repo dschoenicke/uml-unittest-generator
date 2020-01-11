@@ -60,7 +60,7 @@ public class TestClassConverterTest {
 		mockTestPackage = new TestPackage("package", mockTestRepresentation);
 		mockCodePackage = new CodePackage("package", mockCodeRepresentation);
 		mockCodeClass = new CodeClass("class", mockCodePackage, CodeVisibility.PUBLIC, false, false, false);
-		mockNestedClass = new CodeClass("nestedclass", mockCodeClass, CodeVisibility.DEFAULT, false, false, false);
+		mockNestedClass = new CodeClass("nestedclass", mockCodeClass, CodeVisibility.PACKAGE, false, false, false);
 		mockCodeClass.addNestedElement(mockNestedClass);
 		mockCodePackage.addElement(mockCodeClass);
 		mockTmpModel = new TemporaryModel();

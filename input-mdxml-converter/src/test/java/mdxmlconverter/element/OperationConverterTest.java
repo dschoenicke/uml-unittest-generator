@@ -61,7 +61,7 @@ public class OperationConverterTest {
 		OperationConverter.convertOperations(mockPackagedElement, mockClass, mockTmpModel);
 		UmlOperation umlOperation = mockClass.getOperations().get(0);
 		assertEquals(umlOperation.getName(), mockOwnedOperation.getName());
-		assertEquals(umlOperation.getVisibility(), UmlVisibility.DEFAULT);
+		assertEquals(umlOperation.getVisibility(), UmlVisibility.PUBLIC);
 		assertFalse(umlOperation.isAbstract());
 		assertFalse(umlOperation.isStatic());
 		assertFalse(umlOperation.isFinal());
