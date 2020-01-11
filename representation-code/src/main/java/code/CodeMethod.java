@@ -2,12 +2,16 @@ package code;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Represents a method of a {@link CodeElement}
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public class CodeMethod implements CodeParent {
 
 	/**
@@ -23,7 +27,7 @@ public class CodeMethod implements CodeParent {
 	/**
 	 * The return type of the method
 	 */
-	private CodeParameter returnType;
+	@Setter private CodeParameter returnType;
 	
 	/**
 	 * An integer representing the {@link CodeModifier} determining the method's modifiers
@@ -83,106 +87,6 @@ public class CodeMethod implements CodeParent {
 		templateBindings = new ArrayList<CodeTemplateBinding>();
 		templateParameters = new ArrayList<CodeTemplateParameter>();
 	}
-	
-	
-	/**
-	 * Gets the name of the method
-	 * 
-	 * @return the name of the method
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name of the method
-	 * 
-	 * @param name the name of the method
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	/**
-	 * Gets the {@link CodeParent} of the method
-	 * 
-	 * @return the {@link CodeParent} of the method
-	 */
-	public CodeParent getParent() {
-		return parent;
-	}
-
-	/**
-	 * Sets the {@link CodeParent} of the method
-	 * 
-	 * @param parent the {@link CodeParent} of the method
-	 */
-	public void setParent(CodeParent parent) {
-		this.parent = parent;
-	}
-	
-	/**
-	 * Gets the int value representing the {@link CodeModifier}s of the method
-	 * 
-	 * @return the int value representing the {@link CodeModifier}s of the method
-	 */
-	public int getModifiers() {
-		return modifiers;
-	}
-
-	/**
-	 * Sets the modifiers value of the method
-	 * 
-	 * @param modifiers the modifiers method
-	 */
-	public void setModifiers(int modifiers) {
-		this.modifiers = modifiers;
-	}
-	
-	/**
-	 * Gets the return type of the method
-	 * 
-	 * @return the return type of the method
-	 */
-	public CodeParameter getReturnType() {
-		return returnType;
-	}
-	
-	/**
-	 * Sets the return type of the method
-	 * 
-	 * @param returnType the return type of the method
-	 */
-	public void setReturnType(CodeParameter returnType) {
-		this.returnType = returnType;
-	}
-	
-	/**
-	 * Returns true, if the field has a multiplicity
-	 * 
-	 * @return true, if the field has a multiplicity
-	 */
-	public boolean hasMultiplicity() {
-		return hasMultiplicity;
-	}
-
-	/**
-	 * Sets the value determining whether the method return type can have a multiplicity
-	 * 
-	 * @param hasMultiplicity the value determining whether the method return type can have a multiplicity
-	 */
-	public void setHasMultiplicity(boolean hasMultiplicity) {
-		this.hasMultiplicity = hasMultiplicity;
-	}
-	
-	/**
-	 * Gets the list of {@link CodeParameter}s
-	 * 
-	 * @return the list of {@link CodeParameter}s
-	 */
-	public ArrayList<CodeParameter> getParameters() {
-		return parameters;
-	}
 
 	/**
 	 * Adds a {@link CodeParameter} to the list
@@ -192,16 +96,7 @@ public class CodeMethod implements CodeParent {
 	public void addParameter(CodeParameter parameter) {
 		parameters.add(parameter);
 	}
-
-	/**
-	 * Gets the list of {@link CodeTemplateBinding}s
-	 * 
-	 * @return the list of {@link CodeTemplateBinding}s
-	 */
-	public ArrayList<CodeTemplateBinding> getTemplateBindings() {
-		return templateBindings;
-	}
-
+	
 	/**
 	 * Adds a {@link CodeTemplateBinding} to the list
 	 * 
@@ -210,16 +105,7 @@ public class CodeMethod implements CodeParent {
 	public void addTemplateBinding(CodeTemplateBinding templateBinding) {
 		templateBindings.add(templateBinding);
 	}
-
-	/**
-	 * Gets the list of {@link CodeTemplateParameter}s
-	 * 
-	 * @return the list of {@link CodeTemplateParameter}s
-	 */
-	public ArrayList<CodeTemplateParameter> getTemplateParameters() {
-		return templateParameters;
-	}
-
+	
 	/**
 	 * Adds a {@link CodeTemplateParameter} to the list
 	 * 

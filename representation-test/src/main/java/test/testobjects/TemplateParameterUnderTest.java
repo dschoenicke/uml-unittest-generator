@@ -1,6 +1,6 @@
 package test.testobjects;
 
-import lombok.Data;
+import lombok.Getter;
 
 /**
  * Represents a template parameter of a {@link ClassUnderTest}
@@ -8,7 +8,7 @@ import lombok.Data;
  * @author dschoenicke
  *
  */
-@Data
+@Getter
 public class TemplateParameterUnderTest implements TestObject {
 
 	/**

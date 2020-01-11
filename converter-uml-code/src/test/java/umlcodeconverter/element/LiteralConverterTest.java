@@ -18,6 +18,6 @@ public class LiteralConverterTest extends TestInitializer {
 	@Test
 	public void testLiteralConverter() {
 		LiteralConverter.convertLiterals(mockUmlEnumeration, mockCodeEnumeration);
-		assertEquals(mockCodeEnumeration.getCodeLiterals().get(0).getName(), mockUmlLiteral.getName());
+		assertEquals(mockCodeEnumeration.getLiterals().get(0).getName(), mockUmlLiteral.getName());
 	}
 }

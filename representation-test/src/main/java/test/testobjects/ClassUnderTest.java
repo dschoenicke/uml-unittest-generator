@@ -3,7 +3,8 @@ package test.testobjects;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the class under test of a {@link test.TestClass}.
@@ -11,7 +12,7 @@ import lombok.Data;
  * @author dschoenicke
  *
  */
-@Data
+@Getter
 public class ClassUnderTest implements TestObject {
 
 	/**
@@ -27,7 +28,7 @@ public class ClassUnderTest implements TestObject {
 	/**
 	 * The {@link ClassUnderTest} acting as the nest host of the class under test. Can be {@literal null}.
 	 */
-	private Optional<ClassUnderTest> nestHost;
+	@Setter private Optional<ClassUnderTest> nestHost;
 	
 	/**
 	 * A list of qualified names of interfaces of the class under test.

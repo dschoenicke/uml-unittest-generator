@@ -2,12 +2,15 @@ package code;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 /**
  * Root element of the code representation, has a list of {@link CodePackage}s which contain all of the elements.
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public class CodeRepresentation implements CodeParent {
 	
 	/**
@@ -28,33 +31,6 @@ public class CodeRepresentation implements CodeParent {
 	public CodeRepresentation(String name) {
 		this.name = name;
 		packages = new ArrayList<>();
-	}
-
-	/**
-	 * Gets the name of the representation
-	 * 
-	 * @return the name of the representation
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Sets the name of the representation
-	 * 
-	 * @param name the name of the representation
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	/**
-	 * Gets the list of all top level {@link CodePackage}s
-	 * 
-	 * @return the list of all top level {@link CodePackage}s
-	 */
-	public ArrayList<CodePackage> getPackages() {
-		return packages;
 	}
 	
 	/**

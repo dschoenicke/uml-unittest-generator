@@ -28,8 +28,8 @@ public class FieldUnderTestConverter {
 					field.getType(), 
 					field.getModifiers(),
 					classUnderTest,
-					field.canBeNull(),
-					field.hasMultiplicity());
+					field.getCanBeNull(),
+					field.getHasMultiplicity());
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class FieldUnderTestConverter {
 	 * @param classUnderTest the {@link test.testobjects.ClassUnderTest} to which the converted {@link test.testobjects.EnumConstantUnderTest} should be added to.
 	 */
 	 public static void convertEnumConstantsUnderTest(CodeEnumeration codeEnumeration, ClassUnderTest classUnderTest) {
-		 for (CodeLiteral enumConstant : codeEnumeration.getCodeLiterals()) {
+		 for (CodeLiteral enumConstant : codeEnumeration.getLiterals()) {
 			 new EnumConstantUnderTest(enumConstant.getName(), classUnderTest);
 		 }
 	 }

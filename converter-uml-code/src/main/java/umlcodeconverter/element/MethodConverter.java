@@ -39,7 +39,7 @@ public class MethodConverter {
 			CodeMethod method = new CodeMethod(
 					operation.getName(),
 					codeElement,
-					ParameterConverter.createParameter(returnParameter, null),
+					null,
 					(returnParameter.getUpperValue() == UmlMultiplicityValue.INFINITE),
 					ModifierConverter.convertAccessModifier(operation.getVisibility()),
 					operation.isAbstract(),
@@ -47,6 +47,7 @@ public class MethodConverter {
 					operation.isFinal()
 				);
 			
+			method.setReturnType(ParameterConverter.createParameter(returnParameter, method));
 			method.getReturnType().setParent(method);
 			ParameterConverter.convertParameters(operation, method);
 			TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), method, tmpModel);

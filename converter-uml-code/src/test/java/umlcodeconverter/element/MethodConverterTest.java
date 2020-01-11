@@ -36,6 +36,6 @@ public class MethodConverterTest extends TestInitializer {
 		assertEquals(convertedMethod.getParent(), mockCodeClass);
 		assertEquals(convertedMethod.getModifiers(), 1);
 		assertEquals(convertedMethod.getReturnType().getType(), mockUmlReturnParameter.getType());
-		assertEquals(convertedMethod.hasMultiplicity(), mockUmlReturnParameter.getUpperValue() == UmlMultiplicityValue.INFINITE);
+		assertEquals(convertedMethod.isHasMultiplicity(), mockUmlReturnParameter.getUpperValue() == UmlMultiplicityValue.INFINITE);
 	}
 }

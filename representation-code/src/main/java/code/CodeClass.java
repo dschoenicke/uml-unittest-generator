@@ -1,11 +1,16 @@
 package code;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Class representing a class, extending {@link CodeElement}
  * 
  * @author dschoenicke
  *
  */
+@Getter
+@Setter
 public class CodeClass extends CodeElement {
 
 	/**
@@ -32,23 +37,5 @@ public class CodeClass extends CodeElement {
 			boolean isFinal) {
 		
 		super(name, parent, visibility, isAbstract, isStatic, isFinal);
-	}
-	
-	/**
-	 * Gets the super class of the class
-	 * 
-	 * @return the super class of the class
-	 */
-	public CodeClass getSuperClass() {
-		return superClass;
-	}
-	
-	/**
-	 * Sets the super class of the class
-	 * 
-	 * @param superClass the super class of the class
-	 */
-	public void setSuperClass(CodeClass superClass) {
-		this.superClass = superClass;
 	}
 }

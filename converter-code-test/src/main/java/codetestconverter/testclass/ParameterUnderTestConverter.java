@@ -37,7 +37,7 @@ public class ParameterUnderTestConverter {
 		return new ParameterUnderTest(parameter.getName(),
 				parameter.getType(),
 				parameter.getModifiers(),
-				parameter.canBeNull(),
-				parameter.hasMultiplicity());
+				parameter.getCanBeNull(),
+				parameter.getHasMultiplicity());
 	}
 }

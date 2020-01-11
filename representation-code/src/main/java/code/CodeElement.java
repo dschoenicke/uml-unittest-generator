@@ -2,12 +2,15 @@ package code;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 /**
  * Abstract class extended by {@link CodeClass}es, {@link CodeInterface}s and {@link CodeEnumeration}s
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public abstract class CodeElement implements CodeParent {
 	
 	/**
@@ -92,66 +95,12 @@ public abstract class CodeElement implements CodeParent {
 	}
 
 	/**
-	 * Gets the name of the element
-	 * 
-	 * @return the name of the element
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name of the element
-	 * 
-	 * @param name the name of the element
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * Gets the parent {@link CodeParent} of the element
-	 * 
-	 * @return the parent {@link CodeParent} of the element
-	 */
-	public CodeParent getParent() {
-		return parent;
-	}
-
-	/**
-	 * Sets the parent {@link CodeParent} of the element
-	 * 
-	 * @param parent the {@link CodeParent} of the element
-	 */
-	public void setParent(CodeParent parent) {
-		this.parent = parent;
-	}
-
-	/**
-	 * Gets the list of {@link CodeField}s
-	 * 
-	 * @return the list of {@link CodeField}s
-	 */
-	public ArrayList<CodeField> getFields() {
-		return fields;
-	}
-
-	/**
 	 * Adds a {@link CodeField} to the list
 	 * 
 	 * @param field the {@link CodeField} to add to the list
 	 */
 	public void addField(CodeField field) {
 		fields.add(field);
-	}
-	
-	/**
-	 * Gets the list of {@link CodeConstructor}s
-	 * 
-	 * @return the list of {@link CodeConstructor}s
-	 */
-	public ArrayList<CodeConstructor> getConstructors() {
-		return constructors;
 	}
 
 	/**
@@ -164,30 +113,12 @@ public abstract class CodeElement implements CodeParent {
 	}
 
 	/**
-	 * Gets the list of {@link CodeMethod}s
-	 * 
-	 * @return the list of {@link CodeMethod}s
-	 */
-	public ArrayList<CodeMethod> getMethods() {
-		return methods;
-	}
-
-	/**
 	 * Adds a {@link CodeMethod} to the list
 	 * 
 	 * @param method the {@link CodeMethod} to add to the list
 	 */
 	public void addMethod(CodeMethod method) {
 		methods.add(method);
-	}
-
-	/**
-	 * Gets the list of {@link CodeTemplateBinding}s
-	 * 
-	 * @return the list of {@link CodeTemplateBinding}s
-	 */
-	public ArrayList<CodeTemplateBinding> getTemplateBindings() {
-		return templateBindings;
 	}
 
 	/**
@@ -198,16 +129,7 @@ public abstract class CodeElement implements CodeParent {
 	public void addTemplateBinding(CodeTemplateBinding templateBinding) {
 		templateBindings.add(templateBinding);
 	}
-
-	/**
-	 * Gets the list of {@link CodeTemplateParameter}s
-	 * 
-	 * @return the list of {@link CodeTemplateParameter}s
-	 */
-	public ArrayList<CodeTemplateParameter> getTemplateParameters() {
-		return templateParameters;
-	}
-
+	
 	/**
 	 * Adds a {@link CodeTemplateParameter} to the list
 	 * 
@@ -218,15 +140,6 @@ public abstract class CodeElement implements CodeParent {
 	}
 	
 	/**
-	 * Gets the list of implemented or extended {@link CodeInterface}s
-	 * 
-	 * @return the list of implemented or extended {@link CodeInterface}s
-	 */
-	public ArrayList<CodeInterface> getInterfaces() {
-		return interfaces;
-	}
-	
-	/**
 	 * Adds an implemented or extended {@link CodeInterface} to the list
 	 * 
 	 * @param codeInterface the implemented or extended {@link CodeInterface} to add to the list
@@ -234,16 +147,7 @@ public abstract class CodeElement implements CodeParent {
 	public void addInterface(CodeInterface codeInterface) {
 		interfaces.add(codeInterface);
 	}
-
-	/**
-	 * Gets the list of nested elements
-	 * 
-	 * @return the list of nested elements
-	 */
-	public ArrayList<CodeElement> getNestedElements() {
-		return nestedElements;
-	}
-
+	
 	/**
 	 * Adds a nested element to the list
 	 * 
@@ -251,24 +155,6 @@ public abstract class CodeElement implements CodeParent {
 	 */
 	public void addNestedElement(CodeElement nestedElement) {
 		nestedElements.add(nestedElement);
-	}
-
-	/**
-	 * Gets the int value representing the {@link CodeModifier}s of the element
-	 * 
-	 * @return the int value representing the {@link CodeModifier}s of the element
-	 */
-	public int getModifiers() {
-		return modifiers;
-	}
-
-	/**
-	 * Sets the modifiers value of the element
-	 * 
-	 * @param modifiers the modifiers element
-	 */
-	public void setModifiers(int modifiers) {
-		this.modifiers = modifiers;
 	}
 	
 	/**

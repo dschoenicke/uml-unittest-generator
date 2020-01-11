@@ -2,12 +2,15 @@ package code;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 /**
  * Represents a constructor of a {@link CodeElement}
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public class CodeConstructor implements CodeParent {
 	
 	/**
@@ -50,61 +53,6 @@ public class CodeConstructor implements CodeParent {
 		templateBindings = new ArrayList<CodeTemplateBinding>();
 		templateParameters = new ArrayList<CodeTemplateParameter>();
 	}
-	
-	
-	/**
-	 * Gets the name of the constructor
-	 * 
-	 * @return the name of the constructor
-	 */
-	public String getName() {
-		return parent.getName();
-	}
-	
-	/**
-	 * Gets the {@link CodeParent} of the constructor
-	 * 
-	 * @return the {@link CodeParent} of the constructor
-	 */
-	public CodeParent getParent() {
-		return parent;
-	}
-
-	/**
-	 * Sets the {@link CodeParent} of the constructor
-	 * 
-	 * @param parent the {@link CodeParent} of the constructor
-	 */
-	public void setParent(CodeParent parent) {
-		this.parent = parent;
-	}
-	
-	/**
-	 * Gets the int value representing the {@link CodeModifier}s of the constructor
-	 * 
-	 * @return the int value representing the {@link CodeModifier}s of the constructor
-	 */
-	public int getModifiers() {
-		return modifiers;
-	}
-
-	/**
-	 * Sets the modifiers value of the constructor
-	 * 
-	 * @param modifiers the modifiers constructor
-	 */
-	public void setModifiers(int modifiers) {
-		this.modifiers = modifiers;
-	}
-	
-	/**
-	 * Gets the list of {@link CodeParameter}s
-	 * 
-	 * @return the list of {@link CodeParameter}s
-	 */
-	public ArrayList<CodeParameter> getParameters() {
-		return parameters;
-	}
 
 	/**
 	 * Adds a {@link CodeParameter} to the list
@@ -113,15 +61,6 @@ public class CodeConstructor implements CodeParent {
 	 */
 	public void addParameter(CodeParameter parameter) {
 		parameters.add(parameter);
-	}
-
-	/**
-	 * Gets the list of {@link CodeTemplateBinding}s
-	 * 
-	 * @return the list of {@link CodeTemplateBinding}s
-	 */
-	public ArrayList<CodeTemplateBinding> getTemplateBindings() {
-		return templateBindings;
 	}
 
 	/**
@@ -134,20 +73,21 @@ public class CodeConstructor implements CodeParent {
 	}
 
 	/**
-	 * Gets the list of {@link CodeTemplateParameter}s
-	 * 
-	 * @return the list of {@link CodeTemplateParameter}s
-	 */
-	public ArrayList<CodeTemplateParameter> getTemplateParameters() {
-		return templateParameters;
-	}
-
-	/**
 	 * Adds a {@link CodeTemplateParameter} to the list
 	 * 
 	 * @param templateParameter the {@link CodeTemplateParameter} to add to the list
 	 */
 	public void addTemplateParameter(CodeTemplateParameter templateParameter) {
 		templateParameters.add(templateParameter);
+	}
+
+	/**
+	 * Gets the name of the {@link CodeParent}.
+	 * 
+	 * @return the name of the {@link CodeParent}.
+	 */
+	@Override
+	public String getName() {
+		return parent.getName();
 	}
 }

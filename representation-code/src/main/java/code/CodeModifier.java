@@ -28,7 +28,7 @@ public class CodeModifier extends Modifier {
 			boolean isFinal,
 			boolean isAbstract) {
 		
-		return visibility.value +
+		return (visibility == null) ? 0 : visibility.value +
 				boolToInt(isStatic) * STATIC + 
 				boolToInt(isFinal) * FINAL + 
 				boolToInt(isAbstract) * ABSTRACT;

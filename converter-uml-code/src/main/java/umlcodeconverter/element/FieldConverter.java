@@ -2,6 +2,7 @@ package umlcodeconverter.element;
 
 import code.CodeElement;
 import code.CodeField;
+import code.CodeModifier;
 import uml.UmlAttribute;
 import uml.UmlElement;
 import uml.UmlMultiplicityValue;
@@ -23,14 +24,15 @@ public class FieldConverter {
 	public static void convertFields(UmlElement element, CodeElement codeElement) {
 		for (UmlAttribute attribute : element.getAttributes()) {
 			codeElement.addField(new CodeField(attribute.getName(),
-					codeElement,
 					attribute.getType(),
+					Integer.valueOf(CodeModifier.convertModifierValue(ModifierConverter.convertAccessModifier(attribute.getVisibility()), 
+							attribute.isStatic(), 
+							attribute.isFinal(), 
+							false)),
 					attribute.getDefaultValue(),
-					(attribute.getLowerValue() == UmlMultiplicityValue.ZERO),
-					(attribute.getUpperValue() == UmlMultiplicityValue.INFINITE),
-					ModifierConverter.convertAccessModifier(attribute.getVisibility()),
-					attribute.isStatic(),
-					attribute.isFinal()
+					Boolean.valueOf(attribute.getLowerValue() == UmlMultiplicityValue.ZERO),
+					Boolean.valueOf(attribute.getUpperValue() == UmlMultiplicityValue.INFINITE),
+					codeElement
 				));
 		}
 	}

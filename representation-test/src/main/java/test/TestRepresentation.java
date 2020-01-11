@@ -2,7 +2,7 @@ package test;
 
 import java.util.ArrayList;
 
-import lombok.Data;
+import lombok.Getter;
 
 /**
  * Represents the root class of the test representation which has the project name as name and a list of {@link TestPackage}s.
@@ -10,7 +10,7 @@ import lombok.Data;
  * @author dschoenicke
  *
  */
-@Data
+@Getter
 public class TestRepresentation implements TestParent {
 	/**
 	 * 

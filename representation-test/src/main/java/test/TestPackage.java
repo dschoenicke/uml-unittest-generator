@@ -2,7 +2,7 @@ package test;
 
 import java.util.ArrayList;
 
-import lombok.Data;
+import lombok.Getter;
 
 /**
  * Represents a package which contains several {@link TestClass}es
@@ -10,7 +10,7 @@ import lombok.Data;
  * @author dschoenicke
  *
  */
-@Data
+@Getter
 public class TestPackage implements TestParent {
 
 	/**

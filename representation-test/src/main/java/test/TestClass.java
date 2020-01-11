@@ -1,6 +1,6 @@
 package test;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import test.testobjects.ClassUnderTest;
@@ -11,7 +11,7 @@ import test.testobjects.ClassUnderTest;
  * @author dschoenicke
  *
  */
-@Data
+@Getter
 @RequiredArgsConstructor
 public class TestClass {
 

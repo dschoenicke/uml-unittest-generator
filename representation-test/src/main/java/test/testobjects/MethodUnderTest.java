@@ -2,7 +2,7 @@ package test.testobjects;
 
 import java.util.ArrayList;
 
-import lombok.Data;
+import lombok.Getter;
 
 /**
  * Represents a method of a {@link ClassUnderTest}.
@@ -10,7 +10,7 @@ import lombok.Data;
  * @author dschoenicke
  *
  */
-@Data
+@Getter
 public class MethodUnderTest implements TestObject {
 
 	/**

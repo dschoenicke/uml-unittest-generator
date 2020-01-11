@@ -2,12 +2,15 @@ package code;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 /**
  * A package containing {@link CodeElement}s and other sub-{@link CodePackage}s
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public class CodePackage implements CodeParent {
 	
 	/**
@@ -44,24 +47,6 @@ public class CodePackage implements CodeParent {
 	}
 	
 	/**
-	 * Gets the name of the package
-	 * 
-	 * @return the name of the package
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Gets the list of all direct sub-{@link CodePackage}s
-	 * 
-	 * @return the list of all direct sub-{@link CodePackage}s
-	 */
-	public ArrayList<CodePackage> getPackages() {
-		return packages;
-	}
-	
-	/**
 	 * Adds a {@link CodePackage} to the list
 	 * 
 	 * @param codePackage the {@link CodePackage} to add to the list
@@ -71,30 +56,12 @@ public class CodePackage implements CodeParent {
 	}
 	
 	/**
-	 * Gets the list of all {@link CodeElement}s of the package
-	 * 
-	 * @return the list of all {@link CodeElement}s of the package
-	 */
-	public ArrayList<CodeElement> getElements() {
-		return elements;
-	}
-	
-	/**
 	 * Adds a {@link CodeElement} to the list
 	 * 
 	 * @param codeElement the {@link CodeElement} to add to the list
 	 */
 	public void addElement(CodeElement codeElement) {
 		elements.add(codeElement);
-	}
-	
-	/**
-	 * Gets the {@link CodeParent} element of the package
-	 * 
-	 * @return the {@link CodeParent} element of the package
-	 */
-	public CodeParent getParent() {
-		return parent;
 	}
 	
 	/**

@@ -23,7 +23,7 @@ public class ParameterConverterTest extends TestInitializer {
 		assertEquals(convertedParameter.getName(), mockUmlParameter.getName());
 		assertEquals(convertedParameter.getParent(), mockCodeMethod);
 		assertEquals(convertedParameter.getType(), mockUmlParameter.getType());
-		assertEquals(convertedParameter.getModifiers(), 0);
+		assertEquals(convertedParameter.getModifiers(), Integer.valueOf(0));
 	}
 	
 	/**

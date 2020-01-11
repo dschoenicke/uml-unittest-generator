@@ -1,6 +1,6 @@
 package test.testobjects;
 
-import lombok.Data;
+import lombok.Getter;
 
 /**
  * Represents an enum constant of a {@link ClassUndeTest}.
@@ -8,7 +8,7 @@ import lombok.Data;
  * @author dschoenicke
  *
  */
-@Data
+@Getter
 public class EnumConstantUnderTest {
 
 	/**

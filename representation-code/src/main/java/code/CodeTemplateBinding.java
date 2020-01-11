@@ -2,12 +2,15 @@ package code;
 
 import java.util.HashMap;
 
+import lombok.Getter;
+
 /**
  * Represents a template binding of a {@link CodeElement} or {@link CodeMethod}
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public class CodeTemplateBinding {
 
 	/**
@@ -20,15 +23,6 @@ public class CodeTemplateBinding {
 	 */
 	public CodeTemplateBinding() {
 		parameterSubstitutions = new HashMap<>();
-	}
-	
-	/**
-	 * Gets the map of parameter substitutions
-	 * 
-	 * @return the map of parameter substitutions
-	 */
-	public HashMap<CodeTemplateParameter, String> getParameterSubstitutions() {
-		return parameterSubstitutions;
 	}
 	
 	/**

@@ -204,7 +204,7 @@ public class TestInitializer {
 		mockUmlClass.addOperation(mockUmlOperation);
 		mockUmlClass.addOperation(mockUmlConstructor);
 		
-		mockUmlAttribute = new UmlAttribute("attribute", UmlVisibility.PRIVATE, "long");
+		mockUmlAttribute = new UmlAttribute("attribute", UmlVisibility.PRIVATE, "long", false, false, "", UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE);
 		mockMultiplicityUmlAttribute = new UmlAttribute("multiattribute", UmlVisibility.PRIVATE, "float", false, false, "1.0", UmlMultiplicityValue.ZERO, UmlMultiplicityValue.INFINITE);
 		mockUmlClass.addAttribute(mockUmlAttribute);
 		mockUmlClass.addAttribute(mockMultiplicityUmlAttribute);
@@ -226,7 +226,8 @@ public class TestInitializer {
 		mockCodeRepresentation.addPackage(mockCodePackage);
 		mockCodeClass = new CodeClass("codeClass", mockCodePackage, CodeVisibility.PUBLIC, false, false, false);
 		mockCodeEnumeration = new CodeEnumeration("codeEnumeration", mockCodePackage, CodeVisibility.PUBLIC, false, false, false);
-		mockCodeMethod = new CodeMethod("mockCodeMethod", mockCodeClass, new CodeParameter("", null, "String", false, false, false), false, CodeVisibility.PUBLIC, false, false, false);
+		mockCodeMethod = new CodeMethod("mockCodeMethod", mockCodeClass, null, false, CodeVisibility.PUBLIC, false, false, false);
+		mockCodeMethod.setReturnType(new CodeParameter("", "String", 0, false, false, mockCodeMethod));
 		mockCodeConstructor = new CodeConstructor(mockCodeClass, CodeVisibility.PRIVATE);
 		
 		mockCodeTemplateParameter = new CodeTemplateParameter("T", mockCodeClass, "java.lang.Object");

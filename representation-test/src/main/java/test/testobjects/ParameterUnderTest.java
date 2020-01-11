@@ -1,6 +1,6 @@
 package test.testobjects;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
  * @author dschoenicke
  *
  */
-@Data
+@Getter
 @RequiredArgsConstructor
 public class ParameterUnderTest implements TestObject {
 

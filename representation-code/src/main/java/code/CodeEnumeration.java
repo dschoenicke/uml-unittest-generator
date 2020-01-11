@@ -2,12 +2,15 @@ package code;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 /**
  * Class representing an enumeration, extending {@link CodeElement}, has a additional list of {@link CodeLiteral}s
  * 
  * @author dschoenicke
  *
  */
+@Getter
 public class CodeEnumeration extends CodeElement {
 
 	/**
@@ -36,15 +39,6 @@ public class CodeEnumeration extends CodeElement {
 		
 		super(name, parent, visibility, isAbstract, isStatic, isFinal);
 		literals = new ArrayList<>();
-	}
-	
-	/**
-	 * Gets the list of {@link CodeLiteral}s
-	 * 
-	 * @return the list of {@link CodeLiteral}s
-	 */
-	public ArrayList<CodeLiteral> getCodeLiterals() {
-		return literals;
 	}
 	
 	/**
