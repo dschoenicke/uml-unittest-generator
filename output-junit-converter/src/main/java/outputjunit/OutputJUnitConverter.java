@@ -31,10 +31,8 @@ public class OutputJUnitConverter
 	public void convertToJUnitTestFiles(TestRepresentation testRepresentation, String outputDirectory) {
 		FileDirectoryCreator.createFileDirectories(testRepresentation, outputDirectory);
 		TestFileCreator.createTestFiles(testRepresentation, outputDirectory);
-		
 		System.out.println("\n" +
-				"[\u001B[32mSUCCESS\u001B[0m] The test files for " + testRepresentation.getName() + " have been successfully created.\n" + 
-				"          You can find the files in " + outputDirectory + File.separator + testRepresentation.getName() + "Structure.\n" +
-				"\u001B[0m");
+				"[SUCCESS\u001B[0m] The test files for " + testRepresentation.getName() + " have been successfully created.\n" + 
+				"          You can find the files in " + outputDirectory + File.separator + testRepresentation.getName() + "Structure.\n");
 	}
 }

@@ -1,0 +1,54 @@
+package {{package}}
+
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+import java.lang.reflect.*;
+import java.util.Arrays;
+
+class {{testClass.getName}} {
+	
+	private static Class<?> classUnderTest;
+	
+	@BeforeAll
+	static void loadClass() {
+		try {
+			classUnderTest = Class.forName("{{className}}");
+		} catch (ClassNotFoundException e) {
+			fail("The class {{className}} was not found!");
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	@Test
+	void testClassProperties() {
+		assertEquals({{testClass.getClassUnderTest.isClass}}, !(classUnderTest.isEnum() || classUnderTest.isInterface()), "{{className}} must" + ({{testClass.getClassUnderTest.isClass}} ? " " : " not ") + "be a class!"); 
+		assertEquals({{testClass.getClassUnderTest.isEnum}}, classUnderTest.isEnum(), "{{className}} must" + ({{testClass.getClassUnderTest.isEnum}} ? " " : " not ") + "be an enumeration!"); 
+		assertEquals({{testClass.getClassUnderTest.isInterface}}, classUnderTest.isInterface(), "{{className}} must" + ({{testClass.getClassUnderTest.isInterface}} ? " " : " not ") + "be an interface!"); 
+		
+		assertEquals(Modifier.isPublic({{testClass.getClassUnderTest.getModifiers}}), Modifier.isPublic(classUnderTest.getModifiers()), "{{className}} must" + (Modifier.isPublic({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be public!");
+		assertEquals(Modifier.isPrivate({{testClass.getClassUnderTest.getModifiers}}), Modifier.isPrivate(classUnderTest.getModifiers()), "{{className}} must" + (Modifier.isPrivate({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be private!");
+		assertEquals(Modifier.isProtected({{testClass.getClassUnderTest.getModifiers}}), Modifier.isProtected(classUnderTest.getModifiers()), "{{className}} must" + (Modifier.isProtected({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be protected!");
+		assertEquals(Modifier.isStatic({{testClass.getClassUnderTest.getModifiers}}), Modifier.isStatic(classUnderTest.getModifiers()), "{{className}} must" + (Modifier.isStatic({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be static!");
+		assertEquals(Modifier.isFinal({{testClass.getClassUnderTest.getModifiers}}), Modifier.isFinal(classUnderTest.getModifiers()), "{{className}} must" + (Modifier.isFinal({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be final!");
+		assertEquals(Modifier.isAbstract({{testClass.getClassUnderTest.getModifiers}}), Modifier.isAbstract(classUnderTest.getModifiers()), "{{className}} must" + (Modifier.isAbstract({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be abstract!");
+	}
+	
+	@Test
+	void testClassFields() {
+		assertEquals({{testClass.getClassUnderTest.getFields.size}}, classUnderTest.getDeclaredFields().length, "{{className}} is expected to have exactly {{testClass.getClassUnderTest.getFields.size}} fields!");
+		{{#testClass.getClassUnderTest.getFields}}
+		
+		try {
+			Field fieldUnderTest = classUnderTest.getDeclaredField("{{getName}}");
+			assertEquals(Modifier.isPublic({{getModifiers}}), Modifier.isPublic(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isPublic({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be public!");
+			assertEquals(Modifier.isPrivate({{getModifiers}}), Modifier.isPrivate(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isPrivate({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be private!");
+			assertEquals(Modifier.isProtected({{getModifiers}}), Modifier.isProtected(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isProtected({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be protected!");
+			assertEquals(Modifier.isStatic({{getModifiers}}), Modifier.isStatic(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isStatic({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be static!");
+			assertEquals(Modifier.isFinal({{getModifiers}}), Modifier.isFinal(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isFinal({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be final!");
+		} catch (NoSuchFieldException | SecurityException e) {
+			fail("{{className}} is expected to have a field with name {{getName}}!");
+		}
+		{{/testClass.getClassUnderTest.getFields}}
+	}
+}
+	

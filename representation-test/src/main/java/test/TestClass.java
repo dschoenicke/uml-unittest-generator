@@ -38,4 +38,18 @@ public class TestClass {
 	public String getQualifiedName() {
 		return this.parent.getQualifiedName() + "." + this.name;
 	}
+	
+	/**
+	 * Gets the package path of the test class
+	 * 
+	 * @return the package path of the test class
+	 */
+	public String getPackagePath() {
+		try {
+			return ((TestPackage) parent).getQualifiedName();
+		} catch (ClassCastException e) {
+			System.err.println("[ERROR] The package path for " + getQualifiedName() + " could not be resolved!");
+			return "";
+		}
+	}
 }

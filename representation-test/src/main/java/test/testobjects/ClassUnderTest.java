@@ -93,6 +93,33 @@ public class ClassUnderTest implements TestObject {
 	}
 	
 	/**
+	 * Returns true, if the type equals {ClassUnderTestType#CLASS}.
+	 * 
+	 * @return true, if the type equals {ClassUnderTestType#CLASS}.
+	 */
+	public boolean isClass() {
+		return type == ClassUnderTestType.CLASS;
+	}
+	
+	/**
+	 * Returns true, if the type equals {ClassUnderTestType#ENUM}.
+	 * 
+	 * @return true, if the type equals {ClassUnderTestType#ENUM}.
+	 */
+	public boolean isEnum() {
+		return type == ClassUnderTestType.ENUM;
+	}
+	
+	/**
+	 * Returns true, if the type equals {ClassUnderTestType#INTERFACE}.
+	 * 
+	 * @return true, if the type equals {ClassUnderTestType#INTERFACE}.
+	 */
+	public boolean isInterface() {
+		return type == ClassUnderTestType.INTERFACE;
+	}
+	
+	/**
 	 * Enumeration describing the class type of the {@link ClassUnderTest}
 	 * 
 	 * @author dschoenicke
