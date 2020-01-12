@@ -3,6 +3,7 @@ package core;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -20,24 +21,28 @@ public class Core {
 				.longOpt("createtests")
 				.desc("create test files out of a given input diagram in a given output directory")
 				.numberOfArgs(4)
+				.argName("input-format input-file output-format output-directory")
 				.build());
 		
 		options.addOption(Option.builder("aqn")
 				.longOpt("addqualifiedname")
 				.desc("add a fully qualified name for a given shortcut used in the class diagram")
 				.numberOfArgs(2)
+				.argName("shortcut qualified-name")
 				.build());
 		
 		options.addOption(Option.builder("rqn")
 				.longOpt("replacequalifiedname")
 				.desc("replace a fully qualified name for a given shortcut used in the class diagram")
 				.numberOfArgs(2)
+				.argName("shortcut qualified-name")
 				.build());
 		
 		options.addOption(Option.builder("dqn")
 				.longOpt("deletequalifiedname")
 				.desc("delete the mapping with the given shortcut")
 				.numberOfArgs(1)
+				.argName("shortcut")
 				.build());
 		
 		options.addOption(Option.builder("cqn")
@@ -76,12 +81,7 @@ public class Core {
 				QualifiedNamesMapper.showQualifiedNames();
 			}
 			else {
-				if (args.length == 0) {
-					System.out.println("\tNo options found!\n\tUse -help to show available options.");
-				}
-				else {
-					System.out.println("\tThe option " + args[0] + " is not valid!\n\tUse -help to show available options.");
-				}
+				new HelpFormatter().printHelp(100, " ", "Commands to convert diagrams and manage qualified names", options, "Version 0.0.1");
 			}
 		} catch (ParseException e) {
 			if (e instanceof MissingArgumentException) {
