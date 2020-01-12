@@ -14,8 +14,8 @@ public interface UmlRepresentationConverter {
 	 * Takes a representation object of another representation implementing the {@link UmlInputRepresentation} interface
 	 * and converts it to an {@link UmlModel}
 	 * 
-	 * @param inputRepresentation the representation object of the representation to be converted
+	 * @param inputPath the file path of the input file to be converted
 	 * @return the generated {@link UmlModel}
 	 */
-	public UmlModel convertToUmlRepresentation(UmlInputRepresentation inputRepresentation);
+	public UmlModel convertToUmlRepresentation(String inputPath);
 }

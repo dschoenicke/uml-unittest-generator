@@ -5,6 +5,7 @@ import java.io.File;
 import outputjunit.files.FileDirectoryCreator;
 import outputjunit.files.TestFileCreator;
 import test.TestRepresentation;
+import test.converterinterface.TestConverter;
 
 /**
  * Main class of the converter
@@ -12,7 +13,7 @@ import test.TestRepresentation;
  * @author dschoenicke
  *
  */
-public class OutputJUnitConverter 
+public class OutputJUnitConverter implements TestConverter
 {
 	/**
 	 * Default constructor
@@ -28,7 +29,8 @@ public class OutputJUnitConverter
 	 * @param testRepresentation the {@link test.TestRepresentation} describing the structure of the tests to be created.
 	 * @param outputDirectory the file path where the directory of the tests files has to be created.
 	 */
-	public void convertToJUnitTestFiles(TestRepresentation testRepresentation, String outputDirectory) {
+	@Override
+	public void convertTestFiles(TestRepresentation testRepresentation, String outputDirectory) {
 		FileDirectoryCreator.createFileDirectories(testRepresentation, outputDirectory);
 		TestFileCreator.createTestFiles(testRepresentation, outputDirectory);
 		System.out.println("\n" +

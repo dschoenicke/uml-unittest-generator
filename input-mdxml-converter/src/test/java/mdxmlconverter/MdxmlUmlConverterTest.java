@@ -123,7 +123,7 @@ public class MdxmlUmlConverterTest {
 	@Test
 	public void testConvertToUmlRepresentation() throws JAXBException {
 		MdxmlRepresentation mdxml = new MdxmlRepresentation(getClass().getClassLoader().getResource("test_model.xml").getFile());
-		mockUmlModel = converter.convertToUmlRepresentation(mdxml);
+		mockUmlModel = converter.convertToUmlRepresentation(getClass().getClassLoader().getResource("test_model.xml").getFile());
 		assertEquals(mdxml.getXmi().getModel().getName(), mockUmlModel.getName());
 	}
 	

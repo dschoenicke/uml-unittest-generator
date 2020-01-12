@@ -1,7 +1,8 @@
 package mdxmlconverter;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+
+import javax.xml.bind.JAXBException;
 
 import mdxml.MdxmlRepresentation;
 import mdxml.Model;
@@ -17,7 +18,6 @@ import uml.UmlModel;
 import uml.UmlPackage;
 import uml.UmlParent;
 import uml.UmlRelationship;
-import uml.converterinterface.UmlInputRepresentation;
 import uml.converterinterface.UmlRepresentationConverter;
 
 /**
@@ -34,19 +34,26 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	public MdxmlUmlConverter() {}
 
 	@Override
-	public UmlModel convertToUmlRepresentation(UmlInputRepresentation inputRepresentation) {
-		assertNotNull("The InputRepresentation must not be null!", inputRepresentation);
-		assertTrue("The input representation must be of type mdxml.MdxmlRepresentation", inputRepresentation instanceof MdxmlRepresentation);
+	public UmlModel convertToUmlRepresentation(String inputPath) {
 		
-		MdxmlRepresentation mdxmlRepresentation = (MdxmlRepresentation) inputRepresentation;
+		MdxmlRepresentation mdxmlRepresentation = null;
 		
-		assertNotNull("The XMI of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi());
-		assertNotNull("The Model of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi().getModel());
+		try {
+			mdxmlRepresentation = new MdxmlRepresentation(inputPath);
+			assertNotNull("The XMI of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi());
+			assertNotNull("The Model of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi().getModel());
+		} catch (JAXBException e) {
+			System.out.println("The file " + inputPath + " is not a valid XML Magic Draw Project file!");
+			System.exit(0);
+		}
+		
+		if (mdxmlRepresentation == null) {
+			System.out.println("The file " + inputPath + " is not a valid XML Magic Draw Project file!");
+			System.exit(0);
+		}
 		
 		Model xmlModel = mdxmlRepresentation.getXmi().getModel();
-		
 		assertNotNull("The name of the mdxml.Model must not be null!", xmlModel.getName());
-		
 		TemporaryModel tmpModel = new TemporaryModel();
 		UmlModel umlModel = new UmlModel(xmlModel.getName());
 		

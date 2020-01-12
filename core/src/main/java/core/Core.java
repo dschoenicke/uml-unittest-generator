@@ -1,23 +1,74 @@
 package core;
 
-import java.io.File;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.MissingArgumentException;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
-import javax.xml.bind.JAXBException;
-
-import code.CodeRepresentation;
-import codetestconverter.CodeTestConverter;
-import mdxml.MdxmlRepresentation;
-import mdxmlconverter.MdxmlUmlConverter;
-import outputjunit.OutputJUnitConverter;
-import test.TestRepresentation;
-import uml.UmlModel;
-import umlcodeconverter.UmlCodeConverter;
+import core.options.TestCreator;
 
 public class Core {
 
 	public static void main(String[] args) {
 		
-		if (args.length == 2 && args[0] != null && args[1] != null) {
+		Options options = new Options();
+		options.addOption(Option.builder("ct")
+				.longOpt("createtests")
+				.desc("create test files out of a given input diagram in a given output directory")
+				.numberOfArgs(4)
+				.build());
+		
+		options.addOption(Option.builder("aqn")
+				.longOpt("addqualifiedname")
+				.desc("add a fully qualified name for a given shortcut used in the class diagram")
+				.numberOfArgs(2)
+				.build());
+		
+		options.addOption(Option.builder("sqn")
+				.longOpt("showqualifiednames")
+				.desc("show all mappings of diagram shortcuts to fully qualified names")
+				.build());
+		
+		CommandLineParser cmpParser = new DefaultParser();
+		
+		try {
+			CommandLine cmd = cmpParser.parse(options, args);
+			
+			if (cmd.hasOption("ct")) {
+				if (TestCreator.evaluateArguments(args)) {
+					TestCreator.execute(args);
+				}
+			}
+			else if (cmd.hasOption("aqn")) {
+				System.out.println("Add QualifiedName");
+			}
+			else if (cmd.hasOption("sqn")) {
+				System.out.println("Show qualified names");
+			}
+			else {
+				if (args.length == 0) {
+					System.out.println("\tNo options found!\n\tUse -help to show available options.");
+				}
+				else {
+					System.out.println("\tThe option " + args[0] + " is not valid!\n\tUse -help to show available options.");
+				}
+			}
+		} catch (ParseException e) {
+			if (e instanceof MissingArgumentException) {
+				if (((MissingArgumentException) e).getOption().getOpt().equals("ct")) {
+					System.out.println("\tError: -createtests requires arguments <input-type> <input-file> <output-type> <output-path>");
+				}
+				else if (((MissingArgumentException) e).getOption().getOpt().equals("aqn")) {
+					System.out.println("\tError: -addqualifiedname requires arguments <shortcut> <qualified-name>");
+					System.out.println("\tExample: -addqualifiedname java.Money org.javamoney.moneta.Money");
+				}
+			}
+		}
+		
+		/*if (args.length == 2 && args[0] != null && args[1] != null) {
 			File input = new File(args[0]);
 			File output = new File(args[1]);
 			
@@ -44,6 +95,6 @@ public class Core {
 		else {
 			System.out.println("\n" + (char)27 + "[31m" + "You have to give file paths for the input diagram and an output directory!\n" + 
 					"Mandatory parameters: [input-file] [output-directory]\n\u001B[0m");
-		}
+		}*/
 	}
 }

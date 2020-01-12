@@ -94,7 +94,7 @@ public class ConverterTests {
 	 */
 	@Before
 	public void init() {
-		umlModel = inputConverter.convertToUmlRepresentation(inputRepresentation);
+		umlModel = inputConverter.convertToUmlRepresentation(getClass().getClassLoader().getResource("test_model.xml").getFile());
 		codeRepresentation = new UmlCodeConverter().convertUmlToCodeRepresentation(umlModel);
 	}
 	
