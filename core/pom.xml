@@ -58,6 +58,13 @@
 		    <artifactId>commons-cli</artifactId>
 		    <version>1.4</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.mapdb/mapdb -->
+		<dependency>
+		    <groupId>org.mapdb</groupId>
+		    <artifactId>mapdb</artifactId>
+		    <version>3.0.7</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
@@ -78,6 +85,16 @@
 	                  				<mainClass>core.Core</mainClass>
 	                			</transformer>
 	              			</transformers>
+	              			<filters>
+	              				<filter>
+				                    <artifact>*:*</artifact>
+				                    <excludes>
+				                        <exclude>META-INF/*.SF</exclude>
+				                        <exclude>META-INF/*.DSA</exclude>
+				                        <exclude>META-INF/*.RSA</exclude>
+				                    </excludes>
+				                </filter>
+	              			</filters>
 	            		</configuration>
 	          		</execution>
 	        	</executions>

@@ -10,3 +10,6 @@
 #MagicDraw
 *.mdzip.bak
 *.xml.bak
+
+#MapDB
+*.db

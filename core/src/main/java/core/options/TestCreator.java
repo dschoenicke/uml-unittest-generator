@@ -60,7 +60,6 @@ public class TestCreator {
 				umlToCode.convertUmlToCodeRepresentation(
 						inputtypes.get(args[1]).convertToUmlRepresentation(args[2])
 					)
-				), 
-				args[4]);
+				), args[4]);
 	}
 }
