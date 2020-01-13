@@ -2,6 +2,11 @@ package umlcodeconverter;
 
 import static org.junit.Assert.assertFalse;
 
+import org.mapdb.BTreeMap;
+import org.mapdb.DB;
+import org.mapdb.DBMaker;
+import org.mapdb.Serializer;
+
 import code.CodeRepresentation;
 import uml.UmlModel;
 import umlcodeconverter.element.ElementConverter;
@@ -54,5 +59,70 @@ public class UmlCodeConverter
 		TemplateBindingConverter.finishTemplateBindingConversions(tmpModel);
 		RelationshipConverter.convertRelationships(umlModel.getRelationshipsAsList(), tmpModel);
 		return codeRepresentation;
+	}
+	
+	/**
+	 * Converts a given {@link uml.UmlModel} to a {@link code.CodeRepresentation}.<br>
+	 * Resolves fully qualified names with the mappings of the given MapDB database.<br>
+	 * Resolves association attribute data types with given collection types out of the given MapDB database.<br>
+	 * 
+	 * Delegates the conversion of {@link uml.UmlPackage}s to the {@link umlcodeconverter.packages.PackageConverter}<br>
+	 * Delegates the conversion of {@link uml.UmlElement}s to the {@link umlcodeconverter.element.ElementConverter}<br>
+	 * Delegates the definite conversion of {@link uml.UmlTemplateBinding}s to the {@link umlcodeconverter.element.TemplateBindingConverter}<br>
+	 * Delegates the conversion of {@link uml.UmlRelationship} to the {@link umlcodeconverter.relationship.RelationshipConverter}
+	 * 
+	 * @param umlModel the {@link uml.UmlModel} to be converted
+	 * @param dbPath the path to the MapDB database containing the mappings to resolve the fully qualified names and association attribute collection types
+	 * @return the converted {@link code.CodeRepresentation}
+	 */
+	public CodeRepresentation convertUmlToCodeRepresentation(UmlModel umlModel, String dbPath) {
+		DB database = DBMaker.fileDB(dbPath).make();
+		
+		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
+				.keySerializer(Serializer.STRING)
+				.valueSerializer(Serializer.STRING)
+				.createOrOpen();
+		
+		BTreeMap<String, String> associationTypes = database.treeMap("associationTypes")
+				.keySerializer(Serializer.STRING)
+				.valueSerializer(Serializer.STRING)
+				.createOrOpen();
+		
+		
+		umlModel.getElementsAsList().forEach(umlElement -> {
+			if (qualifiedNames.containsKey(umlElement.getName())) {
+				umlElement.setName(qualifiedNames.get(umlElement.getName()));
+			}
+			
+			umlElement.getAttributes().forEach(umlAttribute -> {
+				if (qualifiedNames.containsKey(umlAttribute.getType())) {
+					umlAttribute.setType(qualifiedNames.get(umlAttribute.getType()));
+				}
+				
+				if (associationTypes.containsKey(umlElement.getName() + "." + umlAttribute.getName())) {
+					umlAttribute.setType(associationTypes.get(umlElement.getName() + "." + umlAttribute.getName()) + "<" + umlAttribute.getType() + ">");
+				}
+			});
+			
+			umlElement.getTemplateParameters().forEach(umlTemplateParameter -> {
+				if (qualifiedNames.containsKey(umlTemplateParameter.getType())) {
+					umlTemplateParameter.setType(qualifiedNames.get(umlTemplateParameter.getType()));
+				}
+			});
+			
+			umlElement.getOperations().forEach(umlOperation -> {
+				if (qualifiedNames.containsKey(umlOperation.getName())) {
+					umlOperation.setName(qualifiedNames.get(umlOperation.getName()));
+				}
+				
+				umlOperation.getParameters().forEach(umlParameter -> {
+					if (qualifiedNames.containsKey(umlParameter.getType())) {
+						umlParameter.setType(qualifiedNames.get(umlParameter.getType()));
+					}
+				});
+			});
+		});
+		
+		return convertUmlToCodeRepresentation(umlModel);
 	}
 }

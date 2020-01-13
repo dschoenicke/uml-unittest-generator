@@ -3,6 +3,7 @@ package uml;
 import java.util.ArrayList;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class UmlOperation {
@@ -10,7 +11,7 @@ public class UmlOperation {
 	/**
 	 * The name of the operation
 	 */
-	private String name;
+	@Setter private String name;
 	
 	/**
 	 * The visibility of the operation

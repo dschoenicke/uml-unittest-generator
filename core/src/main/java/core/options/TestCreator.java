@@ -5,7 +5,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+
 import codetestconverter.CodeTestConverter;
+import core.Core;
 import mdxmlconverter.MdxmlUmlConverter;
 import outputjunit.OutputJUnitConverter;
 import test.converterinterface.TestConverter;
@@ -58,8 +62,40 @@ public class TestCreator {
 		
 		outputtypes.get(args[3]).convertTestFiles(codeToTest.convertCodeToTestRepresentation(
 				umlToCode.convertUmlToCodeRepresentation(
-						inputtypes.get(args[1]).convertToUmlRepresentation(args[2])
+						inputtypes.get(args[1]).convertToUmlRepresentation(args[2]),
+						Core.dbPath
 					)
 				), args[4]);
+	}
+	
+	public static void showInputs() {
+		System.out.println("Supported input diagram formats:\n");
+		inputtypes.forEach((inputtype, converter) -> {
+			System.out.println("\t" + inputtype);
+		});
+	}
+	
+	public static void showOutputs() {
+		System.out.println("Supported output test formats:\n");
+		outputtypes.forEach((outputtype, converter) -> {
+			System.out.println("\t" + outputtype);
+		});
+	}
+	
+	public static void addTestCreatorOptions(Options options) {
+		options.addOption(Option.builder("ct")
+				.longOpt("createtests")
+				.desc("create test files out of a given input diagram in a given output directory")
+				.numberOfArgs(4)
+				.argName("input-format input-file output-format output-directory")
+				.build());
+		
+		options.addOption(Option.builder("showinputs")
+				.desc("show supported input diagram types")
+				.build());
+		
+		options.addOption(Option.builder("showoutputs")
+				.desc("show supported output diagram types")
+				.build());
 	}
 }

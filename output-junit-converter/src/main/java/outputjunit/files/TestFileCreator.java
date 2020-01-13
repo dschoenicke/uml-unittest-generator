@@ -10,6 +10,8 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 
+import outputjunit.testobjects.converter.ConstructorConverter;
+import outputjunit.testobjects.converter.MethodConverter;
 import test.TestClass;
 import test.TestRepresentation;
 import test.testobjects.ClassUnderTest;
@@ -43,6 +45,19 @@ public class TestFileCreator {
 		contents.put("testClass", testClass);
 		contents.put("package", createPackageDeclaration(testRepresentation, testFilePath));
 		contents.put("className", testClass.getClassUnderTest().getQualifiedName());
+		contents.put("isNestedClass", testClass.getClassUnderTest().getNestHost().isPresent());
+		contents.put("hasSuperClass", testClass.getClassUnderTest().getSuperClass().isPresent());
+		contents.put("constructors", ConstructorConverter.convertConstructors(classUnderTest));
+		contents.put("methods", MethodConverter.convertMethods(classUnderTest));
+		
+		if (testClass.getClassUnderTest().getNestHost().isPresent()) {
+			contents.put("nestHost", testClass.getClassUnderTest().getNestHost().get().getQualifiedName());
+		}
+		
+		if (testClass.getClassUnderTest().getSuperClass().isPresent()) {
+			contents.put("superClass", testClass.getClassUnderTest().getSuperClass().get());
+		}
+		
 		MustacheFactory mf = new DefaultMustacheFactory();
 		Mustache mustache = mf.compile("junittemplate.mustache");
 		

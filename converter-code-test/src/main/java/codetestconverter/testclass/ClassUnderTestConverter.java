@@ -41,7 +41,7 @@ public class ClassUnderTestConverter {
 				(superClass == null) ? Optional.empty() : Optional.of(superClass.getName()));
 		
 		for (CodeInterface superInterface : codeElement.getInterfaces()) {
-			classUnderTest.getInterfaces().add(superInterface.getQualifiedName());
+			classUnderTest.getInterfaces().add(superInterface.getName());
 		}
 		
 		TemplateParameterUnderTestConverter.convertTemplateParameters(codeElement, classUnderTest);

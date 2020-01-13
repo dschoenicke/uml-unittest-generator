@@ -3,7 +3,6 @@ package {{package}}
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.lang.reflect.*;
-import java.util.Arrays;
 
 class {{testClass.getName}} {
 	
@@ -18,12 +17,18 @@ class {{testClass.getName}} {
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	@Test
 	void testClassProperties() {
-		assertEquals({{testClass.getClassUnderTest.isClass}}, !(classUnderTest.isEnum() || classUnderTest.isInterface()), "{{className}} must" + ({{testClass.getClassUnderTest.isClass}} ? " " : " not ") + "be a class!"); 
-		assertEquals({{testClass.getClassUnderTest.isEnum}}, classUnderTest.isEnum(), "{{className}} must" + ({{testClass.getClassUnderTest.isEnum}} ? " " : " not ") + "be an enumeration!"); 
-		assertEquals({{testClass.getClassUnderTest.isInterface}}, classUnderTest.isInterface(), "{{className}} must" + ({{testClass.getClassUnderTest.isInterface}} ? " " : " not ") + "be an interface!"); 
+		assertEquals({{testClass.getClassUnderTest.isClass}}, !(classUnderTest.isEnum() || classUnderTest.isInterface()), "{{className}} must {{^testClass.getClassUnderTest.isClass}}not {{/testClass.getClassUnderTest.isClass}}be a class!"); 
+		assertEquals({{testClass.getClassUnderTest.isEnum}}, classUnderTest.isEnum(), "{{className}} must {{^testClass.getClassUnderTest.isEnum}}not {{/testClass.getClassUnderTest.isEnum}}be an enumeration!"); 
+		assertEquals({{testClass.getClassUnderTest.isInterface}}, classUnderTest.isInterface(), "{{className}} must {{^testClass.getClassUnderTest.isInterface}}not {{/testClass.getClassUnderTest.isInterface}}be an interface!"); 
+		
+		{{#isNestedClass}}
+		assertEquals("{{nestHost}}", classUnderTest.getNestHost().getName(), "{{className}} must be an inner class of {{nestHost}}!");
+		{{/isNestedClass}}
+		{{^isNestedClass}}
+		assertEquals("{{className}}", classUnderTest.getNestHost().getName(), "{{className}} must not be an inner class!");
+		{{/isNestedClass}}
 		
 		assertEquals(Modifier.isPublic({{testClass.getClassUnderTest.getModifiers}}), Modifier.isPublic(classUnderTest.getModifiers()), "{{className}} must" + (Modifier.isPublic({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be public!");
 		assertEquals(Modifier.isPrivate({{testClass.getClassUnderTest.getModifiers}}), Modifier.isPrivate(classUnderTest.getModifiers()), "{{className}} must" + (Modifier.isPrivate({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be private!");
@@ -34,21 +39,136 @@ class {{testClass.getName}} {
 	}
 	
 	@Test
+	void testClassRelationships() {
+		{{#hasSuperClass}}
+		assertEquals("{{superClass}}", classUnderTest.getSuperclass().getName(), "{{className}} must extend {{superClass}}!");
+		{{/hasSuperClass}}
+		{{^hasSuperClass}}
+		assertEquals("java.lang.Object", classUnderTest.getSuperclass().getName(), "{{className}} must not extend any super class!");
+		{{/hasSuperClass}}
+		assertEquals({{testClass.getClassUnderTest.getInterfaces.size}}, classUnderTest.getInterfaces().length, "{{className}} must implement exactly {{testClass.getClassUnderTest.getInterfaces.size}} interfaces!");
+		{{#testClass.getClassUnderTest.getInterfaces}}
+		assertTrue(java.util.Arrays.asList(classUnderTest.getInterfaces()).stream().filter(i -> i.getName().equals("{{toString}}")).findFirst().isPresent(), "{{className}} is must implement {{toString}}!");
+		{{/testClass.getClassUnderTest.getInterfaces}}
+	}
+	
+	@Test
+	void testClassTemplateParameters() {
+		assertEquals({{testClass.getClassUnderTest.getTemplateParameters.size}}, classUnderTest.getTypeParameters().length, "{{className}} is expected to have exactly {{testClass.getClassUnderTest.getTemplateParameters.size}} template parameters!");
+		{{#testClass.getClassUnderTest.getTemplateParameters}}
+		
+		Optional<?> typeParameterUnderTest = java.util.Arrays.asList(classUnderTest.getTypeParameters()).stream().filter(type -> type.getTypeName().equals("{{getParameterName}}")).findFirst();
+		assertTrue(typeParameterUnderTest.isPresent(), "{{className}} must have a template parameter with name {{getParameterName}}!");
+		assertEquals("typeParameterUnderTest.get().getBounds[0].getTypeName()", "{{getBoundedType}}", "The type parameter named {{getParameterName}} must extend {{getBoundedType}}!");
+		{{/testClass.getClassUnderTest.getTemplateParameters}}
+	}
+	
+	@Test
 	void testClassFields() {
 		assertEquals({{testClass.getClassUnderTest.getFields.size}}, classUnderTest.getDeclaredFields().length, "{{className}} is expected to have exactly {{testClass.getClassUnderTest.getFields.size}} fields!");
 		{{#testClass.getClassUnderTest.getFields}}
 		
 		try {
 			Field fieldUnderTest = classUnderTest.getDeclaredField("{{getName}}");
-			assertEquals(Modifier.isPublic({{getModifiers}}), Modifier.isPublic(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isPublic({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be public!");
-			assertEquals(Modifier.isPrivate({{getModifiers}}), Modifier.isPrivate(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isPrivate({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be private!");
-			assertEquals(Modifier.isProtected({{getModifiers}}), Modifier.isProtected(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isProtected({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be protected!");
-			assertEquals(Modifier.isStatic({{getModifiers}}), Modifier.isStatic(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isStatic({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be static!");
-			assertEquals(Modifier.isFinal({{getModifiers}}), Modifier.isFinal(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isFinal({{testClass.getClassUnderTest.getModifiers}}) ? " ": " not ") + "be final!");
+			assertEquals(Modifier.isPublic({{getModifiers}}), Modifier.isPublic(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isPublic({{getModifiers}}) ? " ": " not ") + "be public!");
+			assertEquals(Modifier.isPrivate({{getModifiers}}), Modifier.isPrivate(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isPrivate({{getModifiers}}) ? " ": " not ") + "be private!");
+			assertEquals(Modifier.isProtected({{getModifiers}}), Modifier.isProtected(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isProtected({{getModifiers}}) ? " ": " not ") + "be protected!");
+			assertEquals(Modifier.isStatic({{getModifiers}}), Modifier.isStatic(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isStatic({{getModifiers}}) ? " ": " not ") + "be static!");
+			assertEquals(Modifier.isFinal({{getModifiers}}), Modifier.isFinal(fieldUnderTest.getModifiers()), "{{className}}.{{getName}} must" + (Modifier.isFinal({{getModifiers}}) ? " ": " not ") + "be final!");
+			{{#isHasMultiplicity}}
+			
+			if (fieldUnderTest.getClass().isArray()) {
+				assertEquals("{{{getType}}}[]", fieldUnderTest.getType().getSimpleName(), "{{className}}#{{getName}} must be of type {{{getType}}}!");
+			}
+			else {
+				String genericType = "";
+			
+				try {
+					genericType = ((ParameterizedType) fieldUnderTest.getGenericType()).getActualTypeArguments()[0].getTypeName();
+					genericType = genericType.substring(genericType.lastIndexOf(".") + 1);
+				} catch (ClassCastException e) {
+					fail("{{className}}#{{getName}} must be of type {{{getType}}}!");
+				}
+				
+				assertEquals("{{{getType}}}", fieldUnderTest.getType().getSimpleName() + "<" + genericType + ">", "{{className}}#{{getName}} must be of type {{{getType}}}!");
+			}
+			{{/isHasMultiplicity}}
+			{{^isHasMultiplicity}}
+			{{#canBeNull}}
+			
+			String genericType = "";
+			
+			try {
+				genericType = ((ParameterizedType) fieldUnderTest.getGenericType()).getActualTypeArguments()[0].getTypeName();
+				genericType = genericType.substring(genericType.lastIndexOf(".") + 1);
+			} catch (ClassCastException e) {
+				fail("{{className}}#{{getName}} must be of type Optional<{{{getType}}}>!");
+			}
+				
+			assertEquals("Optional<{{{getType}}}>", fieldUnderTest.getType().getSimpleName() + "<" + genericType + ">", "{{className}}#{{getName}} must be of type Optional<{{{getType}}}>!");
+			{{/canBeNull}}
+			{{^canBeNull}}
+			assertEquals("{{{getType}}}", fieldUnderTest.getType().getSimpleName(), "{{className}}#{{getName}} must be of type {{{getType}}}!");
+			{{/canBeNull}}
+			{{/isHasMultiplicity}}
 		} catch (NoSuchFieldException | SecurityException e) {
 			fail("{{className}} is expected to have a field with name {{getName}}!");
 		}
 		{{/testClass.getClassUnderTest.getFields}}
+	}
+	
+	@Test
+	void testClassConstructors() {
+		assertEquals({{testClass.classUnderTest.getConstructors.size}}, classUnderTest.getDeclaredConstructors().length, "{{className}} must have exactly {{testClass.getClassUnderTest.getConstructors.size}} constructors!");
+		{{#constructors}}
+		
+		try {
+			Constructor<?> constructorUnderTest = classUnderTest.getDeclaredConstructor({{getReflectionDefinition}});
+			assertEquals(Modifier.isPublic({{getModifiers}}), Modifier.isPublic(constructorUnderTest.getModifiers()), "The constructor with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isPublic({{getModifiers}}) ? " ": " not ") + "be public!");
+			assertEquals(Modifier.isPrivate({{getModifiers}}), Modifier.isPrivate(constructorUnderTest.getModifiers()), "The constructor with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isPrivate({{getModifiers}}) ? " ": " not ") + "be private!");
+			assertEquals(Modifier.isProtected({{getModifiers}}), Modifier.isProtected(constructorUnderTest.getModifiers()), "The constructor with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isProtected({{getModifiers}}) ? " ": " not ") + "be protected!");
+			{{^getParameters.isEmpty}}
+			
+			Parameter parameterUnderTest;
+			{{#getParameters}}
+			
+			parameterUnderTest = java.util.Arrays.asList(constructorUnderTest.getParameters()).stream().filter(param -> param.getName().equals("{{getName}}")).findFirst().get();
+			assertEquals(Modifier.isFinal({{getModifiers}}), Modifier.isFinal(parameterUnderTest.getModifiers()), "The parameter {{getName}} of the constructor with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isFinal({{getModifiers}}) ? " ": " not ") + "be final!");
+			{{/getParameters}}
+			{{/getParameters.isEmpty}}
+		} catch (NoSuchMethodException | SecurityException e) {
+			fail("{{className}} must have a constructor with parameters ({{getParametersAsString}})");
+		}
+		{{/constructors}}
+	}
+	
+	@Test
+	void testClassMethods() {
+		assertEquals({{testClass.classUnderTest.getMethods.size}}, classUnderTest.getDeclaredMethods().length, "{{className}} must have exactly {{testClass.getClassUnderTest.getMethods.size}} methods!");
+		{{#methods}}
+		
+		try {
+			Method methodUnderTest = classUnderTest.getDeclaredMethod({{{getReflectionDefinition}}});
+			assertEquals("{{getReturnType}}", methodUnderTest.getReturnType().getSimpleName(), "The method {{getName}} with parameters ({{getParametersAsString}}) in {{className}} must return {{getReturnType}}!");
+			assertEquals(Modifier.isPublic({{getModifiers}}), Modifier.isPublic(methodUnderTest.getModifiers()), "The method {{getName}} with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isPublic({{getModifiers}}) ? " ": " not ") + "be public!");
+			assertEquals(Modifier.isPrivate({{getModifiers}}), Modifier.isPrivate(methodUnderTest.getModifiers()), "The method {{getName}} with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isPrivate({{getModifiers}}) ? " ": " not ") + "be private!");
+			assertEquals(Modifier.isProtected({{getModifiers}}), Modifier.isProtected(methodUnderTest.getModifiers()), "The method {{getName}} with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isProtected({{getModifiers}}) ? " ": " not ") + "be protected!");
+			assertEquals(Modifier.isStatic({{getModifiers}}), Modifier.isStatic(methodUnderTest.getModifiers()), "The method {{getName}} with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isStatic({{getModifiers}}) ? " ": " not ") + "be static!");
+			assertEquals(Modifier.isFinal({{getModifiers}}), Modifier.isFinal(methodUnderTest.getModifiers()), "The method {{getName}} with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isFinal({{getModifiers}}) ? " ": " not ") + "be final!");
+			assertEquals(Modifier.isAbstract({{getModifiers}}), Modifier.isAbstract(methodUnderTest.getModifiers()), "The method {{getName}} with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isAbstract({{getModifiers}}) ? " ": " not ") + "be abstract!");
+			{{^getParameters.isEmpty}}
+			
+			Parameter parameterUnderTest;
+			{{#getParameters}}
+			
+			parameterUnderTest = java.util.Arrays.asList(methodUnderTest.getParameters()).stream().filter(param -> param.getName().equals("{{getName}}")).findFirst().get();
+			assertEquals(Modifier.isFinal({{getModifiers}}), Modifier.isFinal(parameterUnderTest.getModifiers()), "The parameter {{getName}} of the method REPLACE with parameters ({{getParametersAsString}}) in {{className}} must" + (Modifier.isFinal({{getModifiers}}) ? " ": " not ") + "be final!");
+			{{/getParameters}}
+			{{/getParameters.isEmpty}}
+		} catch (NoSuchMethodException | SecurityException e) {
+			fail("{{className}} must have a method {{getName}} with parameters ({{getParametersAsString}})");
+		}
+		{{/methods}}
 	}
 }
 	

@@ -3,6 +3,7 @@ package uml;
 import java.util.ArrayList;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Abstract class extended by {@link UmlClass}es, {@link UmlInterface}s and {@link UmlEnumeration}s
@@ -16,7 +17,7 @@ public abstract class UmlElement implements UmlParent {
 	/**
 	 * The name of the element
 	 */
-	private String name;
+	@Setter private String name;
 	
 	/**
 	 * The {@link UmlVisibility} of the element

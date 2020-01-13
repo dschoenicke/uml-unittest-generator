@@ -1,18 +1,20 @@
 package core.options;
 
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.mapdb.BTreeMap;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
-import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
-public class QualifiedNamesMapper {
+import core.Core;
 
-	private static final String dbPath = "qualifiedNames.db";
+public class QualifiedNamesMapper {
 	
 	public static void addQualifiedName(String shortcut, String qualifiedName) {
-		DB database = DBMaker.fileDB(dbPath).make();
+		DB database = DBMaker.fileDB(Core.dbPath).make();
 		
-		HTreeMap<String, String> qualifiedNames = database.hashMap("qualifiedNames")
+		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
 				.keySerializer(Serializer.STRING)
 				.valueSerializer(Serializer.STRING)
 				.createOrOpen();
@@ -29,9 +31,9 @@ public class QualifiedNamesMapper {
 	}
 	
 	public static void replaceQualifiedName(String shortcut, String qualifiedName) {
-		DB database = DBMaker.fileDB(dbPath).make();
+		DB database = DBMaker.fileDB(Core.dbPath).make();
 		
-		HTreeMap<String, String> qualifiedNames = database.hashMap("qualifiedNames")
+		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
 				.keySerializer(Serializer.STRING)
 				.valueSerializer(Serializer.STRING)
 				.createOrOpen();
@@ -48,9 +50,9 @@ public class QualifiedNamesMapper {
 	}
 	
 	public static void deleteQualifiedName(String shortcut) {
-		DB database = DBMaker.fileDB(dbPath).make();
+		DB database = DBMaker.fileDB(Core.dbPath).make();
 		
-		HTreeMap<String, String> qualifiedNames = database.hashMap("qualifiedNames")
+		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
 				.keySerializer(Serializer.STRING)
 				.valueSerializer(Serializer.STRING)
 				.createOrOpen();
@@ -67,9 +69,9 @@ public class QualifiedNamesMapper {
 	}
 	
 	public static void clearQualifiedNames() {
-		DB database = DBMaker.fileDB(dbPath).make();
+		DB database = DBMaker.fileDB(Core.dbPath).make();
 		
-		HTreeMap<String, String> qualifiedNames = database.hashMap("qualifiedNames")
+		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
 				.keySerializer(Serializer.STRING)
 				.valueSerializer(Serializer.STRING)
 				.createOrOpen();
@@ -80,9 +82,9 @@ public class QualifiedNamesMapper {
 	}
 	
 	public static void showQualifiedNames() {
-		DB database = DBMaker.fileDB(dbPath).make();
+		DB database = DBMaker.fileDB(Core.dbPath).make();
 		
-		HTreeMap<String, String> qualifiedNames = database.hashMap("qualifiedNames")
+		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
 				.keySerializer(Serializer.STRING)
 				.valueSerializer(Serializer.STRING)
 				.createOrOpen();
@@ -98,5 +100,38 @@ public class QualifiedNamesMapper {
 		});
 		
 		database.close();
+	}
+	
+	public static void addQualifiedNamesMapperOptions(Options options) {
+		options.addOption(Option.builder("aqn")
+				.longOpt("addqualifiedname")
+				.desc("add a fully qualified name for a given shortcut used in the class diagram")
+				.numberOfArgs(2)
+				.argName("shortcut qualified-name")
+				.build());
+		
+		options.addOption(Option.builder("rqn")
+				.longOpt("replacequalifiedname")
+				.desc("replace a fully qualified name for a given shortcut used in the class diagram")
+				.numberOfArgs(2)
+				.argName("shortcut qualified-name")
+				.build());
+		
+		options.addOption(Option.builder("dqn")
+				.longOpt("deletequalifiedname")
+				.desc("delete the mapping with the given shortcut")
+				.numberOfArgs(1)
+				.argName("shortcut")
+				.build());
+		
+		options.addOption(Option.builder("cqn")
+				.longOpt("clearqualifiednames")
+				.desc("delete all mappings of diagram shortcuts to fully qualified names")
+				.build());
+		
+		options.addOption(Option.builder("sqn")
+				.longOpt("showqualifiednames")
+				.desc("show all mappings of diagram shortcuts to fully qualified names")
+				.build());
 	}
 }

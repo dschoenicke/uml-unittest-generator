@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import mdxml.PackagedElement;
 import mdxmlconverter.temporary.TemporaryModel;
 import uml.UmlElement;
+import uml.UmlModel;
+import uml.UmlPackage;
 import uml.UmlParent;
 
 /**
@@ -21,7 +23,7 @@ public class NestedElementConverter {
 	 * @param packagedElement the {@link mdxml.PackagedElement} which nested elements should be converted
 	 * @param element the {@link uml.UmlElement} to which the converted elements should be added
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link uml.UmlElement}s should be added
-	 * @param parent the parent {@link uml.UmlParent} representing the owning {@link uml.UmlModel} or {@link uml.UmlPackage}
+	 * @param parent the parent {@link uml.UmlParent} representing the owning {@link uml.UmlModel} or {@link uml.UmlPackage} to which the converted inner element should be added.
 	 */
 	public static void convertNestedElements(PackagedElement packagedElement, UmlElement element, TemporaryModel tmpModel, UmlParent parent) {
 		for (PackagedElement innerElement : packagedElement.getNestedClassifiers()) {
@@ -29,7 +31,15 @@ public class NestedElementConverter {
 			assertNotNull("The xmi:type of a nestedClassifier must not be null!\nOccurance in PackagedElement with id " + packagedElement.getId(), innerElement.getType());
 			assertNotNull("The name of a nestedClassifier must not be null!\nOccurance in nestedClassifier with id " + packagedElement.getId(), innerElement.getName());
 			
-			element.addInnerElement(ElementConverter.convertElement(innerElement, tmpModel, parent));
+			UmlElement innerUmlElement = ElementConverter.convertElement(innerElement, tmpModel, parent); 
+			element.addInnerElement(innerUmlElement);
+			
+			if (parent instanceof UmlModel) {
+				((UmlModel) parent).addElement(innerUmlElement);
+			} 
+			else if (parent instanceof UmlPackage) {
+				((UmlPackage) parent).addElement(innerUmlElement);
+			}
 		}
 	}
 	

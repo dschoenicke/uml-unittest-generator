@@ -28,7 +28,7 @@ public class RelationshipTestConverter {
 		if (!classUnderTest.getInterfaces().isEmpty()) {
 			interfaceTestString += "\n\t\t//Auxiliary Array to store the implemented interfaces of the class diagram\n"
 					+ "\t\tString[] interfacesToCheck = {";
-	
+			
 			for (String interfaceName: classUnderTest.getInterfaces()) {
 				interfaceTestString += "\"" + interfaceName + "\", ";
 			}

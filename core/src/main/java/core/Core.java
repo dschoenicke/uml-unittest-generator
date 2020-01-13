@@ -5,56 +5,23 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.MissingArgumentException;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import core.options.AssociationTypeMapper;
 import core.options.QualifiedNamesMapper;
 import core.options.TestCreator;
 
 public class Core {
 
+	public static final String dbPath = "configuration.db";
+	
 	public static void main(String[] args) {
 		
 		Options options = new Options();
-		options.addOption(Option.builder("ct")
-				.longOpt("createtests")
-				.desc("create test files out of a given input diagram in a given output directory")
-				.numberOfArgs(4)
-				.argName("input-format input-file output-format output-directory")
-				.build());
-		
-		options.addOption(Option.builder("aqn")
-				.longOpt("addqualifiedname")
-				.desc("add a fully qualified name for a given shortcut used in the class diagram")
-				.numberOfArgs(2)
-				.argName("shortcut qualified-name")
-				.build());
-		
-		options.addOption(Option.builder("rqn")
-				.longOpt("replacequalifiedname")
-				.desc("replace a fully qualified name for a given shortcut used in the class diagram")
-				.numberOfArgs(2)
-				.argName("shortcut qualified-name")
-				.build());
-		
-		options.addOption(Option.builder("dqn")
-				.longOpt("deletequalifiedname")
-				.desc("delete the mapping with the given shortcut")
-				.numberOfArgs(1)
-				.argName("shortcut")
-				.build());
-		
-		options.addOption(Option.builder("cqn")
-				.longOpt("clearqualifiednames")
-				.desc("delete all mappings of diagram shortcuts to fully qualified names")
-				.build());
-		
-		options.addOption(Option.builder("sqn")
-				.longOpt("showqualifiednames")
-				.desc("show all mappings of diagram shortcuts to fully qualified names")
-				.build());
-		
+		TestCreator.addTestCreatorOptions(options);
+		QualifiedNamesMapper.addQualifiedNamesMapperOptions(options);
+		AssociationTypeMapper.addAssociationTypeMapperOptions(options);
 		CommandLineParser cmpParser = new DefaultParser();
 		
 		try {
@@ -64,6 +31,12 @@ public class Core {
 				if (TestCreator.evaluateArguments(args)) {
 					TestCreator.execute(args);
 				}
+			}
+			else if (cmd.hasOption("inputtypes")) {
+				TestCreator.showInputs();
+			}
+			else if (cmd.hasOption("outputtypes")) {
+				TestCreator.showOutputs();
 			}
 			else if (cmd.hasOption("aqn")) {
 				QualifiedNamesMapper.addQualifiedName(args[1], args[2]);
@@ -80,8 +53,23 @@ public class Core {
 			else if (cmd.hasOption("sqn")) {
 				QualifiedNamesMapper.showQualifiedNames();
 			}
+			else if (cmd.hasOption("aat")) {
+				AssociationTypeMapper.addAssociationType(args[1], args[2]);
+			}
+			else if (cmd.hasOption("rat")) {
+				AssociationTypeMapper.replaceAssociationType(args[1], args[2]);
+			}
+			else if (cmd.hasOption("dat")) {
+				AssociationTypeMapper.deleteAssociationType(args[1]);
+			}
+			else if (cmd.hasOption("cat")) {
+				AssociationTypeMapper.clearAssociationTypes();
+			}
+			else if (cmd.hasOption("sat")) {
+				AssociationTypeMapper.showAssociationTypes();
+			}
 			else {
-				new HelpFormatter().printHelp(100, " ", "Commands to convert diagrams and manage qualified names", options, "Version 0.0.1");
+				new HelpFormatter().printHelp(100, " ", "Commands to convert diagrams and manage qualified names and association types", options, "Version 0.0.1");
 			}
 		} catch (ParseException e) {
 			if (e instanceof MissingArgumentException) {
@@ -95,8 +83,18 @@ public class Core {
 				else if (((MissingArgumentException) e).getOption().getOpt().equals("rqn")) {
 					System.out.println("\tError: -replacequalifiedname requires arguments <shortcut> <new-qualified-name>");
 				}
-				else if (((MissingArgumentException) e).getOption().getOpt().equals("aqn")) {
+				else if (((MissingArgumentException) e).getOption().getOpt().equals("dqn")) {
 					System.out.println("\tError: -deletequalifiedname requires argument <shortcut>");
+				}
+				else if (((MissingArgumentException) e).getOption().getOpt().equals("aat")) {
+					System.out.println("\tError: -addassociationtype requires arguments <attribute> <collection-type>");
+					System.out.println("\tExample: -addassociationtype Person.friends ArrayList");
+				}
+				else if (((MissingArgumentException) e).getOption().getOpt().equals("rat")) {
+					System.out.println("\tError: -replaceassociationtype requires arguments <attribute> <new-collection-type>");
+				}
+				else if (((MissingArgumentException) e).getOption().getOpt().equals("dat")) {
+					System.out.println("\tError: -deleteassociationtype requires argument <attribute>");
 				}
 			}
 			else {
