@@ -10,20 +10,18 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 
-import outputjunit.testobjects.converter.ConstructorConverter;
-import outputjunit.testobjects.converter.MethodConverter;
-import test.TestClass;
+import junit.JunitRepresentation;
+import junit.JunitTestClass;
 import test.TestRepresentation;
-import test.testobjects.ClassUnderTest;
 
 public class TestFileCreator {
 	
-	public static void createTestFiles(TestRepresentation testRepresentation, String outputPath) {
-		for (TestClass testClass : testRepresentation.getTestClassesAsList()) {
-			String filepath = outputPath + File.separator + testRepresentation.getName() + "Structure" + File.separator + testClass.getQualifiedName().replace(".", File.separator) + ".java";
+	public static void createTestFiles(JunitRepresentation junitRepresentation, String outputPath) {
+		for (JunitTestClass testClass : junitRepresentation.getTestClassesAsList()) {
+			String filepath = outputPath + File.separator + testClass.getPackageDeclaration().replace(".", File.separator) + File.separator + testClass.getName() + ".java";
 			
-			if (testClass.getQualifiedName().startsWith(testRepresentation.getName())) {
-				createTestFile(testRepresentation, testClass, filepath);
+			if (testClass.getClassName().startsWith(junitRepresentation.getName())) {
+				createTestFile(junitRepresentation, testClass, filepath);
 			}
 			else {
 				System.out.println("[WARNING] The file " + filepath + " wasn't created!\n" + 
@@ -33,17 +31,10 @@ public class TestFileCreator {
 		}
 	}
 	
-	static void createTestFile(TestRepresentation testRepresentation, TestClass testClass, String testFilePath) {
-		ClassUnderTest classUnderTest = testClass.getClassUnderTest();
-		
-		if (classUnderTest == null) {
-			System.out.println("[WARNING] The file " + testFilePath + " was skipped since it doesn't contain any ClassUnderTest object.");
-			return;
-		}
-		
+	static void createTestFile(JunitRepresentation junitRepresentation, JunitTestClass testClass, String testFilePath) {
 		Map<String, Object> contents = new HashMap<>();
 		contents.put("testClass", testClass);
-		contents.put("package", createPackageDeclaration(testRepresentation, testFilePath));
+		/*contents.put("package", createPackageDeclaration(testRepresentation, testFilePath));
 		contents.put("className", testClass.getClassUnderTest().getQualifiedName());
 		contents.put("isNestedClass", testClass.getClassUnderTest().getNestHost().isPresent());
 		contents.put("hasSuperClass", testClass.getClassUnderTest().getSuperClass().isPresent());
@@ -56,7 +47,7 @@ public class TestFileCreator {
 		
 		if (testClass.getClassUnderTest().getSuperClass().isPresent()) {
 			contents.put("superClass", testClass.getClassUnderTest().getSuperClass().get());
-		}
+		}*/
 		
 		MustacheFactory mf = new DefaultMustacheFactory();
 		Mustache mustache = mf.compile("junittemplate.mustache");
