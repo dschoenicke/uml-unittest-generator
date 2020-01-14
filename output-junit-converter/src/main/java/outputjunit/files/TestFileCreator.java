@@ -12,16 +12,27 @@ import com.github.mustachejava.MustacheFactory;
 
 import junit.JunitRepresentation;
 import junit.JunitTestClass;
-import test.TestRepresentation;
 
+/**
+ * Provides static methods the generate test class file out of the mustache template
+ * 
+ * @author dschoenicke
+ *
+ */
 public class TestFileCreator {
 	
+	/**
+	 * Create test class files for the given {@link junit.JunitRepresentation} in the given output directory.
+	 * 
+	 * @param junitRepresentation the {@link junit.JunitRepresentation} for which the test files should be created
+	 * @param outputPath the path to the directory, where the test files should be created
+	 */
 	public static void createTestFiles(JunitRepresentation junitRepresentation, String outputPath) {
 		for (JunitTestClass testClass : junitRepresentation.getTestClassesAsList()) {
 			String filepath = outputPath + File.separator + testClass.getPackageDeclaration().replace(".", File.separator) + File.separator + testClass.getName() + ".java";
 			
 			if (testClass.getClassName().startsWith(junitRepresentation.getName())) {
-				createTestFile(junitRepresentation, testClass, filepath);
+				createTestFile(testClass, filepath);
 			}
 			else {
 				System.out.println("[WARNING] The file " + filepath + " wasn't created!\n" + 
@@ -31,67 +42,24 @@ public class TestFileCreator {
 		}
 	}
 	
-	static void createTestFile(JunitRepresentation junitRepresentation, JunitTestClass testClass, String testFilePath) {
+	/**
+	 * Creates a test file with the mustache template for a given {@link junit.JunitTestClass}
+	 * 
+	 * @param testClass the {@link junit.JunitTestClass} for which the test file should be created
+	 * @param testFilePath the path of the test file to be created
+	 */
+	static void createTestFile(JunitTestClass testClass, String testFilePath) {
 		Map<String, Object> contents = new HashMap<>();
 		contents.put("testClass", testClass);
-		/*contents.put("package", createPackageDeclaration(testRepresentation, testFilePath));
-		contents.put("className", testClass.getClassUnderTest().getQualifiedName());
-		contents.put("isNestedClass", testClass.getClassUnderTest().getNestHost().isPresent());
-		contents.put("hasSuperClass", testClass.getClassUnderTest().getSuperClass().isPresent());
-		contents.put("constructors", ConstructorConverter.convertConstructors(classUnderTest));
-		contents.put("methods", MethodConverter.convertMethods(classUnderTest));
-		
-		if (testClass.getClassUnderTest().getNestHost().isPresent()) {
-			contents.put("nestHost", testClass.getClassUnderTest().getNestHost().get().getQualifiedName());
-		}
-		
-		if (testClass.getClassUnderTest().getSuperClass().isPresent()) {
-			contents.put("superClass", testClass.getClassUnderTest().getSuperClass().get());
-		}*/
-		
 		MustacheFactory mf = new DefaultMustacheFactory();
 		Mustache mustache = mf.compile("junittemplate.mustache");
 		
 		try {
 			mustache.execute(new PrintWriter(new File(testFilePath)), contents).flush();
-			/*} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			Files.createFile(Paths.get(testFilePath));
-			
-			String fileContent = "package " + createPackageDeclaration(testRepresentation, testFilePath) + 
-					"\n\nimport org.junit.jupiter.api.*;" +
-					"\nimport static org.junit.jupiter.api.Assertions.*;" +
-					"\nimport " + createPackageImport(testRepresentation, testFilePath) + 
-					"\nimport java.lang.reflect.*;" + 
-					"\nimport java.util.Arrays;\n\n" +
-					"public class " + testClass.getName() + " {\n\n" + 
-					ClassUnderTestCreator.createClassUnderTest(classUnderTest) +
-					TestMethodConverter.createTestMethods(classUnderTest) +
-					"}\n";
-			
-			FileWriter fw = new FileWriter(testFilePath);
-			fw.write(fileContent);
-			fw.close();*/
 			System.out.println("[INFO] Created " + testFilePath);
 		} catch (IOException e) {
 			System.err.println("[ERROR] Error while creating the file " + testFilePath + "!\n" + 
 					"        The directory " + testFilePath.substring(0, testFilePath.lastIndexOf(File.separator)) + " doesn't exist.");
 		}
-	}
-	
-	static String createPackageDeclaration(TestRepresentation testRepresentation, String testFilePath) {
-		return testFilePath.substring(
-					testFilePath.lastIndexOf(testRepresentation.getName() + "Structure"), 
-					testFilePath.lastIndexOf(File.separator)).
-				replace(File.separator, ".") + ";";
-	}
-	
-	static String createPackageImport(TestRepresentation testRepresentation, String testFilePath) {
-		return testFilePath.substring(
-					testFilePath.lastIndexOf(testRepresentation.getName() + "Structure") + testRepresentation.getName().length() + 10, 
-					testFilePath.lastIndexOf(File.separator)).
-				replace(File.separator, ".") + ".*;";
 	}
 }
