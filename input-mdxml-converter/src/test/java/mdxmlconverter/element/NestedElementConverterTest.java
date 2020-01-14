@@ -11,7 +11,6 @@ import org.junit.Test;
 import mdxml.PackagedElement;
 import mdxmlconverter.temporary.TemporaryModel;
 import uml.UmlClass;
-import uml.UmlPackage;
 
 /**
  * Tests the {@link NestedElementConverter}
@@ -53,7 +52,7 @@ public class NestedElementConverterTest {
 	@Test
 	public void testNestedElementConverter() {
 		UmlClass umlClass = new UmlClass(null, null, false, false, false);
-		NestedElementConverter.convertNestedElements(mockOuterPackagedElement, umlClass, new TemporaryModel(), new UmlPackage(null));
+		NestedElementConverter.convertNestedElements(mockOuterPackagedElement, umlClass, new TemporaryModel());
 		assertEquals(umlClass.getInnerElements().get(0).getName(), mockNestedPackagedElement.getName());
 		assertTrue(umlClass.getInnerElements().get(0) instanceof UmlClass);
 	}

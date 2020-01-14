@@ -59,7 +59,7 @@ public class CodeRepresentation implements CodeParent {
 	}
 	
 	/**
-	 * Returns a list of all {@link CodeElement}s regardless of their hierarchy
+	 * Returns a list of all {@link CodeElement}s and their nested elements regardless of their hierarchy
 	 * 
 	 * @return a list of all {@link CodeElement}s
 	 */
@@ -68,6 +68,9 @@ public class CodeRepresentation implements CodeParent {
 		
 		for (CodePackage codePackage : getPackagesAsList()) {
 			ownedElements.addAll(codePackage.getElements());
+			codePackage.getElements().forEach(codeElement -> {
+				ownedElements.addAll(codeElement.getNestedElementsAsList());
+			});
 		}
 		
 		return ownedElements;

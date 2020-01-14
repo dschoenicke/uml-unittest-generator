@@ -3,6 +3,7 @@ package code;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * Represents a template parameter of a {@link CodeElement} or {@link CodeMethod}
@@ -28,5 +29,5 @@ public class CodeTemplateParameter {
 	 * The constraining type of the template parameter
 	 * Is 'java.lang.Object' if there is no constrain
 	 */
-	@NonNull private String type;
+	@NonNull @Setter private String type;
 }

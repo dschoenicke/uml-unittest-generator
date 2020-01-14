@@ -10,6 +10,8 @@ import org.mapdb.Serializer;
 import code.CodeRepresentation;
 import uml.UmlModel;
 import umlcodeconverter.element.ElementConverter;
+import umlcodeconverter.element.FieldConverter;
+import umlcodeconverter.element.QualifiedNamesConverter;
 import umlcodeconverter.element.TemplateBindingConverter;
 import umlcodeconverter.packages.PackageConverter;
 import umlcodeconverter.relationship.RelationshipConverter;
@@ -76,53 +78,20 @@ public class UmlCodeConverter
 	 * @return the converted {@link code.CodeRepresentation}
 	 */
 	public CodeRepresentation convertUmlToCodeRepresentation(UmlModel umlModel, String dbPath) {
-		DB database = DBMaker.fileDB(dbPath).make();
+		CodeRepresentation codeRepresentation = convertUmlToCodeRepresentation(umlModel);
 		
+		DB database = DBMaker.fileDB(dbPath).make();
 		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
 				.keySerializer(Serializer.STRING)
 				.valueSerializer(Serializer.STRING)
 				.createOrOpen();
-		
 		BTreeMap<String, String> associationTypes = database.treeMap("associationTypes")
 				.keySerializer(Serializer.STRING)
 				.valueSerializer(Serializer.STRING)
 				.createOrOpen();
 		
-		
-		umlModel.getElementsAsList().forEach(umlElement -> {
-			if (qualifiedNames.containsKey(umlElement.getName())) {
-				umlElement.setName(qualifiedNames.get(umlElement.getName()));
-			}
-			
-			umlElement.getAttributes().forEach(umlAttribute -> {
-				if (qualifiedNames.containsKey(umlAttribute.getType())) {
-					umlAttribute.setType(qualifiedNames.get(umlAttribute.getType()));
-				}
-				
-				if (associationTypes.containsKey(umlElement.getName() + "." + umlAttribute.getName())) {
-					umlAttribute.setType(associationTypes.get(umlElement.getName() + "." + umlAttribute.getName()) + "<" + umlAttribute.getType() + ">");
-				}
-			});
-			
-			umlElement.getTemplateParameters().forEach(umlTemplateParameter -> {
-				if (qualifiedNames.containsKey(umlTemplateParameter.getType())) {
-					umlTemplateParameter.setType(qualifiedNames.get(umlTemplateParameter.getType()));
-				}
-			});
-			
-			umlElement.getOperations().forEach(umlOperation -> {
-				if (qualifiedNames.containsKey(umlOperation.getName())) {
-					umlOperation.setName(qualifiedNames.get(umlOperation.getName()));
-				}
-				
-				umlOperation.getParameters().forEach(umlParameter -> {
-					if (qualifiedNames.containsKey(umlParameter.getType())) {
-						umlParameter.setType(qualifiedNames.get(umlParameter.getType()));
-					}
-				});
-			});
-		});
-		
-		return convertUmlToCodeRepresentation(umlModel);
+		FieldConverter.applyCollectionTypes(codeRepresentation, associationTypes);
+		QualifiedNamesConverter.resolveQualifiedNames(codeRepresentation, qualifiedNames);
+		return codeRepresentation;
 	}
 }

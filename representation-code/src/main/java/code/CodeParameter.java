@@ -23,7 +23,7 @@ public class CodeParameter {
 	/**
 	 * The data type of the parameter
 	 */
-	@NonNull private String type;
+	@NonNull @Setter private String type;
 	
 	/**
 	 * An integer representing the {@link CodeModifier} determining the parameter's modifiers

@@ -19,7 +19,7 @@ public class CodeInterface extends CodeElement {
 	 * @param isStatic determines whether the interface is static
 	 * @param isFinal determines whether the interface is final
 	 */
-	public CodeInterface(String name, 
+	public CodeInterface(String name,
 			CodeParent parent,
 			CodeVisibility visibility, 
 			boolean isAbstract, 

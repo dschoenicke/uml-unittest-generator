@@ -3,6 +3,7 @@ package code;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 /**
  * Represents a field of a {@link CodeElement}
@@ -22,7 +23,7 @@ public class CodeField {
 	/**
 	 * The data type of the field
 	 */
-	@NonNull private String type;
+	@NonNull @Setter private String type;
 	
 	/**
 	 * An integer representing the {@link CodeModifier} determining the fields modifiers

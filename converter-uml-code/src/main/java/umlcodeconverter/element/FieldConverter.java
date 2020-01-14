@@ -1,8 +1,11 @@
 package umlcodeconverter.element;
 
+import org.mapdb.BTreeMap;
+
 import code.CodeElement;
 import code.CodeField;
 import code.CodeModifier;
+import code.CodeRepresentation;
 import uml.UmlAttribute;
 import uml.UmlElement;
 import uml.UmlMultiplicityValue;
@@ -37,4 +40,19 @@ public class FieldConverter {
 		}
 	}
 	
+	/**
+	 * Replaces the type attribute of all {@link code.CodeField}s of the given {@link code.CodeRepresentation} with a potential matching collection type of the given MapDB database.
+	 * 
+	 * @param codeRepresentation the {@link code.CodeRepresentation} containing the {@link code.CodeElement}s which {@link code.CodeField} type attributes should be replaced
+	 * @param collectionTypes the map of the MapDB database containing collection types for association attributes
+	 */
+	public static void applyCollectionTypes(CodeRepresentation codeRepresentation, BTreeMap<String, String> collectionTypes) {
+		codeRepresentation.getElementsAsList().forEach(codeElement -> {
+			codeElement.getFields().forEach(codeField -> {
+				if (collectionTypes.containsKey(codeElement.getName() + "." + codeField.getName())) {
+					codeField.setType(collectionTypes.get(codeElement.getName() + "." + codeField.getName()) + "<" + codeField.getType() + ">");
+				}
+			});
+		});
+	}
 }

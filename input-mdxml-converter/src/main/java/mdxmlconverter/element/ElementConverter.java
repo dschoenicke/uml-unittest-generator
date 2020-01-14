@@ -62,7 +62,7 @@ public class ElementConverter {
 			OperationConverter.convertOperations(packagedElement, element, tmpModel);
 			TemplateParameterConverter.convertTemplateParameters(packagedElement.getOwnedTemplateSignature(), element, tmpModel);
 			TemplateBindingConverter.convertTemplateBindings(packagedElement.getTemplateBindings(), element);
-			NestedElementConverter.convertNestedElements(packagedElement, element, tmpModel, parent);
+			NestedElementConverter.convertNestedElements(packagedElement, element, tmpModel);
 			GeneralizationConverter.convertNestedGeneralizations(packagedElement, tmpModel, parent);
 			InterfaceRealizationConverter.convertNestedInterfaceRealizations(packagedElement, tmpModel, parent);
 			

@@ -3,6 +3,7 @@ package code;
 import java.util.ArrayList;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Abstract class extended by {@link CodeClass}es, {@link CodeInterface}s and {@link CodeEnumeration}s
@@ -19,6 +20,11 @@ public abstract class CodeElement implements CodeParent {
 	private String name;
 	
 	/**
+	 * The fully qualified name of the element
+	 */
+	@Setter private String qualifiedName;
+	
+	/**
 	 * The parent {@link CodeParent} of the element
 	 */
 	private CodeParent parent;
@@ -27,6 +33,11 @@ public abstract class CodeElement implements CodeParent {
 	 * The list of {@link CodeField}s of the element
 	 */
 	private ArrayList<CodeField> fields;
+	
+	/**
+	 * An integer representing the {@link CodeModifier} determining the elements modifiers
+	 */
+	private int modifiers;
 	
 	/**
 	 * The list of {@link CodeConstructor}s of the element
@@ -59,14 +70,10 @@ public abstract class CodeElement implements CodeParent {
 	private ArrayList<CodeElement> nestedElements;
 	
 	/**
-	 * An integer representing the {@link CodeModifier} determining the elements modifiers
-	 */
-	private int modifiers;
-	
-	/**
-	 * Constructor with name, {@link CodeParent} and modifiers.<br>
+	 * Constructor with name, fully qualified name, {@link CodeParent} and modifiers.<br>
 	 * The modifiers are converted to an int value usable for the {@link CodeModifier} methods.<br>
-	 * Initializes the lists of {@link CodeField}s, {@link CodeConstructor}s, {@link CodeMethod}s, {@link CodeTemplateBinding}s, {@link CodeTemplateParameter}s, {@link CodeInterface}s and nested {@link CodeElement}s.
+	 * Initializes the lists of {@link CodeField}s, {@link CodeConstructor}s, {@link CodeMethod}s, {@link CodeTemplateBinding}s, {@link CodeTemplateParameter}s, {@link CodeInterface}s and nested {@link CodeElement}s.<br>
+	 * Sets the qualified name to the name value since it is set afterwards.
 	 * 
 	 * @param name the name of the element
 	 * @param parent the parent {@link CodeParent} of the element
@@ -83,6 +90,7 @@ public abstract class CodeElement implements CodeParent {
 			boolean isFinal) {
 		
 		this.name = name;
+		this.qualifiedName = name;
 		this.parent = parent;
 		modifiers = CodeModifier.convertModifierValue(visibility, isStatic, isFinal, isAbstract);
 		fields = new ArrayList<>();
@@ -158,15 +166,16 @@ public abstract class CodeElement implements CodeParent {
 	}
 	
 	/**
-	 * Gets the qualified name of the package by creating it out of its name and the name of the parent elements
+	 * Returns all nested elements regardless of their hierarchy
 	 * 
-	 * @return the qualified name of the package
+	 * @return all nested elements regardless of their hierarchy
 	 */
-	public String getQualifiedName() {
-		if (parent instanceof CodePackage) {
-			return ((CodePackage) parent).getQualifiedName() + "." + this.name;
-		}
-		
-		return ((CodeElement) parent).getQualifiedName() + "$" + this.name;
+	public ArrayList<CodeElement> getNestedElementsAsList() {
+		ArrayList<CodeElement> ownedElements = new ArrayList<>();
+		nestedElements.forEach(nestedElement -> {
+			ownedElements.add(nestedElement);
+			ownedElements.addAll(nestedElement.getNestedElementsAsList());
+		});
+		return ownedElements;
 	}
 }
