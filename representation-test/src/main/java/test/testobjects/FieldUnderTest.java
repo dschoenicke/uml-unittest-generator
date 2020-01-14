@@ -47,7 +47,7 @@ public class FieldUnderTest implements TestObject {
 	 * 
 	 * @param name the name of the field under test.
 	 * @param type the fully qualified name of the type of the field under test.
-	 * @param modifier the modifier value of the field under test.
+	 * @param modifiers the modifier value of the field under test.
 	 * @param parent the parent {@link ClassUnderTest} of the field under test.
 	 * @param canBeNull boolean value determining whether the field can be {@literal null}.
 	 * @param hasMultiplicity boolean value determining whether the field has a multiplicity.

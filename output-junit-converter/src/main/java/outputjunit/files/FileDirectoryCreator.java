@@ -46,8 +46,8 @@ public class FileDirectoryCreator {
 	 * This method ignores all packages, which qualified name doesn't start with the name of the {@link junit.JunitRepresentation}
 	 * to exclude tests of external classes.
 	 * 
-	 * @param testRepresentation the {@link junit.JunitRepresentation} to check whether the given {@link junit.JunitPackage} is a package of the application under test.
-	 * @param testParent the {@link junit.JunitParent} to create the directory for and which {@link junit.JunitPackage}s the directories should be created.
+	 * @param junitRepresentation the {@link junit.JunitRepresentation} to check whether the given {@link junit.JunitPackage} is a package of the application under test.
+	 * @param junitParent the {@link junit.JunitParent} to create the directory for and which {@link junit.JunitPackage}s the directories should be created.
 	 * @param testFilePath the path of the root directory.
 	 */
 	static void createFileDirectory(JunitRepresentation junitRepresentation, JunitParent junitParent, String testFilePath) {	

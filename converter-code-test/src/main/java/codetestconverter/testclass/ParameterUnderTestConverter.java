@@ -17,6 +17,7 @@ public class ParameterUnderTestConverter {
 	 * Static method to convert a list of {@link code.CodeParameter}s to a list of {@link test.testobjects.ParameterUnderTest}.
 	 * 
 	 * @param parameters the {@link code.CodeParameter}s to be converted.
+	 * @return the converted {@link test.testobjects.ParameterUnderTest}
 	 */
 	public static ArrayList<ParameterUnderTest> convertParametersUnderTest(ArrayList<CodeParameter> parameters) {
 		ArrayList<ParameterUnderTest> parametersUnderTest = new ArrayList<>();
@@ -32,6 +33,7 @@ public class ParameterUnderTestConverter {
 	 * Static method to convert a given {@link code.CodeParameter}s to a {@link test.testobjects.ParameterUnderTest}.
 	 * 
 	 * @param parameter the {@link code.CodeParameter} to be converted.
+	 * @return the converted {@link test.testobjects.ParameterUnderTest}
 	 */
 	public static ParameterUnderTest convertParameterUnderTest(CodeParameter parameter) {
 		return new ParameterUnderTest(parameter.getName(),

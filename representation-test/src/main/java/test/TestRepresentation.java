@@ -42,9 +42,9 @@ public class TestRepresentation implements TestParent {
 	}
 	
 	/**
-	 * Gets all {@link TestClass}es of the representation and its {@link TestPackages}.
+	 * Gets all {@link TestClass}es of the representation and its {@link TestPackage}s.
 	 * 
-	 * @return all {@link TestClass}es of the representation and its {@link TestPackages}.
+	 * @return all {@link TestClass}es of the representation and its {@link TestPackage}s.
 	 */
 	public ArrayList<TestClass> getTestClassesAsList() {
 		ArrayList<TestClass> returnTestClasses = new ArrayList<>();

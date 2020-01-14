@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import test.testobjects.ClassUnderTest;
 
 /**
- * Represents a test class, which contains reflection bases {@link TestMethod}s for its properties, fields, constructors and methods
+ * Represents a test class, containing a {@link test.testobjects.ClassUnderTest} which is tested by this class
  * 
  * @author dschoenicke
  *

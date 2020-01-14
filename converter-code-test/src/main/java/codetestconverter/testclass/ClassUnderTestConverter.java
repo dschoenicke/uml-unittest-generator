@@ -19,6 +19,9 @@ public class ClassUnderTestConverter {
 
 	/**
 	 * Static method converting a given {@link code.CodeElement} to a {@link test.testobjects.ClassUnderTest}.
+	 * 
+	 * @param codeElement the {@link code.CodeElement} to be converted
+	 * @return the converted {@link test.testobjects.ClassUnderTest}
 	 */
 	public static ClassUnderTest convertClassUnderTest(CodeElement codeElement) {
 		CodeClass superClass = null;

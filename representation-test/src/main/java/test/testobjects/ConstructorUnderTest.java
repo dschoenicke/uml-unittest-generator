@@ -30,10 +30,10 @@ public class ConstructorUnderTest implements TestObject {
 	
 	/**
 	 * Constructor with modifier value.
-	 * Initializes the list of {@link ParamterUnderTest}.
+	 * Initializes the list of {@link ParameterUnderTest}.
 	 * Adds the constructor to the parent {@link ClassUnderTest}.
 	 * 
-	 * @param the modifier value of the constructor under test.
+	 * @param modifiers the modifier value of the constructor under test.
 	 * @param parent the parent {@link ClassUnderTest} of the constructor.
 	 */
 	public ConstructorUnderTest(int modifiers, ClassUnderTest parent) {

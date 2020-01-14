@@ -27,8 +27,8 @@ public class OutputJUnitConverter implements TestConverter
 	/**
 	 * Converts a given {@link test.TestRepresentation} to jUnit test files.<br>
 	 * Firstly, converts the {@link test.TestRepresentation} to a {@link junit.JunitTestClass}es and maps them to {@link test.TestClass}es.
-	 * Delegates the creation of the directory to the {@link files.FileDirectoryCreator}.<br>
-	 * Delegates the creation of the test files to the {@link files.TestFileCreator}.<br>
+	 * Delegates the creation of the directory to the {@link outputjunit.files.FileDirectoryCreator}.<br>
+	 * Delegates the creation of the test files to the {@link outputjunit.files.TestFileCreator}.<br>
 	 * Prints a success message, if the test files have been created successfully.
 	 * 
 	 * @param testRepresentation the {@link test.TestRepresentation} describing the structure of the tests to be created.

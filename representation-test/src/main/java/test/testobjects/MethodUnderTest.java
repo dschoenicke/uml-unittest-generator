@@ -40,12 +40,13 @@ public class MethodUnderTest implements TestObject {
 	
 	/**
 	 * Constructor with name, modifier value, parent {@link ClassUnderTest} and {@link ParameterUnderTest} as return type.
-	 * Initializes the list of {@link ParamterUnderTest}.
+	 * Initializes the list of {@link ParameterUnderTest}.
 	 * Adds the method to the list of methods of the parent {@link ClassUnderTest}.
 	 * 
 	 * @param name the name of the method under test.
-	 * @param the modifier value of the method under test.
+	 * @param modifiers the modifier value of the method under test.
 	 * @param parent the parent {@link ClassUnderTest} of the method under test.
+	 * @param returnType the {@link ParameterUnderTest} representing the return type of the method
 	 */
 	public MethodUnderTest(String name, int modifiers, ClassUnderTest parent, ParameterUnderTest returnType) {
 		this.name = name;

@@ -75,7 +75,7 @@ public class OutputJunitConverterTest {
 	}
 	
 	/**
-	 * Tests {@link OutputJUnitConverter#convertToJUnitTestFiles}, executes the function and assumes that the root directory has been created.
+	 * Tests {@link OutputJUnitConverter#convertTestFiles}, executes the function and assumes that the root directory has been created.
 	 */
 	@Test
 	public void testOutputJUnitConverter() {

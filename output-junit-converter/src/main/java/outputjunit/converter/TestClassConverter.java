@@ -29,7 +29,7 @@ public class TestClassConverter {
 	}
 	
 	/**
-	 * Static method converting a given {@link test.TestClass} to a {@link junit.JunitTestClass} and adds it to the given {@link test.JunitPackage}.
+	 * Static method converting a given {@link test.TestClass} to a {@link junit.JunitTestClass} and adds it to the given {@link junit.JunitPackage}.
 	 * Delegates the conversion of {@link junit.JunitAssertion}s to the {@link AssertionConverter}.
 	 * Delegates the conversion of {@link junit.JunitFieldUnderTest}s to the {@link FieldConverter}.
 	 * Delegates the conversion of {@link junit.JunitConstructorUnderTest}s to the {@link ConstructorConverter}.

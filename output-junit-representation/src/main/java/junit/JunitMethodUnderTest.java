@@ -36,7 +36,9 @@ public class JunitMethodUnderTest {
 	 * Constructor with method name, return type and parameter type classes.<br>
 	 * Initializes the list of {@link JunitParameterUnderTest} and {@link JunitAssertion}s
 	 * 
-	 * @param parameterTypeClasses
+	 * @param methodName the name of the method
+	 * @param returnType the return type of the method
+	 * @param parameterTypeClasses the parameter type classes of the method
 	 */
 	public JunitMethodUnderTest(String methodName, String returnType, String parameterTypeClasses) {
 		this.methodName = methodName;

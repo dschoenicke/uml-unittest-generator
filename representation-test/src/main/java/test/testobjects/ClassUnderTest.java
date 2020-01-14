@@ -72,7 +72,7 @@ public class ClassUnderTest implements TestObject {
 	
 	/**
 	 * Constructor with qualified name, {@link ClassUnderTestType}, modifiers and a potential super class of the class under test.<br>
-	 * Initializes the lists of {@link TemplateParameterUnderTest}, {@link FieldUnderTest}, {@link ConstructorUnderTes}, {@link MethodUnderTest} and {@link EnumConstantUnderTest}.
+	 * Initializes the lists of {@link TemplateParameterUnderTest}, {@link FieldUnderTest}, {@link ConstructorUnderTest}, {@link MethodUnderTest} and {@link EnumConstantUnderTest}.
 	 * 
 	 * @param qualifiedName the fully qualified name of the class under test.
 	 * @param type the {@link ClassUnderTestType} of the class under test.

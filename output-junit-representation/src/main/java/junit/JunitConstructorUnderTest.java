@@ -25,7 +25,7 @@ public class JunitConstructorUnderTest {
 	/**
 	 * Constructor with parameter type classes, initializes the list of {@link JunitParameterUnderTest} and {@link JunitAssertion}s
 	 * 
-	 * @param parameterTypeClasses
+	 * @param parameterTypeClasses the parameter type classes of the constructor
 	 */
 	public JunitConstructorUnderTest(String parameterTypeClasses) {
 		this.parameterTypeClasses = parameterTypeClasses;

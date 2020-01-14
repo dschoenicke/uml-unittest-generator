@@ -46,7 +46,7 @@ public class TestClassConverter {
 	}
 	
 	/**
-	 * Static method converting a given nested {@link code.CodeElement} to a {@link test.TestClass} with its {@link.testobjects.ClassUnderTest} and adds it to the given {@link test.TestPackage} as well as setting the parent class as nest host of the resulting {@link test.testobjects.ClassUnderTest}.
+	 * Static method converting a given nested {@link code.CodeElement} to a {@link test.TestClass} with its {@link test.testobjects.ClassUnderTest} and adds it to the given {@link test.TestPackage} as well as setting the parent class as nest host of the resulting {@link test.testobjects.ClassUnderTest}.
 	 * 
 	 * @param codeElement the {@link code.CodeElement} to be converted.
 	 * @param parent the {@link test.TestPackage} containing the converted {@link test.TestClass}.
