@@ -11,7 +11,7 @@ import org.apache.commons.cli.Options;
 import codetestconverter.CodeTestConverter;
 import core.Core;
 import mdxmlconverter.MdxmlUmlConverter;
-import outputjunit.OutputJUnitConverter;
+import outputjunit.OutputJunitConverter;
 import test.converterinterface.TestConverter;
 import uml.converterinterface.UmlRepresentationConverter;
 import umlcodeconverter.UmlCodeConverter;
@@ -23,7 +23,7 @@ public class TestCreator {
 	}).collect(Collectors.toMap(data -> (String) data[0], data -> (UmlRepresentationConverter) data[1]));
 	
 	private static Map<String, TestConverter> outputtypes = Stream.of(new Object[][] { 
-	    {"junit", new OutputJUnitConverter()}
+	    {"junit", new OutputJunitConverter()}
 	}).collect(Collectors.toMap(data -> (String) data[0], data -> (TestConverter) data[1]));
 	
 	public static boolean evaluateArguments(String[] args) {

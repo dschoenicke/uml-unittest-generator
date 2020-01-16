@@ -55,7 +55,7 @@ public class TestClassConverterTest extends OutputJunitConverterTests {
 		JunitTestClass convertedClass = TestClassConverter.convertTestClass(mockTestFile1, mockJunitPackage1, mockJunitRepresentation);
 		assertEquals("firstclassTest", convertedClass.getName());
 		assertEquals("app.firstpackage.firstclass", convertedClass.getClassName());
-		assertEquals("appStructure.firstpackage", convertedClass.getPackageDeclaration());
+		assertEquals("appStructure.app.firstpackage", convertedClass.getPackageDeclaration());
 		assertEquals(8, convertedClass.getPropertyAssertions().size());
 		assertEquals(2, convertedClass.getRelationshipAssertions().size());
 		assertEquals(0, convertedClass.getTemplateParameters().size());

@@ -3,6 +3,7 @@ package outputjunit.files;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +56,9 @@ public class TestFileCreator {
 		Mustache mustache = mf.compile("junittemplate.mustache");
 		
 		try {
-			mustache.execute(new PrintWriter(new File(testFilePath)), contents).flush();
+			Writer writer = mustache.execute(new PrintWriter(new File(testFilePath)), contents);
+			writer.flush();
+			writer.close();
 			System.out.println("[INFO] Created " + testFilePath);
 		} catch (IOException e) {
 			System.err.println("[ERROR] Error while creating the file " + testFilePath + "!\n" + 

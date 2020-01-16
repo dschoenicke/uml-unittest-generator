@@ -25,7 +25,7 @@ public class PackageConverterTest extends OutputJunitConverterTests {
 		TemporaryModel tmpModel = new TemporaryModel();
 		mockJunitRepresentation.getPackages().clear();
 		PackageConverter.convertPackages(mockTestRepresentation, mockJunitRepresentation, tmpModel);
-		assertEquals(2, mockJunitRepresentation.getPackages().size());
+		assertEquals(1, mockJunitRepresentation.getPackages().size());
 		assertEquals(1, mockJunitPackage1.getPackages().size());
 	}
 	

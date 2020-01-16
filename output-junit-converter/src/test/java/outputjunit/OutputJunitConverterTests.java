@@ -1,8 +1,12 @@
 package outputjunit;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Before;
 
 import junit.JunitPackage;
@@ -21,7 +25,7 @@ import test.testobjects.ParameterUnderTest;
 import test.testobjects.TemplateParameterUnderTest;
 
 /**
- * Tests the {@link OutputJUnitConverter}.
+ * Tests the {@link OutputJunitConverter}.
  * 
  * @author dschoenicke
  *
@@ -29,9 +33,24 @@ import test.testobjects.TemplateParameterUnderTest;
 public class OutputJunitConverterTests {
 
 	/**
+	 * The output path to be used in the tests.
+	 */
+	protected String outputPath;
+	
+	/**
+	 * The directory path to be used in the tests.
+	 */
+	protected String testDirectory;
+	
+	/**
 	 * Mocks a {@link test.TestRepresentation} to be used in the tests.
 	 */
 	protected TestRepresentation mockTestRepresentation;
+	
+	/**
+	 * Mocks the parent {@link test.TestPackage} to be used in the tests.
+	 */
+	protected TestPackage mockTestParentPackage;
 	
 	/**
 	 * Mocks a {@link test.TestPackage} to be used in the tests.
@@ -94,6 +113,16 @@ public class OutputJunitConverterTests {
 	protected JunitRepresentation mockJunitRepresentation;
 	
 	/**
+	 * Mocks the parent {@link junit.JunitPackage} to be used in the tests.
+	 */
+	protected JunitPackage mockJunitParentPackage;
+	
+	/**
+	 * Mocks an extern {@link junit.JunitPackage} to be used in the tests.
+	 */
+	protected JunitPackage mockJunitExternPackage;
+	
+	/**
 	 * Mocks a {@link junit.JunitPackage} to be used in the tests.
 	 */
 	protected JunitPackage mockJunitPackage1;
@@ -133,11 +162,15 @@ public class OutputJunitConverterTests {
 	 */
 	@Before
 	public void initTestRepresentation() {
+		outputPath = System.getProperty("user.dir");
+		testDirectory = outputPath + File.separator + "appStructure";
 		mockTestRepresentation = new TestRepresentation("app");
-		mockTestPackage1 = new TestPackage("firstpackage", mockTestRepresentation);
-		mockTestPackage2 = new TestPackage("secondpackage", mockTestRepresentation);
+		mockTestParentPackage = new TestPackage("app", mockTestRepresentation);
+		mockTestPackage1 = new TestPackage("firstpackage", mockTestParentPackage);
+		mockTestPackage2 = new TestPackage("secondpackage", mockTestParentPackage);
 		mockSubTestPackage = new TestPackage("subpackage", mockTestPackage1);
-		mockTestRepresentation.getPackages().addAll(List.of(mockTestPackage1, mockTestPackage2));
+		mockTestRepresentation.addPackage(mockTestParentPackage);
+		mockTestParentPackage.getPackages().addAll(List.of(mockTestPackage1, mockTestPackage2));
 		mockTestPackage1.addPackage(mockSubTestPackage);
 		mockClass1 = new ClassUnderTest("app.firstpackage.firstclass", ClassUnderTestType.INTERFACE, 0, Optional.empty());
 		mockClass1.setNestHost(Optional.empty());
@@ -184,60 +217,32 @@ public class OutputJunitConverterTests {
 	@Before
 	public void initJunitRepresentation() {
 		mockJunitRepresentation = new JunitRepresentation("app");
-		mockJunitPackage1 = new JunitPackage("firstpackage", mockJunitRepresentation);
-		mockJunitPackage2 = new JunitPackage("secondpackage", mockJunitRepresentation);
+		mockJunitExternPackage = new JunitPackage("extern", mockJunitRepresentation);
+		mockJunitParentPackage = new JunitPackage("app", mockJunitRepresentation);
+		mockJunitPackage1 = new JunitPackage("firstpackage", mockJunitParentPackage);
+		mockJunitPackage2 = new JunitPackage("secondpackage", mockJunitParentPackage);
 		mockJunitSubPackage = new JunitPackage("subpackage", mockJunitPackage1);
-		mockJunitRepresentation.getPackages().addAll(List.of(mockJunitPackage1, mockJunitPackage2));
+		mockJunitRepresentation.getPackages().addAll(List.of(mockJunitExternPackage, mockJunitPackage1, mockJunitPackage2));
 		mockJunitPackage1.addPackage(mockJunitSubPackage);
-		mockJunitTestClass1 = new JunitTestClass("firstclassTest", "app.firstpackage.firstclass", "app.firstpackage", mockJunitPackage1);
-		mockJunitTestClass2 = new JunitTestClass("secondclassTest", "app.secondpackage.secondclass", "app.secondpackage", mockJunitPackage2);
-		mockJunitSubTestClass = new JunitTestClass("subclassTest", "app.firstpackage.subpackage.subclass", "app.firstpackage.subpackage", mockJunitPackage1);
-		mockJunitInnerTestClass = new JunitTestClass("innerclassTest", "app.secondpackage.secondclass$innerclass", "app.secondpackage", mockJunitPackage2);
+		mockJunitTestClass1 = new JunitTestClass("firstclassTest", "app.firstpackage.firstclass", "appStructure.app.firstpackage", mockJunitPackage1);
+		mockJunitTestClass2 = new JunitTestClass("secondclassTest", "app.secondpackage.secondclass", "appStructure.app.secondpackage", mockJunitPackage2);
+		mockJunitSubTestClass = new JunitTestClass("subclassTest", "app.firstpackage.subpackage.subclass", "appStructure.app.firstpackage.subpackage", mockJunitPackage1);
+		mockJunitInnerTestClass = new JunitTestClass("innerclassTest", "app.secondpackage.secondclass$innerclass", "appStructure.app.secondpackage", mockJunitPackage2);
 		
 		mockJunitPackage1.addTestClass(mockJunitTestClass1);
 		mockJunitPackage2.addTestClass(mockJunitTestClass2);
 		mockJunitSubPackage.addTestClass(mockJunitSubTestClass);
 		mockJunitPackage2.addTestClass(mockJunitInnerTestClass);
-		/*
-		mockJunitTestClass1.getPropertyAssertions().addAll(List.of(
-				new JunitAssertion("true", "classUnderTest.isInterface()", mockJunitTestClass1.getClassName() + " must be an interface!"),
-				new JunitAssertion("\"" + mockJunitTestClass1.getClassName() + "\"", "classUnderTest.getNestHost()", mockJunitTestClass1.getClassName() + " must not be an inner class!"),
-				new JunitAssertion("false", "Modifier.isPublic(classUnderTest.getModifiers())", mockJunitTestClass1.getClassName() + " must not be public!"),
-				new JunitAssertion("false", "Modifier.isPrivate(classUnderTest.getModifiers())", mockJunitTestClass1.getClassName() + " must not be private!"),
-				new JunitAssertion("false", "Modifier.isProtected(classUnderTest.getModifiers())", mockJunitTestClass1.getClassName() + " must not be protected!"),
-				new JunitAssertion("false", "Modifier.isStatic(classUnderTest.getModifiers())", mockJunitTestClass1.getClassName() + " must not be static!"),
-				new JunitAssertion("false", "Modifier.isFinal(classUnderTest.getModifiers())", mockJunitTestClass1.getClassName() + " must not be final!"),
-				new JunitAssertion("false", "Modifier.isAbstract(classUnderTest.getModifiers())", mockJunitTestClass1.getClassName() + " must not be abstract!")));
-		mockJunitTestClass1.getRelationshipAssertions().addAll(List.of(
-					new JunitAssertion("\"firstclass\"", "classUnderTest.getSuperclass().getSimpleName()", mockJunitTestClass1.getClassName() + " must not extend any super class!"),
-					new JunitAssertion("0", "classUnderTest.getInterfaces().length", mockJunitTestClass1.getClassName() + " must implement exactly 0 interfaces!")
-				));
-		mockJunitTestClass1.getMethods().add*/
 	}
 	
-	/*/**
-	 * Tests {@link OutputJUnitConverter#convertTestFiles}, executes the function and assumes that the root directory has been created.
+	/**
+	 * Deletes the created directories and files
+	 * @throws IOException exception if the deletion of the directory fails
 	 */
-	/*@Test
-	public void testOutputJUnitConverter() {
-		OutputJUnitConverter converter = new OutputJUnitConverter();
-		//converter.convertToJUnitTestFiles(mockTestRepresentation, "test");
-		//assertTrue(new File("test" + File.separator + mockTestRepresentation.getName() + "Structure" + 
-			//	File.separator + mockTestPackage1.getName() + File.separator + 
-				//mockTestFile1.getName() + ".java").exists());
-	}*/
-	
-	/*/**
-	 * Deletes the created files.
-	 */
-	/*@After
-	public void cleanup() {
-		new File("test" + File.separator + mockTestRepresentation.getName() + "Structure" + File.separator + mockTestPackage1.getName() + File.separator + mockTestFile1.getName() + ".java").delete();
-		new File("test" + File.separator + mockTestRepresentation.getName() + "Structure" + File.separator + mockTestPackage2.getName() + File.separator + mockTestFile2.getName() + ".java").delete();
-		new File("test" + File.separator + mockTestRepresentation.getName() + "Structure" + File.separator + mockTestPackage1.getName() + File.separator + mockSubTestPackage.getName() + File.separator + mockSubTestFile.getName() + ".java").delete();
-		new File("test" + File.separator + mockTestRepresentation.getName() + "Structure" + File.separator + mockTestPackage1.getName() + File.separator + mockSubTestPackage.getName()).delete();
-		new File("test" + File.separator + mockTestRepresentation.getName() + "Structure" + File.separator + mockTestPackage1.getName()).delete();
-		new File("test" + File.separator + mockTestRepresentation.getName() + "Structure" + File.separator + mockTestPackage2.getName()).delete();
-		new File("test" + File.separator + mockTestRepresentation.getName() + "Structure").delete();
-	}*/
+	@After
+	public void cleanUp() throws IOException {
+		if (new File(testDirectory).exists()) {
+			FileUtils.deleteDirectory(new File(testDirectory));
+		}
+	}
 }

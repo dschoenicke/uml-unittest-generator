@@ -17,12 +17,12 @@ import test.converterinterface.TestConverter;
  * @author dschoenicke
  *
  */
-public class OutputJUnitConverter implements TestConverter
+public class OutputJunitConverter implements TestConverter
 {
 	/**
 	 * Default constructor
 	 */
-	public OutputJUnitConverter() {}
+	public OutputJunitConverter() {}
 	
 	/**
 	 * Converts a given {@link test.TestRepresentation} to jUnit test files.<br>
@@ -40,7 +40,7 @@ public class OutputJUnitConverter implements TestConverter
 		FileDirectoryCreator.createFileDirectories(junitRepresentation, outputDirectory);
 		TestFileCreator.createTestFiles(junitRepresentation, outputDirectory);
 		System.out.println("\n" +
-				"[SUCCESS\u001B[0m] The test files for " + testRepresentation.getName() + " have been successfully created.\n" + 
+				"[SUCCESS] The test files for " + testRepresentation.getName() + " have been successfully created.\n" + 
 				"          You can find the files in " + outputDirectory + File.separator + testRepresentation.getName() + "Structure.\n");
 	}
 	
