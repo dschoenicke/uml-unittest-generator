@@ -26,7 +26,7 @@ public class CodeField {
 	@NonNull @Setter private String type;
 	
 	/**
-	 * An integer representing the {@link CodeModifier} determining the fields modifiers
+	 * An integer representing the modifier value
 	 */
 	@NonNull private Integer modifiers;
 	

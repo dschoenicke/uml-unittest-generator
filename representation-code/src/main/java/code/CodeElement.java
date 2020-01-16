@@ -35,7 +35,7 @@ public abstract class CodeElement implements CodeParent {
 	private ArrayList<CodeField> fields;
 	
 	/**
-	 * An integer representing the {@link CodeModifier} determining the elements modifiers
+	 * An integer representing the modifier value
 	 */
 	private int modifiers;
 	
@@ -71,7 +71,6 @@ public abstract class CodeElement implements CodeParent {
 	
 	/**
 	 * Constructor with name, fully qualified name, {@link CodeParent} and modifiers.<br>
-	 * The modifiers are converted to an int value usable for the {@link CodeModifier} methods.<br>
 	 * Initializes the lists of {@link CodeField}s, {@link CodeConstructor}s, {@link CodeMethod}s, {@link CodeTemplateBinding}s, {@link CodeTemplateParameter}s, {@link CodeInterface}s and nested {@link CodeElement}s.<br>
 	 * Sets the qualified name to the name value since it is set afterwards.
 	 * 

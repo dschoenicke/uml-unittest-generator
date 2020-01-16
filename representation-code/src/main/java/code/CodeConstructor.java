@@ -19,7 +19,7 @@ public class CodeConstructor implements CodeParent {
 	private CodeParent parent;
 	
 	/**
-	 * An integer representing the {@link CodeModifier} determining the constructor's modifiers
+	 * An integer representing the modifier value
 	 */
 	private int modifiers;
 	
@@ -40,7 +40,6 @@ public class CodeConstructor implements CodeParent {
 	
 	/**
 	 * Constructor with {@link CodeParent} and modifiers.
-	 * The modifiers are converted to an int value usable for the {@link CodeModifier} constructors.<br>
 	 * Initializes the lists for {@link CodeParameter}s, {@link CodeTemplateBinding}s and {@link CodeTemplateParameter}s
 	 * 
 	 * @param parent the {@link CodeParent} element of the constructor

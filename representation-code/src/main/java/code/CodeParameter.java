@@ -26,7 +26,7 @@ public class CodeParameter {
 	@NonNull @Setter private String type;
 	
 	/**
-	 * An integer representing the {@link CodeModifier} determining the parameter's modifiers
+	 * An integer representing the modifiers
 	 */
 	@NonNull private Integer modifiers;
 	

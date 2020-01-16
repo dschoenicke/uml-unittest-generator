@@ -22,9 +22,9 @@ public class Core {
 	
 	/**
 	 * Main method.<br>
-	 * Delegates the creation of test files to the {@link options.TestCreator}.<br>
-	 * Delegates the administration of qualified names to the {@link options.QualifiedNamesMapper}.<br>
-	 * Delegates the administration of association types to the {@link options.AssociationTypeMapper}.<br>
+	 * Delegates the creation of test files to the {@link core.options.TestCreator}.<br>
+	 * Delegates the administration of qualified names to the {@link core.options.QualifiedNamesMapper}.<br>
+	 * Delegates the administration of association types to the {@link core.options.AssociationTypeMapper}.<br>
 	 * Prints the help message if an invalid argument is passed.
 	 * 
 	 * @param args the command line arguments passed to the application

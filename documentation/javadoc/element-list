@@ -5,9 +5,6 @@ codetestconverter.temporary
 codetestconverter.testclass
 core
 core.options
-coretest
-coretest.auxiliary
-coretest.umlcodeconverter
 junit
 mdxml
 mdxmlconverter

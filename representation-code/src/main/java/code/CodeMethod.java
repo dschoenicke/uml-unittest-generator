@@ -30,7 +30,7 @@ public class CodeMethod implements CodeParent {
 	@Setter private CodeParameter returnType;
 	
 	/**
-	 * An integer representing the {@link CodeModifier} determining the method's modifiers
+	 * An integer representing the modifier value
 	 */
 	private int modifiers;
 	
@@ -56,7 +56,6 @@ public class CodeMethod implements CodeParent {
 	
 	/**
 	 * Constructor with name, {@link CodeParent}, return type, value whether the return value has a multiplicity and modifiers.
-	 * The modifiers are converted to an int value usable for the {@link CodeModifier} methods.<br>
 	 * Initializes the lists for {@link CodeParameter}s, {@link CodeTemplateBinding}s and {@link CodeTemplateParameter}s
 	 * 
 	 * @param name the name of the method

@@ -5,9 +5,11 @@ import java.lang.reflect.Modifier;
 import uml.UmlVisibility;
 
 /**
- * Class providing a static method to convert a {@link uml.UmlVisibility} to a {@link code.CodeVisibility}
+ * Class providing a static method to convert the modifiers of a {@link uml.UmlElement}, {@link uml.UmlAttribute}, {@link uml.UmlOperation}
+ * or a {@link uml.UmlParameter} to an integer value to use the methods inherited by {@link java.lang.reflect.Modifier}. 
  * 
  * @author dschoenicke
+ * @see <a href="https://docs.oracle.com/javase/8/docs/api/constant-values.html#java.lang.reflect.Modifier.ABSTRACT">List of Modifier enumeration constants</a>
  *
  */
 public class ModifierConverter extends Modifier {
