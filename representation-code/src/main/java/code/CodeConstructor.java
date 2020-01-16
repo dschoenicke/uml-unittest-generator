@@ -44,11 +44,11 @@ public class CodeConstructor implements CodeParent {
 	 * Initializes the lists for {@link CodeParameter}s, {@link CodeTemplateBinding}s and {@link CodeTemplateParameter}s
 	 * 
 	 * @param parent the {@link CodeParent} element of the constructor
-	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the field
+	 * @param modifiers the modifier value of the class
 	 */
-	public CodeConstructor(CodeParent parent, CodeVisibility visibility) {
+	public CodeConstructor(CodeParent parent, int modifiers) {
 		this.parent = parent;
-		this.modifiers = CodeModifier.convertModifierValue(visibility, false, false, false);
+		this.modifiers = modifiers;
 		parameters = new ArrayList<CodeParameter>();
 		templateBindings = new ArrayList<CodeTemplateBinding>();
 		templateParameters = new ArrayList<CodeTemplateParameter>();

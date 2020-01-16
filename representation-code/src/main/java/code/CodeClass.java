@@ -24,18 +24,12 @@ public class CodeClass extends CodeElement {
 	 * 
 	 * @param name the name of the class
 	 * @param parent the parent {@link CodeParent} of the class
-	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the class
-	 * @param isAbstract determines whether the class is abstract
-	 * @param isStatic determines whether the class is static
-	 * @param isFinal determines whether the class is final
+	 * @param modifiers the modifier value of the class
 	 */
 	public CodeClass(String name, 
 			CodeParent parent,
-			CodeVisibility visibility, 
-			boolean isAbstract, 
-			boolean isStatic, 
-			boolean isFinal) {
+			int modifiers) {
 		
-		super(name, parent, visibility, isAbstract, isStatic, isFinal);
+		super(name, parent, modifiers);
 	}
 }

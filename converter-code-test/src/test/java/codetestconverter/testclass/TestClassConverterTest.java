@@ -8,7 +8,6 @@ import org.junit.Test;
 import code.CodeClass;
 import code.CodePackage;
 import code.CodeRepresentation;
-import code.CodeVisibility;
 import codetestconverter.temporary.TemporaryModel;
 import test.TestPackage;
 import test.TestRepresentation;
@@ -59,8 +58,8 @@ public class TestClassConverterTest {
 		mockCodeRepresentation = new CodeRepresentation("");
 		mockTestPackage = new TestPackage("package", mockTestRepresentation);
 		mockCodePackage = new CodePackage("package", mockCodeRepresentation);
-		mockCodeClass = new CodeClass("class", mockCodePackage, CodeVisibility.PUBLIC, false, false, false);
-		mockNestedClass = new CodeClass("nestedclass", mockCodeClass, CodeVisibility.PACKAGE, false, false, false);
+		mockCodeClass = new CodeClass("class", mockCodePackage, 1);
+		mockNestedClass = new CodeClass("nestedclass", mockCodeClass, 1);
 		mockCodeClass.addNestedElement(mockNestedClass);
 		mockCodePackage.addElement(mockCodeClass);
 		mockTmpModel = new TemporaryModel();

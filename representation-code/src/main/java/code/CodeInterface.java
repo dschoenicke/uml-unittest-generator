@@ -14,18 +14,12 @@ public class CodeInterface extends CodeElement {
 	 * 
 	 * @param name the name of the interface
 	 * @param parent the {@link CodeParent} of the interface
-	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the interface
-	 * @param isAbstract determines whether the interface is abstract
-	 * @param isStatic determines whether the interface is static
-	 * @param isFinal determines whether the interface is final
+	 * @param modifiers the modifier value of the class
 	 */
 	public CodeInterface(String name,
 			CodeParent parent,
-			CodeVisibility visibility, 
-			boolean isAbstract, 
-			boolean isStatic, 
-			boolean isFinal) {
+			int modifiers) {
 		
-		super(name, parent, visibility, isAbstract, isStatic, isFinal);
+		super(name, parent, modifiers);
 	}
 }

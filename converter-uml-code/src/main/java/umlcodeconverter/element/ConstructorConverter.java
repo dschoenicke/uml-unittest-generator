@@ -30,7 +30,7 @@ public class ConstructorConverter {
 			}
 			
 			CodeConstructor constructor = new CodeConstructor(codeElement,
-					ModifierConverter.convertAccessModifier(operation.getVisibility()));
+					ModifierConverter.convertModifierValue(operation.getVisibility(), operation.isStatic(), operation.isFinal(), operation.isAbstract()));
 			
 			ParameterConverter.convertParameters(operation, constructor);
 			TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), constructor, tmpModel);

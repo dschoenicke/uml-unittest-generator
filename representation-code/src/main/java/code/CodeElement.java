@@ -77,22 +77,16 @@ public abstract class CodeElement implements CodeParent {
 	 * 
 	 * @param name the name of the element
 	 * @param parent the parent {@link CodeParent} of the element
-	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the element
-	 * @param isAbstract determines whether the element is abstract
-	 * @param isStatic determines whether the element is static
-	 * @param isFinal determines whether the element is final
+	 * @param modifiers the modifier value of the class
 	 */
 	public CodeElement(String name, 
 			CodeParent parent,
-			CodeVisibility visibility, 
-			boolean isAbstract, 
-			boolean isStatic, 
-			boolean isFinal) {
+			int modifiers) {
 		
 		this.name = name;
 		this.qualifiedName = name;
 		this.parent = parent;
-		modifiers = CodeModifier.convertModifierValue(visibility, isStatic, isFinal, isAbstract);
+		this.modifiers = modifiers;
 		fields = new ArrayList<>();
 		constructors = new ArrayList<>();
 		methods = new ArrayList<>();

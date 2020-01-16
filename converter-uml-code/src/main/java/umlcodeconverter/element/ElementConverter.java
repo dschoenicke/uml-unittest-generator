@@ -77,28 +77,25 @@ public class ElementConverter {
 		if (element instanceof UmlClass) {
 			codeElement = new CodeClass(element.getName(),
 					parent,
-					ModifierConverter.convertAccessModifier(element.getVisibility()),
-					((UmlClass) element).isAbstract(),
-					((UmlClass) element).isStatic(),
-					((UmlClass) element).isFinal()
+					ModifierConverter.convertModifierValue(element.getVisibility(), 
+							((UmlClass) element).isStatic(),
+							((UmlClass) element).isFinal(),
+							((UmlClass) element).isAbstract())
 				);
 		}
 		else if (element instanceof UmlInterface) {
 			codeElement = new CodeInterface(element.getName(),
 					parent,
-					ModifierConverter.convertAccessModifier(element.getVisibility()),
-					((UmlInterface) element).isAbstract(),
-					((UmlInterface) element).isStatic(),
-					false
+					ModifierConverter.convertModifierValue(element.getVisibility(), 
+							((UmlInterface) element).isStatic(),
+							false,
+							((UmlInterface) element).isAbstract())
 				);
 		}
 		else if (element instanceof UmlEnumeration) {
 			codeElement = new CodeEnumeration(element.getName(),
 					parent,
-					ModifierConverter.convertAccessModifier(element.getVisibility()),
-					false,
-					((UmlEnumeration) element).isStatic(),
-					false
+					ModifierConverter.convertModifierValue(element.getVisibility(), ((UmlEnumeration) element).isStatic(), false, false)
 				);
 		
 			LiteralConverter.convertLiterals((UmlEnumeration) element, (CodeEnumeration) codeElement);

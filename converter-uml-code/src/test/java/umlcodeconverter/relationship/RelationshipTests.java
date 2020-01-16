@@ -5,7 +5,6 @@ import org.junit.Before;
 import code.CodeClass;
 import code.CodeEnumeration;
 import code.CodeInterface;
-import code.CodeVisibility;
 import uml.UmlClass;
 import uml.UmlEnumeration;
 import uml.UmlInterface;
@@ -82,9 +81,9 @@ public class RelationshipTests {
 	@Before
 	public void init() {
 		mockTmpModel = new TemporaryModel();
-		mockClass = new CodeClass("mockClass", null, CodeVisibility.PACKAGE, false, false, false);
-		mockInterface = new CodeInterface("mockInterface", null, CodeVisibility.PACKAGE, false, false, false);
-		mockEnumeration = new CodeEnumeration("mockEnumeration", null, CodeVisibility.PACKAGE, false, false, false);
+		mockClass = new CodeClass("mockClass", null, 0);
+		mockInterface = new CodeInterface("mockInterface", null, 0);
+		mockEnumeration = new CodeEnumeration("mockEnumeration", null, 0);
 		mockUmlClass = new UmlClass("mockClass", null, false, false, false);
 		mockUmlInterface = new UmlInterface("mockInterface", null);
 		mockUmlEnumeration = new UmlEnumeration("mockEnumeration", null);

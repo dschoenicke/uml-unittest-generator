@@ -4,7 +4,6 @@ import org.mapdb.BTreeMap;
 
 import code.CodeElement;
 import code.CodeField;
-import code.CodeModifier;
 import code.CodeRepresentation;
 import uml.UmlAttribute;
 import uml.UmlElement;
@@ -28,10 +27,10 @@ public class FieldConverter {
 		for (UmlAttribute attribute : element.getAttributes()) {
 			codeElement.addField(new CodeField(attribute.getName(),
 					attribute.getType(),
-					Integer.valueOf(CodeModifier.convertModifierValue(ModifierConverter.convertAccessModifier(attribute.getVisibility()), 
+					ModifierConverter.convertModifierValue(attribute.getVisibility(), 
 							attribute.getIsStatic(), 
 							attribute.getIsFinal(), 
-							false)),
+							false),
 					attribute.getDefaultValue(),
 					Boolean.valueOf(attribute.getLowerValue() == UmlMultiplicityValue.ZERO),
 					Boolean.valueOf(attribute.getUpperValue() == UmlMultiplicityValue.INFINITE),

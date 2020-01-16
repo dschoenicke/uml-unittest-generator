@@ -12,7 +12,6 @@ import code.CodeParameter;
 import code.CodeRepresentation;
 import code.CodeTemplateBinding;
 import code.CodeTemplateParameter;
-import code.CodeVisibility;
 import uml.UmlAttribute;
 import uml.UmlClass;
 import uml.UmlEnumeration;
@@ -224,11 +223,11 @@ public class TestInitializer {
 		mockCodeRepresentation = new CodeRepresentation("codeRepresentation");
 		mockCodePackage = new CodePackage("package", mockCodeRepresentation);
 		mockCodeRepresentation.addPackage(mockCodePackage);
-		mockCodeClass = new CodeClass("codeClass", mockCodePackage, CodeVisibility.PUBLIC, false, false, false);
-		mockCodeEnumeration = new CodeEnumeration("codeEnumeration", mockCodePackage, CodeVisibility.PUBLIC, false, false, false);
-		mockCodeMethod = new CodeMethod("mockCodeMethod", mockCodeClass, null, false, CodeVisibility.PUBLIC, false, false, false);
+		mockCodeClass = new CodeClass("codeClass", mockCodePackage, 1);
+		mockCodeEnumeration = new CodeEnumeration("codeEnumeration", mockCodePackage, 1);
+		mockCodeMethod = new CodeMethod("mockCodeMethod", mockCodeClass, null, false, 1);
 		mockCodeMethod.setReturnType(new CodeParameter("", "String", 0, false, false, mockCodeMethod));
-		mockCodeConstructor = new CodeConstructor(mockCodeClass, CodeVisibility.PRIVATE);
+		mockCodeConstructor = new CodeConstructor(mockCodeClass, 2);
 		
 		mockCodeTemplateParameter = new CodeTemplateParameter("T", mockCodeClass, "java.lang.Object");
 		mockCodeTemplateBinding = new CodeTemplateBinding();

@@ -2,7 +2,6 @@ package umlcodeconverter.element;
 
 import code.CodeConstructor;
 import code.CodeMethod;
-import code.CodeModifier;
 import code.CodeParameter;
 import code.CodeParent;
 import uml.UmlMultiplicityValue;
@@ -57,7 +56,7 @@ public class ParameterConverter {
 		return new CodeParameter(
 						(parameter.getDirection() == UmlParameterDirection.IN ? parameter.getName() : ""),
 						parameter.getType(),
-						CodeModifier.convertModifierValue(null, false, parameter.getIsFinal(), false),
+						ModifierConverter.convertModifierValue(null, false, parameter.getIsFinal(), false),
 						(parameter.getLowerValue() == UmlMultiplicityValue.ZERO),
 						(parameter.getUpperValue() == UmlMultiplicityValue.INFINITE),
 						parent

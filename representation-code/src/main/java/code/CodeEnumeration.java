@@ -25,19 +25,13 @@ public class CodeEnumeration extends CodeElement {
 	 * 
 	 * @param name the name of the enumeration
 	 * @param parent the {@link CodeParent} of the enumeration
-	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the enumeration
-	 * @param isAbstract determines whether the enumeration is abstract
-	 * @param isStatic determines whether the enumeration is static
-	 * @param isFinal determines whether the enumeration is final
+	 * @param modifiers the modifier value of the class
 	 */
 	public CodeEnumeration(String name, 
 			CodeParent parent,
-			CodeVisibility visibility, 
-			boolean isAbstract, 
-			boolean isStatic, 
-			boolean isFinal) {
+			int modifiers) {
 		
-		super(name, parent, visibility, isAbstract, isStatic, isFinal);
+		super(name, parent, modifiers);
 		literals = new ArrayList<>();
 	}
 	

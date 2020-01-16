@@ -63,26 +63,19 @@ public class CodeMethod implements CodeParent {
 	 * @param parent the {@link CodeParent} element of the method
 	 * @param returnType the {@link CodeParameter} representing the return type of the method
 	 * @param hasMultiplicity true if the field has a multiplicity
-	 * @param visibility the {@link CodeVisibility} value representing the access modifier of the method
-	 * @param isAbstract determines whether the method is abstract
-	 * @param isStatic determines whether the method is static
-	 * @param isFinal determines whether the method is final
+	 * @param modifiers the modifier value of the class
 	 */
 	public CodeMethod(String name,
 			CodeParent parent,
 			CodeParameter returnType,
 			boolean hasMultiplicity,
-			CodeVisibility visibility,
-			boolean isAbstract,
-			boolean isStatic,
-			boolean isFinal
-			) {
+			int modifiers) {
 		
 		this.name = name;
 		this.parent = parent;
 		this.returnType = returnType;
 		this.hasMultiplicity = hasMultiplicity;
-		this.modifiers = CodeModifier.convertModifierValue(visibility, isStatic, isFinal, isAbstract);
+		this.modifiers = modifiers;
 		parameters = new ArrayList<CodeParameter>();
 		templateBindings = new ArrayList<CodeTemplateBinding>();
 		templateParameters = new ArrayList<CodeTemplateParameter>();

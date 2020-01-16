@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import code.CodeVisibility;
 import uml.UmlVisibility;
 
 /**
@@ -16,14 +15,16 @@ import uml.UmlVisibility;
 public class ModifierConverterTest {
 
 	/**
-	 * Tests {@link ModifierConverter#convertAccessModifier}.
+	 * Tests {@link ModifierConverter#convertModifierValue}
 	 */
 	@Test
-	public void testModifierConverter() {
-		assertEquals(ModifierConverter.convertAccessModifier(null), CodeVisibility.PACKAGE);
-		assertEquals(ModifierConverter.convertAccessModifier(UmlVisibility.PACKAGE), CodeVisibility.PACKAGE);
-		assertEquals(ModifierConverter.convertAccessModifier(UmlVisibility.PUBLIC), CodeVisibility.PUBLIC);
-		assertEquals(ModifierConverter.convertAccessModifier(UmlVisibility.PRIVATE), CodeVisibility.PRIVATE);
-		assertEquals(ModifierConverter.convertAccessModifier(UmlVisibility.PROTECTED), CodeVisibility.PROTECTED);
+	public void testModifierValueConversion() {
+		assertEquals(0, ModifierConverter.convertModifierValue(null, false, false, false));
+		assertEquals(1, ModifierConverter.convertModifierValue(UmlVisibility.PUBLIC, false, false, false));
+		assertEquals(2, ModifierConverter.convertModifierValue(UmlVisibility.PRIVATE, false, false, false));
+		assertEquals(4, ModifierConverter.convertModifierValue(UmlVisibility.PROTECTED, false, false, false));
+		assertEquals(8, ModifierConverter.convertModifierValue(null, true, false, false));
+		assertEquals(16, ModifierConverter.convertModifierValue(null, false, true, false));
+		assertEquals(1024, ModifierConverter.convertModifierValue(null, false, false, true));
 	}
 }

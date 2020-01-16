@@ -41,10 +41,10 @@ public class MethodConverter {
 					codeElement,
 					null,
 					(returnParameter.getUpperValue() == UmlMultiplicityValue.INFINITE),
-					ModifierConverter.convertAccessModifier(operation.getVisibility()),
-					operation.isAbstract(),
+					ModifierConverter.convertModifierValue(operation.getVisibility(),
 					operation.isStatic(),
-					operation.isFinal()
+					operation.isFinal(),
+					operation.isAbstract())
 				);
 			
 			method.setReturnType(ParameterConverter.createParameter(returnParameter, method));
