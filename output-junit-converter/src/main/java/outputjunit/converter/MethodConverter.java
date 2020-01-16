@@ -20,12 +20,14 @@ public class MethodConverter {
 	 */
 	static void convertMethods(ClassUnderTest classUnderTest, JunitTestClass testClass) {
 		classUnderTest.getMethods().forEach(method -> {
+			String returnType = method.getReturnType().getType().replace("$", ".");
+			
+			if (returnType.contains(".")) {
+				returnType = returnType.substring(returnType.lastIndexOf(".") + 1);
+			}
+			
 			JunitMethodUnderTest junitMethod = new JunitMethodUnderTest(method.getName(), 
-					method
-						.getReturnType()
-						.getType()
-						.replace("$", ".")
-						.substring(method.getReturnType().getType().lastIndexOf(".")), 
+					returnType,
 					ParameterConverter.createParameterTypeClasses(method.getParameters()));
 			
 			junitMethod.getParameters().addAll(ParameterConverter.createParameters(method, testClass));

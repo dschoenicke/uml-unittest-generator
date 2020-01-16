@@ -72,10 +72,10 @@ public class AssertionConverter {
 			testClass.addRelationshipAssertion(new JunitAssertion("\"" + classUnderTest.getSuperClass().get() + "\"", "classUnderTest.getSuperclass().getSimpleName()", testClass.getClassName() + " must extend " + classUnderTest.getSuperClass().get() + "!"));
 		}
 		else {
-			testClass.addRelationshipAssertion(new JunitAssertion("\"java.lang.Object\"", "classUnderTest.getSuperclass().getSimpleName()", testClass.getClassName() + " must not extend any superclass!"));
+			testClass.addRelationshipAssertion(new JunitAssertion("\"Object\"", "classUnderTest.getSuperclass().getSimpleName()", testClass.getClassName() + " must not extend any superclass!"));
 		}
 		
-		testClass.addRelationshipAssertion(new JunitAssertion("\"" + classUnderTest.getInterfaces().size() + "\"", "classUnderTest.getInterfaces().length", testClass.getClassName() + " must implement exactly " + classUnderTest.getInterfaces().size() + " interfaces!"));
+		testClass.addRelationshipAssertion(new JunitAssertion(String.valueOf(classUnderTest.getInterfaces().size()), "classUnderTest.getInterfaces().length", testClass.getClassName() + " must implement exactly " + classUnderTest.getInterfaces().size() + " interfaces!"));
 		classUnderTest.getInterfaces().forEach(testInterface -> {
 			testClass.addRelationshipAssertion(new JunitAssertion("true", "java.util.Arrays.asList(classUnderTest.getInterfaces()).stream().filter(i -> i.getName().equals(\"" + testInterface + "\")).findFirst().isPresent()", testClass.getClassName() + " must implement the interface " + testInterface + "!"));
 		});
@@ -101,9 +101,9 @@ public class AssertionConverter {
 	 */
 	static void createEnumConstantAssertions(ClassUnderTest classUnderTest, JunitTestClass testClass) {
 		if (classUnderTest.getType() == ClassUnderTestType.ENUM) {
-			testClass.addEnumConstantAssertion(new JunitAssertion("\"" + classUnderTest.getEnumConstants().size() + "\"", "classUnderTest.getEnumConstants().length", testClass.getClassName() + " must have exactly " + classUnderTest.getEnumConstants().size() + " enum constants!"));
+			testClass.addEnumConstantAssertion(new JunitAssertion(String.valueOf(classUnderTest.getEnumConstants().size()), "classUnderTest.getEnumConstants().length", testClass.getClassName() + " must have exactly " + classUnderTest.getEnumConstants().size() + " enum constants!"));
 			classUnderTest.getEnumConstants().forEach(enumConstant -> {
-				testClass.addEnumConstantAssertion(new JunitAssertion("true", "java.util.Arrays.asList(classUnderTest.getEnumConstants()).stream().filter(e -> e.toString().equals(\"" + enumConstant.getName() + "\")).findFirst().isPresent()", testClass.getClassName() + " must have an enum constant named " + enumConstant + "!"));
+				testClass.addEnumConstantAssertion(new JunitAssertion("true", "java.util.Arrays.asList(classUnderTest.getEnumConstants()).stream().filter(e -> e.toString().equals(\"" + enumConstant.getName() + "\")).findFirst().isPresent()", testClass.getClassName() + " must have an enum constant named " + enumConstant.getName() + "!"));
 			});
 		}
 	}

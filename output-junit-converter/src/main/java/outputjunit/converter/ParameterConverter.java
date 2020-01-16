@@ -49,7 +49,7 @@ public class ParameterConverter {
 		method.getParameters().forEach(param -> {
 			boolean isFinal = Modifier.isFinal(param.getModifiers());
 			junitParameters.add(new JunitParameterUnderTest(param.getName(), isFinal, 
-					new JunitAssertion(String.valueOf(isFinal), "Modifier.isFinal(parameterUnderTest.getModifiers())", "The parameter " + param.getName() + " of the constructor with parameters (" + createParameterTypes(method.getParameters()) + ") in " + testClass.getClassName() + " must " + (isFinal ? "" : "not ") + "be final!")));
+					new JunitAssertion(String.valueOf(isFinal), "Modifier.isFinal(parameterUnderTest.getModifiers())", "The parameter " + param.getName() + " of the method " + method.getName() + " with parameters (" + createParameterTypes(method.getParameters()) + ") in " + testClass.getClassName() + " must " + (isFinal ? "" : "not ") + "be final!")));
 		});
 		
 		return junitParameters;

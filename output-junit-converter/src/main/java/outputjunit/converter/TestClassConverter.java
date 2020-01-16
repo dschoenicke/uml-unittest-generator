@@ -22,7 +22,7 @@ public class TestClassConverter {
 	 */
 	public static void convertTestClasses(JunitRepresentation junitRepresentation, TemporaryModel tmpModel) {
 		tmpModel.getConvertedPackages().forEach((testPackage, junitPackage) -> {
-			testPackage.getTestClassesAsList().forEach(testClass -> {
+			testPackage.getTestClasses().forEach(testClass -> {
 				convertTestClass(testClass, junitPackage, junitRepresentation);
 			});
 		});
@@ -38,8 +38,9 @@ public class TestClassConverter {
 	 * @param testClass the {@link test.TestClass} to be converted.
 	 * @param parent the {@link junit.JunitPackage} containing the converted {@link junit.JunitTestClass}.
 	 * @param junitRepresentation the {@link junit.JunitRepresentation}
+	 * @return the converted {@link junit.JunitTestClass}
 	 */
-	static void convertTestClass(TestClass testClass, JunitPackage parent, JunitRepresentation junitRepresentation) {
+	static JunitTestClass convertTestClass(TestClass testClass, JunitPackage parent, JunitRepresentation junitRepresentation) {
 		JunitTestClass junitTestClass = new JunitTestClass(testClass.getName(), testClass.getClassUnderTest().getQualifiedName(), junitRepresentation.getName() + "Structure." + testClass.getPackagePath(), parent);
 		parent.addTestClass(junitTestClass);
 		
@@ -50,5 +51,6 @@ public class TestClassConverter {
 		FieldConverter.convertFields(testClass.getClassUnderTest(), junitTestClass);
 		ConstructorConverter.convertConstructors(testClass.getClassUnderTest(), junitTestClass);
 		MethodConverter.convertMethods(testClass.getClassUnderTest(), junitTestClass);
+		return junitTestClass;
 	}
 }

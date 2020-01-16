@@ -1,7 +1,5 @@
 package outputjunit.converter;
 
-import static org.junit.Assert.assertTrue;
-
 import junit.JunitPackage;
 import junit.JunitParent;
 import junit.JunitRepresentation;
@@ -31,13 +29,11 @@ public class PackageConverter {
 				convertPackage(testPackage, junitParent, tmpModel);
 			}
 		}
-		else if (testParent instanceof TestPackage) {
+		else {
 			for (TestPackage testPackage : ((TestPackage) testParent).getPackages()) {
 				convertPackage(testPackage, junitParent, tmpModel);
 			}
 		}
-		
-		assertTrue("The TestParent " + testParent.getName() + " must be an instance of TestRepresentation or TestPackage!", (testParent instanceof TestPackage || testParent instanceof TestRepresentation));
 	}
 	
 	/**
@@ -48,7 +44,7 @@ public class PackageConverter {
 	 * @param tmpModel the {@link outputjunit.converter.temporary.TemporaryModel} to add the converted {@link junit.JunitPackage}s to
 	 * @return the converted {@link test.TestPackage}
 	 */
-	private static JunitPackage convertPackage(TestPackage testPackage, JunitParent junitParent, TemporaryModel tmpModel) {
+	static JunitPackage convertPackage(TestPackage testPackage, JunitParent junitParent, TemporaryModel tmpModel) {
 		JunitPackage junitPackage = new JunitPackage(testPackage.getName(), junitParent);
 		
 		if (junitParent instanceof JunitRepresentation) {
