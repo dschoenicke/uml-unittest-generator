@@ -18,7 +18,7 @@ import outputjunit.OutputJunitConverterTests;
 public class ParameterConverterTest extends OutputJunitConverterTests {
 
 	/**
-	 * Test {@link ParameterConverter#createParameters(test.testobjects.MethodUnderTest, junit.JunitTestClass)
+	 * Test {@link ParameterConverter#createParameters(test.testobjects.MethodUnderTest, junit.JunitTestClass)}
 	 */
 	@Test
 	public void testCreateMethodParameters() {
@@ -34,7 +34,7 @@ public class ParameterConverterTest extends OutputJunitConverterTests {
 	}
 	
 	/**
-	 * Test {@link ParameterConverter#createParameters(test.testobjects.ConstructorUnderTest, junit.JunitTestClass)
+	 * Test {@link ParameterConverter#createParameters(test.testobjects.ConstructorUnderTest, junit.JunitTestClass)}
 	 */
 	@Test
 	public void testCreateConstructorParameters() {

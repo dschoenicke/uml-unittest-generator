@@ -16,7 +16,7 @@ import outputjunit.OutputJunitConverterTests;
 public class TemplateParameterConverterTest extends OutputJunitConverterTests {
 
 	/**
-	 * Tests {@link TemplateParameterConverter#convertTemplateParameters()
+	 * Tests {@link TemplateParameterConverter#convertTemplateParameters}
 	 */
 	@Test
 	public void testConvertTemplateParameters() {

@@ -158,7 +158,7 @@ public class OutputJunitConverterTests {
 	protected JunitTestClass mockJunitInnerTestClass;
 	
 	/**
-	 * Initializes the mock {@test.TestRepresentation} elements.
+	 * Initializes the mock {@link test.TestRepresentation} elements.
 	 */
 	@Before
 	public void initTestRepresentation() {
@@ -211,7 +211,7 @@ public class OutputJunitConverterTests {
 	}
 	
 	/**
-	 * Initializes the mock {@junit.JunitRepresentation}.<br>
+	 * Initializes the mock {@link junit.JunitRepresentation}.<br>
 	 * Creates only unique {@link junit.JunitAssertion}s.
 	 */
 	@Before
