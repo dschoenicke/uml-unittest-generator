@@ -1,6 +1,7 @@
 package uml;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -16,7 +17,7 @@ public class UmlEnumeration extends UmlElement {
 	/**
 	 * List of the enumeration's {@link UmlLiteral}s
 	 */
-	private ArrayList<UmlLiteral> literals;
+	private List<UmlLiteral> literals;
 	
 	/**
 	 * Default constructor, initializes the list of literals
@@ -26,7 +27,7 @@ public class UmlEnumeration extends UmlElement {
 	 */
 	public UmlEnumeration(String name, UmlVisibility visibility) {
 		super(name, visibility, false);
-		literals = new ArrayList<UmlLiteral>();
+		literals = new ArrayList<>();
 	}
 	
 	/**
@@ -36,7 +37,7 @@ public class UmlEnumeration extends UmlElement {
 	 * @param visibility the {@link UmlVisibility} of the enumeration
 	 * @param literals the {@link UmlLiteral}s to set for the enumeration
 	 */
-	public UmlEnumeration(String name, UmlVisibility visibility, ArrayList<UmlLiteral> literals) {
+	public UmlEnumeration(String name, UmlVisibility visibility, List<UmlLiteral> literals) {
 		super(name, visibility, false);
 		this.literals = literals;
 	}

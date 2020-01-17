@@ -17,6 +17,10 @@ import uml.UmlLiteral;
  */
 public class LiteralConverter {
 
+	private LiteralConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts the {@link mdxml.OwnedLiteral}s of the given {@link mdxml.PackagedElement} to {@link uml.UmlLiteral}s and adds them to the owning {@link uml.UmlElement}
 	 * 

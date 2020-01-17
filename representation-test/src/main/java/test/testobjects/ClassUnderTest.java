@@ -125,7 +125,7 @@ public class ClassUnderTest implements TestObject {
 	 * @author dschoenicke
 	 *
 	 */
-	public static enum ClassUnderTestType {
+	public enum ClassUnderTestType {
 		CLASS, ENUM, INTERFACE;
 	}
 }

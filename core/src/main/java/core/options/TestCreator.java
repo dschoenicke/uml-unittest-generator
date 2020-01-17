@@ -2,15 +2,14 @@ package core.options;
 
 import java.io.File;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import codetestconverter.CodeTestConverter;
 import core.Core;
@@ -28,19 +27,28 @@ import umlcodeconverter.UmlCodeConverter;
  */
 public class TestCreator {
 	
+	private TestCreator() {
+		throw new IllegalStateException("utility class");
+	}
+	
+	/**
+	 * The {@link org.slf4j.Logger} to be used in the methods
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger("");
+	
 	/**
 	 * Maps input type options to an actual {@link uml.converterinterface.UmlRepresentationConverter} instance
 	 */
-	private static Map<String, UmlRepresentationConverter> inputtypes = Stream.of(new Object[][] { 
-	    {"mdxml", new MdxmlUmlConverter()}
-	}).collect(Collectors.toMap(data -> (String) data[0], data -> (UmlRepresentationConverter) data[1]));
+	private static Map<String, UmlRepresentationConverter> inputtypes = Map.of(
+				"mdxml", new MdxmlUmlConverter()
+			);
 	
 	/**
 	 * Maps output type options to an actual {@link test.converterinterface.TestConverter} instance
 	 */
-	private static Map<String, TestConverter> outputtypes = Stream.of(new Object[][] { 
-	    {"junit", new OutputJunitConverter()}
-	}).collect(Collectors.toMap(data -> (String) data[0], data -> (TestConverter) data[1]));
+	private static Map<String, TestConverter> outputtypes = Map.of(
+				"junit", new OutputJunitConverter()
+			);
 	
 	/**
 	 * Creates the {@link org.apache.commons.cli.Option}s for the test file creation
@@ -67,40 +75,40 @@ public class TestCreator {
 	/**
 	 * Evaluates the input arguments whether they match the {@link org.apache.commons.cli.Options}.
 	 * 
-	 * @param options the {@link org.apache.commons.cli.Options} to be checked
-	 * @param args the input arguments to be checked
+	 * @param cmd the parsed {@link org.apache.commons.cli.CommandLine} containing the arguments
+	 * @param args the command line input arguments to be parsed
 	 * @return true, if the given arguments belong to the test file creation {@link org.apache.commons.cli.Options}.
 	 */
-	public static boolean parseOptions(Options options, String[] args) {
-		try {
-			CommandLine cmd = new DefaultParser().parse(options, args);
+	public static boolean parseOptions(CommandLine cmd, String[] args) {
+		if (cmd.hasOption("ct")) {
+			if (evaluateArguments(args)) {
+				execute(args);
+			}
 			
-			if (cmd.hasOption("ct")) {
-				if (evaluateArguments(args)) {
-					execute(args);
-				}
+			return true;
+		}
+		else if (cmd.hasOption("inputtypes")) {
+			showInputs();
+			return true;
+		}
+		else if (cmd.hasOption("outputtypes")) {
+			showOutputs();
+			return true;
+		}
+		
+		return false;
+	}
+			
+	/**
+	 * Checks a thrown {@link org.apache.commons.cli.ParseException} whether it is associated with association type commands
+	 * 
+	 * @param e the {@link org.apache.commons.cli.ParseException} to be parsed.
+	 */
+	public static void checkParseException(ParseException e) {
+		if (e instanceof MissingArgumentException &&
+				((MissingArgumentException) e).getOption().getOpt().equals("ct")) {
 				
-				return true;
-			}
-			else if (cmd.hasOption("inputtypes")) {
-				showInputs();
-				return true;
-			}
-			else if (cmd.hasOption("outputtypes")) {
-				showOutputs();
-				return true;
-			}
-			
-			return false;
-		} catch (ParseException e) {
-			if (e instanceof MissingArgumentException) {
-				if (((MissingArgumentException) e).getOption().getOpt().equals("ct")) {
-					System.out.println("\tError: -createtests requires arguments <input-type> <input-file> <output-type> <output-path>");
-					return true;
-				}
-			}
-			
-			return false;
+			LOG.error("-createtests requires arguments <input-type> <input-file> <output-type> <output-path>");
 		}
 	}
 	
@@ -112,28 +120,28 @@ public class TestCreator {
 	 */
 	static boolean evaluateArguments(String[] args) {
 		if (!inputtypes.containsKey(args[1])) {
-			System.out.println("\tError: Invalid input-type " + args[1] + "!");
+			LOG.error("Invalid input-type {}!", args[1]);
 			return false;
 		}
 		
 		File inputDiagram = new File(args[2]);
 		
 		if (!inputDiagram.exists() || inputDiagram.isDirectory()) { 
-			System.out.println("\tError: Invalid input-path " + args[2] + "!");
-			System.out.println("\tThe given file does not exist!");
+			LOG.error("Invalid input-path {}!", args[2]);
+			LOG.error("The given file does not exist!");
 			return false;
 		}
 		
 		if (!outputtypes.containsKey(args[3])) {
-			System.out.println("\tError: Invalid output-type " + args[3] + "!");
+			LOG.error("Invalid output-type {}!", args[3]);
 			return false;
 		}
 		
 		File outputDirectory = new File(args[4]);
 		
 		if (!outputDirectory.exists() || !outputDirectory.isDirectory()) { 
-			System.out.println("\tError: Invalid output-path " + args[4] + "!");
-			System.out.println("\tThe given directory does not exist!");
+			LOG.error("Invalid output-path {}!", args[4]);
+			LOG.error("The given directory does not exist!");
 			return false;
 		}
 		
@@ -151,7 +159,7 @@ public class TestCreator {
 		
 		outputtypes.get(args[3]).convertTestFiles(codeToTest.convertCodeToTestRepresentation(
 				umlToCode.convertUmlToCodeRepresentation(
-						inputtypes.get(args[1]).convertToUmlRepresentation(args[2]), Core.dbPath)), 
+						inputtypes.get(args[1]).convertToUmlRepresentation(args[2]), Core.DB_PATH)), 
 				args[4]);
 	}
 	
@@ -159,19 +167,19 @@ public class TestCreator {
 	 * Prints all supported input types
 	 */
 	static void showInputs() {
-		System.out.print("Supported input diagram formats:\n");
-		inputtypes.forEach((inputtype, converter) -> {
-			System.out.print("\t" + inputtype + "\n");
-		});
+		LOG.info("Supported input diagram formats:");
+		inputtypes.forEach((inputtype, converter) -> 
+			LOG.info("\t{}", inputtype)
+		);
 	}
 	
 	/**
 	 * Prints all supported output type
 	 */
 	static void showOutputs() {
-		System.out.print("Supported output test formats:\n");
-		outputtypes.forEach((outputtype, converter) -> {
-			System.out.print("\t" + outputtype + "\n");
-		});
+		LOG.info("Supported output test formats:");
+		outputtypes.forEach((outputtype, converter) -> 
+			LOG.info("\t{}", outputtype)
+		);
 	}
 }

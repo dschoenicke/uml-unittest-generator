@@ -65,6 +65,6 @@ public class DependencyConverterTest {
 		assertTrue(mockTmpModel.getRelationships().contains(tmpRelationship));
 		assertEquals(mockPackagedElement.getClient().getIdref(), tmpRelationship.getClientId());
 		assertEquals(mockPackagedElement.getSupplier().getIdref(), tmpRelationship.getSupplierId());
-		assertEquals(tmpRelationship.getType(), UmlRelationshipType.DEPENDENCY);
+		assertEquals(UmlRelationshipType.DEPENDENCY, tmpRelationship.getType());
 	}
 }

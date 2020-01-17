@@ -16,6 +16,10 @@ import uml.UmlOperation;
  */
 public class OperationConverter {
 
+	private OperationConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting all {@link mdxml.OwnedOperation}s of a given {@link PackagedElement} to {@link uml.UmlOperation}s and adds them to the owning {@link uml.UmlElement}
 	 * Delegates the conversion of the {@link mdxml.OwnedParameter}s to the {@link mdxmlconverter.element.ParameterConverter}

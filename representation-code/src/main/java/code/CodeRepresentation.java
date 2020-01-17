@@ -1,6 +1,7 @@
 package code;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -21,7 +22,7 @@ public class CodeRepresentation implements CodeParent {
 	/**
 	 * The list of all {@link CodePackage}s of the model
 	 */
-	private ArrayList<CodePackage> packages;
+	private List<CodePackage> packages;
 	
 	/**
 	 * Constructor with name, initializes the list of {@link CodePackage}s
@@ -47,8 +48,8 @@ public class CodeRepresentation implements CodeParent {
 	 * 
 	 * @return a list of all {@link CodePackage}s
 	 */
-	public ArrayList<CodePackage> getPackagesAsList() {
-		ArrayList<CodePackage> ownedPackages = new ArrayList<>();
+	public List<CodePackage> getPackagesAsList() {
+		List<CodePackage> ownedPackages = new ArrayList<>();
 		
 		for (CodePackage codePackage : getPackages()) {
 			ownedPackages.add(codePackage);
@@ -63,14 +64,14 @@ public class CodeRepresentation implements CodeParent {
 	 * 
 	 * @return a list of all {@link CodeElement}s
 	 */
-	public ArrayList<CodeElement> getElementsAsList() {
-		ArrayList<CodeElement> ownedElements = new ArrayList<>();
+	public List<CodeElement> getElementsAsList() {
+		List<CodeElement> ownedElements = new ArrayList<>();
 		
 		for (CodePackage codePackage : getPackagesAsList()) {
 			ownedElements.addAll(codePackage.getElements());
-			codePackage.getElements().forEach(codeElement -> {
-				ownedElements.addAll(codeElement.getNestedElementsAsList());
-			});
+			codePackage.getElements().forEach(codeElement -> 
+				ownedElements.addAll(codeElement.getNestedElementsAsList())
+			);
 		}
 		
 		return ownedElements;

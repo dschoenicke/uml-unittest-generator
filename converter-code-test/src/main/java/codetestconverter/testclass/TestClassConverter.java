@@ -16,17 +16,21 @@ import test.testobjects.ClassUnderTest;
  */
 public class TestClassConverter {
 
+	private TestClassConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static methods to convert {@link code.CodeElement}s of the {@link code.CodePackage}s in the {@link codetestconverter.temporary.TemporaryModel} to {@link test.TestClass}es.
 	 * 
 	 * @param tmpModel the {@link codetestconverter.temporary.TemporaryModel} containing a map of {@link code.CodePackage}s and the corresponding converted {@link test.TestPackage}s.
 	 */
 	public static void convertTestClasses(TemporaryModel tmpModel) {
-		tmpModel.getConvertedPackages().forEach((codePackage, testPackage) -> {
-			codePackage.getElements().forEach(codeElement -> {
-				convertTestClass(codeElement, testPackage);
-			});
-		});
+		tmpModel.getConvertedPackages().forEach((codePackage, testPackage) -> 
+			codePackage.getElements().forEach(codeElement -> 
+				convertTestClass(codeElement, testPackage)
+			)
+		);
 	}
 	
 	/**

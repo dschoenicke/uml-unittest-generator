@@ -4,6 +4,7 @@ import code.CodeRepresentation;
 import codetestconverter.packages.PackageConverter;
 import codetestconverter.temporary.TemporaryModel;
 import codetestconverter.testclass.TestClassConverter;
+import lombok.NoArgsConstructor;
 import test.TestRepresentation;
 
 /**
@@ -12,12 +13,8 @@ import test.TestRepresentation;
  * @author dschoenicke
  *
  */
+@NoArgsConstructor
 public class CodeTestConverter {
-
-	/**
-	 * Default constructor
-	 */
-	public CodeTestConverter() {}
 	
 	/**
 	 * Converts a given {@link code.CodeRepresentation} to a {@link test.TestRepresentation}.<br>

@@ -10,6 +10,10 @@ import uml.UmlVisibility;
  */
 public class ModifierConverter {
 
+	private ModifierConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting the a given access modifier to an {@link uml.UmlVisibility}
 	 * 
@@ -17,32 +21,16 @@ public class ModifierConverter {
 	 * @return the converted {@link uml.UmlVisibility}
 	 */
 	public static UmlVisibility convertAccessModifier(String visibility) {
-		UmlVisibility umlVisibility;
-		
 		if (visibility == null) {
 			return UmlVisibility.PUBLIC;
 		}
 		
 		switch(visibility) {
-			case "private": {
-				umlVisibility = UmlVisibility.PRIVATE;
-				break;
-			}
-			case "protected": {
-				umlVisibility = UmlVisibility.PROTECTED;
-				break;
-			}
-			case "package": {
-				umlVisibility = UmlVisibility.PACKAGE;
-				break;
-			}
-			default: {
-				umlVisibility = UmlVisibility.PUBLIC;
-				break;
-			}
+			case "private": return UmlVisibility.PRIVATE;
+			case "protected": return UmlVisibility.PROTECTED;
+			case "package": return UmlVisibility.PACKAGE;
+			default: return UmlVisibility.PUBLIC;
 		}
-		
-		return umlVisibility;
 	}
 	
 	/**

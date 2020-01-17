@@ -1,6 +1,7 @@
 package code;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -21,12 +22,12 @@ public class CodePackage implements CodeParent {
 	/**
 	 * List of sub packages of the package
 	 */
-	private ArrayList<CodePackage> packages;
+	private List<CodePackage> packages;
 	
 	/**
 	 * List of {@link CodeElement}s of the package
 	 */
-	private ArrayList<CodeElement> elements;
+	private List<CodeElement> elements;
 	
 	/**
 	 * Reference to the {@link CodeParent} element of the package
@@ -69,8 +70,8 @@ public class CodePackage implements CodeParent {
 	 * 
 	 * @return a list of all sub {@link CodePackage}s
 	 */
-	public ArrayList<CodePackage> getPackagesAsList() {
-		ArrayList<CodePackage> ownedpackages = new ArrayList<CodePackage>();
+	public List<CodePackage> getPackagesAsList() {
+		List<CodePackage> ownedpackages = new ArrayList<>();
 		
 		for (CodePackage codePackage : this.getPackages()) {
 			ownedpackages.add(codePackage);

@@ -1,7 +1,6 @@
 package core.options;
 
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -10,6 +9,8 @@ import org.mapdb.BTreeMap;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.Serializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import core.Core;
 
@@ -20,6 +21,15 @@ import core.Core;
  *
  */
 public class QualifiedNamesMapper {
+	
+	private QualifiedNamesMapper() {
+		throw new IllegalStateException("utility class");
+	}
+	
+	/**
+	 * The {@link org.slf4j.Logger} to be used in the methods
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger("");
 	
 	/**
 	 * Creates the {@link org.apache.commons.cli.Option}s for the qualified name mapping administration
@@ -62,53 +72,52 @@ public class QualifiedNamesMapper {
 	/**
 	 * Evaluates the input arguments whether they match the {@link org.apache.commons.cli.Options}.
 	 * 
-	 * @param options the {@link org.apache.commons.cli.Options} to be checked
-	 * @param args the input arguments to be checked
+	 * @param cmd the parsed {@link org.apache.commons.cli.CommandLine} containing the arguments
+	 * @param args the command line input arguments to be parsed
 	 * @return true, if the given arguments belong to the qualified names mapping administration {@link org.apache.commons.cli.Options}.
 	 */
-	public static boolean parseOptions(Options options, String args[]) {
-		try {
-			CommandLine cmd = new DefaultParser().parse(options, args);
-			
-			if (cmd.hasOption("aqn")) {
-				addQualifiedName(args[1], args[2]);
-				return true;
+	public static boolean parseOptions(CommandLine cmd, String[] args) {	
+		if (cmd.hasOption("aqn")) {
+			addQualifiedName(args[1], args[2]);
+			return true;
+		}
+		else if (cmd.hasOption("rqn")) {
+			replaceQualifiedName(args[1], args[2]);
+			return true;
+		}
+		else if (cmd.hasOption("dqn")) {
+			deleteQualifiedName(args[1]);
+			return true;
+		}
+		else if (cmd.hasOption("cqn")) {
+			clearQualifiedNames();
+			return true;
+		}
+		else if (cmd.hasOption("sqn")) {
+			showQualifiedNames();
+			return true;
+		}
+		
+		return false;
+	} 
+	
+	/**
+	 * Checks a thrown {@link org.apache.commons.cli.ParseException} whether it is associated with association type commands
+	 * 
+	 * @param e the {@link org.apache.commons.cli.ParseException} to be parsed.
+	 */
+	public static void checkQualifiedNamesParseException(ParseException e) {
+		if (e instanceof MissingArgumentException) {
+			if (((MissingArgumentException) e).getOption().getOpt().equals("aqn")) {
+				LOG.error("-addqualifiedname requires arguments <shortcut> <qualified-name>");
+				LOG.error("Example: -addqualifiedname java.Money org.javamoney.moneta.Money");
 			}
-			else if (cmd.hasOption("rqn")) {
-				replaceQualifiedName(args[1], args[2]);
-				return true;
+			else if (((MissingArgumentException) e).getOption().getOpt().equals("dqn")) {
+				LOG.error("-deletequalifiedname requires argument <shortcut>");
 			}
-			else if (cmd.hasOption("dqn")) {
-				deleteQualifiedName(args[1]);
+			else if (((MissingArgumentException) e).getOption().getOpt().equals("rqn")) {
+				LOG.error("-replacequalifiedname requires arguments <shortcut> <new-qualified-name>");
 			}
-			else if (cmd.hasOption("cqn")) {
-				clearQualifiedNames();
-				return true;
-			}
-			else if (cmd.hasOption("sqn")) {
-				showQualifiedNames();
-				return true;
-			}
-			
-			return false;
-		} catch (ParseException e) {
-			if (e instanceof MissingArgumentException) {
-				if (((MissingArgumentException) e).getOption().getOpt().equals("aqn")) {
-					System.out.println("\tError: -addqualifiedname requires arguments <shortcut> <qualified-name>");
-					System.out.println("\tExample: -addqualifiedname java.Money org.javamoney.moneta.Money");
-					return true;
-				}
-				else if (((MissingArgumentException) e).getOption().getOpt().equals("rqn")) {
-					System.out.println("\tError: -replacequalifiedname requires arguments <shortcut> <new-qualified-name>");
-					return true;
-				}
-				else if (((MissingArgumentException) e).getOption().getOpt().equals("dqn")) {
-					System.out.println("\tError: -deletequalifiedname requires argument <shortcut>");
-					return true;
-				}
-			}
-			
-			return false;
 		}
 	}
 	
@@ -119,22 +128,27 @@ public class QualifiedNamesMapper {
 	 * @param qualifiedName the qualified name as the object
 	 */
 	static void addQualifiedName(String shortcut, String qualifiedName) {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
-		
-		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
-		
-		if (qualifiedNames.containsKey(shortcut)) {
-			System.out.println("\tError: There is already a mapping for the shortcut " + shortcut + "!");
-			System.out.println("\tThe mapping for " + shortcut + " is " + qualifiedNames.get(shortcut) + ".");
-			return;
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> qualifiedNames = null;
+				
+		try {
+			qualifiedNames = loadQualifiedNamesDB(database);
+			
+			if (qualifiedNames.containsKey(shortcut)) {
+				LOG.error("There is already a mapping for the shortcut {}!", shortcut);
+				LOG.error("The mapping for {} is {}.", shortcut, qualifiedNames.get(shortcut));
+				return;
+			}
+			
+			qualifiedNames.put(shortcut, qualifiedName);
+			LOG.info("The mapping {} -> {} was added.", shortcut, qualifiedName);
+		} finally {
+			if (qualifiedNames != null) {
+				qualifiedNames.close();
+			}
+			
+			database.close();
 		}
-		
-		qualifiedNames.put(shortcut, qualifiedName);
-		database.close();
-		System.out.println("\tThe mapping " + shortcut + " -> " + qualifiedName + " was added.");
 	}
 	
 	/**
@@ -144,22 +158,27 @@ public class QualifiedNamesMapper {
 	 * @param qualifiedName the new value to be set for the entry
 	 */
 	static void replaceQualifiedName(String shortcut, String qualifiedName) {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> qualifiedNames = null;
 		
-		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
-		
-		if (!qualifiedNames.containsKey(shortcut)) {
-			System.out.println("\tError: There is no mapping for the shortcut " + shortcut + " to be replaced!");
-			return;
+		try {
+			qualifiedNames = loadQualifiedNamesDB(database);
+			
+			if (!qualifiedNames.containsKey(shortcut)) {
+				LOG.error("There is no mapping for the shortcut {} to be replaced!", shortcut);
+				return;
+			}
+			
+			String oldValue = qualifiedNames.get(shortcut);
+			qualifiedNames.replace(shortcut, qualifiedName);
+			LOG.info("The mapping {} -> {} was replaced by {} -> {}.", shortcut, oldValue, shortcut, qualifiedName);
+		} finally {
+			if (qualifiedNames != null) {
+				qualifiedNames.close();
+			}
+			
+			database.close();
 		}
-		
-		String oldValue = qualifiedNames.get(shortcut);
-		qualifiedNames.replace(shortcut, qualifiedName);
-		database.close();
-		System.out.println("\tThe mapping " + shortcut + " -> " + oldValue + " was replaced by " + shortcut + " -> " + qualifiedName + ".");
 	}
 	
 	/**
@@ -168,61 +187,87 @@ public class QualifiedNamesMapper {
 	 * @param shortcut the key to be deleted
 	 */
 	static void deleteQualifiedName(String shortcut) {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> qualifiedNames = null;
 		
-		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
-		
-		if (!qualifiedNames.containsKey(shortcut)) {
-			System.out.println("\tError: There is no mapping for the shortcut " + shortcut + " to be deleted!");
-			return;
+		try {
+			qualifiedNames = loadQualifiedNamesDB(database);
+			
+			if (!qualifiedNames.containsKey(shortcut)) {
+				LOG.error("There is no mapping for the shortcut {} to be deleted!", shortcut);
+				return;
+			}
+			
+			String oldValue = qualifiedNames.get(shortcut);
+			qualifiedNames.remove(shortcut);
+			LOG.info("The mapping {} -> {} was deleted.", shortcut, oldValue);
+		} finally {
+			if (qualifiedNames != null) {
+				qualifiedNames.close();
+			}
+			
+			database.close();
 		}
-		
-		String oldValue = qualifiedNames.get(shortcut);
-		qualifiedNames.remove(shortcut);
-		database.close();
-		System.out.println("\tThe mapping " + shortcut + " -> " + oldValue + " was deleted.");
 	}
 	
 	/**
 	 * Deletes all entries
 	 */
 	static void clearQualifiedNames() {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> qualifiedNames = null;
 		
-		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
-		
-		qualifiedNames.clear();
-		database.close();
-		System.out.println("\tAll qualified name mappings were deleted.");
+		try {
+			qualifiedNames = loadQualifiedNamesDB(database);
+			qualifiedNames.clear();
+			LOG.info("All qualified name mappings were deleted.");
+		} finally {
+			if (qualifiedNames != null) {
+				qualifiedNames.close();
+			}
+			
+			database.close();
+		}
 	}
 	
 	/**
 	 * Prints a list of all mappings to the console
 	 */
 	static void showQualifiedNames() {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> qualifiedNames = null;
 		
-		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
+		try {
+			qualifiedNames = loadQualifiedNamesDB(database);
+		
+			if (qualifiedNames.isEmpty()) {
+				LOG.info("There have no mappings been stored yet!");
+				database.close();
+				return;
+			}
+			
+			qualifiedNames.forEach((shortcut, qualifiedName) -> 
+				LOG.info("{} -> {}", shortcut, qualifiedName)
+			);
+		} finally {
+			if (qualifiedNames != null) {
+				qualifiedNames.close();
+			}
+			
+			database.close();
+		}
+	}
+	
+	/**
+	 * Loads the qualified names database map
+	 * 
+	 * @param database the mapDB database
+	 * @return the loaded qualified names database map
+	 */
+	static BTreeMap<String, String> loadQualifiedNamesDB(DB database) {
+		return database.treeMap("qualifiedNames")
 				.keySerializer(Serializer.STRING)
 				.valueSerializer(Serializer.STRING)
 				.createOrOpen();
-		
-		if (qualifiedNames.isEmpty()) {
-			System.out.println("\tThere have no mappings been stored yet!");
-			database.close();
-			return;
-		}
-		
-		qualifiedNames.forEach((shortcut, qualifiedName) -> {
-			System.out.println("\t" + shortcut + " -> " + qualifiedName);
-		});
-		
-		database.close();
 	}
 }

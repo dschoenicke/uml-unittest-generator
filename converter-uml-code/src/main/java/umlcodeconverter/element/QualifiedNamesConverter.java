@@ -17,10 +17,14 @@ import code.CodeRepresentation;
  */
 public class QualifiedNamesConverter {
 
+	private QualifiedNamesConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Map containing mappings of {@link code.CodeElement} names to their qualified names.
 	 */
-	private static Map<String, String> qualifiedNames;
+	private static Map<String, String> qualifiedNames = new HashMap<>();
 	
 	/**
 	 * Sets qualified names for all {@link code.CodeElement}s of the given {@link code.CodeRepresentation} and replaces the type attributes of {@link code.CodeParameter}s and {@link code.CodeTemplateParameter}s
@@ -31,44 +35,75 @@ public class QualifiedNamesConverter {
 	 */
 	public static void resolveQualifiedNames(CodeRepresentation codeRepresentation, BTreeMap<String, String> qualifiedNamesDB) {
 		
-		qualifiedNames = new HashMap<>();
 		codeRepresentation.getElementsAsList().forEach(codeElement -> {
-			if (qualifiedNamesDB.containsKey(codeElement.getName())) {
-				codeElement.setQualifiedName(qualifiedNamesDB.get(codeElement.getName()));
-			}
-			else {
-				codeElement.setQualifiedName(createQualifiedName(codeElement));
-			}
-			
-			qualifiedNames.put(codeElement.getName(), codeElement.getQualifiedName());
+			resolveElementQualifiedName(codeElement, qualifiedNamesDB);
+			resolveElementConstructorParameters(codeElement);
+			resolveElementMethodParameters(codeElement);
+			resolveElementTemplateParameters(codeElement);
 		});
+	}
+	
+	/**
+	 * Resolves the fully qualified name of a given {@link code.CodeElement}
+	 * 
+	 * @param codeElement the {@link code.CodeElement} to set the qualified name for
+	 * @param qualifiedNamesDB the map representing the MapDB database containing mappings for qualified names of external classes 
+	 */
+	static void resolveElementQualifiedName(CodeElement codeElement, BTreeMap<String, String> qualifiedNamesDB) {
+		if (qualifiedNamesDB.containsKey(codeElement.getName())) {
+			codeElement.setQualifiedName(qualifiedNamesDB.get(codeElement.getName()));
+		}
+		else {
+			codeElement.setQualifiedName(createQualifiedName(codeElement));
+		}
 		
-		codeRepresentation.getElementsAsList().forEach(codeElement -> {
-			codeElement.getConstructors().forEach(codeConstructor -> {
-				codeConstructor.getParameters().forEach(codeParameter -> {
-					if (qualifiedNames.containsKey(codeParameter.getType())) {
-						codeParameter.setType(qualifiedNames.get(codeParameter.getType()).replace("$",  "."));
-					}
-				});
-			});
-			
-			codeElement.getMethods().forEach(codeMethod -> {
-				if (qualifiedNames.containsKey(codeMethod.getReturnType().getType())) {
-					codeMethod.getReturnType().setType(qualifiedNames.get(codeMethod.getReturnType().getType()));
+		qualifiedNames.put(codeElement.getName(), codeElement.getQualifiedName());
+	}
+		
+	/**
+	 * Resolves the fully qualified name of the {@link code.CodeParameter}s of the {@link code.CodeConstructor}s of a given {@link code.CodeElement}
+	 * 
+	 * @param codeElement the {@link code.CodeElement} to containing the {@link code.CodeConstructor}s
+	 */
+	static void resolveElementConstructorParameters(CodeElement codeElement) {
+		codeElement.getConstructors().forEach(codeConstructor -> 
+			codeConstructor.getParameters().forEach(codeParameter -> {
+				if (qualifiedNames.containsKey(codeParameter.getType())) {
+					codeParameter.setType(qualifiedNames.get(codeParameter.getType()).replace("$",  "."));
 				}
-				
-				codeMethod.getParameters().forEach(codeParameter -> {
-					if (qualifiedNames.containsKey(codeParameter.getType())) {
-						codeParameter.setType(qualifiedNames.get(codeParameter.getType()).replace("$",  "."));
-					}
-				});
-			});
-			
-			codeElement.getTemplateParameters().forEach(codeTemplateParameter -> {
-				if (qualifiedNames.containsKey(codeTemplateParameter.getType())) {
-					codeTemplateParameter.setType(qualifiedNames.get(codeTemplateParameter.getType()).replace("$",  "."));
+			})
+		);
+	}
+	
+	/**
+	 * Resolves the fully qualified name of the {@link code.CodeParameter}s of the {@link code.CodeMethod}s of a given {@link code.CodeElement}
+	 * 
+	 * @param codeElement the {@link code.CodeElement} to containing the {@link code.CodeMethod}s
+	 */
+	static void resolveElementMethodParameters(CodeElement codeElement) {
+		codeElement.getMethods().forEach(codeMethod -> {
+			if (qualifiedNames.containsKey(codeMethod.getReturnType().getType())) {
+				codeMethod.getReturnType().setType(qualifiedNames.get(codeMethod.getReturnType().getType()));
+			}
+		
+			codeMethod.getParameters().forEach(codeParameter -> {
+				if (qualifiedNames.containsKey(codeParameter.getType())) {
+					codeParameter.setType(qualifiedNames.get(codeParameter.getType()).replace("$",  "."));
 				}
 			});
+		});
+	}
+	
+	/**
+	 * Resolves the fully qualified name of the types of {@link code.CodeTemplateParameter}s of a given {@link code.CodeElement}
+	 * 
+	 * @param codeElement the {@link code.CodeElement} to containing the {@link code.CodeTemplateParameter}s
+	 */
+	static void resolveElementTemplateParameters(CodeElement codeElement) {
+		codeElement.getTemplateParameters().forEach(codeTemplateParameter -> {
+			if (qualifiedNames.containsKey(codeTemplateParameter.getType())) {
+				codeTemplateParameter.setType(qualifiedNames.get(codeTemplateParameter.getType()).replace("$",  "."));
+			}
 		});
 	}
 	

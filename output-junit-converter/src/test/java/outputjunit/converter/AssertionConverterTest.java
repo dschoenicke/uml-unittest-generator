@@ -107,7 +107,7 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 	@Test
 	public void testCreateTemplateParameterAssertions() {
 		JunitTemplateParameterUnderTest templateParameter = new JunitTemplateParameterUnderTest("T", "app.firstpackage.firstclass");
-		AssertionConverter.createTemplateParameterAssertions(mockClass2.getTemplateParameters().get(0), mockClass2, templateParameter);
+		AssertionConverter.createTemplateParameterAssertions(mockClass2, templateParameter);
 		assertEquals(2, templateParameter.getAssertions().size());
 		assertEquals("true", templateParameter.getAssertions().get(0).getExpectedValue());
 		assertEquals("typeParameterUnderTest.isPresent()", templateParameter.getAssertions().get(0).getActualValue());

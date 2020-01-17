@@ -17,6 +17,10 @@ import test.testobjects.ClassUnderTest.ClassUnderTestType;
  */
 public class ClassUnderTestConverter {
 
+	private ClassUnderTestConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting a given {@link code.CodeElement} to a {@link test.testobjects.ClassUnderTest}.
 	 * 

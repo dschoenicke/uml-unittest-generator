@@ -8,10 +8,13 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
-import core.CoreTest;
+import core.CoreTests;
 
 /**
  * Tests {@link TestCreator}
@@ -19,7 +22,7 @@ import core.CoreTest;
  * @author dschoenicke
  *
  */
-public class TestCreatorTest extends CoreTest {
+public class TestCreatorTest extends CoreTests {
 
 	/**
 	 * Tests {@link TestCreator#addTestCreatorOptions}
@@ -37,17 +40,27 @@ public class TestCreatorTest extends CoreTest {
 	@Test
 	public void testParseOptions() {
 		Options options = new Options();
-		TestCreator.addTestCreatorOptions(options);
-		String[] args = {"-fail"};
-		assertFalse(TestCreator.parseOptions(options, args));
-		String[] ctargs = {"-ct", "-", "-", "-", "-"};
-		assertTrue(TestCreator.parseOptions(options, ctargs));
-		String[] inargs = {"-inputtypes"};
-		assertTrue(TestCreator.parseOptions(options, inargs));
-		String[] outargs = {"-outputtypes"};
-		assertTrue(TestCreator.parseOptions(options, outargs));
-		String[] exargs = {"-ct"};
-		assertTrue(TestCreator.parseOptions(options, exargs));
+		
+		try {
+			DefaultParser parser = new DefaultParser();
+			String[] args = {"-fail"};
+			CommandLine cmd = parser.parse(options, args);
+			assertFalse(TestCreator.parseOptions(cmd, args));
+			String[] ctargs = {"-ct", "-", "-", "-", "-"};
+			cmd = parser.parse(options, ctargs);
+			assertTrue(TestCreator.parseOptions(cmd, ctargs));
+			String[] inargs = {"-inputtypes"};
+			cmd = parser.parse(options, inargs);
+			assertTrue(TestCreator.parseOptions(cmd, inargs));
+			String[] outargs = {"-outputtypes"};
+			cmd = parser.parse(options, outargs);
+			assertTrue(TestCreator.parseOptions(cmd, outargs));
+			String[] exargs = {"-ct"};
+			cmd = parser.parse(options, exargs);
+			assertTrue(TestCreator.parseOptions(cmd, exargs));
+		} catch (ParseException e) {
+			
+		}
 	}
 	
 	/**
@@ -56,7 +69,7 @@ public class TestCreatorTest extends CoreTest {
 	@Test
 	public void testEvaluateArguments() {
 		File mockInput = new File(System.getProperty("user.dir") + File.separator + "test.xml");
-		
+		TestCreator.showOutputs();
 		try {
 			mockInput.createNewFile();
 			String[] allFalse = {"-ct", "false", "false", "false", "false"};
@@ -73,23 +86,5 @@ public class TestCreatorTest extends CoreTest {
 		} catch (IOException e) {
 			fail();
 		}
-	}
-	
-	/**
-	 * Tests {@link TestCreator#showInputs()}
-	 */
-	@Test
-	public void testShowInputs() {
-		TestCreator.showInputs();
-		assertEquals("Supported input diagram formats:\n\tmdxml\n", outstream.toString());
-	}
-	
-	/**
-	 * Tests {@link TestCreator#showOutputs()}
-	 */
-	@Test
-	public void testShowOutputs() {
-		TestCreator.showOutputs();
-		assertEquals("Supported output test formats:\n\tjunit\n", outstream.toString());
 	}
 }

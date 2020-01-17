@@ -7,6 +7,9 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
@@ -22,6 +25,15 @@ import junit.JunitTestClass;
  */
 public class TestFileCreator {
 	
+	private TestFileCreator() {
+		throw new IllegalStateException("utility class");
+	}
+	
+	/**
+	 * The {@link org.slf4j.Logger} to be used in the methods
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger("");
+	
 	/**
 	 * Create test class files for the given {@link junit.JunitRepresentation} in the given output directory.
 	 * 
@@ -36,9 +48,9 @@ public class TestFileCreator {
 				createTestFile(testClass, filepath);
 			}
 			else {
-				System.out.println("[WARNING] The file " + filepath + " wasn't created!\n" + 
-					"          The corresponding class isn't located in a package tree with the application name as root.\n" + 
-					"          Therefore it is assumed to be a class of an external package, which cannot be tested.");
+				LOG.warn("The file {} wasn't created!", filepath);
+				LOG.warn("The corresponding class isn't located in a package tree with the application name as root.");
+				LOG.warn("Therefore it is assumed to be a class of an external package, which cannot be tested.");
 			}
 		}
 	}
@@ -59,10 +71,10 @@ public class TestFileCreator {
 			Writer writer = mustache.execute(new PrintWriter(new File(testFilePath)), contents);
 			writer.flush();
 			writer.close();
-			System.out.println("[INFO] Created " + testFilePath);
+			LOG.info("Created {}", testFilePath);
 		} catch (IOException e) {
-			System.err.println("[ERROR] Error while creating the file " + testFilePath + "!\n" + 
-					"        The directory " + testFilePath.substring(0, testFilePath.lastIndexOf(File.separator)) + " doesn't exist.");
+			LOG.error("The file {} could not be created!", testFilePath);
+			LOG.error("The directory {} doesn't exists.", testFilePath.substring(0, testFilePath.lastIndexOf(File.separator)));
 		}
 	}
 }

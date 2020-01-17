@@ -17,6 +17,10 @@ import uml.UmlParameterDirection;
  */
 public class ParameterConverter {
 
+	private ParameterConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting the {@link uml.UmlParameter}s of an {@link uml.UmlOperation} with {@link uml.UmlParameterDirection#IN} to {@link code.CodeParameter}s and adding them to a {@link code.CodeMethod}.
 	 * 
@@ -26,7 +30,7 @@ public class ParameterConverter {
 	public static void convertParameters(UmlOperation operation, CodeMethod method) {
 		for (UmlParameter parameter : operation.getParameters()) {
 			if (parameter.getDirection() == UmlParameterDirection.IN) {
-				method.addParameter(createParameter(parameter, method));
+				method.getParameters().add(createParameter(parameter, method));
 			}
 		}
 	}
@@ -40,7 +44,7 @@ public class ParameterConverter {
 	public static void convertParameters(UmlOperation operation, CodeConstructor constructor) {
 		for (UmlParameter parameter : operation.getParameters()) {
 			if (parameter.getDirection() == UmlParameterDirection.IN) {
-				constructor.addParameter(createParameter(parameter, constructor));
+				constructor.getParameters().add(createParameter(parameter, constructor));
 			}
 		}
 	}

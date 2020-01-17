@@ -12,6 +12,10 @@ import test.testobjects.ClassUnderTest;
  */
 public class ConstructorConverter {
 
+	private ConstructorConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts the {@link test.testobjects.ConstructorUnderTest}s of a given {@link test.testobjects.ClassUnderTest} to {@link junit.JunitConstructorUnderTest}.
 	 * 

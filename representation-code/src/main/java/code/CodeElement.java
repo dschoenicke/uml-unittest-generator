@@ -1,6 +1,7 @@
 package code;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +33,7 @@ public abstract class CodeElement implements CodeParent {
 	/**
 	 * The list of {@link CodeField}s of the element
 	 */
-	private ArrayList<CodeField> fields;
+	private List<CodeField> fields;
 	
 	/**
 	 * An integer representing the modifier value
@@ -42,32 +43,32 @@ public abstract class CodeElement implements CodeParent {
 	/**
 	 * The list of {@link CodeConstructor}s of the element
 	 */
-	private ArrayList<CodeConstructor> constructors;
+	private List<CodeConstructor> constructors;
 	
 	/**
 	 * The list of {@link CodeMethod}s of the element
 	 */
-	private ArrayList<CodeMethod> methods;
+	private List<CodeMethod> methods;
 	
 	/**
 	 * The list of {@link CodeTemplateBinding}s of the element
 	 */
-	private ArrayList<CodeTemplateBinding> templateBindings;
+	private List<CodeTemplateBinding> templateBindings;
 	
 	/**
 	 * The list of {@link CodeTemplateParameter}s of the element
 	 */
-	private ArrayList<CodeTemplateParameter> templateParameters;
+	private List<CodeTemplateParameter> templateParameters;
 	
 	/**
 	 * The list of implemented or extended {@link CodeInterface}s of the element
 	 */
-	private ArrayList<CodeInterface> interfaces;
+	private List<CodeInterface> interfaces;
 	
 	/**
 	 * The list of nested elements of the element
 	 */
-	private ArrayList<CodeElement> nestedElements;
+	private List<CodeElement> nestedElements;
 	
 	/**
 	 * Constructor with name, fully qualified name, {@link CodeParent} and modifiers.<br>
@@ -163,7 +164,7 @@ public abstract class CodeElement implements CodeParent {
 	 * 
 	 * @return all nested elements regardless of their hierarchy
 	 */
-	public ArrayList<CodeElement> getNestedElementsAsList() {
+	public List<CodeElement> getNestedElementsAsList() {
 		ArrayList<CodeElement> ownedElements = new ArrayList<>();
 		nestedElements.forEach(nestedElement -> {
 			ownedElements.add(nestedElement);

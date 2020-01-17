@@ -2,7 +2,7 @@ package umlcodeconverter.packages;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import code.CodePackage;
 import code.CodeParent;
@@ -18,6 +18,10 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class PackageConverter {
 	
+	private PackageConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts a list of given {@link uml.UmlPackage}s and adds them to a {@link code.CodeParent}.<br>
 	 * 
@@ -25,7 +29,7 @@ public class PackageConverter {
 	 * @param parent the {@link code.CodeParent} to add the converted {@link code.CodePackage}s to
 	 * @param tmpModel the {@link umlcodeconverter.temporary.TemporaryModel} containing the maps to add {@link uml.UmlPackage}s and converted {@link code.CodePackage}s to
 	 */
-	public static void convertPackages(ArrayList<UmlPackage> umlPackages, CodeParent parent, TemporaryModel tmpModel) {
+	public static void convertPackages(List<UmlPackage> umlPackages, CodeParent parent, TemporaryModel tmpModel) {
 		for (UmlPackage umlPackage : umlPackages) {
 			convertPackage(umlPackage, parent, tmpModel);
 		}

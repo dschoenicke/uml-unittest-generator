@@ -8,6 +8,7 @@ import org.mapdb.DBMaker;
 import org.mapdb.Serializer;
 
 import code.CodeRepresentation;
+import lombok.NoArgsConstructor;
 import uml.UmlModel;
 import umlcodeconverter.element.ElementConverter;
 import umlcodeconverter.element.FieldConverter;
@@ -23,14 +24,9 @@ import umlcodeconverter.temporary.TemporaryModel;
  * @author dschoenicke
  *
  */
+@NoArgsConstructor
 public class UmlCodeConverter 
-{
-    
-	/**
-	 * Default constructor
-	 */
-	public UmlCodeConverter() {}
-	
+{	
 	/**
 	 * Converts a given {@link uml.UmlModel} to a {@link code.CodeRepresentation}.<br>
 	 * Delegates the conversion of {@link uml.UmlPackage}s to the {@link umlcodeconverter.packages.PackageConverter}<br>
@@ -46,14 +42,14 @@ public class UmlCodeConverter
 		TemporaryModel tmpModel = new TemporaryModel();
 		
 		if (!umlModel.getElements().isEmpty()) {
-			umlModel.getPackagesAsList().forEach((umlPackage) -> {
+			umlModel.getPackagesAsList().forEach(umlPackage -> 
 				assertFalse("Could not convert UmlModel " + umlModel.getName() + "!\n"
 						+ "UmlModel " + umlModel.getName() + " contains a package with the model name\n"
 						+ "while containing UmlElements, which are not assigned to a UmlPackage.\n"
 						+ "For these elements, a CodePackage with the name of the model would be created,\n"
 						+ "which would be a duplicate.",
-						umlPackage.getName().equals(umlModel.getName()));
-			});
+						umlPackage.getName().equals(umlModel.getName()))
+			);
 		}
 		
 		PackageConverter.convertPackages(umlModel.getPackages(), codeRepresentation, tmpModel);

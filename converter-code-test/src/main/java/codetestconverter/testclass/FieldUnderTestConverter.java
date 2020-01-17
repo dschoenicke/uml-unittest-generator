@@ -16,6 +16,10 @@ import test.testobjects.FieldUnderTest;
  */
 public class FieldUnderTestConverter {
 
+	private FieldUnderTestConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert {@link code.CodeField}s of a given {@link code.CodeElement} to {@link test.testobjects.FieldUnderTest} and adding them to a {@link test.testobjects.ClassUnderTest}.
 	 * 

@@ -19,6 +19,10 @@ import test.testobjects.ParameterUnderTest;
  */
 public class ParameterConverter {
 
+	private ParameterConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts {@link junit.JunitParameterUnderTest}s out of the {@link test.testobjects.ParameterUnderTest} of a given {@link test.testobjects.ConstructorUnderTest}
 	 * 
@@ -66,13 +70,14 @@ public class ParameterConverter {
 			return "";
 		}
 		
-		String parameterTypeClasses = "";
+		StringBuilder params = new StringBuilder("");
 
 		for (ParameterUnderTest param : parameters) {
-			parameterTypeClasses += param.getType() + ".class, ";
+			params.append(param.getType());
+			params.append(".class, ");
 		}
 		
-		return parameterTypeClasses.substring(0, parameterTypeClasses.length() - 2);
+		return params.substring(0, params.length() - 2);
 	}
 	
 	/**
@@ -86,12 +91,13 @@ public class ParameterConverter {
 			return "";
 		}
 		
-		String parameterTypeClasses = "";
+		StringBuilder params = new StringBuilder("");
 
 		for (ParameterUnderTest param : parameters) {
-			parameterTypeClasses += param.getType() + ", ";
+			params.append(param.getType());
+			params.append(", ");
 		}
 		
-		return parameterTypeClasses.substring(0, parameterTypeClasses.length() - 2);
+		return params.substring(0, params.length() - 2);
 	}
 }

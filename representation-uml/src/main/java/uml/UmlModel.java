@@ -1,6 +1,7 @@
 package uml;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -20,17 +21,17 @@ public class UmlModel implements UmlParent {
 	/**
 	 * List of {@link UmlPackage}s
 	 */
-	private ArrayList<UmlPackage> packages;
+	private List<UmlPackage> packages;
 	
 	/**
 	 * List of {@link UmlElement}s
 	 */
-	private ArrayList<UmlElement> elements;
+	private List<UmlElement> elements;
 	
 	/**
 	 * List of {@link UmlRelationship}s
 	 */
-	private ArrayList<UmlRelationship> relationships;
+	private List<UmlRelationship> relationships;
 	
 	/**
 	 * Constructor with name, initializes the lists of {@link UmlPackage}s, {@link UmlElement}s and {@link UmlRelationship}s
@@ -76,8 +77,8 @@ public class UmlModel implements UmlParent {
 	 * 
 	 * @return a list of all {@link UmlPackage}s
 	 */
-	public ArrayList<UmlPackage> getPackagesAsList() {
-		ArrayList<UmlPackage> ownedPackages = new ArrayList<>();
+	public List<UmlPackage> getPackagesAsList() {
+		List<UmlPackage> ownedPackages = new ArrayList<>();
 		
 		for (UmlPackage umlPackage : getPackages()) {
 			ownedPackages.add(umlPackage);
@@ -92,8 +93,8 @@ public class UmlModel implements UmlParent {
 	 * 
 	 * @return a list of all {@link UmlElement}s
 	 */
-	public ArrayList<UmlElement> getElementsAsList() {
-		ArrayList<UmlElement> ownedElements = new ArrayList<>();
+	public List<UmlElement> getElementsAsList() {
+		List<UmlElement> ownedElements = new ArrayList<>();
 		ownedElements.addAll(getElements());
 		
 		for (UmlPackage umlPackage : getPackagesAsList()) {
@@ -108,8 +109,8 @@ public class UmlModel implements UmlParent {
 	 * 
 	 * @return a list of all {@link UmlRelationship}s
 	 */
-	public ArrayList<UmlRelationship> getRelationshipsAsList() {
-		ArrayList<UmlRelationship> ownedRelationships = new ArrayList<>();
+	public List<UmlRelationship> getRelationshipsAsList() {
+		List<UmlRelationship> ownedRelationships = new ArrayList<>();
 		ownedRelationships.addAll(getRelationships());
 		
 		for (UmlPackage umlPackage : getPackagesAsList()) {

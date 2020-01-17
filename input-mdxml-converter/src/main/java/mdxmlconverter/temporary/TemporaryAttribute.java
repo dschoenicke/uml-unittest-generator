@@ -2,9 +2,11 @@ package mdxmlconverter.temporary;
 
 import lombok.Getter;
 import lombok.Setter;
+import mdxml.OwnedAttribute;
+import mdxmlconverter.element.DataTypeConverter;
+import mdxmlconverter.element.ModifierConverter;
+import mdxmlconverter.multiplicity.MultiplicityConverter;
 import uml.UmlAttribute;
-import uml.UmlMultiplicityValue;
-import uml.UmlVisibility;
 
 /**
  * TemporaryAttribute extends the {@link uml.UmlAttribute} with additional fields for the 'association' and 'aggregation' attributes of the {@link mdxml.OwnedAttribute}
@@ -29,29 +31,20 @@ public class TemporaryAttribute extends UmlAttribute {
 	
 	/**
 	 * Constructor extending the {@link uml.UmlAttribute} constructor with association and aggregation
-	 * @param name the name of the attribute
-	 * @param visibility the {@link UmlVisibility} of the attribute
-	 * @param type the data type of the attribute
-	 * @param isStatic true if the attribute is static
-	 * @param isFinal true if the attribute is final
-	 * @param defaultValue the default value of the attribute
-	 * @param lowerValue the lower multiplicity value
-	 * @param upperValue the upper multiplicity value
-	 * @param association the reference to the association
-	 * @param aggregation the type of the aggregation
+	 * 
+	 * @param ownedAttribute the {@link mdxml.OwnedAttribute} containing to be converted
 	 */
-	public TemporaryAttribute(String name, 
-			UmlVisibility visibility, 
-			String type, 
-			boolean isStatic, 
-			boolean isFinal, 
-			String defaultValue,
-			UmlMultiplicityValue lowerValue, 
-			UmlMultiplicityValue upperValue,
-			String association,
-			String aggregation) {
-		super(name, visibility, type, isStatic, isFinal, defaultValue, lowerValue, upperValue);
-		this.association = association;
-		this.aggregation = aggregation;
+	public TemporaryAttribute(OwnedAttribute ownedAttribute) {
+		super(ownedAttribute.getName(),
+				ModifierConverter.convertAccessModifier(ownedAttribute.getVisibility()), 
+				DataTypeConverter.convertDataType(ownedAttribute.getAssociationType(), ownedAttribute.getDataType()), 
+				ModifierConverter.convertNonAccessModifier(ownedAttribute.getIsStatic()), 
+				ModifierConverter.convertNonAccessModifier(ownedAttribute.getIsFinal()),
+				(ownedAttribute.getDefaultValue() != null ? ownedAttribute.getDefaultValue().getValue() : ""), 
+				MultiplicityConverter.convertLowerValue(ownedAttribute.getLowerValue()), 
+				MultiplicityConverter.convertUpperValue(ownedAttribute.getUpperValue()));
+		
+		association = ownedAttribute.getAssociation();
+		aggregation = ownedAttribute.getAggregation();
 	}
 }

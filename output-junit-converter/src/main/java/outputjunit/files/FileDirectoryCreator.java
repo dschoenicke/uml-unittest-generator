@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import junit.JunitPackage;
 import junit.JunitParent;
@@ -19,6 +21,15 @@ import junit.JunitRepresentation;
  */
 public class FileDirectoryCreator {
 
+	private FileDirectoryCreator() {
+		throw new IllegalStateException("utility class");
+	}
+	
+	/**
+	 * The {@link org.slf4j.Logger} to be used in the methods
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger("");
+	
 	/**
 	 * Static method to create the directories for the test files of the given {@link junit.JunitRepresentation}.<br>
 	 * Hereby, a directory for each package is created, which will contain its sub packages and test files.<br>
@@ -33,8 +44,7 @@ public class FileDirectoryCreator {
 		try {
 			FileUtils.deleteDirectory(new File(testFilePath));
 		} catch (IOException e) {
-			System.out.println("\n\u001B[0m91Error while creating a directory!\nThe directory " + testFilePath +
-					" already exists and could not be overwritten!\n\u001B[0m");
+			LOG.error("The directory {} already exists and could not be overwritten!", testFilePath);
 			return;
 		}
 		
@@ -65,9 +75,7 @@ public class FileDirectoryCreator {
 				}
 			}
 		} catch (IOException e) {
-			System.out.println("\n\u001B[0m91Error while creating a directory!\nThe directory " + testFilePath +
-					" could not be created!\n\u001B[0m");
-			return;
+			LOG.error("The directory {} could not be created!", testFilePath);
 		}
 	}
 }

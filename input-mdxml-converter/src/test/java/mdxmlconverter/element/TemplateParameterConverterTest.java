@@ -3,6 +3,7 @@ package mdxmlconverter.element;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -100,13 +101,13 @@ public class TemplateParameterConverterTest {
 	 */
 	@Test
 	public void testConvertTemplateParametersModel() {
-		ArrayList<UmlTemplateParameter> convertedTemplateParameters = TemplateParameterConverter.convertTemplateParameters(mockSignature, mockTmpModel);
-		assertEquals(convertedTemplateParameters.get(0).getName(), "T");
-		assertEquals(convertedTemplateParameters.get(0).getType(), "java.lang.Object");
-		assertEquals(convertedTemplateParameters.get(1).getName(), "U");
-		assertEquals(convertedTemplateParameters.get(1).getType(), "123");
-		assertEquals(convertedTemplateParameters.get(2).getName(), "V");
-		assertEquals(convertedTemplateParameters.get(2).getType(), "String");
+		List<UmlTemplateParameter> convertedTemplateParameters = TemplateParameterConverter.convertTemplateParameters(mockSignature, mockTmpModel);
+		assertEquals("T", convertedTemplateParameters.get(0).getName());
+		assertEquals("java.lang.Object", convertedTemplateParameters.get(0).getType());
+		assertEquals("U", convertedTemplateParameters.get(1).getName());
+		assertEquals("123", convertedTemplateParameters.get(1).getType());
+		assertEquals("V", convertedTemplateParameters.get(2).getName());
+		assertEquals("String", convertedTemplateParameters.get(2).getType());
 		assertEquals(convertedTemplateParameters.get(0), mockTmpModel.getTemplateParameterIDs().get("unconstrained"));
 		assertEquals(convertedTemplateParameters.get(1), mockTmpModel.getTemplateParameterIDs().get("constrained"));
 		assertEquals(convertedTemplateParameters.get(2), mockTmpModel.getTemplateParameterIDs().get("constrainedPrimitive"));
@@ -119,7 +120,7 @@ public class TemplateParameterConverterTest {
 	public void testConvertTemplateParametersElement() {
 		UmlClass mockElement = new UmlClass("Test", UmlVisibility.PUBLIC, false, false, false);
 		TemplateParameterConverter.convertTemplateParameters(null, mockElement, mockTmpModel);
-		assertEquals(mockElement.getTemplateParameters().size(), 0);
+		assertEquals(0, mockElement.getTemplateParameters().size());
 		TemplateParameterConverter.convertTemplateParameters(mockSignature, mockElement, mockTmpModel);
 		assertEquals(mockElement.getTemplateParameters().size(), mockSignature.getOwnedParameters().size());
 	}
@@ -131,7 +132,7 @@ public class TemplateParameterConverterTest {
 	public void testConvertTemplateParametersOperation() {
 		UmlOperation mockOperation = new UmlOperation("Test", UmlVisibility.PUBLIC);
 		TemplateParameterConverter.convertTemplateParameters(null, mockOperation, mockTmpModel);
-		assertEquals(mockOperation.getTemplateParameters().size(), 0);
+		assertEquals(0, mockOperation.getTemplateParameters().size());
 		TemplateParameterConverter.convertTemplateParameters(mockSignature, mockOperation, mockTmpModel);
 		assertEquals(mockOperation.getTemplateParameters().size(), mockSignature.getOwnedParameters().size());
 	}

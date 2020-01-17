@@ -2,7 +2,7 @@ package umlcodeconverter.element;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import code.CodeConstructor;
 import code.CodeElement;
@@ -27,6 +27,10 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class TemplateBindingConverter {
 
+	private TemplateBindingConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting a given list of {@link uml.UmlTemplateBinding}s to {@link code.CodeTemplateBinding}s
 	 * 
@@ -34,7 +38,7 @@ public class TemplateBindingConverter {
 	 * @param codeParent the {@link code.CodeParent} to add the converted {@link code.CodeTemplateBinding} to
 	 * @param tmpModel the {@link umlcodeconverter.temporary.TemporaryModel} containing the maps to add temporary {@link code.CodeTemplateBinding}s to
 	 */
-	public static void convertTemplateBindings(ArrayList<UmlTemplateBinding> templateBindings, CodeParent codeParent, TemporaryModel tmpModel) {
+	public static void convertTemplateBindings(List<UmlTemplateBinding> templateBindings, CodeParent codeParent, TemporaryModel tmpModel) {
 		for (UmlTemplateBinding templateBinding : templateBindings) {
 			convertTemporaryTemplateBinding(templateBinding, codeParent, tmpModel);
 		}
@@ -55,10 +59,10 @@ public class TemplateBindingConverter {
 			((CodeElement) codeParent).addTemplateBinding(codeTemplateBinding);
 		}
 		else if (codeParent instanceof CodeConstructor) {
-			((CodeConstructor) codeParent).addTemplateBinding(codeTemplateBinding);
+			((CodeConstructor) codeParent).getTemplateBindings().add(codeTemplateBinding);
 		}
 		else if (codeParent instanceof CodeMethod) {
-			((CodeMethod) codeParent).addTemplateBinding(codeTemplateBinding);
+			((CodeMethod) codeParent).getTemplateBindings().add(codeTemplateBinding);
 		}
 	}
 	

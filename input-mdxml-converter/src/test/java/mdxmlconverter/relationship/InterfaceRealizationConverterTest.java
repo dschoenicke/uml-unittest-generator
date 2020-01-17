@@ -72,7 +72,7 @@ public class InterfaceRealizationConverterTest {
 		assertTrue(mockTmpModel.getRelationships().contains(tmpRelationship));
 		assertEquals(tmpRelationship.getClientId(), mockPackagedElement.getId());
 		assertEquals(tmpRelationship.getSupplierId(), mockInterfaceRealization.getContract());
-		assertEquals(tmpRelationship.getType(), UmlRelationshipType.INTERFACEREALIZATION);
+		assertEquals(UmlRelationshipType.INTERFACEREALIZATION, tmpRelationship.getType());
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class InterfaceRealizationConverterTest {
 		assertTrue(mockTmpModel.getRelationships().contains(tmpRelationship));
 		assertEquals(tmpRelationship.getClientId(), mockPackagedElement.getId());
 		assertEquals(tmpRelationship.getSupplierId(), mockInterfaceRealization.getContract());
-		assertEquals(tmpRelationship.getType(), UmlRelationshipType.INTERFACEREALIZATION);
+		assertEquals(UmlRelationshipType.INTERFACEREALIZATION, tmpRelationship.getType());
 	}
 	
 	/**
@@ -100,6 +100,6 @@ public class InterfaceRealizationConverterTest {
 		assertTrue(mockPackage.getRelationships().contains(tmpRelationship));
 		assertEquals(tmpRelationship.getClientId(), mockPackagedElement.getId());
 		assertEquals(tmpRelationship.getSupplierId(), mockInterfaceRealization.getContract());
-		assertEquals(tmpRelationship.getType(), UmlRelationshipType.INTERFACEREALIZATION);
+		assertEquals(UmlRelationshipType.INTERFACEREALIZATION, tmpRelationship.getType());
 	}
 }

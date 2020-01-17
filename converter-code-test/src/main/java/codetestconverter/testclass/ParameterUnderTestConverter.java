@@ -1,6 +1,7 @@
 package codetestconverter.testclass;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import code.CodeParameter;
 import test.testobjects.ParameterUnderTest;
@@ -13,13 +14,17 @@ import test.testobjects.ParameterUnderTest;
  */
 public class ParameterUnderTestConverter {
 
+	private ParameterUnderTestConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert a list of {@link code.CodeParameter}s to a list of {@link test.testobjects.ParameterUnderTest}.
 	 * 
 	 * @param parameters the {@link code.CodeParameter}s to be converted.
 	 * @return the converted {@link test.testobjects.ParameterUnderTest}
 	 */
-	public static ArrayList<ParameterUnderTest> convertParametersUnderTest(ArrayList<CodeParameter> parameters) {
+	public static List<ParameterUnderTest> convertParametersUnderTest(List<CodeParameter> parameters) {
 		ArrayList<ParameterUnderTest> parametersUnderTest = new ArrayList<>();
 		
 		for (CodeParameter parameter : parameters) {

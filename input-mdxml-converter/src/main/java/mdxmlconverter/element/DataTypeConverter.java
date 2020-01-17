@@ -15,6 +15,10 @@ import mdxmlconverter.temporary.TemporaryModel;
  */
 public class DataTypeConverter {
 	
+	private DataTypeConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting the string representing the data type of a given {@link mdxml.Extension} or sets the data type to the id of a {@link mdxml.PackagedElement} if the data type is a reference
 	 * 

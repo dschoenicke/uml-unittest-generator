@@ -13,7 +13,7 @@ import uml.UmlVisibility;
  *
  */
 public class ModifierConverter extends Modifier {
-
+	
 	/**
 	 * Static method to convert a given {@link uml.UmlVisibility} and boolean values for the non access modifiers of 
 	 * a {@link uml.UmlElement}, {@link uml.UmlAttribute}, {@link uml.UmlOperation} or {@link uml.UmlParameter} to an int value.

@@ -19,10 +19,10 @@ public class ParameterDirectionConverterTest {
 	 */
 	@Test
 	public void testParameterDirectionConverter() {
-		assertEquals(ParameterDirectionConverter.convertDirection(null), UmlParameterDirection.IN);
-		assertEquals(ParameterDirectionConverter.convertDirection("in"), UmlParameterDirection.IN);
-		assertEquals(ParameterDirectionConverter.convertDirection("inout"), UmlParameterDirection.INOUT);
-		assertEquals(ParameterDirectionConverter.convertDirection("out"), UmlParameterDirection.OUT);
-		assertEquals(ParameterDirectionConverter.convertDirection("return"), UmlParameterDirection.RETURN);
+		assertEquals(UmlParameterDirection.IN, ParameterDirectionConverter.convertDirection(null));
+		assertEquals(UmlParameterDirection.IN, ParameterDirectionConverter.convertDirection("in"));
+		assertEquals(UmlParameterDirection.INOUT, ParameterDirectionConverter.convertDirection("inout"));
+		assertEquals(UmlParameterDirection.OUT, ParameterDirectionConverter.convertDirection("out"));
+		assertEquals(UmlParameterDirection.RETURN, ParameterDirectionConverter.convertDirection("return"));
 	}
 }

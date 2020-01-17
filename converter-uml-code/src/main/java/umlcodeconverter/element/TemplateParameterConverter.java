@@ -1,6 +1,6 @@
 package umlcodeconverter.element;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import code.CodeConstructor;
 import code.CodeElement;
@@ -18,6 +18,10 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class TemplateParameterConverter {
 
+	private TemplateParameterConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert {@link uml.UmlTemplateParameter}s to {@link code.CodeTemplateParameter}s and adding them to the {@link code.CodeParent}
 	 * 
@@ -25,17 +29,17 @@ public class TemplateParameterConverter {
 	 * @param codeParent the {@link code.CodeParent} to add the converted {@link code.CodeTemplateParameter}s to
 	 * @param tmpModel the {@link umlcodeconverter.temporary.TemporaryModel} containing the map to add the converted {@link code.CodeTemplateParameter}s to
 	 */
-	public static void convertTemplateParameters(ArrayList<UmlTemplateParameter> templateParameters, CodeParent codeParent, TemporaryModel tmpModel) {
+	public static void convertTemplateParameters(List<UmlTemplateParameter> templateParameters, CodeParent codeParent, TemporaryModel tmpModel) {
 		for (UmlTemplateParameter templateParameter : templateParameters) {
 			
 			if (codeParent instanceof CodeElement) {
 				((CodeElement) codeParent).addTemplateParameter(convertTemplateParameter(templateParameter, codeParent, tmpModel));
 			}
 			else if (codeParent instanceof CodeConstructor) {
-				((CodeConstructor) codeParent).addTemplateParameter(convertTemplateParameter(templateParameter, codeParent, tmpModel));
+				((CodeConstructor) codeParent).getTemplateParameters().add(convertTemplateParameter(templateParameter, codeParent, tmpModel));
 			}
 			else if (codeParent instanceof CodeMethod) {
-				((CodeMethod) codeParent).addTemplateParameter(convertTemplateParameter(templateParameter, codeParent, tmpModel));
+				((CodeMethod) codeParent).getTemplateParameters().add(convertTemplateParameter(templateParameter, codeParent, tmpModel));
 			}
 		}
 	}

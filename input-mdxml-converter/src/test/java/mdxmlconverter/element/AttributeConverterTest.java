@@ -66,14 +66,14 @@ public class AttributeConverterTest {
 		assertEquals(umlAttribute, mockTmpModel.getAttributeIDs().get(mockOwnedAttribute.getId()));
 		assertEquals(umlAttribute.getName(), mockOwnedAttribute.getName());
 		assertEquals(umlAttribute.getType(), mockOwnedAttribute.getAssociationType());
-		assertEquals(umlAttribute.getVisibility(), UmlVisibility.PUBLIC);
-		assertEquals(umlAttribute.getLowerValue(), UmlMultiplicityValue.ONE);
-		assertEquals(umlAttribute.getUpperValue(), UmlMultiplicityValue.ONE);
-		assertEquals(umlAttribute.getDefaultValue(), "");
+		assertEquals(UmlVisibility.PUBLIC, umlAttribute.getVisibility());
+		assertEquals(UmlMultiplicityValue.ONE, umlAttribute.getLowerValue());
+		assertEquals(UmlMultiplicityValue.ONE, umlAttribute.getUpperValue());
+		assertEquals("", umlAttribute.getDefaultValue());
 		mockOwnedAttribute.setDefaultValue(new DefaultValue());
 		mockOwnedAttribute.getDefaultValue().setValue("test");
 		AttributeConverter.convertAttributes(mockPackagedElement, mockClass, mockTmpModel);
 		umlAttribute = mockClass.getAttributes().get(1);
-		assertEquals(umlAttribute.getDefaultValue(), "test");
+		assertEquals("test", umlAttribute.getDefaultValue());
 	}
 }

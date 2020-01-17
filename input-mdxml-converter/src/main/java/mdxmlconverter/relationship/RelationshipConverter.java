@@ -7,6 +7,9 @@ import mdxmlconverter.temporary.TemporaryAttribute;
 import mdxmlconverter.temporary.TemporaryModel;
 import mdxmlconverter.temporary.TemporaryRelationship;
 import uml.UmlElement;
+import uml.UmlModel;
+import uml.UmlPackage;
+import uml.UmlParent;
 import uml.UmlRelationshipType;
 
 /**
@@ -18,28 +21,40 @@ import uml.UmlRelationshipType;
  */
 public class RelationshipConverter {
 	
+	private RelationshipConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert {@link mdxml.PackagedElement}s of type 'uml:Association' and 'uml:Usage' to {@link mdxmlconverter.temporary.TemporaryRelationship}s
 	 * Delegates the conversion of {@link mdxml.PackagedElement}s of type 'uml:Association' to the {@link mdxmlconverter.relationship.AssociationConverter}
 	 * Delegates the conversion of {@link mdxml.PackagedElement}s of type 'uml:Usage' to the {@link mdxmlconverter.relationship.DependencyConverter}
 	 * 
 	 * @param packagedElement the {@link mdxml.PackagedElement} which should be converted
+	 * @param parent the {@link uml.UmlParent} to add the {@link mdxmlconverter.temporary.TemporaryRelationship} to
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
 	 * @return the converted {@link mdxmlconverter.temporary.TemporaryRelationship} 
 	 */
-	public static TemporaryRelationship convertRelationship(PackagedElement packagedElement, TemporaryModel tmpModel) {
+	public static TemporaryRelationship convertRelationship(PackagedElement packagedElement, UmlParent parent, TemporaryModel tmpModel) {
 		TemporaryRelationship relationship = null;
 		
 		switch (packagedElement.getType()) {
-			case "uml:Association": {
+			case "uml:Association":
 				relationship = AssociationConverter.convertAssociation(packagedElement, tmpModel);
 				break;
-			}
-			case "uml:Usage": {
+				
+			case "uml:Usage": 
 				relationship = DependencyConverter.convertDependency(packagedElement, tmpModel);
 				break;
-			}
-			default: break;
+				
+			default: return null;
+		}
+		
+		if (parent instanceof UmlModel) {
+			((UmlModel) parent).addRelationship(relationship);
+		}
+		else if (parent instanceof UmlPackage) {
+			((UmlPackage) parent).addRelationship(relationship);
 		}
 		
 		return relationship;

@@ -72,7 +72,7 @@ public class GeneralizationConverterTest {
 		assertTrue(mockModel.getRelationships().contains(tmpRelationship));
 		assertEquals(tmpRelationship.getClientId(), mockPackagedElement.getId());
 		assertEquals(tmpRelationship.getSupplierId(), mockGeneralization.getGeneral());
-		assertEquals(tmpRelationship.getType(), UmlRelationshipType.GENERALIZATION);
+		assertEquals(UmlRelationshipType.GENERALIZATION, tmpRelationship.getType());
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class GeneralizationConverterTest {
 		assertTrue(mockPackage.getRelationships().contains(tmpRelationship));
 		assertEquals(tmpRelationship.getClientId(), mockPackagedElement.getId());
 		assertEquals(tmpRelationship.getSupplierId(), mockGeneralization.getGeneral());
-		assertEquals(tmpRelationship.getType(), UmlRelationshipType.GENERALIZATION);
+		assertEquals(UmlRelationshipType.GENERALIZATION, tmpRelationship.getType());
 	}
 	
 	/**
@@ -100,6 +100,6 @@ public class GeneralizationConverterTest {
 		assertTrue(mockPackage.getRelationships().contains(tmpRelationship));
 		assertEquals(tmpRelationship.getClientId(), mockPackagedElement.getId());
 		assertEquals(tmpRelationship.getSupplierId(), mockGeneralization.getGeneral());
-		assertEquals(tmpRelationship.getType(), UmlRelationshipType.GENERALIZATION);
+		assertEquals(UmlRelationshipType.GENERALIZATION, tmpRelationship.getType());
 	}
 }

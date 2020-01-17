@@ -18,6 +18,10 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class GeneralizationConverter {
 
+	private GeneralizationConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method adding a {@link code.CodeElement} converted out of the supplier {@link uml.UmlElement} of an {@link uml.UmlRelationship}
 	 * of type {@link uml.UmlRelationshipType#GENERALIZATION} to the {@link code.CodeElement} converted out of the client {@link uml.UmlElement} of this {@link uml.UmlRelationship}.

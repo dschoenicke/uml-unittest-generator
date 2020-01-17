@@ -1,6 +1,6 @@
 package umlcodeconverter.relationship;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import uml.UmlRelationship;
 import uml.UmlRelationshipType;
@@ -16,6 +16,10 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class RelationshipConverter {
 
+	private RelationshipConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method delegating the conversion of {@link uml.UmlRelationship}s of type {@link uml.UmlRelationshipType#GENERALIZATION} 
 	 * to the {@link umlcodeconverter.relationship.GeneralizationConverter} and those of type {@link uml.UmlRelationshipType#INTERFACEREALIZATION}
@@ -24,7 +28,7 @@ public class RelationshipConverter {
 	 * @param relationships the list of {@link uml.UmlRelationship}s to be converted
 	 * @param tmpModel the {@link umlcodeconverter.temporary.TemporaryModel} containing the map of {@link uml.UmlElement}s and {@link code.CodeElement}s used to convert the {@link uml.UmlRelationship}s
 	 */
-	public static void convertRelationships(ArrayList<UmlRelationship> relationships, TemporaryModel tmpModel) {
+	public static void convertRelationships(List<UmlRelationship> relationships, TemporaryModel tmpModel) {
 		for (UmlRelationship relationship : relationships) {
 			if (relationship.getType() == UmlRelationshipType.GENERALIZATION) {
 				GeneralizationConverter.convertGeneralization(relationship, tmpModel);

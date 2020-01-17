@@ -1,6 +1,7 @@
 package mdxml;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -65,31 +66,31 @@ public class PackagedElement {
 	 * The list of the {@link OwnedAttribute}s if the packaged element describes a class
 	 */
 	@XmlElement(name = "ownedAttribute")
-	private ArrayList<OwnedAttribute> ownedAttributes;
+	private List<OwnedAttribute> ownedAttributes;
 	
 	/**
 	 * The list of the {@link OwnedOperation}s if the packaged element describes a class or an interface
 	 */
 	@XmlElement(name = "ownedOperation")
-	private ArrayList<OwnedOperation> ownedOperations;
+	private List<OwnedOperation> ownedOperations;
 	
 	/**
 	 * The list of the {@link OwnedLiteral}s if the packaged element describes an enumeration
 	 */
 	@XmlElement(name = "ownedLiteral")
-	private ArrayList<OwnedLiteral> ownedLiterals;
+	private List<OwnedLiteral> ownedLiterals;
 	
 	/**
 	 * The list of the {@link PackagedElement}s if the packaged element describes a package
 	 */
 	@XmlElement(name = "packagedElement")
-	private ArrayList<PackagedElement> packagedElements;
+	private List<PackagedElement> packagedElements;
 	
 	/**
 	 * The list of {@link TemplateBinding}s if the packaged element describes a class or an interface
 	 */
 	@XmlElement(name = "templateBinding")
-	private ArrayList<TemplateBinding> templateBindings;
+	private List<TemplateBinding> templateBindings;
 	
 	/**
 	 * The list of the {@link OwnedTemplateSignature}s if the packaged element describes a class or an interface
@@ -107,7 +108,7 @@ public class PackagedElement {
 	 * The list of {@link InterfaceRealization}s if the packaged element describes an element which implements interfaces
 	 */
 	@XmlElement(name = "interfaceRealization")
-	private ArrayList<InterfaceRealization> interfaceRealizations;
+	private List<InterfaceRealization> interfaceRealizations;
 	
 	/**
 	 * The {@link Client} description if the packaged element describes an association
@@ -125,7 +126,7 @@ public class PackagedElement {
 	 * The {@link MemberEnd} descriptions if the packaged element describes an association
 	 */
 	@XmlElement(name = "memberEnd")
-	private ArrayList<MemberEnd> memberEnds;
+	private List<MemberEnd> memberEnds;
 	
 	/**
 	 * The {@link ownedEnd} description if the packaged element describes an association
@@ -137,19 +138,19 @@ public class PackagedElement {
 	 * List of inner classes of the element
 	 */
 	@XmlElement(name = "nestedClassifier")
-	private ArrayList<PackagedElement> nestedClassifiers;
+	private List<PackagedElement> nestedClassifiers;
  	
 	/**
 	 * Default constructor
 	 * Initializes lists for {@link OwnedAttribute}s, {@link OwnedOperation}s, {@link OwnedLiteral}s, {@link TemplateBinding}s, {@link PackagedElement}s, {@link InterfaceRealization}s and {@link MemberEnd}s
 	 */
 	public PackagedElement() {
-		ownedAttributes = new ArrayList<OwnedAttribute>();
-		ownedOperations = new ArrayList<OwnedOperation>();
-		ownedLiterals = new ArrayList<OwnedLiteral>();
-		packagedElements = new ArrayList<PackagedElement>();
-		nestedClassifiers = new ArrayList<PackagedElement>();
-		templateBindings = new ArrayList<TemplateBinding>();
-		interfaceRealizations = new ArrayList<InterfaceRealization>();
+		ownedAttributes = new ArrayList<>();
+		ownedOperations = new ArrayList<>();
+		ownedLiterals = new ArrayList<>();
+		packagedElements = new ArrayList<>();
+		nestedClassifiers = new ArrayList<>();
+		templateBindings = new ArrayList<>();
+		interfaceRealizations = new ArrayList<>();
 	}
 }

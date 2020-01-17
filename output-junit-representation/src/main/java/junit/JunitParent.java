@@ -1,6 +1,6 @@
 package junit;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface implemented by the {@link JunitRepresentation} and {@link JunitPackage}, provides a method the get its {@link JunitPackage}s
@@ -11,5 +11,5 @@ import java.util.ArrayList;
 public interface JunitParent {
 	public String getName();
 	
-	public ArrayList<JunitPackage> getPackages();
+	public List<JunitPackage> getPackages();
 }

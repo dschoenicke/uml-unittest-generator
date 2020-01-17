@@ -2,7 +2,7 @@ package mdxmlconverter.relationship;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import mdxml.InterfaceRealization;
 import mdxml.PackagedElement;
@@ -21,6 +21,10 @@ import uml.UmlRelationshipType;
  */
 public class InterfaceRealizationConverter {
 
+	private InterfaceRealizationConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting the {@link mdxml.InterfaceRealization}s of a {@link mdxml.PackagedElement} to a {@link mdxmlconverter.temporary.TemporaryRelationship} with references to the contract and the element itself
 	 * 
@@ -28,7 +32,7 @@ public class InterfaceRealizationConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
 	 * @param parent the {@link uml.UmlParent} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link mdxmlconverter.temporary.TemporaryRelationship} should be added
 	 */
-	public static void convertInterfaceRealizations(ArrayList<InterfaceRealization> realizations, TemporaryModel tmpModel, UmlParent parent) {
+	public static void convertInterfaceRealizations(List<InterfaceRealization> realizations, TemporaryModel tmpModel, UmlParent parent) {
 		for (InterfaceRealization realization : realizations) {
 			assertNotNull("The client of an interfaceRealization must not be null!\nOccurance in interfaceRealization " + realization.getId());
 			assertNotNull("The contract of an interfaceRealization must not be null!\nOccurance in interfaceRealization " + realization.getId());

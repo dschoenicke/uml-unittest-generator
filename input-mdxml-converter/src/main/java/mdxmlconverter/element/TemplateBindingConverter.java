@@ -3,6 +3,7 @@ package mdxmlconverter.element;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mdxml.ParameterSubstitution;
 import mdxml.TemplateBinding;
@@ -21,13 +22,17 @@ import uml.UmlTemplateBinding;
  */
 public class TemplateBindingConverter {
 
+	private TemplateBindingConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting {@link mdxml.TemplateBinding}s of an {@link mdxml.OwnedOperation} to {@link mdxmlconverter.temporary.TemporaryTemplateBinding}s and adds them to the owning {@link uml.UmlOperation}
 	 * 
 	 * @param templateBindings a list of {@link mdxml.TemplateBinding}s which should be converted
 	 * @param operation the {@link uml.UmlOperation} to which the converted {@link mdxmlconverter.temporary.TemporaryTemplateBinding}s should be added
 	 */
-	public static void convertTemplateBindings(ArrayList<TemplateBinding> templateBindings, UmlOperation operation) {
+	public static void convertTemplateBindings(List<TemplateBinding> templateBindings, UmlOperation operation) {
 		for (TemporaryTemplateBinding tmpBinding : convertTemporaryTemplateBindings(templateBindings)) {
 			operation.addTemplateBinding(tmpBinding);
 		}
@@ -39,7 +44,7 @@ public class TemplateBindingConverter {
 	 * @param templateBindings a list of {@link mdxml.TemplateBinding}s which should be converted
 	 * @param element the {@link uml.UmlElement} to which the converted {@link mdxmlconverter.temporary.TemporaryTemplateBinding}s should be added
 	 */
-	public static void convertTemplateBindings(ArrayList<TemplateBinding> templateBindings, UmlElement element) {
+	public static void convertTemplateBindings(List<TemplateBinding> templateBindings, UmlElement element) {
 		for (TemporaryTemplateBinding tmpBinding : convertTemporaryTemplateBindings(templateBindings)) {
 			element.addTemplateBinding(tmpBinding);
 		}
@@ -52,8 +57,8 @@ public class TemplateBindingConverter {
 	 * @param templateBindings the list of {@link mdxml.TemplateBinding}s which should be converted
 	 * @return the list of converted {@link mdxmlconverter.temporary.TemporaryTemplateBinding}s
 	 */
-	public static ArrayList<TemporaryTemplateBinding> convertTemporaryTemplateBindings(ArrayList<TemplateBinding> templateBindings) {
-		ArrayList<TemporaryTemplateBinding> tmpBindings = new ArrayList<>();
+	public static List<TemporaryTemplateBinding> convertTemporaryTemplateBindings(List<TemplateBinding> templateBindings) {
+		List<TemporaryTemplateBinding> tmpBindings = new ArrayList<>();
 		
 		for (TemplateBinding templateBinding : templateBindings) {
 			TemporaryTemplateBinding tmpBinding = new TemporaryTemplateBinding();

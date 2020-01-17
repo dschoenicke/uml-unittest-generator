@@ -2,6 +2,7 @@ package mdxml;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import javax.xml.bind.JAXBException;
 
@@ -46,12 +47,12 @@ public class PackagedElementTests extends MdxmlRepresentationTests {
 	 */
 	@Test 
 	public void packagedElementAttributeTest() {
-		assertEquals(element.getId(), "_19_0_1_62d0212_1572527221607_338771_4722");
-		assertEquals(element.getName(), "PackagedElement");
-		assertEquals(element.getType(), "uml:Class");
-		assertEquals(element.getIsAbstract(), null);
-		assertEquals(element.getIsFinal(), null);
-		assertEquals(element.getIsStatic(), null);
+		assertEquals("_19_0_1_62d0212_1572527221607_338771_4722", element.getId());
+		assertEquals("PackagedElement", element.getName());
+		assertEquals("uml:Class", element.getType());
+		assertNull(element.getIsAbstract());
+		assertNull(element.getIsFinal());
+		assertNull(element.getIsStatic());
 	}
 	
 	/**
@@ -59,7 +60,7 @@ public class PackagedElementTests extends MdxmlRepresentationTests {
 	 */
 	@Test
 	public void packagedElementOwnedAttributeTest() {
-		assertEquals(element.getOwnedAttributes().size(), 23);
+		assertEquals(23, element.getOwnedAttributes().size());
 	}
 	
 	/**
@@ -67,6 +68,6 @@ public class PackagedElementTests extends MdxmlRepresentationTests {
 	 */
 	@Test
 	public void packagedElementOwnedOperationsTest() {
-		assertEquals(element.getOwnedOperations().size(), 41);
+		assertEquals(41, element.getOwnedOperations().size());
 	}
 }

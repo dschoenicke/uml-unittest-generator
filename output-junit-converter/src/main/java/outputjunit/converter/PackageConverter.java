@@ -16,6 +16,10 @@ import test.TestRepresentation;
  */
 public class PackageConverter {
 
+	private PackageConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert {@link test.TestPackage}s of a given {@link test.TestParent} to a {@link junit.JunitPackage}.
 	 * 

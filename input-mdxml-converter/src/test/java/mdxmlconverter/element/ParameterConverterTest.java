@@ -63,11 +63,11 @@ public class ParameterConverterTest {
 		mockOwnedParameter.setDirection(null);
 		ParameterConverter.convertParameters(mockOwnedOperation, mockOperation, mockTmpModel);
 		UmlParameter umlParameter = mockOperation.getParameters().get(0);
-		assertEquals(umlParameter.getName(), "param");
-		assertEquals(umlParameter.getDirection(), UmlParameterDirection.IN);
+		assertEquals("param", umlParameter.getName());
+		assertEquals(UmlParameterDirection.IN, umlParameter.getDirection());
 		assertEquals(umlParameter.getType(), mockOwnedParameter.getAssociationType());
-		assertEquals(umlParameter.getLowerValue(), UmlMultiplicityValue.ONE);
-		assertEquals(umlParameter.getUpperValue(), UmlMultiplicityValue.ONE);
+		assertEquals(UmlMultiplicityValue.ONE, umlParameter.getLowerValue());
+		assertEquals(UmlMultiplicityValue.ONE, umlParameter.getUpperValue());
 	}
 	
 	/**
@@ -79,10 +79,10 @@ public class ParameterConverterTest {
 		TemporaryModel mockTmpModel = new TemporaryModel();
 		ParameterConverter.convertParameters(mockOwnedOperation, mockOperation, mockTmpModel);
 		UmlParameter umlParameter = mockOperation.getParameters().get(0);
-		assertEquals(umlParameter.getName(), "");
-		assertEquals(umlParameter.getDirection(), UmlParameterDirection.RETURN);
+		assertEquals("", umlParameter.getName());
+		assertEquals(UmlParameterDirection.RETURN, umlParameter.getDirection());
 		assertEquals(umlParameter.getType(), mockOwnedParameter.getAssociationType());
-		assertEquals(umlParameter.getLowerValue(), UmlMultiplicityValue.ONE);
-		assertEquals(umlParameter.getUpperValue(), UmlMultiplicityValue.ONE);
+		assertEquals(UmlMultiplicityValue.ONE, umlParameter.getLowerValue());
+		assertEquals(UmlMultiplicityValue.ONE, umlParameter.getUpperValue());
 	}
 }

@@ -1,6 +1,7 @@
 package junit;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -21,7 +22,7 @@ public class JunitRepresentation implements JunitParent {
 	/**
 	 * List of {@link JunitPackage}s of the representation
 	 */
-	private ArrayList<JunitPackage> packages;
+	private List<JunitPackage> packages;
 	
 	/**
 	 * Constructor with name, initializes the list of {@link JunitPackage}s
@@ -47,7 +48,7 @@ public class JunitRepresentation implements JunitParent {
 	 * 
 	 * @return all {@link JunitTestClass}es of the representation, regardless of their hierarchy
 	 */
-	public ArrayList<JunitTestClass> getTestClassesAsList() {
+	public List<JunitTestClass> getTestClassesAsList() {
 		ArrayList<JunitTestClass> ownedTestClasses = new ArrayList<>();
 		
 		for (JunitPackage subPackage : this.getPackages()) {

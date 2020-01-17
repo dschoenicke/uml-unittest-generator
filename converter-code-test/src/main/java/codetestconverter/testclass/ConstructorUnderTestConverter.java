@@ -13,6 +13,10 @@ import test.testobjects.ConstructorUnderTest;
  */
 public class ConstructorUnderTestConverter {
 
+	private ConstructorUnderTestConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert {@link code.CodeConstructor}s of a given {@link code.CodeElement} to {@link test.testobjects.ConstructorUnderTest} and adding them to a given {@link test.testobjects.ClassUnderTest}.
 	 * 

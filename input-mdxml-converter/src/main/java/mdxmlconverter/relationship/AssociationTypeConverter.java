@@ -10,6 +10,10 @@ import uml.UmlRelationshipType;
  */
 public class AssociationTypeConverter {
 
+	private AssociationTypeConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts a given string representing the aggregation attribute of a {@link mdxmlconverter.temporary.TemporaryAttribute} to an {@link uml.UmlRelationshipType}
 	 * 
@@ -17,20 +21,10 @@ public class AssociationTypeConverter {
 	 * @return the converted {@link uml.UmlRelationshipType}
 	 */
 	public static UmlRelationshipType convertAssociationType(String associationType) {
-		UmlRelationshipType relationshipType = UmlRelationshipType.ASSOCIATION;
-		
 		switch (associationType) {
-			case "shared": {
-				relationshipType = UmlRelationshipType.AGGREGATION;
-				break;
-			}
-			case "composite": {
-				relationshipType = UmlRelationshipType.COMPOSITION;
-				break;
-			}
-			default: break;
+			case "shared": return UmlRelationshipType.AGGREGATION;
+			case "composite": return UmlRelationshipType.COMPOSITION;
+			default: return UmlRelationshipType.ASSOCIATION;
 		}
-		
-		return relationshipType;
 	}
 }

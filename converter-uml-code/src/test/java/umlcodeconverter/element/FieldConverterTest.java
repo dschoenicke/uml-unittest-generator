@@ -29,7 +29,7 @@ public class FieldConverterTest extends TestInitializer {
 		
 		assertEquals(firstAttribute.getName(), mockUmlAttribute.getName());
 		assertEquals(firstAttribute.getType(), mockUmlAttribute.getType());
-		assertEquals(firstAttribute.getModifiers(), Integer.valueOf(2));
+		assertEquals(Integer.valueOf(2), firstAttribute.getModifiers());
 		assertTrue(firstAttribute.getDefaultValue().isEmpty());
 		assertFalse(firstAttribute.getCanBeNull());
 		assertFalse(firstAttribute.getHasMultiplicity());
@@ -37,8 +37,8 @@ public class FieldConverterTest extends TestInitializer {
 		
 		assertEquals(secondAttribute.getName(), mockMultiplicityUmlAttribute.getName());
 		assertEquals(secondAttribute.getType(), mockMultiplicityUmlAttribute.getType());
-		assertEquals(secondAttribute.getModifiers(), Integer.valueOf(2));
-		assertEquals(secondAttribute.getDefaultValue(), "1.0");
+		assertEquals(Integer.valueOf(2), secondAttribute.getModifiers());
+		assertEquals("1.0", secondAttribute.getDefaultValue());
 		assertTrue(secondAttribute.getCanBeNull());
 		assertTrue(secondAttribute.getHasMultiplicity());
 		assertEquals(secondAttribute.getParent(), mockCodeClass);

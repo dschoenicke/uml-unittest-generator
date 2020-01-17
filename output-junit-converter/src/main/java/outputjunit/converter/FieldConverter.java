@@ -12,6 +12,10 @@ import test.testobjects.ClassUnderTest;
  */
 public class FieldConverter {
 
+	private FieldConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts the {@link test.testobjects.FieldUnderTest}s of a given {@link test.testobjects.ClassUnderTest} to {@link junit.JunitFieldUnderTest}.
 	 * 

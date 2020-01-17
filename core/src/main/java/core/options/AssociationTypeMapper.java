@@ -1,7 +1,6 @@
 package core.options;
 
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -10,6 +9,8 @@ import org.mapdb.BTreeMap;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.Serializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import core.Core;
 
@@ -21,6 +22,15 @@ import core.Core;
  */
 public class AssociationTypeMapper {
 
+	private AssociationTypeMapper() {
+		throw new IllegalStateException("utility class");
+	}
+	
+	/**
+	 * The {@link org.slf4j.Logger} to be used in the methods
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger("");
+	
 	/**
 	 * Creates the {@link org.apache.commons.cli.Option}s for the association type mapping administration
 	 * 
@@ -62,53 +72,52 @@ public class AssociationTypeMapper {
 	/**
 	 * Evaluates the input arguments whether they match the {@link org.apache.commons.cli.Options}.
 	 * 
-	 * @param options the {@link org.apache.commons.cli.Options} to be checked
-	 * @param args the input arguments to be checked
+	 * @param cmd the parsed {@link org.apache.commons.cli.CommandLine} containing the arguments
+	 * @param args the command line input arguments to be parsed
 	 * @return true, if the given arguments belong to the association type mapping administration {@link org.apache.commons.cli.Options}.
 	 */
-	public static boolean parseOptions(Options options, String[] args) {
-		try {
-			CommandLine cmd = new DefaultParser().parse(options, args);
+	public static boolean parseOptions(CommandLine cmd, String[] args) {
+		if (cmd.hasOption("aat")) {
+			addAssociationType(args[1], args[2]);
+			return true;
+		}
+		else if (cmd.hasOption("rat")) {
+			replaceAssociationType(args[0], args[1]);
+			return true;
+		}
+		else if (cmd.hasOption("dat")) {
+			deleteAssociationType(args[0]);
+			return true;
+		}
+		else if (cmd.hasOption("cat")) {
+			clearAssociationTypes();
+			return true;
+		}
+		else if (cmd.hasOption("sat")) {
+			showAssociationTypes();
+			return true;
+		}
 			
-			if (cmd.hasOption("aat")) {
-				addAssociationType(args[1], args[2]);
-				return true;
-			}
-			else if (cmd.hasOption("rat")) {
-				replaceAssociationType(args[1], args[2]);
-				return true;
-			}
-			else if (cmd.hasOption("dat")) {
-				deleteAssociationType(args[1]);
-				return true;
-			}
-			else if (cmd.hasOption("cat")) {
-				clearAssociationTypes();
-				return true;
-			}
-			else if (cmd.hasOption("sat")) {
-				showAssociationTypes();
-				return true;
-			}
-			
-			return false;
-		} catch (ParseException e) {
-			
+		return false;
+	}
+	
+	/**
+	 * Checks a thrown {@link org.apache.commons.cli.ParseException} whether it is associated with association type commands
+	 * 
+	 * @param e the {@link org.apache.commons.cli.ParseException} to be parsed.
+	 */
+	public static void checkAssociationTypeParseException(ParseException e) {
+		if (e instanceof MissingArgumentException) {
 			if (((MissingArgumentException) e).getOption().getOpt().equals("aat")) {
-				System.out.println("\tError: -addassociationtype requires arguments <attribute> <collection-type>");
-				System.out.println("\tExample: -addassociationtype Person.friends ArrayList");
-				return true;
+				LOG.error("Error: -addassociationtype requires arguments <attribute> <collection-type>");
+				LOG.error("Example: -addassociationtype Person.friends ArrayList");
 			}
 			else if (((MissingArgumentException) e).getOption().getOpt().equals("rat")) {
-				System.out.println("\tError: -replaceassociationtype requires arguments <attribute> <new-collection-type>");
-				return true;
+				LOG.error("-replaceassociationtype requires arguments <attribute> <new-collection-type>");
 			}
 			else if (((MissingArgumentException) e).getOption().getOpt().equals("dat")) {
-				System.out.println("\tError: -deleteassociationtype requires argument <attribute>");
-				return true;
+				LOG.error("-deleteassociationtype requires argument <attribute>");
 			}
-			
-			return false;
 		}
 	}
 	
@@ -119,22 +128,27 @@ public class AssociationTypeMapper {
 	 * @param collectionType the collection type as the object
 	 */
 	static void addAssociationType(String attribute, String collectionType) {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> associationTypes = null;
 		
-		BTreeMap<String, String> associationTypes = database.treeMap("associationTypes")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
-		
-		if (associationTypes.containsKey(attribute)) {
-			System.out.println("\tError: There is already a mapping for the attribute " + attribute + "!");
-			System.out.println("\tThe mapping for " + attribute + " is " + associationTypes.get(attribute) + ".");
-			return;
+		try {
+			associationTypes = loadAssociationTypesDB(database);
+			
+			if (associationTypes.containsKey(attribute)) {
+				LOG.info("Error: There is already a mapping for the attribute {}!", attribute);
+				LOG.info("The mapping for {} is {}.", attribute, associationTypes.get(attribute));
+				return;
+			}
+			
+			associationTypes.put(attribute, collectionType);
+			LOG.info("The mapping {} -> {} was added.", attribute, collectionType);
+		} finally {
+			if (associationTypes != null) {
+				associationTypes.close();
+			}
+			
+			database.close();
 		}
-		
-		associationTypes.put(attribute, collectionType);
-		database.close();
-		System.out.println("\tThe mapping " + attribute + " -> " + collectionType + " was added.");
 	}
 	
 	/**
@@ -144,22 +158,27 @@ public class AssociationTypeMapper {
 	 * @param collectionType the new value to be set for the entry
 	 */
 	static void replaceAssociationType(String attribute, String collectionType) {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> associationTypes = null;
 		
-		BTreeMap<String, String> associationTypes = database.treeMap("associationTypes")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
-		
-		if (!associationTypes.containsKey(attribute)) {
-			System.out.println("\tError: There is no mapping for the attribute " + attribute + " to be replaced!");
-			return;
+		try {
+			associationTypes = loadAssociationTypesDB(database);
+			
+			if (!associationTypes.containsKey(attribute)) {
+				LOG.error("There is no mapping for the attribute {} to be replaced!", attribute);
+				return;
+			}
+			
+			String oldValue = associationTypes.get(attribute);
+			associationTypes.replace(attribute, collectionType);
+			LOG.info("The mapping {} -> {} was replaced by {} -> {}.", attribute, oldValue, attribute, collectionType);
+		} finally {
+			if (associationTypes != null) {
+				associationTypes.close();
+			}
+			
+			database.close();
 		}
-		
-		String oldValue = associationTypes.get(attribute);
-		associationTypes.replace(attribute, collectionType);
-		database.close();
-		System.out.println("\tThe mapping " + attribute + " -> " + oldValue + " was replaced by " + attribute + " -> " + collectionType + ".");
 	}
 	
 	/**
@@ -168,61 +187,86 @@ public class AssociationTypeMapper {
 	 * @param attribute the key to be deleted
 	 */
 	static void deleteAssociationType(String attribute) {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> associationTypes = null;
 		
-		BTreeMap<String, String> associationTypes = database.treeMap("associationTypes")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
+		try {
+			associationTypes = loadAssociationTypesDB(database);
 		
-		if (!associationTypes.containsKey(attribute)) {
-			System.out.println("\tError: There is no mapping for the attribute " + attribute + " to be deleted!");
-			return;
+			if (!associationTypes.containsKey(attribute)) {
+				LOG.error("There is no mapping for the attribute {} to be deleted!", attribute);
+				return;
+			}
+		
+			String oldValue = associationTypes.get(attribute);
+			associationTypes.remove(attribute);
+			LOG.info("The mapping {} -> {} was deleted.", attribute, oldValue);
+		} finally {
+			if (associationTypes != null) {
+				associationTypes.close();
+			}
+			
+			database.close();
 		}
-		
-		String oldValue = associationTypes.get(attribute);
-		associationTypes.remove(attribute);
-		database.close();
-		System.out.println("\tThe mapping " + attribute + " -> " + oldValue + " was deleted.");
 	}
 	
 	/**
 	 * Deletes all entries
 	 */
 	static void clearAssociationTypes() {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();	
+		BTreeMap<String, String> associationTypes = null;
 		
-		BTreeMap<String, String> associationTypes = database.treeMap("associationTypes")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
-		
-		associationTypes.clear();
-		database.close();
-		System.out.println("\tAll association type mappings were deleted.");
+		try {
+			associationTypes = loadAssociationTypesDB(database);
+			LOG.info("All association type mappings were deleted.");
+		} finally {
+			if (associationTypes != null) {
+				associationTypes.close();
+			}
+			
+			database.close();
+		}
 	}
 	
 	/**
 	 * Prints out a list of all mappings to the console
 	 */
 	static void showAssociationTypes() {
-		DB database = DBMaker.fileDB(Core.dbPath).make();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> associationTypes = null;
 		
-		BTreeMap<String, String> associationTypes = database.treeMap("associationTypes")
+		try {
+			associationTypes = loadAssociationTypesDB(database);
+			
+			if (associationTypes.isEmpty()) {
+				LOG.info("There have no mappings been stored yet!");
+				database.close();
+				return;
+			}
+			
+			associationTypes.forEach((attribute, collectionType) -> 
+				LOG.info("{} -> {}", attribute, collectionType)
+			);
+		} finally {
+			if (associationTypes != null) {
+				associationTypes.close();
+			}
+			
+			database.close();
+		}
+	}
+	
+	/**
+	 * Loads the association types database map
+	 * 
+	 * @param database the mapDB database
+	 * @return the loaded qualified names database map
+	 */
+	static BTreeMap<String, String> loadAssociationTypesDB(DB database) {
+		return database.treeMap("associationTypes")
 				.keySerializer(Serializer.STRING)
 				.valueSerializer(Serializer.STRING)
 				.createOrOpen();
-		
-		if (associationTypes.isEmpty()) {
-			System.out.println("\tThere have no mappings been stored yet!");
-			database.close();
-			return;
-		}
-		
-		associationTypes.forEach((attribute, collectionType) -> {
-			System.out.println("\t" + attribute + " -> " + collectionType);
-		});
-		
-		database.close();
 	}
 }

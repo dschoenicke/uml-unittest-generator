@@ -19,7 +19,7 @@ public class AssociationTypeConverterTest {
 	 */
 	@Test 
 	public void testSharedRelationship() {
-		assertEquals(AssociationTypeConverter.convertAssociationType("shared"), UmlRelationshipType.AGGREGATION);
+		assertEquals(UmlRelationshipType.AGGREGATION, AssociationTypeConverter.convertAssociationType("shared"));
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class AssociationTypeConverterTest {
 	 */
 	@Test 
 	public void testCompositeRelationship() {
-		assertEquals(AssociationTypeConverter.convertAssociationType("composite"), UmlRelationshipType.COMPOSITION);
+		assertEquals(UmlRelationshipType.COMPOSITION, AssociationTypeConverter.convertAssociationType("composite"));
 	}
 	
 	/**
@@ -35,6 +35,6 @@ public class AssociationTypeConverterTest {
 	 */
 	@Test 
 	public void testArbitraryRelationship() {
-		assertEquals(AssociationTypeConverter.convertAssociationType("1234"), UmlRelationshipType.ASSOCIATION);
+		assertEquals(UmlRelationshipType.ASSOCIATION, AssociationTypeConverter.convertAssociationType("1234"));
 	}
 }

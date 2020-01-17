@@ -3,6 +3,7 @@ package mdxmlconverter.element;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mdxml.ConstrainingClassifier;
 import mdxml.OwnedParameter;
@@ -20,6 +21,10 @@ import uml.UmlTemplateParameter;
  */
 public class TemplateParameterConverter {
 
+	private TemplateParameterConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting a given {@link mdxml.OwnedTemplateSignature} with its {@link mdxml.Parameter}s to {@link uml.UmlTemplateParameter}s and adds them to the owning {@link uml.UmlElement}
 	 * 
@@ -61,8 +66,8 @@ public class TemplateParameterConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link uml.UmlTemplateParameter}s should be added
 	 * @return a list of converted{@link uml.UmlTemplateParameter}s
 	 */
-	public static ArrayList<UmlTemplateParameter> convertTemplateParameters(OwnedTemplateSignature signature, TemporaryModel tmpModel) {
-		ArrayList<UmlTemplateParameter> parameters = new ArrayList<>();
+	public static List<UmlTemplateParameter> convertTemplateParameters(OwnedTemplateSignature signature, TemporaryModel tmpModel) {
+		List<UmlTemplateParameter> parameters = new ArrayList<>();
 		
 		for (OwnedParameter ownedParameter : signature.getOwnedParameters()) {
 			assertNotNull("The id of an ownedParameter must not be null!\nOccurance in ownedTemplateSignature with id " + signature.getId(), ownedParameter.getId());

@@ -14,6 +14,10 @@ import test.TestClass;
  */
 public class TestClassConverter {
 
+	private TestClassConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static methods to convert {@link test.TestClass}es of the {@link test.TestPackage}s in the {@link outputjunit.converter.temporary.TemporaryModel} to {@link junit.JunitTestClass}es.
 	 * 
@@ -21,11 +25,11 @@ public class TestClassConverter {
 	 * @param tmpModel the {@link outputjunit.converter.temporary.TemporaryModel} containing a map of {@link test.TestPackage}s and the corresponding converted {@link junit.JunitPackage}s.
 	 */
 	public static void convertTestClasses(JunitRepresentation junitRepresentation, TemporaryModel tmpModel) {
-		tmpModel.getConvertedPackages().forEach((testPackage, junitPackage) -> {
-			testPackage.getTestClasses().forEach(testClass -> {
-				convertTestClass(testClass, junitPackage, junitRepresentation);
-			});
-		});
+		tmpModel.getConvertedPackages().forEach((testPackage, junitPackage) -> 
+			testPackage.getTestClasses().forEach(testClass -> 
+				convertTestClass(testClass, junitPackage, junitRepresentation)
+			)
+		);
 	}
 	
 	/**

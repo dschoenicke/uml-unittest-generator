@@ -57,7 +57,7 @@ public class DataTypeConverterTest {
 	 */
 	@Test
 	public void testConvertDataTypeWithActual() {
-		assertEquals(DataTypeConverter.convertDataType(null, mockActual), "String");
+		assertEquals("String", DataTypeConverter.convertDataType(null, mockActual));
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class DataTypeConverterTest {
 	 */
 	@Test
 	public void testConvertDataTypeWithDataType() {
-		assertEquals(DataTypeConverter.convertDataType(null, mockDataType), "String");
+		assertEquals("String", DataTypeConverter.convertDataType(null, mockDataType));
 	}
 	
 	/**
@@ -73,8 +73,8 @@ public class DataTypeConverterTest {
 	 */
 	@Test
 	public void testConvertDataTypeWithElementReference() {
-		assertEquals(DataTypeConverter.convertDataType("1234", mockActual), "1234");
-		assertEquals(DataTypeConverter.convertDataType("5678", mockDataType), "5678");
+		assertEquals("1234", DataTypeConverter.convertDataType("1234", mockActual));
+		assertEquals("5678", DataTypeConverter.convertDataType("5678", mockDataType));
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class DataTypeConverterTest {
 	 */
 	@Test
 	public void testConvertElementID() {
-		assertEquals(DataTypeConverter.convertElementID("1234", mockTmpModel), "TestClass");
-		assertEquals(DataTypeConverter.convertElementID("5678", mockTmpModel), "5678");
+		assertEquals("TestClass", DataTypeConverter.convertElementID("1234", mockTmpModel));
+		assertEquals("5678", DataTypeConverter.convertElementID("5678", mockTmpModel));
 	}
 }

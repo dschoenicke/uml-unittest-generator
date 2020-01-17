@@ -1,6 +1,7 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -20,7 +21,7 @@ public class TestRepresentation implements TestParent {
 	/**
 	* List of {@link TestPackage}s of the representation
 	*/
-	private ArrayList<TestPackage> packages;
+	private List<TestPackage> packages;
 	   
 	/**
 	* Constructor with name, initializes the list of {@link TestPackage}s
@@ -46,8 +47,8 @@ public class TestRepresentation implements TestParent {
 	 * 
 	 * @return all {@link TestClass}es of the representation and its {@link TestPackage}s.
 	 */
-	public ArrayList<TestClass> getTestClassesAsList() {
-		ArrayList<TestClass> returnTestClasses = new ArrayList<>();
+	public List<TestClass> getTestClassesAsList() {
+		List<TestClass> returnTestClasses = new ArrayList<>();
 		
 		for (TestPackage subPackage : this.getPackages()) {
 			returnTestClasses.addAll(subPackage.getTestClassesAsList());

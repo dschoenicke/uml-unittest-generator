@@ -18,6 +18,10 @@ import uml.UmlRelationshipType;
  */
 public class GeneralizationConverter {
 
+	private GeneralizationConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting the {@link mdxml.Generalization} of a given {@link mdxml.PackagedElement} to a {@link mdxmlconverter.temporary.TemporaryRelationship} with references to the general and the element itself
 	 * 

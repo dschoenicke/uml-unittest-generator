@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,12 +30,12 @@ public class TemplateBindingConverterTest {
 	/**
 	 * Mocks a list of {@link mdxml.TemplateBinding}s to be converted.
 	 */
-	private ArrayList<TemplateBinding> mockTemplateBindings;
+	private List<TemplateBinding> mockTemplateBindings;
 	
 	/**
 	 * Mocks a list of {@link mdxml.ParameterSubstitution} to be added to the {@link mdxml.TemplateBinding}.
 	 */
-	private ArrayList<ParameterSubstitution> mockParameterSubstitutions;
+	private List<ParameterSubstitution> mockParameterSubstitutions;
 	
 	/**
 	 * A {@link mdxml.TemplateBinding} to be converted.
@@ -82,28 +83,28 @@ public class TemplateBindingConverterTest {
 	 */
 	@Test
 	public void testConvertTemporaryTemplateBindings() {
-		ArrayList<TemporaryTemplateBinding> tmpTemplateBindings = TemplateBindingConverter.convertTemporaryTemplateBindings(mockTemplateBindings);
+		List<TemporaryTemplateBinding> tmpTemplateBindings = TemplateBindingConverter.convertTemporaryTemplateBindings(mockTemplateBindings);
 		assertNotNull(tmpTemplateBindings.get(0).getParameterSubstitutionMap().get("456"));
-		assertEquals(tmpTemplateBindings.get(0).getParameterSubstitutionMap().get("456"), "123");
+		assertEquals("123", tmpTemplateBindings.get(0).getParameterSubstitutionMap().get("456"));
 	}
 	
 	/**
-	 * Tests {@link TemplateBindingConverter#convertTemplateBindings(ArrayList, uml.UmlElement)}.
+	 * Tests {@link TemplateBindingConverter#convertTemplateBindings}.
 	 */
 	@Test
 	public void testConvertTemplateBindingsWithElement() {
-		ArrayList<TemporaryTemplateBinding> tmpTemplateBindings = TemplateBindingConverter.convertTemporaryTemplateBindings(mockTemplateBindings);
+		List<TemporaryTemplateBinding> tmpTemplateBindings = TemplateBindingConverter.convertTemporaryTemplateBindings(mockTemplateBindings);
 		UmlClass umlClass = new UmlClass("TestClass", UmlVisibility.PUBLIC, false, false, false);
 		TemplateBindingConverter.convertTemplateBindings(mockTemplateBindings, umlClass);
 		assertEquals(tmpTemplateBindings.get(0).getParameterSubstitutions(), umlClass.getTemplateBindings().get(0).getParameterSubstitutions());
 	}
 	
 	/**
-	 * Tests {@link TemplateBindingConverter#convertTemplateBindings(ArrayList, uml.UmlOperation)}.
+	 * Tests {@link TemplateBindingConverter#convertTemplateBindings}.
 	 */
 	@Test
 	public void testConvertTemplateBindingsWithOperation() {
-		ArrayList<TemporaryTemplateBinding> tmpTemplateBindings = TemplateBindingConverter.convertTemporaryTemplateBindings(mockTemplateBindings);
+		List<TemporaryTemplateBinding> tmpTemplateBindings = TemplateBindingConverter.convertTemporaryTemplateBindings(mockTemplateBindings);
 		UmlOperation umlOperation = new UmlOperation("TestOperation", UmlVisibility.PUBLIC);
 		TemplateBindingConverter.convertTemplateBindings(mockTemplateBindings, umlOperation);
 		assertEquals(tmpTemplateBindings.get(0).getParameterSubstitutions(), umlOperation.getTemplateBindings().get(0).getParameterSubstitutions());

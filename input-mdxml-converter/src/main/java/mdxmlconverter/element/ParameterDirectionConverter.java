@@ -10,6 +10,10 @@ import uml.UmlParameterDirection;
  */
 public class ParameterDirectionConverter {
 
+	private ParameterDirectionConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting a given string describing the direction of an {@link mdxml.OwnedParameter} to an {@link uml.UmlParameterDirection}
 	 * 
@@ -17,31 +21,15 @@ public class ParameterDirectionConverter {
 	 * @return the converted {@link uml.UmlParameterDirection}
 	 */
 	public static UmlParameterDirection convertDirection(String direction) {
-		UmlParameterDirection parameterDirection;
-		
 		if (direction == null) {
 			return UmlParameterDirection.IN;
 		}
 		
 		switch(direction) {
-			case "return": {
-				parameterDirection = UmlParameterDirection.RETURN;
-				break;
-			}
-			case "out": {
-				parameterDirection = UmlParameterDirection.OUT;
-				break;
-			}
-			case "inout": {
-				parameterDirection = UmlParameterDirection.INOUT;
-				break;
-			}
-			default: {
-				parameterDirection = UmlParameterDirection.IN;
-				break;
-			}
+			case "return": return UmlParameterDirection.RETURN;
+			case "out": return UmlParameterDirection.OUT;
+			case "inout": return UmlParameterDirection.INOUT;
+			default: return UmlParameterDirection.IN;
 		}
-		
-		return parameterDirection;
 	}
 }

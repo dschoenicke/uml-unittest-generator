@@ -1,5 +1,7 @@
 package mdxmlconverter.element;
 
+import static org.junit.Assert.assertNotNull;
+
 import mdxml.PackagedElement;
 import mdxmlconverter.relationship.GeneralizationConverter;
 import mdxmlconverter.relationship.InterfaceRealizationConverter;
@@ -8,6 +10,8 @@ import uml.UmlClass;
 import uml.UmlElement;
 import uml.UmlEnumeration;
 import uml.UmlInterface;
+import uml.UmlModel;
+import uml.UmlPackage;
 import uml.UmlParent;
 
 /**
@@ -18,6 +22,10 @@ import uml.UmlParent;
  */
 public class ElementConverter {
 
+	private ElementConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert a given {@link mdxml.PackagedElement} with the type 'uml:Class', 'uml:Interface' or 'uml:Enumeration' to an {@link UmlElement}, which will be added to the {@link mdxmlconverter.temporary.TemporaryModel}
 	 * Delegates the conversion of {@link mdxml.Generalization}s and {@link mdxml.InterfaceRealization}s to the corresponding {@link mdxmlconverter.relationship.GeneralizationConverter} or {@link mdxmlconverter.relationship.InterfaceRealizationConverter}
@@ -28,36 +36,14 @@ public class ElementConverter {
 	 * @return the converted {@link uml.UmlElement}
 	 */
 	public static UmlElement convertElement(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
-		UmlElement element = null;
-		
-		switch (packagedElement.getType()) {
-			case "uml:Class": {
-				element = new UmlClass(packagedElement.getName(), 
-						ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
-						ModifierConverter.convertNonAccessModifier(packagedElement.getIsStatic()),
-						ModifierConverter.convertNonAccessModifier(packagedElement.getIsFinal()),
-						ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract())
-					);
-				break;
-			}
-			case "uml:Interface": {
-				element = new UmlInterface(packagedElement.getName(), 
-						ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
-						ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract())
-					);
-				break;
-			}
-			case "uml:Enumeration": {
-				element = new UmlEnumeration(packagedElement.getName(), 
-						ModifierConverter.convertAccessModifier(packagedElement.getVisibility())
-					);
-				LiteralConverter.convertLiterals(packagedElement, element);
-				break;
-			}
-			default: break;
-		}
+		assertNotNull(packagedElement.getId(), "The name of a PackagedElement must not be null!\nOccurance in PackagedElement with id " + packagedElement.getName());
+		UmlElement element = instantiateUmlElement(packagedElement);
 		
 		if (element != null) {
+			if (element instanceof UmlEnumeration) {
+				LiteralConverter.convertLiterals(packagedElement, element);
+			}
+			
 			AttributeConverter.convertAttributes(packagedElement, element, tmpModel);
 			OperationConverter.convertOperations(packagedElement, element, tmpModel);
 			TemplateParameterConverter.convertTemplateParameters(packagedElement.getOwnedTemplateSignature(), element, tmpModel);
@@ -74,9 +60,38 @@ public class ElementConverter {
 				InterfaceRealizationConverter.convertInterfaceRealizations(packagedElement.getInterfaceRealizations(), tmpModel, parent);
 			}
 			
+			if (parent instanceof UmlModel) {
+				((UmlModel) parent).addElement(element);
+			}
+			else if (parent instanceof UmlPackage) {
+				((UmlPackage) parent).addElement(element);
+			}
+			
 			tmpModel.addElement(packagedElement.getId(), element);
 		}
 		
 		return element;
+	}
+	
+	/**
+	 * Instantiates an {@link uml.UmlElement} out of the given {@link mdxml.PackagedElement}
+	 * 
+	 * @param packagedElement the {@link mdxml.PackagedElement} to be converted
+	 * @return the instantiated {@link uml.UmlElement}
+	 */
+	static UmlElement instantiateUmlElement(PackagedElement packagedElement) {
+		switch (packagedElement.getType()) {
+		case "uml:Class": return new UmlClass(packagedElement.getName(), 
+					ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
+					ModifierConverter.convertNonAccessModifier(packagedElement.getIsStatic()),
+					ModifierConverter.convertNonAccessModifier(packagedElement.getIsFinal()),
+					ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract()));
+		case "uml:Interface": return new UmlInterface(packagedElement.getName(), 
+					ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
+					ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract()));
+		case "uml:Enumeration": return new UmlEnumeration(packagedElement.getName(), 
+					ModifierConverter.convertAccessModifier(packagedElement.getVisibility()));
+		default: return null;
+	}
 	}
 }

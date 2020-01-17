@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import mdxml.Client;
 import mdxml.MemberEnd;
+import mdxml.OwnedAttribute;
 import mdxml.OwnedEnd;
 import mdxml.PackagedElement;
 import mdxml.Supplier;
@@ -18,9 +19,8 @@ import mdxmlconverter.temporary.TemporaryAttribute;
 import mdxmlconverter.temporary.TemporaryModel;
 import mdxmlconverter.temporary.TemporaryRelationship;
 import uml.UmlClass;
-import uml.UmlMultiplicityValue;
+import uml.UmlModel;
 import uml.UmlRelationshipType;
-import uml.UmlVisibility;
 
 /**
  * Tests {@link RelationshipConverter#convertRelationship} and {@link RelationshipConverter#convertTemporaryRelationship}.
@@ -71,6 +71,11 @@ public class RelationshipConverterTest {
 	private TemporaryRelationship mockTmpRelationship;
 	
 	/**
+	 * The {@link mdxml.OwnedAttribute} to be used in the tests
+	 */
+	private OwnedAttribute mockOwnedAttribute;
+	
+	/**
 	 * Initializes the mock elements
 	 */
 	@Before
@@ -88,7 +93,11 @@ public class RelationshipConverterTest {
 		mockSupplierClass = new UmlClass("mockSupplier", null, false, false, false);
 		
 		mockTmpModel = new TemporaryModel();
-		mockTmpAttribute = new TemporaryAttribute("", UmlVisibility.PACKAGE, "1234", false, false, null, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE, null, null);
+		mockOwnedAttribute = new OwnedAttribute();
+		mockOwnedAttribute.setName("");
+		mockOwnedAttribute.setVisibility("package");
+		mockOwnedAttribute.setAssociationType("1234");
+		mockTmpAttribute = new TemporaryAttribute(mockOwnedAttribute);
 		
 		mockPackagedClient.setId("123");
 		mockPackagedClient.setName("mockClient");
@@ -115,7 +124,7 @@ public class RelationshipConverterTest {
 	@Test
 	public void testConvertRelationshipAssociation() {
 		mockPackagedElement.setType("uml:Association");
-		TemporaryRelationship tmpRelationship = RelationshipConverter.convertRelationship(mockPackagedElement, mockTmpModel);
+		TemporaryRelationship tmpRelationship = RelationshipConverter.convertRelationship(mockPackagedElement, new UmlModel(""), mockTmpModel);
 		assertNotNull(tmpRelationship);
 		assertNull(tmpRelationship.getType());
 	}
@@ -126,7 +135,7 @@ public class RelationshipConverterTest {
 	@Test
 	public void testConvertRelationshipDependency() {
 		mockPackagedElement.setType("uml:Usage");
-		assertEquals(RelationshipConverter.convertRelationship(mockPackagedElement, mockTmpModel).getType(), UmlRelationshipType.DEPENDENCY);
+		assertEquals(UmlRelationshipType.DEPENDENCY, RelationshipConverter.convertRelationship(mockPackagedElement, new UmlModel(""), mockTmpModel).getType());
 	}
 	
 	/**
@@ -135,7 +144,7 @@ public class RelationshipConverterTest {
 	@Test
 	public void testConvertRelationshipOther() {
 		mockPackagedElement.setType("INVALID");
-		assertNull(RelationshipConverter.convertRelationship(mockPackagedElement, mockTmpModel));
+		assertNull(RelationshipConverter.convertRelationship(mockPackagedElement, new UmlModel(""), mockTmpModel));
 	}
 	
 	/**
@@ -149,7 +158,7 @@ public class RelationshipConverterTest {
 		RelationshipConverter.convertTemporaryRelationship(mockTmpRelationship, mockTmpModel);
 		assertEquals(mockTmpRelationship.getClient(), mockClientClass);
 		assertEquals(mockTmpRelationship.getSupplier(), mockSupplierClass);
-		assertEquals(mockTmpRelationship.getType(), UmlRelationshipType.DEPENDENCY);
+		assertEquals(UmlRelationshipType.DEPENDENCY, mockTmpRelationship.getType());
 	}
 	
 	/**
@@ -162,7 +171,7 @@ public class RelationshipConverterTest {
 		RelationshipConverter.convertTemporaryRelationship(mockTmpRelationship, mockTmpModel);
 		assertEquals(mockTmpRelationship.getClient(), mockClientClass);
 		assertEquals(mockTmpRelationship.getSupplier(), mockSupplierClass);
-		assertEquals(mockTmpRelationship.getType(), UmlRelationshipType.ASSOCIATION);
+		assertEquals(UmlRelationshipType.ASSOCIATION, mockTmpRelationship.getType());
 	}
 	
 	/**
@@ -171,11 +180,12 @@ public class RelationshipConverterTest {
 	@Test
 	public void testConvertTemporaryUndirectedComposition() {
 		mockTmpAttribute.setAggregation("composite");
-		mockTmpModel.addAttribute("456", new TemporaryAttribute("", UmlVisibility.PACKAGE, "123", false, false, null, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE, null, null));
+		mockOwnedAttribute.setAssociationType("123");
+		mockTmpModel.addAttribute("456", new TemporaryAttribute(mockOwnedAttribute));
 		mockTmpRelationship.getSecondMember().setIdref("456");
 		RelationshipConverter.convertTemporaryRelationship(mockTmpRelationship, mockTmpModel);
 		assertEquals(mockTmpRelationship.getClient(), mockClientClass);
 		assertEquals(mockTmpRelationship.getSupplier(), mockSupplierClass);
-		assertEquals(mockTmpRelationship.getType(), UmlRelationshipType.COMPOSITION);
+		assertEquals(UmlRelationshipType.COMPOSITION, mockTmpRelationship.getType());
 	}
 }

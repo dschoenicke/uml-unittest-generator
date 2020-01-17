@@ -1,6 +1,7 @@
 package uml;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,17 +37,17 @@ public class UmlOperation {
 	/**
 	 * List of {@link UmlParameter}s of the operation
 	 */
-	private ArrayList<UmlParameter> parameters;
+	private List<UmlParameter> parameters;
 	
 	/**
 	 * List of {@link UmlTemplateBinding}s of the operation
 	 */
-	private ArrayList<UmlTemplateBinding> templateBindings;
+	private List<UmlTemplateBinding> templateBindings;
 	
 	/**
 	 * List of {@link UmlTemplateParameter}s of the operation
 	 */
-	private ArrayList<UmlTemplateParameter> templateParameters;
+	private List<UmlTemplateParameter> templateParameters;
 	
 	/**
 	 * Constructor with name and visibility, initializes the list for the {@link UmlParameter}s, {@link UmlTemplateBinding}s and {@link UmlTemplateParameter}s
@@ -57,9 +58,9 @@ public class UmlOperation {
 	public UmlOperation(String name, UmlVisibility visibility) {
 		this.name = name;
 		this.visibility = visibility;
-		parameters = new ArrayList<UmlParameter>();
-		templateBindings = new ArrayList<UmlTemplateBinding>();
-		templateParameters = new ArrayList<UmlTemplateParameter>();
+		parameters = new ArrayList<>();
+		templateBindings = new ArrayList<>();
+		templateParameters = new ArrayList<>();
 	}
 	
 	/**
@@ -77,9 +78,9 @@ public class UmlOperation {
 		this.isStatic = isStatic;
 		this.isFinal = isFinal;
 		this.isAbstract = isAbstract;
-		parameters = new ArrayList<UmlParameter>();
-		templateBindings = new ArrayList<UmlTemplateBinding>();
-		templateParameters = new ArrayList<UmlTemplateParameter>();
+		parameters = new ArrayList<>();
+		templateBindings = new ArrayList<>();
+		templateParameters = new ArrayList<>();
 	}
 	
 	/**

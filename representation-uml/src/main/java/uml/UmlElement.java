@@ -1,6 +1,7 @@
 package uml;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,27 +33,27 @@ public abstract class UmlElement implements UmlParent {
 	/**
 	 * List of {@link UmlAttribute}s of the element
 	 */
-	private ArrayList<UmlAttribute> attributes;
+	private List<UmlAttribute> attributes;
 	
 	/**
 	 * List of {@link UmlOperation}s of the element
 	 */
-	private ArrayList<UmlOperation> operations;
+	private List<UmlOperation> operations;
 	
 	/**
 	 * List of {@link UmlTemplateParameter}s of the element
 	 */
-	private ArrayList<UmlTemplateParameter> templateParameters;
+	private List<UmlTemplateParameter> templateParameters;
 	
 	/**
 	 * List of {@link UmlTemplateBinding}s of the element
 	 */
-	private ArrayList<UmlTemplateBinding> templateBindings;
+	private List<UmlTemplateBinding> templateBindings;
 	
 	/**
 	 * List of inner elements of the element
 	 */
-	private ArrayList<UmlElement> innerElements;
+	private List<UmlElement> innerElements;
 	
 	/**
 	 * Constructor with name, {@link UmlVisibility} and static-classifier, initializes the list of {@link UmlTemplateBinding}s, {@link UmlTemplateParameter}s, {@link UmlAttribute}s, {@link UmlOperation}s and inner elements 
@@ -66,9 +67,9 @@ public abstract class UmlElement implements UmlParent {
 		this.visibility = visibility;
 		this.isStatic = isStatic;
 		templateBindings = new ArrayList<>();
-		attributes = new ArrayList<UmlAttribute>();
-		operations = new ArrayList<UmlOperation>();
-		templateParameters = new ArrayList<UmlTemplateParameter>();
+		attributes = new ArrayList<>();
+		operations = new ArrayList<>();
+		templateParameters = new ArrayList<>();
 		innerElements = new ArrayList<>();
 	}
 	

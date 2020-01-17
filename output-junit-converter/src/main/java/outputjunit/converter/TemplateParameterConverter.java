@@ -12,6 +12,10 @@ import test.testobjects.ClassUnderTest;
  */
 public class TemplateParameterConverter {
 
+	private TemplateParameterConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts the {@link test.testobjects.TemplateParameterUnderTest}s of a given {@link test.testobjects.ClassUnderTest} to {@link junit.JunitTemplateParameterUnderTest}.
 	 * 
@@ -22,7 +26,7 @@ public class TemplateParameterConverter {
 		classUnderTest.getTemplateParameters().forEach(templateParameter -> {
 			JunitTemplateParameterUnderTest junitTemplateParameter = new JunitTemplateParameterUnderTest(templateParameter.getParameterName(), templateParameter.getBoundedType());
 			testClass.addTemplateParameter(junitTemplateParameter);
-			AssertionConverter.createTemplateParameterAssertions(templateParameter, classUnderTest, junitTemplateParameter);
+			AssertionConverter.createTemplateParameterAssertions(classUnderTest, junitTemplateParameter);
 		});
 	}
 }

@@ -1,7 +1,7 @@
 package umlcodeconverter.temporary;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import code.CodeElement;
 import code.CodePackage;
@@ -34,7 +34,7 @@ public class TemporaryModel {
 	/**
 	 * The map containing incompletely converted {@link uml.UmlTemplateBinding}s as key and a list of {@link uml.UmlParameterSubstitution}s as value
 	 */
-	private HashMap<CodeTemplateBinding, ArrayList<UmlParameterSubstitution>> temporaryTemplateBindings;
+	private HashMap<CodeTemplateBinding, List<UmlParameterSubstitution>> temporaryTemplateBindings;
 	
 	/**
 	 * The map containing the {@link uml.UmlTemplateParameter}s as key and the corresponding converted {@link code.CodeTemplateParameter}s as value
@@ -62,7 +62,7 @@ public class TemporaryModel {
 	 * @param templateBinding the temporary {@link code.CodeTemplateBinding}
 	 * @param parameterSubstitutions the list of {@link uml.UmlParameterSubstitution}s
 	 */
-	public void addTemporaryTemplateBinding(CodeTemplateBinding templateBinding, ArrayList<UmlParameterSubstitution> parameterSubstitutions) {
+	public void addTemporaryTemplateBinding(CodeTemplateBinding templateBinding, List<UmlParameterSubstitution> parameterSubstitutions) {
 		temporaryTemplateBindings.put(templateBinding, parameterSubstitutions);
 	}
 	

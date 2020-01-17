@@ -23,7 +23,7 @@ public class ParameterConverterTest extends TestInitializer {
 		assertEquals(convertedParameter.getName(), mockUmlParameter.getName());
 		assertEquals(convertedParameter.getParent(), mockCodeMethod);
 		assertEquals(convertedParameter.getType(), mockUmlParameter.getType());
-		assertEquals(convertedParameter.getModifiers(), Integer.valueOf(0));
+		assertEquals(Integer.valueOf(0), convertedParameter.getModifiers());
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class ParameterConverterTest extends TestInitializer {
 	@Test
 	public void testConvertParametersWithOperation() {
 		ParameterConverter.convertParameters(mockUmlOperation, mockCodeMethod);
-		assertEquals(mockCodeMethod.getParameters().size(), 1);
+		assertEquals(1, mockCodeMethod.getParameters().size());
 		assertEquals(mockCodeMethod.getParameters().get(0).getName(), mockUmlParameter.getName());
 	}
 	
@@ -42,7 +42,7 @@ public class ParameterConverterTest extends TestInitializer {
 	@Test
 	public void testConvertParametersWithConstructor() {
 		ParameterConverter.convertParameters(mockUmlConstructor, mockCodeConstructor);
-		assertEquals(mockCodeConstructor.getParameters().size(), 1);
+		assertEquals(1, mockCodeConstructor.getParameters().size());
 		assertEquals(mockCodeConstructor.getParameters().get(0).getName(), mockUmlParameter.getName());
 	}
 }

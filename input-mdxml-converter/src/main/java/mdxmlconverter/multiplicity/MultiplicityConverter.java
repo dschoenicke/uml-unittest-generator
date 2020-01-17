@@ -14,6 +14,10 @@ import uml.UmlMultiplicityValue;
  */
 public class MultiplicityConverter {
 
+	private MultiplicityConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts a {@link mdxml.LowerValue} to the corresponding {@link uml.UmlMultiplicityValue}, returns {@link uml.UmlMultiplicityValue#ONE} if the {@link mdxml.LowerValue} is {@literal null}
 	 * 

@@ -12,7 +12,7 @@ import org.junit.Before;
  * @author dschoenicke
  *
  */
-public class CoreTest {
+public class CoreTests {
 
 	/**
 	 * The output {@link java.io.PrintStream} to test the system's outputs

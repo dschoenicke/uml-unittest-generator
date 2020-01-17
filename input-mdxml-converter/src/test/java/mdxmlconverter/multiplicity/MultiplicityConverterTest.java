@@ -70,10 +70,10 @@ public class MultiplicityConverterTest {
 	 */
 	@Test
 	public void convertLowerValueTest() {
-		assertEquals(MultiplicityConverter.convertLowerValue(mockLowerValue1), UmlMultiplicityValue.ZERO);
-		assertEquals(MultiplicityConverter.convertLowerValue(mockLowerValue2), UmlMultiplicityValue.ZERO);
-		assertEquals(MultiplicityConverter.convertLowerValue(mockLowerValue3), UmlMultiplicityValue.ONE);
-		assertEquals(MultiplicityConverter.convertLowerValue(null), UmlMultiplicityValue.ONE);
+		assertEquals(UmlMultiplicityValue.ZERO, MultiplicityConverter.convertLowerValue(mockLowerValue1));
+		assertEquals(UmlMultiplicityValue.ZERO, MultiplicityConverter.convertLowerValue(mockLowerValue2));
+		assertEquals(UmlMultiplicityValue.ONE, MultiplicityConverter.convertLowerValue(mockLowerValue3));
+		assertEquals(UmlMultiplicityValue.ONE, MultiplicityConverter.convertLowerValue(null));
 	}
 	
 	/**
@@ -81,9 +81,9 @@ public class MultiplicityConverterTest {
 	 */
 	@Test
 	public void convertUpperValueTest() {
-		assertEquals(MultiplicityConverter.convertUpperValue(mockUpperValue1), UmlMultiplicityValue.ONE);
-		assertEquals(MultiplicityConverter.convertUpperValue(mockUpperValue2), UmlMultiplicityValue.INFINITE);
-		assertEquals(MultiplicityConverter.convertUpperValue(mockUpperValue3), UmlMultiplicityValue.INFINITE);
-		assertEquals(MultiplicityConverter.convertUpperValue(null), UmlMultiplicityValue.ONE);
+		assertEquals(UmlMultiplicityValue.ONE, MultiplicityConverter.convertUpperValue(mockUpperValue1));
+		assertEquals(UmlMultiplicityValue.INFINITE, MultiplicityConverter.convertUpperValue(mockUpperValue2));
+		assertEquals(UmlMultiplicityValue.INFINITE, MultiplicityConverter.convertUpperValue(mockUpperValue3));
+		assertEquals(UmlMultiplicityValue.ONE, MultiplicityConverter.convertUpperValue(null));
 	}
 }

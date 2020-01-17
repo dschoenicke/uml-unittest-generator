@@ -2,6 +2,7 @@ package mdxml;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import javax.xml.bind.JAXBException;
@@ -57,8 +58,8 @@ public class OwnedOperationTests extends MdxmlRepresentationTests {
 	 */
 	@Test
 	public void ownedOperationAttributesTest() {
-		assertEquals(operation.getName(), "setOwnedAttributes");
-		assertEquals(operation.getVisibility(), "public");
+		assertEquals("setOwnedAttributes", operation.getName());
+		assertEquals("public", operation.getVisibility());
 	}
 	
 	/**
@@ -69,13 +70,13 @@ public class OwnedOperationTests extends MdxmlRepresentationTests {
 		OwnedParameter returnType = operation.getOwnedParameters().get(0);
 		OwnedParameter methodParameter = operation.getOwnedParameters().get(1);
 		
-		assertEquals(operation.getOwnedParameters().size(), 2);
-		assertEquals(returnType.getDirection(), "return");
+		assertEquals(2, operation.getOwnedParameters().size());
+		assertEquals("return", returnType.getDirection());
 		assertTrue(returnType.getDataType().getExtension().getReferenceExtension().getReferentPath().contains("void"));
 	
-		assertEquals(methodParameter.getName(), "ownedAttributes");
-		assertEquals(methodParameter.getAssociationType(), "_19_0_1_62d0212_1572550603923_570944_4931");
-		assertEquals(methodParameter.getLowerValue().getValue(), null);
-		assertEquals(methodParameter.getUpperValue().getValue(), "*");
+		assertEquals("ownedAttributes", methodParameter.getName());
+		assertEquals("_19_0_1_62d0212_1572550603923_570944_4931", methodParameter.getAssociationType());
+		assertNull(methodParameter.getLowerValue().getValue());
+		assertEquals("*", methodParameter.getUpperValue().getValue());
 	}
 }

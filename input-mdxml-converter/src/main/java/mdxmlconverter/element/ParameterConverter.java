@@ -18,6 +18,10 @@ import uml.UmlParameter;
  */
 public class ParameterConverter {
 
+	private ParameterConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting all {@link mdxml.OwnedParameter}s of a given {@link mdxml.OwnedOperation} and adds them to the owning {@link uml.UmlOperation} and the {@link mdxmlconverter.temporary.TemporaryModel}
 	 * 

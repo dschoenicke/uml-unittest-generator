@@ -1,6 +1,7 @@
 package junit;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -26,12 +27,12 @@ public class JunitPackage implements JunitParent {
 	/**
 	 * List of sub {@link JunitPackage}s
 	 */
-	private ArrayList<JunitPackage> packages;
+	private List<JunitPackage> packages;
 	
 	/**
 	 * List of {@link JunitTestClass}es of the package
 	 */
-	private ArrayList<JunitTestClass> testClasses;
+	private List<JunitTestClass> testClasses;
 	
 	/**
 	 * Constructor with name and parent, initializes the list of sub {@link JunitPackage}s and {@link JunitTestClass}es.
@@ -82,8 +83,8 @@ public class JunitPackage implements JunitParent {
 	 * 
 	 * @return all {@link JunitTestClass}es of the package and its sub packages.
 	 */
-	public ArrayList<JunitTestClass> getTestClassesAsList() {
-		ArrayList<JunitTestClass> returnTestClasses = new ArrayList<>();
+	public List<JunitTestClass> getTestClassesAsList() {
+		List<JunitTestClass> returnTestClasses = new ArrayList<>();
 		returnTestClasses.addAll(this.getTestClasses());
 		
 		for (JunitPackage subPackage : this.getPackages()) {

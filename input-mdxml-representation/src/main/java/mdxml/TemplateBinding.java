@@ -1,6 +1,6 @@
 package mdxml;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -37,5 +37,5 @@ public class TemplateBinding {
 	 * The list of {@link ParameterSubstitution}s of this template binding
 	 */
 	@XmlElement(name = "parameterSubstitution")
-	private ArrayList<ParameterSubstitution> parameterSubstitutions;
+	private List<ParameterSubstitution> parameterSubstitutions;
 }

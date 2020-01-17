@@ -17,6 +17,10 @@ import uml.UmlMultiplicityValue;
  */
 public class FieldConverter {
 
+	private FieldConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert the {@link uml.UmlAttribute}s of a given {@link uml.UmlElement} to {@link code.CodeField}s and adding them to the {@link code.CodeElement}
 	 * 
@@ -46,12 +50,12 @@ public class FieldConverter {
 	 * @param collectionTypes the map of the MapDB database containing collection types for association attributes
 	 */
 	public static void applyCollectionTypes(CodeRepresentation codeRepresentation, BTreeMap<String, String> collectionTypes) {
-		codeRepresentation.getElementsAsList().forEach(codeElement -> {
+		codeRepresentation.getElementsAsList().forEach(codeElement -> 
 			codeElement.getFields().forEach(codeField -> {
 				if (collectionTypes.containsKey(codeElement.getName() + "." + codeField.getName())) {
 					codeField.setType(collectionTypes.get(codeElement.getName() + "." + codeField.getName()) + "<" + codeField.getType() + ">");
 				}
-			});
-		});
+			})
+		);
 	}
 }

@@ -25,6 +25,10 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class ElementConverter {
 
+	private ElementConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting the {@link uml.UmlElement}s of a given {@link uml.UmlModel} to {@link code.CodeElement}s for the {@link code.CodeRepresentation}.<br>
 	 * If the {@link uml.UmlModel} contains {@link uml.UmlElement}s at the top level, a {@link code.CodePackage} is created, where the converted {@link code.CodeElement}s are added to. 
@@ -92,7 +96,7 @@ public class ElementConverter {
 							((UmlInterface) element).isAbstract())
 				);
 		}
-		else if (element instanceof UmlEnumeration) {
+		else {
 			codeElement = new CodeEnumeration(element.getName(),
 					parent,
 					ModifierConverter.convertModifierValue(element.getVisibility(), ((UmlEnumeration) element).isStatic(), false, false)
@@ -101,7 +105,6 @@ public class ElementConverter {
 			LiteralConverter.convertLiterals((UmlEnumeration) element, (CodeEnumeration) codeElement);
 		}
 		
-		assertNotNull("The UmlElement " + element.getName() + " could not be converted!", codeElement);
 		FieldConverter.convertFields(element, codeElement);
 		ConstructorConverter.convertConstructors(element, codeElement, tmpModel);
 		MethodConverter.convertMethods(element, codeElement, tmpModel);

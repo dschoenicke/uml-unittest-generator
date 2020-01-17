@@ -33,16 +33,16 @@ public class TemplateParameterConverterTest extends TestInitializer {
 	@Test
 	public void testConvertTemplateParameters() {
 		mockTmpModel.getConvertedTemplateParameters().clear();
-		assertEquals(mockCodeClass.getTemplateParameters().size(), 0);
-		assertEquals(mockCodeMethod.getTemplateParameters().size(), 0);
-		assertEquals(mockCodeConstructor.getTemplateParameters().size(), 0);
+		assertEquals(0, mockCodeClass.getTemplateParameters().size());
+		assertEquals(0, mockCodeMethod.getTemplateParameters().size());
+		assertEquals(0, mockCodeConstructor.getTemplateParameters().size());
 		
 		TemplateParameterConverter.convertTemplateParameters(mockUmlClass.getTemplateParameters(), mockCodeClass, mockTmpModel);
 		TemplateParameterConverter.convertTemplateParameters(mockUmlOperation.getTemplateParameters(), mockCodeMethod, mockTmpModel);
 		TemplateParameterConverter.convertTemplateParameters(mockUmlConstructor.getTemplateParameters(), mockCodeConstructor, mockTmpModel);
 		
-		assertEquals(mockCodeClass.getTemplateParameters().size(), 1);
-		assertEquals(mockCodeMethod.getTemplateParameters().size(), 1);
-		assertEquals(mockCodeConstructor.getTemplateParameters().size(), 1);
+		assertEquals(1, mockCodeClass.getTemplateParameters().size());
+		assertEquals(1, mockCodeMethod.getTemplateParameters().size());
+		assertEquals(1, mockCodeConstructor.getTemplateParameters().size());
 	}
 }

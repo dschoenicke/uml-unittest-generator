@@ -1,7 +1,7 @@
 package mdxmlconverter.temporary;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import mdxml.MemberEnd;
 import mdxml.OwnedEnd;
 import uml.UmlRelationship;
@@ -13,8 +13,8 @@ import uml.UmlRelationshipType;
  * @author dschoenicke
  *
  */
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class TemporaryRelationship extends UmlRelationship {
 
 	/**

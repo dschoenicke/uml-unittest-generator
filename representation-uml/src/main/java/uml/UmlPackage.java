@@ -1,6 +1,7 @@
 package uml;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -21,17 +22,17 @@ public class UmlPackage implements UmlParent {
 	/**
 	 * A list of {@link UmlElement}s of the package
 	 */
-	private ArrayList<UmlElement> elements;
+	private List<UmlElement> elements;
 	
 	/**
 	 * A list of {@link UmlRelationship}s of the package
 	 */
-	private ArrayList<UmlRelationship> relationships;
+	private List<UmlRelationship> relationships;
 	
 	/**
 	 * A list of {@link UmlPackage}s of the package
 	 */
-	private ArrayList<UmlPackage> packages;
+	private List<UmlPackage> packages;
 	
 	/**
 	 * Constructor with name, initializes the list of {@link UmlElement}s, {@link UmlPackage}s and {@link UmlRelationship}s
@@ -77,8 +78,8 @@ public class UmlPackage implements UmlParent {
 	 * 
 	 * @return a list of all sub {@link UmlPackage}s
 	 */
-	public ArrayList<UmlPackage> getPackagesAsList() {
-		ArrayList<UmlPackage> ownedpackages = new ArrayList<UmlPackage>();
+	public List<UmlPackage> getPackagesAsList() {
+		List<UmlPackage> ownedpackages = new ArrayList<>();
 		
 		for (UmlPackage umlPackage : this.getPackages()) {
 			ownedpackages.add(umlPackage);

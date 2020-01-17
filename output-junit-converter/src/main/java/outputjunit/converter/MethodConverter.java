@@ -12,6 +12,10 @@ import test.testobjects.ClassUnderTest;
  */
 public class MethodConverter {
 
+	private MethodConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts the {@link test.testobjects.MethodUnderTest}s of a given {@link test.testobjects.ClassUnderTest} to {@link junit.JunitMethodUnderTest}.
 	 * 
@@ -23,7 +27,7 @@ public class MethodConverter {
 			String returnType = method.getReturnType().getType().replace("$", ".");
 			
 			if (returnType.contains(".")) {
-				returnType = returnType.substring(returnType.lastIndexOf(".") + 1);
+				returnType = returnType.substring(returnType.lastIndexOf('.') + 1);
 			}
 			
 			JunitMethodUnderTest junitMethod = new JunitMethodUnderTest(method.getName(), 

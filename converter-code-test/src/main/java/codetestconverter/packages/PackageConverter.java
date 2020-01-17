@@ -18,6 +18,10 @@ import test.TestRepresentation;
  */
 public class PackageConverter {
 
+	private PackageConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert {@link code.CodePackage}s of a given {@link code.CodeParent} to a {@link test.TestPackage}.
 	 * 

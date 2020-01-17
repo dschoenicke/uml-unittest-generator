@@ -4,7 +4,6 @@ import static org.junit.Assert.assertNotNull;
 
 import mdxml.OwnedAttribute;
 import mdxml.PackagedElement;
-import mdxmlconverter.multiplicity.MultiplicityConverter;
 import mdxmlconverter.temporary.TemporaryAttribute;
 import mdxmlconverter.temporary.TemporaryModel;
 import uml.UmlAttribute;
@@ -18,6 +17,10 @@ import uml.UmlElement;
  */
 public class AttributeConverter {
 
+	private AttributeConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Converts the {@link mdxml.OwnedAttribute}s of a {@link mdxml.PackagedElement} to {@link mdxmlconverter.temporary.TemporaryAttribute}s
 	 * 
@@ -29,19 +32,7 @@ public class AttributeConverter {
 		for (OwnedAttribute ownedAttribute : packagedElement.getOwnedAttributes()) {		
 			assertNotNull("The id of OwnedAttribute must not be null!\nOccurance in " + element.getName(), ownedAttribute.getId());
 			assertNotNull("The name of OwnedAttribute with id " + ownedAttribute.getId() + " must not be null!\nOccurance in " + element.getName(), ownedAttribute.getName());
-			
-			UmlAttribute attribute = new TemporaryAttribute(ownedAttribute.getName(), 
-					ModifierConverter.convertAccessModifier(ownedAttribute.getVisibility()), 
-					DataTypeConverter.convertDataType(ownedAttribute.getAssociationType(), ownedAttribute.getDataType()), 
-					ModifierConverter.convertNonAccessModifier(ownedAttribute.getIsStatic()), 
-					ModifierConverter.convertNonAccessModifier(ownedAttribute.getIsFinal()),
-					(ownedAttribute.getDefaultValue() != null ? ownedAttribute.getDefaultValue().getValue() : ""), 
-					MultiplicityConverter.convertLowerValue(ownedAttribute.getLowerValue()), 
-					MultiplicityConverter.convertUpperValue(ownedAttribute.getUpperValue()), 
-					ownedAttribute.getAssociation(),
-					ownedAttribute.getAggregation()
-				);
-			
+			UmlAttribute attribute = new TemporaryAttribute(ownedAttribute);
 			element.addAttribute(attribute);
 			tmpModel.addAttribute(ownedAttribute.getId(), attribute);
 		}

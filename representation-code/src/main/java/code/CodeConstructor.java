@@ -1,6 +1,7 @@
 package code;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -26,17 +27,17 @@ public class CodeConstructor implements CodeParent {
 	/**
 	 * The list of {@link CodeParameter}s of the constructor
 	 */
-	private ArrayList<CodeParameter> parameters;
+	private List<CodeParameter> parameters;
 	
 	/**
 	 * The list of {@link CodeTemplateBinding}s of the constructor
 	 */
-	private ArrayList<CodeTemplateBinding> templateBindings;
+	private List<CodeTemplateBinding> templateBindings;
 	
 	/**
 	 * The list of {@link CodeTemplateParameter}s of the constructor
 	 */
-	private ArrayList<CodeTemplateParameter> templateParameters;
+	private List<CodeTemplateParameter> templateParameters;
 	
 	/**
 	 * Constructor with {@link CodeParent} and modifiers.
@@ -48,36 +49,9 @@ public class CodeConstructor implements CodeParent {
 	public CodeConstructor(CodeParent parent, int modifiers) {
 		this.parent = parent;
 		this.modifiers = modifiers;
-		parameters = new ArrayList<CodeParameter>();
-		templateBindings = new ArrayList<CodeTemplateBinding>();
-		templateParameters = new ArrayList<CodeTemplateParameter>();
-	}
-
-	/**
-	 * Adds a {@link CodeParameter} to the list
-	 * 
-	 * @param parameter the {@link CodeParameter} to add to the list
-	 */
-	public void addParameter(CodeParameter parameter) {
-		parameters.add(parameter);
-	}
-
-	/**
-	 * Adds a {@link CodeTemplateBinding} to the list
-	 * 
-	 * @param templateBinding the {@link CodeTemplateBinding} to add to the list
-	 */
-	public void addTemplateBinding(CodeTemplateBinding templateBinding) {
-		templateBindings.add(templateBinding);
-	}
-
-	/**
-	 * Adds a {@link CodeTemplateParameter} to the list
-	 * 
-	 * @param templateParameter the {@link CodeTemplateParameter} to add to the list
-	 */
-	public void addTemplateParameter(CodeTemplateParameter templateParameter) {
-		templateParameters.add(templateParameter);
+		parameters = new ArrayList<>();
+		templateBindings = new ArrayList<>();
+		templateParameters = new ArrayList<>();
 	}
 
 	/**

@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import mdxml.PackagedElement;
+import mdxmlconverter.temporary.TemporaryModel;
+import uml.UmlModel;
 
 /**
  * Tests the {@link PackageConverter#convertPackage} method.
@@ -34,6 +36,6 @@ public class PackageConverterTest {
 	 */
 	@Test
 	public void testPackageConverter() {
-		assertEquals(PackageConverter.convertPackage(mockPackagedElement).getName(), mockPackagedElement.getName());
+		assertEquals(PackageConverter.convertPackage(mockPackagedElement, new UmlModel(""), new TemporaryModel()).getName(), mockPackagedElement.getName());
 	}
 }

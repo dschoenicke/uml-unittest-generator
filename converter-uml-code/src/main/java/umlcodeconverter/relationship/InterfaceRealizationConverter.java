@@ -19,6 +19,10 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class InterfaceRealizationConverter {
 
+	private InterfaceRealizationConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method adding a {@link code.CodeElement} converted out of the supplier {@link uml.UmlElement} of an {@link uml.UmlRelationship}
 	 * of type {@link uml.UmlRelationshipType#INTERFACEREALIZATION} to the {@link code.CodeElement} converted out of the client {@link uml.UmlElement} of this {@link uml.UmlRelationship}.

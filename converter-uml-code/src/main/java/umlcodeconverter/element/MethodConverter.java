@@ -1,7 +1,5 @@
 package umlcodeconverter.element;
 
-import static org.junit.Assert.assertNotNull;
-
 import code.CodeElement;
 import code.CodeMethod;
 import uml.UmlElement;
@@ -19,6 +17,10 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class MethodConverter {
 
+	private MethodConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert {@link uml.UmlOperation}s of an {@link uml.UmlElement} to {@link code.CodeMethod}s and adding them to the {@link code.CodeElement}.<br>
 	 * Delegates the conversion of {@link code.CodeParameter}s to the {@link umlcodeconverter.element.ParameterConverter}<br>
@@ -30,12 +32,12 @@ public class MethodConverter {
 	 */
 	public static void convertMethods(UmlElement element, CodeElement codeElement, TemporaryModel tmpModel) {
 		for (UmlOperation operation : element.getOperations()) {
-			if (operation.isConstructor() && operation.getName().equals(element.getName())) {
+			UmlParameter returnParameter = getOperationReturnParameter(operation);
+			
+			if (operation.isConstructor() && operation.getName().equals(element.getName()) || returnParameter == null) {
 				continue;
 			}
 			
-			UmlParameter returnParameter = getOperationReturnParameter(operation);
-			assertNotNull("The operation " + element.getName() + "." + operation.getName() + " has no return parameter!", returnParameter);
 			CodeMethod method = new CodeMethod(
 					operation.getName(),
 					codeElement,

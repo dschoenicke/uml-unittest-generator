@@ -27,14 +27,14 @@ public class ElementConverterTest extends TestInitializer {
 		mockCodeInterface = (CodeInterface) ElementConverter.convertElement(mockUmlInterface, umlPackage, mockCodePackage, mockTmpModel);
 		mockCodeEnumeration = (CodeEnumeration) ElementConverter.convertElement(mockUmlEnumeration, umlPackage, mockCodePackage, mockTmpModel);
 		
-		assertEquals(mockCodePackage.getElements().size(), 3);
+		assertEquals(3, mockCodePackage.getElements().size());
 		assertEquals(mockCodeClass, mockTmpModel.getConvertedElements().get(mockUmlClass));
 		assertEquals(mockCodeInterface, mockTmpModel.getConvertedElements().get(mockUmlInterface));
 		assertEquals(mockCodeEnumeration, mockTmpModel.getConvertedElements().get(mockUmlEnumeration));
-		assertEquals(mockCodeClass.getNestedElements().size(), 1);
+		assertEquals(1, mockCodeClass.getNestedElements().size());
 		
-		assertEquals(mockCodeClass.getName(), mockUmlClass.getName());
-		assertEquals(mockCodeClass.getParent(), mockCodePackage);
+		assertEquals(mockUmlClass.getName(), mockCodeClass.getName());
+		assertEquals(mockCodePackage, mockCodeClass.getParent());
 		assertEquals(mockCodeInterface.getName(), mockUmlInterface.getName());
 		assertEquals(mockCodeInterface.getParent(), mockCodePackage);
 		assertEquals(mockCodeEnumeration.getName(), mockUmlEnumeration.getName());
@@ -51,7 +51,7 @@ public class ElementConverterTest extends TestInitializer {
 		mockTmpModel.addConvertedPackage(umlPackage, mockCodePackage);
 		mockTmpModel.addConvertedPackage(umlSubPackage, new CodePackage("subPackage", mockCodePackage));
 		ElementConverter.convertElements(mockUmlModel, mockCodeRepresentation, mockTmpModel);
-		assertEquals(mockCodeRepresentation.getPackages().size(), 2);
+		assertEquals(2, mockCodeRepresentation.getPackages().size());
 		assertEquals(mockCodeRepresentation.getPackages().get(1).getName(), mockUmlModel.getName());
 		assertEquals(mockCodeRepresentation.getPackages().get(1).getElements().get(0), mockTmpModel.getConvertedElements().get(mockUmlEnumeration));
 	}

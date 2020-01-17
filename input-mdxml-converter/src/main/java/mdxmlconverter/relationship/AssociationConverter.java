@@ -16,6 +16,10 @@ import mdxmlconverter.temporary.TemporaryRelationship;
  */
 public class AssociationConverter {
 
+	private AssociationConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method converting a given {@link mdxml.PackagedElement} with the type 'uml:Association to an {@link mdxmlconverter.temporary.TemporaryRelationship}<br>
 	 * If the given association is directed, a {@link mdxmlconverter.temporary.TemporaryRelationship} with the two {@link mdxml.MemberEnd}s is created<br>

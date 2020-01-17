@@ -85,8 +85,8 @@ public class ElementConverterTest {
 		UmlElement umlClass = ElementConverter.convertElement(mockPackagedClass, mockTmpModel, mockPackage);
 		assertTrue(umlClass instanceof UmlClass);
 		assertEquals(umlClass.getName(), mockPackagedClass.getName());
-		assertEquals(mockTmpModel.getRelationships().get(0).getType(), UmlRelationshipType.GENERALIZATION);
-		assertEquals(mockTmpModel.getRelationships().get(1).getType(), UmlRelationshipType.INTERFACEREALIZATION);
+		assertEquals(UmlRelationshipType.GENERALIZATION, mockTmpModel.getRelationships().get(0).getType());
+		assertEquals(UmlRelationshipType.INTERFACEREALIZATION, mockTmpModel.getRelationships().get(1).getType());
 	}
 	
 	/**

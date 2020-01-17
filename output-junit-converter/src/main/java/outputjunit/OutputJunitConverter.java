@@ -2,7 +2,11 @@ package outputjunit;
 
 import java.io.File;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import junit.JunitRepresentation;
+import lombok.NoArgsConstructor;
 import outputjunit.converter.PackageConverter;
 import outputjunit.converter.TestClassConverter;
 import outputjunit.converter.temporary.TemporaryModel;
@@ -17,12 +21,13 @@ import test.converterinterface.TestConverter;
  * @author dschoenicke
  *
  */
-public class OutputJunitConverter implements TestConverter
-{
+@NoArgsConstructor
+public class OutputJunitConverter implements TestConverter {
+
 	/**
-	 * Default constructor
+	 * The {@link org.slf4j.Logger} to be used in the methods
 	 */
-	public OutputJunitConverter() {}
+	private static final Logger LOG = LoggerFactory.getLogger("");
 	
 	/**
 	 * Converts a given {@link test.TestRepresentation} to jUnit test files.<br>
@@ -39,9 +44,9 @@ public class OutputJunitConverter implements TestConverter
 		JunitRepresentation junitRepresentation = convertTestToJunitRepresentation(testRepresentation);
 		FileDirectoryCreator.createFileDirectories(junitRepresentation, outputDirectory);
 		TestFileCreator.createTestFiles(junitRepresentation, outputDirectory);
-		System.out.println("\n" +
-				"[SUCCESS] The test files for " + testRepresentation.getName() + " have been successfully created.\n" + 
-				"          You can find the files in " + outputDirectory + File.separator + testRepresentation.getName() + "Structure.\n");
+		LOG.info("");
+		LOG.info("The test files for {} have been successfully created.", testRepresentation.getName());
+		LOG.info("You can find the test files in {}{}{}Structure", outputDirectory, File.separator, testRepresentation.getName());
 	}
 	
 	/**

@@ -14,6 +14,10 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class ConstructorConverter {
 
+	private ConstructorConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert {@link uml.UmlOperation}s of an {@link uml.UmlElement} to {@link code.CodeConstructor}s and adding them to the {@link code.CodeElement}.<br>
 	 * Delegates the conversion of {@link code.CodeParameter}s to the {@link umlcodeconverter.element.ParameterConverter}<br>

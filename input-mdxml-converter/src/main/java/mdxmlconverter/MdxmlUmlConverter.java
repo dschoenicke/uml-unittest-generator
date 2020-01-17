@@ -4,6 +4,10 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.xml.bind.JAXBException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import lombok.NoArgsConstructor;
 import mdxml.MdxmlRepresentation;
 import mdxml.Model;
 import mdxml.PackagedElement;
@@ -13,11 +17,8 @@ import mdxmlconverter.packages.PackageConverter;
 import mdxmlconverter.relationship.RelationshipConverter;
 import mdxmlconverter.temporary.TemporaryModel;
 import mdxmlconverter.temporary.TemporaryRelationship;
-import uml.UmlElement;
 import uml.UmlModel;
-import uml.UmlPackage;
 import uml.UmlParent;
-import uml.UmlRelationship;
 import uml.converterinterface.UmlRepresentationConverter;
 
 /**
@@ -26,13 +27,14 @@ import uml.converterinterface.UmlRepresentationConverter;
  * @author dschoenicke
  *
  */
+@NoArgsConstructor
 public class MdxmlUmlConverter implements UmlRepresentationConverter {
-
+	
 	/**
-	 * Constructor
+	 * The {@link org.slf4j.Logger} to be used in the methods
 	 */
-	public MdxmlUmlConverter() {}
-
+	private static final Logger LOG = LoggerFactory.getLogger("");
+	
 	@Override
 	public UmlModel convertToUmlRepresentation(String inputPath) {
 		
@@ -43,12 +45,7 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 			assertNotNull("The XMI of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi());
 			assertNotNull("The Model of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi().getModel());
 		} catch (JAXBException e) {
-			System.out.println("The file " + inputPath + " is not a valid XML Magic Draw Project file!");
-			System.exit(0);
-		}
-		
-		if (mdxmlRepresentation == null) {
-			System.out.println("The file " + inputPath + " is not a valid XML Magic Draw Project file!");
+			LOG.error("The file {} is not a valid XML Magic Draw Project file!", inputPath);
 			System.exit(0);
 		}
 		
@@ -72,56 +69,27 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} to add the converted element to
 	 * @param parent the parent {@link uml.UmlParent} where the converted element should be added to
 	 */
-	void convertPackagedElement(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
+	public static void convertPackagedElement(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
 		assertNotNull("The id of a PackagedElement must not be null!", packagedElement.getId());
 		assertNotNull("The xmi:type of a PackagedElement must not be null!\nOccurance in PackagedElement with id " + packagedElement.getType(), packagedElement.getId());
 		
 		switch (packagedElement.getType()) {
-			case "uml:Package": {
-				assertNotNull("The name of a PackagedElement must not be null!\nOccurance in PackagedElement with id " + packagedElement.getName(), packagedElement.getId());
-				UmlPackage umlPackage = PackageConverter.convertPackage(packagedElement);
-				
-				for (PackagedElement childElement : packagedElement.getPackagedElements()) {
-					convertPackagedElement(childElement, tmpModel, umlPackage);
-				}
-				
-				if (parent instanceof UmlModel) {
-					((UmlModel) parent).addPackage(umlPackage);
-				}
-				else if (parent instanceof UmlPackage) {
-					((UmlPackage) parent).addPackage(umlPackage);
-				}
-				
+			case "uml:Package":
+				PackageConverter.convertPackage(packagedElement, parent, tmpModel);
 				break;
-			}
+		
 			case "uml:Class": 
 			case "uml:Interface":
-			case "uml:Enumeration": {
-				assertNotNull("The name of a PackagedElement must not be null!\nOccurance in PackagedElement with id " + packagedElement.getName(), packagedElement.getId());
-				UmlElement element = ElementConverter.convertElement(packagedElement, tmpModel, parent);
-				
-				if (parent instanceof UmlModel) {
-					((UmlModel) parent).addElement(element);
-				}
-				else if (parent instanceof UmlPackage) {
-					((UmlPackage) parent).addElement(element);
-				}
-				
+			case "uml:Enumeration":
+				ElementConverter.convertElement(packagedElement, tmpModel, parent);
 				break;
-			}
+
 			case "uml:Association":
-			case "uml:Usage": {
-				UmlRelationship relationship = RelationshipConverter.convertRelationship(packagedElement, tmpModel);
-			
-				if (parent instanceof UmlModel) {
-					((UmlModel) parent).addRelationship(relationship);
-				}
-				else if (parent instanceof UmlPackage) {
-					((UmlPackage) parent).addRelationship(relationship);
-				}
-				
+			case "uml:Usage":
+				RelationshipConverter.convertRelationship(packagedElement, parent, tmpModel);
 				break;
-			}
+			
+			default: break;
 		}
 	}
 	
@@ -131,22 +99,22 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	 * @param tmpModel the {@link mdxmlconverter.temporary.TemporaryModel} containing the mappings from ids to their respective elements
 	 */
 	void resolveDataTypeReferences(TemporaryModel tmpModel) {
-		tmpModel.getRelationships().forEach((relationship) -> {
+		tmpModel.getRelationships().forEach(relationship -> {
 			if (relationship instanceof TemporaryRelationship) {
 				RelationshipConverter.convertTemporaryRelationship((TemporaryRelationship)relationship, tmpModel);
 			}
 		});
 		
-		tmpModel.getAttributeIDs().forEach((attributeID, attribute) -> {
-			attribute.setType(DataTypeConverter.convertElementID(attribute.getType(), tmpModel));
-		});
+		tmpModel.getAttributeIDs().forEach((attributeID, attribute) -> 
+			attribute.setType(DataTypeConverter.convertElementID(attribute.getType(), tmpModel))
+		);
 		
-		tmpModel.getParameters().forEach((parameter) -> {
-			parameter.setType(DataTypeConverter.convertElementID(parameter.getType(), tmpModel));
-		});
+		tmpModel.getParameters().forEach(parameter -> 
+			parameter.setType(DataTypeConverter.convertElementID(parameter.getType(), tmpModel))
+		);
 		
-		tmpModel.getTemplateParameterIDs().forEach((parameterid, templateParameter) -> {
-			templateParameter.setType(DataTypeConverter.convertElementID(templateParameter.getType(), tmpModel));
-		});
+		tmpModel.getTemplateParameterIDs().forEach((parameterid, templateParameter) -> 
+			templateParameter.setType(DataTypeConverter.convertElementID(templateParameter.getType(), tmpModel))
+		);
 	}
 }

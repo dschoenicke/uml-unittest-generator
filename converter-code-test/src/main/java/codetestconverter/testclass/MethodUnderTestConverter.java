@@ -13,6 +13,10 @@ import test.testobjects.MethodUnderTest;
  */
 public class MethodUnderTestConverter {
 
+	private MethodUnderTestConverter() {
+		throw new IllegalStateException("utility class");
+	}
+	
 	/**
 	 * Static method to convert {@link code.CodeMethod}s of a given {@link code.CodeElement} to {@link test.testobjects.MethodUnderTest} and adding them to a given {@link test.testobjects.ClassUnderTest}.
 	 * 

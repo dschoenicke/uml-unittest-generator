@@ -20,17 +20,17 @@ public class TemplateBindingConverterTest extends TestInitializer {
 	public void testTemplateBindingConverter() {
 		mockTmpModel.getTemporaryTemplateBindings().clear();
 		
-		assertEquals(mockCodeClass.getTemplateBindings().size(), 0);
-		assertEquals(mockCodeMethod.getTemplateBindings().size(), 0);
-		assertEquals(mockCodeConstructor.getTemplateBindings().size(), 0);
+		assertEquals(0, mockCodeClass.getTemplateBindings().size());
+		assertEquals(0, mockCodeMethod.getTemplateBindings().size());
+		assertEquals(0, mockCodeConstructor.getTemplateBindings().size());
 		
 		TemplateBindingConverter.convertTemplateBindings(mockUmlClass.getTemplateBindings(), mockCodeClass, mockTmpModel);
 		TemplateBindingConverter.convertTemplateBindings(mockUmlOperation.getTemplateBindings(), mockCodeMethod, mockTmpModel);
 		TemplateBindingConverter.convertTemplateBindings(mockUmlConstructor.getTemplateBindings(), mockCodeConstructor, mockTmpModel);
 		
-		assertEquals(mockCodeClass.getTemplateBindings().size(), 1);
-		assertEquals(mockCodeMethod.getTemplateBindings().size(), 1);
-		assertEquals(mockCodeConstructor.getTemplateBindings().size(), 1);
+		assertEquals(1, mockCodeClass.getTemplateBindings().size());
+		assertEquals(1, mockCodeMethod.getTemplateBindings().size());
+		assertEquals(1, mockCodeConstructor.getTemplateBindings().size());
 		
 		assertTrue(mockTmpModel.getTemporaryTemplateBindings().containsKey(mockCodeClass.getTemplateBindings().get(0)));
 		assertTrue(mockTmpModel.getTemporaryTemplateBindings().containsKey(mockCodeMethod.getTemplateBindings().get(0)));

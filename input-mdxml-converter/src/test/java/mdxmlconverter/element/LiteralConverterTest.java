@@ -58,7 +58,7 @@ public class LiteralConverterTest {
 	@Test
 	public void testConvertLiterals() {
 		LiteralConverter.convertLiterals(mockPackagedElement, mockEnumeration);
-		assertEquals(mockEnumeration.getLiterals().get(0).getName(), "FIRSTLITERAL");
-		assertEquals(mockEnumeration.getLiterals().get(1).getName(), "SECONDLITERAL");
+		assertEquals("FIRSTLITERAL", mockEnumeration.getLiterals().get(0).getName());
+		assertEquals("SECONDLITERAL", mockEnumeration.getLiterals().get(1).getName());
 	}
 }

@@ -2,6 +2,7 @@ package mdxml;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import javax.xml.bind.JAXBException;
@@ -62,18 +63,18 @@ public class OwnedAttributeTests extends MdxmlRepresentationTests {
 	
 	@Test
 	public void ownedAttributeAttributesTest() {
-		assertEquals(attribute.getName(), "name");
-		assertEquals(associationAttribute.getName(), "nestedClassifier");
-		assertEquals(attribute.getVisibility(), associationAttribute.getVisibility(), "private");
+		assertEquals("name", attribute.getName());
+		assertEquals("nestedClassifier", associationAttribute.getName());
+		assertEquals("private", attribute.getVisibility(), associationAttribute.getVisibility());
 		assertTrue(attribute.getDataType().getExtension().getReferenceExtension().getReferentPath().contains("String"));
-		assertEquals(associationAttribute.getAssociationType(), element.getId());
+		assertEquals(element.getId(), associationAttribute.getAssociationType(), element.getId());
 	}
 	
 	@Test
 	public void aggregationTest() {
-		assertEquals(associationAttribute.getAggregation(), "composite");
-		assertEquals(associationAttribute.getAssociation(), "_19_0_1_62d0212_1572693748404_881663_4632");
-		assertEquals(associationAttribute.getLowerValue().getValue(), null);
-		assertEquals(associationAttribute.getUpperValue().getValue(), "*");
+		assertEquals("composite", associationAttribute.getAggregation());
+		assertEquals("_19_0_1_62d0212_1572693748404_881663_4632", associationAttribute.getAssociation());
+		assertNull(associationAttribute.getLowerValue().getValue());
+		assertEquals("*", associationAttribute.getUpperValue().getValue());
 	}
 }

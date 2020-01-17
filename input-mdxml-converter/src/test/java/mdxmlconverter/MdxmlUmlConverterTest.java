@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import mdxml.Client;
 import mdxml.MdxmlRepresentation;
+import mdxml.OwnedAttribute;
 import mdxml.PackagedElement;
 import mdxml.Supplier;
 import mdxmlconverter.temporary.TemporaryAttribute;
@@ -24,7 +25,6 @@ import uml.UmlParameter;
 import uml.UmlParameterDirection;
 import uml.UmlRelationshipType;
 import uml.UmlTemplateParameter;
-import uml.UmlVisibility;
 
 /**
  * Tests the {@link MdxmlUmlConverter}
@@ -49,7 +49,6 @@ public class MdxmlUmlConverterTest {
 	 */
 	private PackagedElement mockPackagedPackage;
 	
-	
 	/**
 	 * Mocks a {@link mdxml.PackagedElement} representing a sub package to be used to test {@link MdxmlUmlConverter#convertPackagedElement}.
 	 */
@@ -71,6 +70,11 @@ public class MdxmlUmlConverterTest {
 	private UmlModel mockUmlModel;
 	
 	/**
+	 * Mocks an {@link mdxml.OwnedAttribute} to be used in the tests
+	 */
+	private OwnedAttribute mockOwnedAttribute;
+	
+	/**
 	 * Initializes the mock elements.
 	 */
 	@Before
@@ -81,7 +85,11 @@ public class MdxmlUmlConverterTest {
 		
 		mockTmpModel.addElement("123", new UmlClass("TestElement", null, false, false, false));
 		mockTmpModel.addRelationship(new TemporaryRelationship());
-		mockTmpModel.addAttribute("789", new TemporaryAttribute("", UmlVisibility.PACKAGE, "123", false, false, null, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE, null, null));
+		mockOwnedAttribute = new OwnedAttribute();
+		mockOwnedAttribute.setName("");
+		mockOwnedAttribute.setVisibility("package");
+		mockOwnedAttribute.setAssociationType("123");
+		mockTmpModel.addAttribute("789", new TemporaryAttribute(mockOwnedAttribute));
 		mockTmpModel.addParameter(new UmlParameter("", "123", UmlParameterDirection.IN, false, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE));
 		mockTmpModel.addTemplateParameter("456", new UmlTemplateParameter("321", "123"));
 		
@@ -132,12 +140,12 @@ public class MdxmlUmlConverterTest {
 	 */
 	@Test
 	public void testConvertPackagedElement() {
-		converter.convertPackagedElement(mockPackagedPackage, mockTmpModel, mockUmlModel);
+		MdxmlUmlConverter.convertPackagedElement(mockPackagedPackage, mockTmpModel, mockUmlModel);
 		UmlPackage umlPackage = mockUmlModel.getPackages().get(0);
 		assertEquals(umlPackage.getPackages().get(0).getName(), mockPackagedSubPackage.getName());
 		assertEquals(umlPackage.getName(), mockPackagedPackage.getName());
 		assertEquals(umlPackage.getElements().get(0).getName(), mockPackagedElement.getName());
-		assertEquals(umlPackage.getRelationships().get(0).getType(), UmlRelationshipType.DEPENDENCY);
+		assertEquals(UmlRelationshipType.DEPENDENCY, umlPackage.getRelationships().get(0).getType());
 	}
 	
 	/**
@@ -145,7 +153,7 @@ public class MdxmlUmlConverterTest {
 	 */
 	@Test
 	public void testConvertTopLevelPackagedClass() {
-		converter.convertPackagedElement(mockPackagedElement, mockTmpModel, mockUmlModel);
+		MdxmlUmlConverter.convertPackagedElement(mockPackagedElement, mockTmpModel, mockUmlModel);
 		assertEquals(mockUmlModel.getElements().get(0).getName(), mockPackagedElement.getName());
 	}
 	
@@ -154,8 +162,8 @@ public class MdxmlUmlConverterTest {
 	 */
 	@Test
 	public void testConvertTopLevelPackagedDependency() {
-		converter.convertPackagedElement(mockPackagedDependency, mockTmpModel, mockUmlModel);
-		assertEquals(mockUmlModel.getRelationships().get(0).getType(), UmlRelationshipType.DEPENDENCY);
+		MdxmlUmlConverter.convertPackagedElement(mockPackagedDependency, mockTmpModel, mockUmlModel);
+		assertEquals(UmlRelationshipType.DEPENDENCY, mockUmlModel.getRelationships().get(0).getType());
 	}
 	
 	/**
@@ -164,8 +172,8 @@ public class MdxmlUmlConverterTest {
 	@Test
 	public void testResolveDataTypeReferences() {
 		converter.resolveDataTypeReferences(mockTmpModel);
-		assertEquals(mockTmpModel.getAttributeIDs().get("789").getType(), "TestElement");
-		assertEquals(mockTmpModel.getParameters().get(0).getType(), "TestElement");
-		assertEquals(mockTmpModel.getTemplateParameterIDs().get("456").getType(), "TestElement");
+		assertEquals("TestElement", mockTmpModel.getAttributeIDs().get("789").getType());
+		assertEquals("TestElement", mockTmpModel.getParameters().get(0).getType());
+		assertEquals("TestElement", mockTmpModel.getTemplateParameterIDs().get("456").getType());
 	}
 }
