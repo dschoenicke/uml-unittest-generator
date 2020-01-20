@@ -47,6 +47,13 @@ public class ParameterConverterTest extends OutputJunitConverterTests {
 		assertEquals("The parameter param1 of the constructor with parameters (int, app.firstpackage.firstclass) in app.secondpackage.secondclass must be final!", parameters.get(0).getAssertion().getMessage());
 		assertEquals("false", parameters.get(1).getAssertion().getExpectedValue());
 		assertEquals("The parameter param2 of the constructor with parameters (int, app.firstpackage.firstclass) in app.secondpackage.secondclass must not be final!", parameters.get(1).getAssertion().getMessage());
+	
+		parameters = ParameterConverter.createParameters(mockInnerClass.getConstructors().get(0), mockJunitInnerTestClass);
+		assertEquals(2, parameters.size());
+		assertEquals("$enum$name", parameters.get(0).getName());
+		assertEquals("String", parameters.get(0).getType());
+		assertEquals("$enum$ordinal", parameters.get(1).getName());
+		assertEquals("int", parameters.get(1).getType());
 	}
 	
 	/**

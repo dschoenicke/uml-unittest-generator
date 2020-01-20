@@ -208,6 +208,7 @@ public class OutputJunitConverterTests {
 		new EnumConstantUnderTest("TEST2", mockInnerClass);
 		mockInnerClass.setNestHost(Optional.of(mockClass2));
 		mockInnerClass.getInterfaces().add(mockClass1.getQualifiedName());
+		new ConstructorUnderTest(0, mockInnerClass);
 	}
 	
 	/**
