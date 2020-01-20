@@ -130,6 +130,10 @@ public class AssertionConverter {
 		field.addAssertion(new JunitAssertion(String.valueOf(Modifier.isProtected(modifiers)), "Modifier.isProtected(fieldUnderTest.getModifiers())", AssertionMessageConverter.getFieldModifierAssertionMessage(className, field.getName(), Modifier.isProtected(modifiers), Modifier.PROTECTED)));
 		field.addAssertion(new JunitAssertion(String.valueOf(Modifier.isStatic(modifiers)), "Modifier.isStatic(fieldUnderTest.getModifiers())", AssertionMessageConverter.getFieldModifierAssertionMessage(className, field.getName(), Modifier.isStatic(modifiers), Modifier.STATIC)));
 		field.addAssertion(new JunitAssertion(String.valueOf(Modifier.isFinal(modifiers)), "Modifier.isFinal(fieldUnderTest.getModifiers())", AssertionMessageConverter.getFieldModifierAssertionMessage(className, field.getName(), Modifier.isFinal(modifiers), Modifier.FINAL)));
+	
+		if (!field.isOptional() && !field.isMultiplicity()) {
+			field.addAssertion(new JunitAssertion("\"" + field.getType() + "\"", "fieldUnderTest.getType().getSimpleName()", classUnderTest.getQualifiedName() + "#" + field.getName() + " must be of type " + field.getType() + "!"));
+		}
 	}
 	
 	/**
@@ -160,7 +164,11 @@ public class AssertionConverter {
 		String methodName = methodUnderTest.getName();
 		String className = classUnderTest.getQualifiedName();
 		String parameters = ParameterConverter.createParameterTypes(methodUnderTest.getParameters());
-		method.addAssertion(new JunitAssertion("\"" + method.getReturnType() + "\"", "methodUnderTest.getReturnType().getSimpleName()", "The method " + method.getMethodName() + " with parameters (" + ParameterConverter.createParameterTypes(methodUnderTest.getParameters()) + ") in " + classUnderTest.getQualifiedName() + " must return " + method.getReturnType() + "!"));
+		
+		if (!method.isOptional() && !method.isMultiplicity()) {
+			method.addAssertion(new JunitAssertion("\"" + method.getReturnType() + "\"", "methodUnderTest.getReturnType().getSimpleName()", "The method " + method.getMethodName() + " with parameters (" + ParameterConverter.createParameterTypes(methodUnderTest.getParameters()) + ") in " + classUnderTest.getQualifiedName() + " must return " + method.getReturnType() + "!"));
+		}
+		
 		method.addAssertion(new JunitAssertion(String.valueOf(Modifier.isPublic(modifiers)), "Modifier.isPublic(methodUnderTest.getModifiers())", AssertionMessageConverter.getMethodModifierAssertionMessage(className, methodName, parameters, Modifier.isPublic(modifiers), Modifier.PUBLIC)));
 		method.addAssertion(new JunitAssertion(String.valueOf(Modifier.isPrivate(modifiers)), "Modifier.isPrivate(methodUnderTest.getModifiers())", AssertionMessageConverter.getMethodModifierAssertionMessage(className, methodName, parameters, Modifier.isPrivate(modifiers), Modifier.PRIVATE)));
 		method.addAssertion(new JunitAssertion(String.valueOf(Modifier.isProtected(modifiers)), "Modifier.isProtected(methodUnderTest.getModifiers())", AssertionMessageConverter.getMethodModifierAssertionMessage(className, methodName, parameters, Modifier.isProtected(modifiers), Modifier.PROTECTED)));

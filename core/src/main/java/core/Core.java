@@ -33,7 +33,6 @@ public class Core {
 	 * @param args the command line arguments passed to the application
 	 */
 	public static void main(String[] args) {
-		
 		Options options = new Options();
 		TestCreator.addTestCreatorOptions(options);
 		QualifiedNamesMapper.addQualifiedNamesMapperOptions(options);

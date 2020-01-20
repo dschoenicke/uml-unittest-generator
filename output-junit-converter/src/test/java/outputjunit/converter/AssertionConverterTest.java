@@ -143,7 +143,7 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 		JunitFieldUnderTest field1 = new JunitFieldUnderTest("field1", "int", false, false);
 		JunitFieldUnderTest field2 = new JunitFieldUnderTest("field2", "String", true, false);
 		AssertionConverter.createFieldAssertions(mockClass2.getFields().get(0), mockClass2, field1);
-		assertEquals(5, field1.getAssertions().size());
+		assertEquals(6, field1.getAssertions().size());
 		assertEquals("false", field1.getAssertions().get(0).getExpectedValue());
 		assertEquals("Modifier.isPublic(fieldUnderTest.getModifiers())", field1.getAssertions().get(0).getActualValue());
 		assertEquals("app.secondpackage.secondclass#field1 must not be public!", field1.getAssertions().get(0).getMessage());
@@ -178,8 +178,8 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 	 */
 	@Test
 	public void testCreateConstructorAssertions() {
-		JunitConstructorUnderTest constructor1 = new JunitConstructorUnderTest("int.class");
-		JunitConstructorUnderTest constructor2 = new JunitConstructorUnderTest("");
+		JunitConstructorUnderTest constructor1 = new JunitConstructorUnderTest("int.class", "int");
+		JunitConstructorUnderTest constructor2 = new JunitConstructorUnderTest("", "");
 		AssertionConverter.createConstructorAssertions(mockClass2.getConstructors().get(0), mockClass2, constructor1);
 		assertEquals("true", constructor1.getAssertions().get(0).getExpectedValue());
 		assertEquals("Modifier.isPublic(constructorUnderTest.getModifiers())", constructor1.getAssertions().get(0).getActualValue());
@@ -205,8 +205,8 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 	 */
 	@Test
 	public void testCreateMethodAssertions() {
-		JunitMethodUnderTest method1 = new JunitMethodUnderTest("method1", "void", "int.class, app.firstpackage.firstclass");
-		JunitMethodUnderTest method2 = new JunitMethodUnderTest("method2", "void", "");
+		JunitMethodUnderTest method1 = new JunitMethodUnderTest("method1", "void", "int.class, app.firstpackage.firstclass", "int, app.firstpackage.firstclass", false, false);
+		JunitMethodUnderTest method2 = new JunitMethodUnderTest("method2", "void", "", "", false, false);
 		AssertionConverter.createMethodAssertions(mockClass1.getMethods().get(0), mockClass1, method1);
 		assertEquals(7, method1.getAssertions().size());
 		assertEquals("\"void\"", method1.getAssertions().get(0).getExpectedValue());

@@ -19,6 +19,11 @@ public class JunitParameterUnderTest {
 	private String name;
 	
 	/**
+	 * The data type of the parameter
+	 */
+	private String type;
+	
+	/**
 	 * True, if the parameter is final
 	 */
 	private Boolean isFinal;

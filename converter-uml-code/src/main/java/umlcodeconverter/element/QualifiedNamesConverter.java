@@ -34,9 +34,10 @@ public class QualifiedNamesConverter {
 	 * @param qualifiedNamesDB the map representing the MapDB database containing mappings for qualified names of external classes
 	 */
 	public static void resolveQualifiedNames(CodeRepresentation codeRepresentation, BTreeMap<String, String> qualifiedNamesDB) {
-		
+		codeRepresentation.getElementsAsList().forEach(codeElement -> 
+			resolveElementQualifiedName(codeElement, qualifiedNamesDB));
+	
 		codeRepresentation.getElementsAsList().forEach(codeElement -> {
-			resolveElementQualifiedName(codeElement, qualifiedNamesDB);
 			resolveElementConstructorParameters(codeElement);
 			resolveElementMethodParameters(codeElement);
 			resolveElementTemplateParameters(codeElement);
@@ -50,13 +51,16 @@ public class QualifiedNamesConverter {
 	 * @param qualifiedNamesDB the map representing the MapDB database containing mappings for qualified names of external classes 
 	 */
 	static void resolveElementQualifiedName(CodeElement codeElement, BTreeMap<String, String> qualifiedNamesDB) {
-		if (qualifiedNamesDB.containsKey(codeElement.getName())) {
-			codeElement.setQualifiedName(qualifiedNamesDB.get(codeElement.getName()));
-		}
-		else {
-			codeElement.setQualifiedName(createQualifiedName(codeElement));
+		String key = codeElement.getName();
+		String genericType = "";
+		
+		//Check for generic type in class name
+		if (key.contains("<")) {
+			genericType = key.substring(key.indexOf('<'));
+			key = key.substring(0, key.indexOf('<') - 1);
 		}
 		
+		codeElement.setQualifiedName(qualifiedNamesDB.containsKey(key) ? qualifiedNamesDB.get(key) + genericType : createQualifiedName(codeElement));
 		qualifiedNames.put(codeElement.getName(), codeElement.getQualifiedName());
 	}
 		

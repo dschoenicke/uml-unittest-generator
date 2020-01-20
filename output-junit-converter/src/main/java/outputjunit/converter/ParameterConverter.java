@@ -34,7 +34,7 @@ public class ParameterConverter {
 		ArrayList<JunitParameterUnderTest> junitParameters = new ArrayList<>();
 		constructor.getParameters().forEach(param -> {
 			boolean isFinal = Modifier.isFinal(param.getModifiers());
-			junitParameters.add(new JunitParameterUnderTest(param.getName(), isFinal, 
+			junitParameters.add(new JunitParameterUnderTest(param.getName(), param.getType(), isFinal, 
 					new JunitAssertion(String.valueOf(isFinal), "Modifier.isFinal(parameterUnderTest.getModifiers())", "The parameter " + param.getName() + " of the constructor with parameters (" + createParameterTypes(constructor.getParameters()) + ") in " + testClass.getClassName() + " must " + (isFinal ? "" : "not ") + "be final!")));
 		});
 		
@@ -52,7 +52,7 @@ public class ParameterConverter {
 		ArrayList<JunitParameterUnderTest> junitParameters = new ArrayList<>();
 		method.getParameters().forEach(param -> {
 			boolean isFinal = Modifier.isFinal(param.getModifiers());
-			junitParameters.add(new JunitParameterUnderTest(param.getName(), isFinal, 
+			junitParameters.add(new JunitParameterUnderTest(param.getName(), param.getType(), isFinal, 
 					new JunitAssertion(String.valueOf(isFinal), "Modifier.isFinal(parameterUnderTest.getModifiers())", "The parameter " + param.getName() + " of the method " + method.getName() + " with parameters (" + createParameterTypes(method.getParameters()) + ") in " + testClass.getClassName() + " must " + (isFinal ? "" : "not ") + "be final!")));
 		});
 		
@@ -73,7 +73,13 @@ public class ParameterConverter {
 		StringBuilder params = new StringBuilder("");
 
 		for (ParameterUnderTest param : parameters) {
-			params.append(param.getType());
+			String type = param.getType();
+			
+			if (type.contains("<")) {
+				type = type.substring(0, type.indexOf('<'));
+			}
+			
+			params.append(type);
 			params.append(".class, ");
 		}
 		
@@ -87,17 +93,12 @@ public class ParameterConverter {
 	 * @return the String with the parameter types
 	 */
 	static String createParameterTypes(ArrayList<ParameterUnderTest> parameters) {
-		if (parameters.isEmpty()) {
-			return "";
+		String types = createParameterTypeClasses(parameters);
+		
+		while (types.contains(".class")) {
+			types = types.replace(".class", "");
 		}
 		
-		StringBuilder params = new StringBuilder("");
-
-		for (ParameterUnderTest param : parameters) {
-			params.append(param.getType());
-			params.append(", ");
-		}
-		
-		return params.substring(0, params.length() - 2);
+		return types;
 	}
 }

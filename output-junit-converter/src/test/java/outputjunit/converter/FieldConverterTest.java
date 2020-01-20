@@ -27,16 +27,16 @@ public class FieldConverterTest extends OutputJunitConverterTests {
 		JunitFieldUnderTest field3 = mockJunitTestClass2.getFields().get(2);
 		assertEquals("field1", field1.getName());
 		assertEquals("int", field1.getType());
-		assertEquals(5, field1.getAssertions().size());
-		assertEquals(false, field1.isCheckForOptional());
-		assertEquals(false, field1.isHasMultiplicity());
+		assertEquals(6, field1.getAssertions().size());
+		assertEquals(false, field1.isOptional());
+		assertEquals(false, field1.isMultiplicity());
 		assertEquals("field2", field2.getName());
 		assertEquals("String", field2.getType());
-		assertEquals(true, field2.isCheckForOptional());
-		assertEquals(false, field2.isHasMultiplicity());
+		assertEquals(true, field2.isOptional());
+		assertEquals(false, field2.isMultiplicity());
 		assertEquals("field3", field3.getName());
 		assertEquals("app.firstpackage.firstclass", field3.getType());
-		assertEquals(false, field3.isCheckForOptional());
-		assertEquals(true, field3.isHasMultiplicity());
+		assertEquals(false, field3.isOptional());
+		assertEquals(true, field3.isMultiplicity());
 	}
 }

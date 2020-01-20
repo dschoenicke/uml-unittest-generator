@@ -24,7 +24,11 @@ public class ConstructorConverter {
 	 */
 	static void convertConstructors(ClassUnderTest classUnderTest, JunitTestClass testClass) {
 		classUnderTest.getConstructors().forEach(constructor -> {
-			JunitConstructorUnderTest junitConstructor = new JunitConstructorUnderTest(ParameterConverter.createParameterTypeClasses(constructor.getParameters()));
+			JunitConstructorUnderTest junitConstructor = new JunitConstructorUnderTest(
+					ParameterConverter.createParameterTypeClasses(constructor.getParameters()),
+					ParameterConverter.createParameterTypes(constructor.getParameters())
+			);
+			
 			junitConstructor.getParameters().addAll(ParameterConverter.createParameters(constructor, testClass));
 			testClass.addConstructor(junitConstructor);
 			AssertionConverter.createConstructorAssertions(constructor, classUnderTest, junitConstructor);

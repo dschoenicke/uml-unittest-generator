@@ -32,7 +32,10 @@ public class MethodConverter {
 			
 			JunitMethodUnderTest junitMethod = new JunitMethodUnderTest(method.getName(), 
 					returnType,
-					ParameterConverter.createParameterTypeClasses(method.getParameters()));
+					ParameterConverter.createParameterTypeClasses(method.getParameters()),
+					ParameterConverter.createParameterTypes(method.getParameters()),
+					method.getReturnType().getCanBeNull() && !method.getReturnType().getHasMultiplicity(),
+					method.getReturnType().getHasMultiplicity());
 			
 			junitMethod.getParameters().addAll(ParameterConverter.createParameters(method, testClass));
 			testClass.addMethod(junitMethod);

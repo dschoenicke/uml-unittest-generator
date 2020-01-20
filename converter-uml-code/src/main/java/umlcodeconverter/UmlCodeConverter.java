@@ -7,6 +7,7 @@ import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.Serializer;
 
+import code.CodePackage;
 import code.CodeRepresentation;
 import lombok.NoArgsConstructor;
 import uml.UmlModel;
@@ -32,7 +33,8 @@ public class UmlCodeConverter
 	 * Delegates the conversion of {@link uml.UmlPackage}s to the {@link umlcodeconverter.packages.PackageConverter}<br>
 	 * Delegates the conversion of {@link uml.UmlElement}s to the {@link umlcodeconverter.element.ElementConverter}<br>
 	 * Delegates the definite conversion of {@link uml.UmlTemplateBinding}s to the {@link umlcodeconverter.element.TemplateBindingConverter}<br>
-	 * Delegates the conversion of {@link uml.UmlRelationship} to the {@link umlcodeconverter.relationship.RelationshipConverter}
+	 * Delegates the conversion of {@link uml.UmlRelationship} to the {@link umlcodeconverter.relationship.RelationshipConverter}<br>
+	 * Removes {@link code.CodeElement}s from the {@link code.CodeRepresentation} which names contain '<' or '[' since they are considered to be representatives of generic types or arrays
 	 * 
 	 * @param umlModel the {@link uml.UmlModel} to be converted
 	 * @return the converted {@link code.CodeRepresentation}
@@ -56,6 +58,12 @@ public class UmlCodeConverter
 		ElementConverter.convertElements(umlModel, codeRepresentation, tmpModel);
 		TemplateBindingConverter.finishTemplateBindingConversions(tmpModel);
 		RelationshipConverter.convertRelationships(umlModel.getRelationshipsAsList(), tmpModel);
+		codeRepresentation.getElementsAsList().forEach(codeElement -> {
+			if (codeElement.getName().contains("<") || codeElement.getName().contains("[")) {
+				((CodePackage) codeElement.getParent()).getElements().remove(codeElement);
+			}
+		});
+		
 		return codeRepresentation;
 	}
 	

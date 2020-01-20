@@ -20,12 +20,12 @@ public class JunitFieldUnderTest {
 	/**
 	 * True, if the field is an Optional
 	 */
-	private boolean checkForOptional;
+	private boolean optional;
 	
 	/**
 	 * True, if the field has a multiplicity
 	 */
-	private boolean hasMultiplicity;
+	private boolean multiplicity;
 	
 	/**
 	 * List of {@link JunitAssertion}s checking the field
@@ -38,14 +38,14 @@ public class JunitFieldUnderTest {
 	 * 
 	 * @param name the name of the field
 	 * @param type the type of the field
-	 * @param checkForOptional true, if the field is an Optional
-	 * @param hasMultiplicity true, if the field has a multiplicity
+	 * @param optional true, if the field is an Optional
+	 * @param multiplicity true, if the field has a multiplicity
 	 */
-	public JunitFieldUnderTest(String name, String type, boolean checkForOptional, boolean hasMultiplicity) {
+	public JunitFieldUnderTest(String name, String type, boolean optional, boolean multiplicity) {
 		this.name = name;
 		this.type = type;
-		this.checkForOptional = checkForOptional;
-		this.hasMultiplicity = hasMultiplicity;
+		this.optional = optional;
+		this.multiplicity = multiplicity;
 		assertions = new ArrayList<>();
 	}
 	

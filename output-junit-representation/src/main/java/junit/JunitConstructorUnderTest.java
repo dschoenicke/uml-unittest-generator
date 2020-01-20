@@ -13,6 +13,11 @@ public class JunitConstructorUnderTest {
 	private String parameterTypeClasses;
 	
 	/**
+	 * String representing the list of parameter types of the constructor
+	 */
+	private String parameterTypes;
+	
+	/**
 	 * The list of {@link JunitParameterUnderTest} of the constructor
 	 */
 	private ArrayList<JunitParameterUnderTest> parameters;
@@ -23,12 +28,14 @@ public class JunitConstructorUnderTest {
 	private ArrayList<JunitAssertion> assertions;
 	
 	/**
-	 * Constructor with parameter type classes, initializes the list of {@link JunitParameterUnderTest} and {@link JunitAssertion}s
+	 * Constructor with parameter type classes and parameter types, initializes the list of {@link JunitParameterUnderTest} and {@link JunitAssertion}s
 	 * 
 	 * @param parameterTypeClasses the parameter type classes of the constructor
+	 * @param parameterTypes the parameter types of the constructor
 	 */
-	public JunitConstructorUnderTest(String parameterTypeClasses) {
+	public JunitConstructorUnderTest(String parameterTypeClasses, String parameterTypes) {
 		this.parameterTypeClasses = parameterTypeClasses;
+		this.parameterTypes = parameterTypes;
 		parameters = new ArrayList<>();
 		assertions = new ArrayList<>();
 	}

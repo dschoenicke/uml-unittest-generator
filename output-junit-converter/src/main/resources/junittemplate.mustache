@@ -63,44 +63,25 @@ class {{testClass.getName}} {
 		try {
 			Field fieldUnderTest = classUnderTest.getDeclaredField("{{getName}}");
 			{{#getAssertions}}
-			assertEquals({{{getExpectedValue}}}, {{{getActualValue}}}, "{{getMessage}}");
+			assertEquals({{{getExpectedValue}}}, {{{getActualValue}}}, "{{{getMessage}}}");
 			{{/getAssertions}}
-			{{#isHasMultiplicity}}
+			{{#isMultiplicity}}
 			
 			if (fieldUnderTest.getClass().isArray()) {
-				assertEquals("{{{getType}}}[]", fieldUnderTest.getType().getSimpleName(), "{{testClass.getClassName}}#{{getName}} must be of type {{{getType}}}!");
+				assertEquals("{{{getType}}}[]", fieldUnderTest.getType().getSimpleName(), "{{testClass.getClassName}}#{{getName}} must be of type {{{getType}}}[]!");
 			}
 			else {
-				String genericType = "";
-			
-				try {
-					genericType = ((ParameterizedType) fieldUnderTest.getGenericType()).getActualTypeArguments()[0].getTypeName();
-					genericType = genericType.substring(genericType.lastIndexOf(".") + 1);
-				} catch (ClassCastException e) {
-					fail("{{testClass.getClassName}}#{{getName}} must be of type {{{getType}}}!");
-				}
-				
-				assertEquals("{{{getType}}}", fieldUnderTest.getType().getSimpleName() + "<" + genericType + ">", "{{testClass.getClassName}}#{{getName}} must be of type {{{getType}}}!");
+				String genericTypes = getGenericTypes(fieldUnderTest.getGenericType());
+				assertEquals("{{{getType}}}", fieldUnderTest.getType().getSimpleName() + "<" + genericTypes + ">", "{{testClass.getClassName}}#{{getName}} must be of type {{{getType}}}!");
 			}
-			{{/isHasMultiplicity}}
-			{{^isHasMultiplicity}}
-			{{#canBeNull}}
+			{{/isMultiplicity}}
+			{{^isMultiplicity}}
+			{{#isOptional}}
 			
-			String genericType = "";
-			
-			try {
-				genericType = ((ParameterizedType) fieldUnderTest.getGenericType()).getActualTypeArguments()[0].getTypeName();
-				genericType = genericType.substring(genericType.lastIndexOf(".") + 1);
-			} catch (ClassCastException e) {
-				fail("{{testClass.getClassName}}#{{getName}} must be of type Optional<{{{getType}}}>!");
-			}
-				
-			assertEquals("Optional<{{{getType}}}>", fieldUnderTest.getType().getSimpleName() + "<" + genericType + ">", "{{testClass.getClassName}}#{{getName}} must be of type Optional<{{{getType}}}>!");
-			{{/canBeNull}}
-			{{^canBeNull}}
-			assertEquals("{{{getType}}}", fieldUnderTest.getType().getSimpleName(), "{{testClass.getClassName}}#{{getName}} must be of type {{{getType}}}!");
-			{{/canBeNull}}
-			{{/isHasMultiplicity}}
+			String genericTypes = getGenericTypes(fieldUnderTest.getGenericType());
+			assertEquals("Optional<{{{getType}}}>", fieldUnderTest.getType().getSimpleName() + "<" + genericTypes + ">", "{{testClass.getClassName}}#{{getName}} must be of type Optional<{{{getType}}}>!");
+			{{/isOptional}}
+			{{/isMultiplicity}}
 		} catch (NoSuchFieldException | SecurityException e) {
 			fail("{{testClass.getClassName}} is expected to have a field with name {{getName}}!");
 		}
@@ -120,10 +101,18 @@ class {{testClass.getName}} {
 			{{^getParameters.isEmpty}}
 			
 			Parameter parameterUnderTest;
+			Type genericParameter;
+			int counter = 0;
+			String genericTypes = "";
 			{{#getParameters}}
 			
-			parameterUnderTest = java.util.Arrays.asList(constructorUnderTest.getParameters()).stream().filter(param -> param.getName().equals("{{getName}}")).findFirst().get();
+			parameterUnderTest = constructorUnderTest.getParameters()[counter];
 			assertEquals({{{getAssertion.getExpectedValue}}}, {{{getAssertion.getActualValue}}}, "{{{getAssertion.getMessage}}}");
+			genericParameter = constructorUnderTest.getGenericParameterTypes()[counter];
+			genericTypes = getGenericTypes(genericParameter);
+			genericTypes = (!genericTypes.isEmpty() ? "<" + genericTypes + ">" : genericTypes);
+			assertEquals("{{{getType}}}".substring("{{{getType}}}".lastIndexOf('.') + 1), parameterUnderTest.getType().getSimpleName() + genericTypes, "The parameter {{getName}} of the constructor with parameters ({{getParameterTypes}}) in {{testClass.getClassName}} must be of type {{{getType}}}!");
+			counter ++;
 			{{/getParameters}}
 			{{/getParameters.isEmpty}}
 		} catch (NoSuchMethodException | SecurityException e) {
@@ -142,19 +131,66 @@ class {{testClass.getName}} {
 			{{#getAssertions}}
 			assertEquals({{{getExpectedValue}}}, {{getActualValue}}, "{{{getMessage}}}");
 			{{/getAssertions}}
+			
+			{{#isMultiplicity}}
+			
+			if (methodUnderTest.getReturnType().isArray()) {
+				assertEquals("{{{getReturnType}}}[]", methodUnderTest.getReturnType().getSimpleName(), "The return type of {{testClass.getClassName}}#{{getMethodName}} must be of type {{{getReturnType}}}[]!");
+			}
+			else {
+				String genericTypes = getGenericTypes(methodUnderTest.getGenericReturnType());
+				assertEquals("{{{getReturnType}}}", methodUnderTest.getReturnType().getSimpleName() + "<" + genericTypes + ">", "The return type of the method {{testClass.getClassName}}#{{getMethodName}} must be of type {{{getReturnType}}}!");
+			}
+			{{/isMultiplicity}}
+			{{^isMultiplicity}}
+			{{#isOptional}}
+			
+			String genericTypes = getGenericTypes(methodUnderTest.getGenericReturnType());
+			assertEquals("Optional<{{{getReturnType}}}>", methodUnderTest.getReturnType().getSimpleName() + "<" + genericTypes + ">", "The return type of the method {{testClass.getClassName}}#{{getMethodName}} must be of type Optional<{{{getReturnType}}}>!");
+			{{/isOptional}}
+			{{/isMultiplicity}}
 			{{^getParameters.isEmpty}}
 			
 			Parameter parameterUnderTest;
+			Type genericParameter;
+			String genericTypes = "";
+			int counter = 0;
 			{{#getParameters}}
 			
-			parameterUnderTest = java.util.Arrays.asList(methodUnderTest.getParameters()).stream().filter(param -> param.getName().equals("{{getName}}")).findFirst().get();
+			parameterUnderTest = methodUnderTest.getParameters()[counter];
 			assertEquals({{{getAssertion.getExpectedValue}}}, {{{getAssertion.getActualValue}}}, "{{{getAssertion.getMessage}}}");
+			genericParameter = methodUnderTest.getGenericParameterTypes()[counter];
+			genericTypes = getGenericTypes(genericParameter);
+			genericTypes = (!genericTypes.isEmpty() ? "<" + genericTypes + ">" : genericTypes);
+			assertEquals("{{{getType}}}".substring("{{{getType}}}".lastIndexOf('.') + 1), parameterUnderTest.getType().getSimpleName() + genericTypes, "The parameter {{getName}} of the method {{getMethodName}} with parameters ({{getParameterTypes}}) in {{testClass.getClassName}} must be of type {{{getType}}}!");
+			counter ++;
 			{{/getParameters}}
 			{{/getParameters.isEmpty}}
 		} catch (NoSuchMethodException | SecurityException e) {
 			fail("{{testClass.getClassName}} must have a method named {{getMethodName}} with parameters ({{getParameterTypes}})");
 		}
 		{{/testClass.getMethods}}
+	}
+	
+	String getGenericTypes(Type type) throws ClassCastException {
+		StringBuilder genericTypes = new StringBuilder("");
+		
+		try {
+			for (int i = 0; i < ((ParameterizedType) type).getActualTypeArguments().length; i++) {
+				StringBuilder genericType = new StringBuilder(
+						(((ParameterizedType) type).getActualTypeArguments()[i].getTypeName() + ", "));
+				genericType = new StringBuilder(genericType.substring(genericType.lastIndexOf(".") + 1));
+				genericTypes.append(genericType);
+			}
+			
+			if (!genericTypes.toString().isEmpty()) {
+				genericTypes = new StringBuilder(genericTypes.substring(0, genericTypes.length() - 2));
+			}
+		} catch (ClassCastException e) {
+			return "";
+		}
+		
+		return genericTypes.toString();
 	}
 }
 	
