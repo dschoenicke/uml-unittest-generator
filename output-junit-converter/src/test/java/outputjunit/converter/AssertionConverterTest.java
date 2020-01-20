@@ -24,7 +24,7 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 	@Test
 	public void testCreatePropertyAssertions() {
 		AssertionConverter.createPropertyAssertions(mockClass1, mockJunitTestClass1);
-		assertEquals(8, mockJunitTestClass1.getPropertyAssertions().size());
+		assertEquals(7, mockJunitTestClass1.getPropertyAssertions().size());
 		assertEquals("true", mockJunitTestClass1.getPropertyAssertions().get(0).getExpectedValue());
 		assertEquals("classUnderTest.isInterface()", mockJunitTestClass1.getPropertyAssertions().get(0).getActualValue());
 		assertEquals("app.firstpackage.firstclass must be an interface!", mockJunitTestClass1.getPropertyAssertions().get(0).getMessage());
@@ -41,14 +41,11 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 		assertEquals("Modifier.isProtected(classUnderTest.getModifiers())", mockJunitTestClass1.getPropertyAssertions().get(4).getActualValue());
 		assertEquals("app.firstpackage.firstclass must not be protected!", mockJunitTestClass1.getPropertyAssertions().get(4).getMessage());
 		assertEquals("false", mockJunitTestClass1.getPropertyAssertions().get(5).getExpectedValue());
-		assertEquals("Modifier.isStatic(classUnderTest.getModifiers())", mockJunitTestClass1.getPropertyAssertions().get(5).getActualValue());
-		assertEquals("app.firstpackage.firstclass must not be static!", mockJunitTestClass1.getPropertyAssertions().get(5).getMessage());
+		assertEquals("Modifier.isFinal(classUnderTest.getModifiers())", mockJunitTestClass1.getPropertyAssertions().get(5).getActualValue());
+		assertEquals("app.firstpackage.firstclass must not be final!", mockJunitTestClass1.getPropertyAssertions().get(5).getMessage());
 		assertEquals("false", mockJunitTestClass1.getPropertyAssertions().get(6).getExpectedValue());
-		assertEquals("Modifier.isFinal(classUnderTest.getModifiers())", mockJunitTestClass1.getPropertyAssertions().get(6).getActualValue());
-		assertEquals("app.firstpackage.firstclass must not be final!", mockJunitTestClass1.getPropertyAssertions().get(6).getMessage());
-		assertEquals("false", mockJunitTestClass1.getPropertyAssertions().get(7).getExpectedValue());
-		assertEquals("Modifier.isAbstract(classUnderTest.getModifiers())", mockJunitTestClass1.getPropertyAssertions().get(7).getActualValue());
-		assertEquals("app.firstpackage.firstclass must not be abstract!", mockJunitTestClass1.getPropertyAssertions().get(7).getMessage());
+		assertEquals("Modifier.isAbstract(classUnderTest.getModifiers())", mockJunitTestClass1.getPropertyAssertions().get(6).getActualValue());
+		assertEquals("app.firstpackage.firstclass must not be abstract!", mockJunitTestClass1.getPropertyAssertions().get(6).getMessage());
 		
 		AssertionConverter.createPropertyAssertions(mockClass2, mockJunitTestClass2);
 		assertEquals("true", mockJunitTestClass2.getPropertyAssertions().get(0).getExpectedValue());
@@ -61,11 +58,9 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 		assertEquals("true", mockJunitTestClass2.getPropertyAssertions().get(4).getExpectedValue());
 		assertEquals("app.secondpackage.secondclass must be protected!", mockJunitTestClass2.getPropertyAssertions().get(4).getMessage());
 		assertEquals("true", mockJunitTestClass2.getPropertyAssertions().get(5).getExpectedValue());
-		assertEquals("app.secondpackage.secondclass must be static!", mockJunitTestClass2.getPropertyAssertions().get(5).getMessage());
+		assertEquals("app.secondpackage.secondclass must be final!", mockJunitTestClass2.getPropertyAssertions().get(5).getMessage());
 		assertEquals("true", mockJunitTestClass2.getPropertyAssertions().get(6).getExpectedValue());
-		assertEquals("app.secondpackage.secondclass must be final!", mockJunitTestClass2.getPropertyAssertions().get(6).getMessage());
-		assertEquals("true", mockJunitTestClass2.getPropertyAssertions().get(7).getExpectedValue());
-		assertEquals("app.secondpackage.secondclass must be abstract!", mockJunitTestClass2.getPropertyAssertions().get(7).getMessage());
+		assertEquals("app.secondpackage.secondclass must be abstract!", mockJunitTestClass2.getPropertyAssertions().get(6).getMessage());
 		
 		AssertionConverter.createPropertyAssertions(mockInnerClass, mockJunitInnerTestClass);
 		assertEquals("true", mockJunitInnerTestClass.getPropertyAssertions().get(0).getExpectedValue());

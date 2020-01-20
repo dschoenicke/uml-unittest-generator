@@ -2,6 +2,7 @@ package outputjunit.converter;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.List;
 
 import junit.JunitAssertion;
 import junit.JunitParameterUnderTest;
@@ -24,7 +25,8 @@ public class ParameterConverter {
 	}
 	
 	/**
-	 * Converts {@link junit.JunitParameterUnderTest}s out of the {@link test.testobjects.ParameterUnderTest} of a given {@link test.testobjects.ConstructorUnderTest}
+	 * Converts {@link junit.JunitParameterUnderTest}s out of the {@link test.testobjects.ParameterUnderTest} of a given {@link test.testobjects.ConstructorUnderTest}<br>
+	 * Adds the two synthetic parameters to the list if the {@link junit.JunitTestClass} is an enumeration.
 	 * 
 	 * @param constructor the {@link test.testobjects.ConstructorUnderTest} which {@link test.testobjects.ParameterUnderTest} should be converted
 	 * @param testClass the {@link junit.JunitTestClass} owning the constructor
@@ -32,6 +34,13 @@ public class ParameterConverter {
 	 */
 	static ArrayList<JunitParameterUnderTest> createParameters(ConstructorUnderTest constructor, JunitTestClass testClass) {
 		ArrayList<JunitParameterUnderTest> junitParameters = new ArrayList<>();
+		
+		if (testClass.isEnumeration()) {
+			junitParameters.addAll(List.of(
+					new JunitParameterUnderTest("$enum$name", "String", false, new JunitAssertion("0", "0", "")),
+					new JunitParameterUnderTest("$enum$ordinal", "int", false, new JunitAssertion("0", "0", ""))));
+		}
+		
 		constructor.getParameters().forEach(param -> {
 			boolean isFinal = Modifier.isFinal(param.getModifiers());
 			junitParameters.add(new JunitParameterUnderTest(param.getName(), param.getType(), isFinal, 
@@ -42,7 +51,8 @@ public class ParameterConverter {
 	}
 	
 	/**
-	 * Converts {@link junit.JunitParameterUnderTest}s out of the {@link test.testobjects.ParameterUnderTest} of a given {@link test.testobjects.MethodUnderTest}
+	 * Converts {@link junit.JunitParameterUnderTest}s out of the {@link test.testobjects.ParameterUnderTest} of a given {@link test.testobjects.MethodUnderTest}<br>
+	 * Adds the two synthetic parameters to the list if the {@link junit.JunitTestClass} is an enumeration.
 	 * 
 	 * @param method the {@link test.testobjects.MethodUnderTest} which {@link test.testobjects.ParameterUnderTest} should be converted
 	 * @param testClass the {@link junit.JunitTestClass} owning the method

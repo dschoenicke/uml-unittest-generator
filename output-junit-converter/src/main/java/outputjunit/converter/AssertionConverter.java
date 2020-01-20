@@ -62,9 +62,12 @@ public class AssertionConverter {
 		testClass.addPropertyAssertion(new JunitAssertion(String.valueOf(Modifier.isPublic(modifiers)), "Modifier.isPublic(classUnderTest.getModifiers())", AssertionMessageConverter.getClassModifierAssertionMessage(className, Modifier.isPublic(modifiers), Modifier.PUBLIC)));
 		testClass.addPropertyAssertion(new JunitAssertion(String.valueOf(Modifier.isPrivate(modifiers)), "Modifier.isPrivate(classUnderTest.getModifiers())", AssertionMessageConverter.getClassModifierAssertionMessage(className, Modifier.isPrivate(modifiers), Modifier.PRIVATE)));
 		testClass.addPropertyAssertion(new JunitAssertion(String.valueOf(Modifier.isProtected(modifiers)), "Modifier.isProtected(classUnderTest.getModifiers())", AssertionMessageConverter.getClassModifierAssertionMessage(className, Modifier.isProtected(modifiers), Modifier.PROTECTED)));
-		testClass.addPropertyAssertion(new JunitAssertion(String.valueOf(Modifier.isStatic(modifiers)), "Modifier.isStatic(classUnderTest.getModifiers())", AssertionMessageConverter.getClassModifierAssertionMessage(className, Modifier.isStatic(modifiers), Modifier.STATIC)));
-		testClass.addPropertyAssertion(new JunitAssertion(String.valueOf(Modifier.isFinal(modifiers)), "Modifier.isFinal(classUnderTest.getModifiers())", AssertionMessageConverter.getClassModifierAssertionMessage(className, Modifier.isFinal(modifiers), Modifier.FINAL)));
-		testClass.addPropertyAssertion(new JunitAssertion(String.valueOf(Modifier.isAbstract(modifiers)), "Modifier.isAbstract(classUnderTest.getModifiers())", AssertionMessageConverter.getClassModifierAssertionMessage(className, Modifier.isAbstract(modifiers), Modifier.ABSTRACT)));
+		
+		if (!classUnderTest.isEnum()) {
+			testClass.addPropertyAssertion(new JunitAssertion(String.valueOf(Modifier.isFinal(modifiers)), "Modifier.isFinal(classUnderTest.getModifiers())", AssertionMessageConverter.getClassModifierAssertionMessage(className, Modifier.isFinal(modifiers), Modifier.FINAL)));
+			testClass.addPropertyAssertion(new JunitAssertion(String.valueOf(Modifier.isAbstract(modifiers)), "Modifier.isAbstract(classUnderTest.getModifiers())", AssertionMessageConverter.getClassModifierAssertionMessage(className, Modifier.isAbstract(modifiers), Modifier.ABSTRACT)));
+		}
+		
 	}
 	
 	/**
@@ -74,7 +77,7 @@ public class AssertionConverter {
 	 * @param testClass the {@link junit.JunitTestClass} for which the {@link junit.JunitAssertion}s will be created
 	 */
 	static void createRelationshipAssertions(ClassUnderTest classUnderTest, JunitTestClass testClass) {
-		String superclass = classUnderTest.getSuperClass().orElse("Object");
+		String superclass = classUnderTest.getSuperClass().orElse(classUnderTest.isEnum() ? "Enum" : "Object");
 		
 		if (classUnderTest.getSuperClass().isPresent()) {
 			testClass.addRelationshipAssertion(new JunitAssertion("\"" + superclass + "\"", "classUnderTest.getSuperclass().getSimpleName()", testClass.getClassName() + " must extend " + superclass + "!"));

@@ -45,7 +45,13 @@ public class TestClassConverter {
 	 * @return the converted {@link junit.JunitTestClass}
 	 */
 	static JunitTestClass convertTestClass(TestClass testClass, JunitPackage parent, JunitRepresentation junitRepresentation) {
-		JunitTestClass junitTestClass = new JunitTestClass(testClass.getName(), testClass.getClassUnderTest().getQualifiedName(), junitRepresentation.getName() + "Structure." + testClass.getPackagePath(), parent);
+		JunitTestClass junitTestClass = new JunitTestClass(
+				testClass.getName(), 
+				testClass.getClassUnderTest().getQualifiedName(), 
+				junitRepresentation.getName() + "Structure." + testClass.getPackagePath(), 
+				parent,
+				testClass.getClassUnderTest().isEnum());
+		
 		parent.addTestClass(junitTestClass);
 		
 		AssertionConverter.createPropertyAssertions(testClass.getClassUnderTest(), junitTestClass);

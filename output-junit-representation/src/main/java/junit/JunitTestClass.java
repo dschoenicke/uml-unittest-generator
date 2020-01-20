@@ -34,6 +34,11 @@ public class JunitTestClass {
 	private JunitPackage junitPackage;
 	
 	/**
+	 * Determines whether the class under test is an enumeration
+	 */
+	private boolean enumeration;
+	
+	/**
 	 * List of {@link JunitAssertion}s checking the classes' properties
 	 */
     private ArrayList<JunitAssertion> propertyAssertions;
@@ -76,12 +81,14 @@ public class JunitTestClass {
      * @param className the qualified name of the test class
      * @param packageDeclaration the package declaration of the test class
      * @param junitPackage the {@link JunitPackage} containing this test class
+     * @param enumeration determines whether the class is an enumeration
      */
-    public JunitTestClass(String name, String className, String packageDeclaration, JunitPackage junitPackage) {
+    public JunitTestClass(String name, String className, String packageDeclaration, JunitPackage junitPackage, boolean enumeration) {
     	this.name = name;
     	this.className = className;
     	this.packageDeclaration = packageDeclaration;
     	this.junitPackage = junitPackage;
+    	this.enumeration = enumeration;
     	propertyAssertions = new ArrayList<>();
     	relationshipAssertions = new ArrayList<>();
     	enumConstantAssertions = new ArrayList<>();

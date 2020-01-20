@@ -24,7 +24,7 @@ public class TestFileCreatorTest extends OutputJunitConverterTests {
 	@Test
 	public void testCreateTestFiles() {
 		FileDirectoryCreator.createFileDirectories(mockJunitRepresentation, outputPath);
-		mockJunitExternPackage.addTestClass(new JunitTestClass("externclassTest", "extern.externclass", "extern", mockJunitExternPackage));
+		mockJunitExternPackage.addTestClass(new JunitTestClass("externclassTest", "extern.externclass", "extern", mockJunitExternPackage, false));
 		TestFileCreator.createTestFiles(mockJunitRepresentation, outputPath);
 		File testfile = new File(testDirectory + File.separator + "app" + File.separator + "firstpackage" + File.separator + "firstclassTest.java");
 		assertTrue(testfile.exists());

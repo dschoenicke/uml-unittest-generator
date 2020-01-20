@@ -44,8 +44,8 @@ public class TestInitializer {
 		mockRepresentation = new JunitRepresentation("test");
 		mockPackage = new JunitPackage("parent", mockRepresentation);
 		subPackage = new JunitPackage("sub", mockPackage);
-		mockTestClass1 = new JunitTestClass("class1", "", "", mockPackage);
-		mockTestClass2 = new JunitTestClass("class2", "", "", subPackage);
+		mockTestClass1 = new JunitTestClass("class1", "", "", mockPackage, false);
+		mockTestClass2 = new JunitTestClass("class2", "", "", subPackage, false);
 		mockPackage.addPackage(subPackage);
 		mockPackage.addTestClass(mockTestClass1);
 		subPackage.addTestClass(mockTestClass2);

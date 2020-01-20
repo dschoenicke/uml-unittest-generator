@@ -224,10 +224,10 @@ public class OutputJunitConverterTests {
 		mockJunitSubPackage = new JunitPackage("subpackage", mockJunitPackage1);
 		mockJunitRepresentation.getPackages().addAll(List.of(mockJunitExternPackage, mockJunitPackage1, mockJunitPackage2));
 		mockJunitPackage1.addPackage(mockJunitSubPackage);
-		mockJunitTestClass1 = new JunitTestClass("firstclassTest", "app.firstpackage.firstclass", "appStructure.app.firstpackage", mockJunitPackage1);
-		mockJunitTestClass2 = new JunitTestClass("secondclassTest", "app.secondpackage.secondclass", "appStructure.app.secondpackage", mockJunitPackage2);
-		mockJunitSubTestClass = new JunitTestClass("subclassTest", "app.firstpackage.subpackage.subclass", "appStructure.app.firstpackage.subpackage", mockJunitPackage1);
-		mockJunitInnerTestClass = new JunitTestClass("innerclassTest", "app.secondpackage.secondclass$innerclass", "appStructure.app.secondpackage", mockJunitPackage2);
+		mockJunitTestClass1 = new JunitTestClass("firstclassTest", "app.firstpackage.firstclass", "appStructure.app.firstpackage", mockJunitPackage1, false);
+		mockJunitTestClass2 = new JunitTestClass("secondclassTest", "app.secondpackage.secondclass", "appStructure.app.secondpackage", mockJunitPackage2, false);
+		mockJunitSubTestClass = new JunitTestClass("subclassTest", "app.firstpackage.subpackage.subclass", "appStructure.app.firstpackage.subpackage", mockJunitPackage1, false);
+		mockJunitInnerTestClass = new JunitTestClass("innerclassTest", "app.secondpackage.secondclass$innerclass", "appStructure.app.secondpackage", mockJunitPackage2, true);
 		
 		mockJunitPackage1.addTestClass(mockJunitTestClass1);
 		mockJunitPackage2.addTestClass(mockJunitTestClass2);

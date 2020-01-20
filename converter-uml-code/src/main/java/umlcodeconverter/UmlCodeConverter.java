@@ -34,7 +34,7 @@ public class UmlCodeConverter
 	 * Delegates the conversion of {@link uml.UmlElement}s to the {@link umlcodeconverter.element.ElementConverter}<br>
 	 * Delegates the definite conversion of {@link uml.UmlTemplateBinding}s to the {@link umlcodeconverter.element.TemplateBindingConverter}<br>
 	 * Delegates the conversion of {@link uml.UmlRelationship} to the {@link umlcodeconverter.relationship.RelationshipConverter}<br>
-	 * Removes {@link code.CodeElement}s from the {@link code.CodeRepresentation} which names contain '<' or '[' since they are considered to be representatives of generic types or arrays
+	 * Removes {@link code.CodeElement}s from the {@link code.CodeRepresentation} which names contain '&lt;' or '[' since they are considered to be representatives of generic types or arrays
 	 * 
 	 * @param umlModel the {@link uml.UmlModel} to be converted
 	 * @return the converted {@link code.CodeRepresentation}

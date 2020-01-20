@@ -46,18 +46,18 @@ class {{testClass.getName}} {
 		{{/testClass.getTemplateParameters.isEmpty}}
 	}
 	
-	{{^testClass.getEnumConstantAssertions.isEmpty}}
+	{{#testClass.isEnumeration}}
 	@Test
 	void testEnumConstants() {
 		{{#testClass.getEnumConstantAssertions}}
 		assertEquals({{{getExpectedValue}}}, {{{getActualValue}}}, "{{getMessage}}");
 		{{/testClass.getEnumConstantAssertions}}
 	}
-	{{/testClass.getEnumConstantAssertions.isEmpty}}
+	{{/testClass.isEnumeration}}
 	
 	@Test
 	void testClassFields() {
-		assertEquals({{testClass.getFields.size}}, classUnderTest.getDeclaredFields().length, "{{testClass.getClassName}} must have exactly {{testClass.getFields.size}} fields!");
+		assertEquals({{testClass.getFields.size}}, classUnderTest.getDeclaredFields().length{{#testClass.isEnumeration}} - (classUnderTest.getEnumConstants().length + 1){{/testClass.isEnumeration}}, "{{testClass.getClassName}} must have exactly {{testClass.getFields.size}} fields!");
 		{{#testClass.getFields}}
 		
 		try {
@@ -90,7 +90,7 @@ class {{testClass.getName}} {
 	
 	@Test
 	void testClassConstructors() {
-		assertEquals({{testClass.getConstructors.size}}, classUnderTest.getDeclaredConstructors().length, "{{testClass.getClassName}} must have exactly {{testClass.getConstructors.size}} constructors!");
+		assertEquals({{testClass.getConstructors.size}}, classUnderTest.getDeclaredConstructors().length{{#testClass.isEnumeration}}{{#testClass.getConstructors.isEmpty}} - 1{{/testClass.getConstructors.isEmpty}}{{/testClass.isEnumeration}}, "{{testClass.getClassName}} must have exactly {{testClass.getConstructors.size}} constructors!");
 		{{#testClass.getConstructors}}
 		
 		try {
@@ -123,7 +123,7 @@ class {{testClass.getName}} {
 	
 	@Test
 	void testClassMethods() {
-		assertEquals({{testClass.getMethods.size}}, classUnderTest.getDeclaredMethods().length, "{{testClass.getClassName}} must have exactly {{testClass.getMethods.size}} methods!");
+		assertEquals({{testClass.getMethods.size}}, classUnderTest.getDeclaredMethods().length{{#testClass.isEnumeration}} - 2{{/testClass.isEnumeration}}, "{{testClass.getClassName}} must have exactly {{testClass.getMethods.size}} methods!");
 		{{#testClass.getMethods}}
 		
 		try {
