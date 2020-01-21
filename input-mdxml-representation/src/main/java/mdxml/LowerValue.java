@@ -33,6 +33,6 @@ public class LowerValue {
 	/**
 	 * The type of the value
 	 */
-	@XmlAttribute(namespace = "http://omg.org/spec/XMI/20131001", name = "type")
+	@XmlAttribute(namespace = "http://www.omg.org/spec/XMI/20131001", name = "type")
 	private String type;
 }

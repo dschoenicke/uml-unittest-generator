@@ -1,72 +1,71 @@
 package mdxml;
 
-import java.io.File;
+import static org.junit.Assert.fail;
 
 import javax.xml.bind.JAXBException;
 
-import mdxml.MdxmlRepresentation;
-import mdxml.PackagedElement;
+import org.junit.Before;
 
-/**
- * Class extended by other test classes providing setup functions for the tests
- * 
- * @author dschoenicke
- *
- */
 public class MdxmlRepresentationTests
 {	
-	/**
-	 * Initialization method, initializing a {@link MdxmlRepresentation} out of an sample xml file and
-	 * the {@link PackagedElement} with the name "PackagedElement"
-	 * 
-	 * @throws JAXBException {@link JAXBException} could be thrown if the xml file is invalid
-	 * @return the sample {@link PackagedElement} used by the test classes
-	 */
-	public PackagedElement initializePackagedElement() throws JAXBException {
-		MdxmlRepresentation representation;
-		PackagedElement element = null;
-		
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("md_jaxb.xml").getFile());
-		representation = new MdxmlRepresentation(file.getAbsolutePath());
-		
-		for (PackagedElement packagedElement : representation.getXmi().getModel().getPackagedElements()) {
-			element = checkForPackagedElement(packagedElement, "PackagedElement");
-			
-			if (element != null) {
-				break;
-			}
-		}
-		
-		return element;
-	}
+	protected MdxmlRepresentation mdxmlRepresentation;
+	protected PackagedElement mdxmlTopLevelPackage;
+	protected PackagedElement mdxmlTopLevelInterface;
+	protected PackagedElement mdxmlTopLevelClass;
+	protected PackagedElement mdxmlSubClass;
+	protected PackagedElement mdxmlSubInterface;
+	protected PackagedElement mdxmlGenericClass;
+	protected PackagedElement mdxmlBindingClass;
+	protected PackagedElement mdxmlSubPackage;
+	protected PackagedElement mdxmlSubPackageClass;
+	protected PackagedElement mdxmlEnumeration;
+	protected PackagedElement mdxmlBigEnum;
+	protected PackagedElement mdxmlSubPackageClassAssociation;
+	protected PackagedElement mdxmlBigEnumAssociation;
 	
-	/**
-	 * Auxiliary method to find a {@link mdxml.PackagedElement} by its name
-	 * 
-	 * @param elementToCheck the {@link mdxml.PackagedElement} to check the name of
-	 * @param name the name of the searched {@link PackagedElement}
-	 * @return the {@link mdxml.PackagedElement} if the names match, null otherwise
-	 */
-	private PackagedElement checkForPackagedElement(PackagedElement elementToCheck, String name) {
-		if (elementToCheck.getName() != null && elementToCheck.getName().equals(name)) {
-			return elementToCheck;
-		}
-		
-		if (elementToCheck.getPackagedElements().isEmpty()) {
-			return null;
-		}
-		
-		PackagedElement returnElement = null;
-		
-		for (PackagedElement childElement : elementToCheck.getPackagedElements()) {
-			returnElement = checkForPackagedElement(childElement, name);
+	@Before
+	public void init() {
+		try {
+			mdxmlRepresentation = new MdxmlRepresentation(getClass().getClassLoader().getResource("md_test.xml").getFile());
+			mdxmlTopLevelPackage = mdxmlRepresentation
+					.getXmi()
+					.getModel()
+					.getPackagedElements()
+					.stream()
+					.filter(p -> (p.getName() != null && p.getName().equals("TopLevelPackage")))
+					.findFirst()
+					.get();
 			
-			if (returnElement != null) {
-				break;
-			}
+			mdxmlTopLevelClass = mdxmlRepresentation
+					.getXmi()
+					.getModel()
+					.getPackagedElements()
+					.stream()
+					.filter(p -> (p.getName() != null && p.getName().equals("TopLevelClass")))
+					.findFirst()
+					.get();
+			
+			mdxmlTopLevelInterface = mdxmlRepresentation
+					.getXmi()
+					.getModel()
+					.getPackagedElements()
+					.stream()
+					.filter(p -> (p.getName() != null && p.getName().equals("TopLevelInterface")))
+					.findFirst()
+					.get();
+			
+			mdxmlSubClass = mdxmlTopLevelPackage.getPackagedElements().stream().filter(p -> (p.getName() != null && p.getName().equals("SubClass"))).findFirst().get();
+			mdxmlSubInterface = mdxmlTopLevelPackage.getPackagedElements().stream().filter(p -> (p.getName() != null && p.getName().equals("SubInterface"))).findFirst().get();
+			mdxmlGenericClass = mdxmlTopLevelPackage.getPackagedElements().stream().filter(p -> (p.getName() != null && p.getName().equals("GenericClass"))).findFirst().get();
+			mdxmlBindingClass = mdxmlTopLevelPackage.getPackagedElements().stream().filter(p -> (p.getName() != null && p.getName().equals("BindingClass"))).findFirst().get();
+			mdxmlSubPackage = mdxmlTopLevelPackage.getPackagedElements().stream().filter(p -> (p.getName() != null && p.getName().equals("SubPackage"))).findFirst().get();
+			mdxmlSubPackageClassAssociation = mdxmlTopLevelPackage.getPackagedElements().stream().filter(p -> p.getId().equals("_19_0_1_62d0212_1574772702939_729059_4913")).findFirst().get();
+			mdxmlBigEnumAssociation = mdxmlTopLevelPackage.getPackagedElements().stream().filter(p -> p.getId().equals("_19_0_1_62d0212_1579603742988_598963_4693")).findFirst().get();
+			mdxmlSubPackageClass = mdxmlSubPackage.getPackagedElements().stream().filter(p -> (p.getName() != null && p.getName().equals("SubPackageClass"))).findFirst().get();
+			mdxmlEnumeration = mdxmlSubPackageClass.getNestedClassifiers().get(0);
+			mdxmlBigEnum = mdxmlSubPackage.getPackagedElements().stream().filter(p -> (p.getName() != null && p.getName().equals("BigEnum"))).findFirst().get();
+		} catch (JAXBException e) {
+			fail("Couldn't find a valid test diagram file named md_test.xml!");
 		}
-		
-		return returnElement;
 	}
 }
