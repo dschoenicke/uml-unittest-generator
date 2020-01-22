@@ -18,9 +18,7 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class TemplateParameterConverter {
 
-	private TemplateParameterConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private TemplateParameterConverter() {}
 	
 	/**
 	 * Static method to convert {@link uml.UmlTemplateParameter}s to {@link code.CodeTemplateParameter}s and adding them to the {@link code.CodeParent}
@@ -40,6 +38,9 @@ public class TemplateParameterConverter {
 			}
 			else if (codeParent instanceof CodeMethod) {
 				((CodeMethod) codeParent).getTemplateParameters().add(convertTemplateParameter(templateParameter, codeParent, tmpModel));
+			}
+			else {
+				throw new IllegalArgumentException(codeParent.getName() + " is an invalid parent for a template parameter!");
 			}
 		}
 	}

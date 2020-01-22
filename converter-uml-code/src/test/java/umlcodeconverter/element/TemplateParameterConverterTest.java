@@ -4,19 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import code.CodeRepresentation;
 import code.CodeTemplateParameter;
 
-/**
- * Tests {@link TemplateParameterConverter}.
- * 
- * @author dschoenicke
- *
- */
 public class TemplateParameterConverterTest extends TestInitializer {
 
-	/**
-	 * Tests {@link TemplateParameterConverter#convertTemplateParameters}.
-	 */
 	@Test
 	public void testConvertTemplateParameter() {
 		mockTmpModel.getConvertedTemplateParameters().clear();
@@ -27,9 +19,6 @@ public class TemplateParameterConverterTest extends TestInitializer {
 		assertEquals(convertedTemplateParameter.getType(), mockUmlTemplateParameter.getType());
 	}
 	
-	/**
-	 * Tests {@link TemplateParameterConverter#convertTemplateParameters} with a {@link code.CodeClass}, {@link code.CodeMethod} and {@link code.CodeConstructor} as parent.
-	 */
 	@Test
 	public void testConvertTemplateParameters() {
 		mockTmpModel.getConvertedTemplateParameters().clear();
@@ -44,5 +33,10 @@ public class TemplateParameterConverterTest extends TestInitializer {
 		assertEquals(1, mockCodeClass.getTemplateParameters().size());
 		assertEquals(1, mockCodeMethod.getTemplateParameters().size());
 		assertEquals(1, mockCodeConstructor.getTemplateParameters().size());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidTemplateParameter() {
+		TemplateParameterConverter.convertTemplateParameters(mockUmlClass.getTemplateParameters(), new CodeRepresentation("Invalid"), mockTmpModel);
 	}
 }

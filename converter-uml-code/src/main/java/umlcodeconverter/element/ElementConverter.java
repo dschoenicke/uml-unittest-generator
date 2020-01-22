@@ -25,9 +25,7 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class ElementConverter {
 
-	private ElementConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private ElementConverter() {}
 	
 	/**
 	 * Static method converting the {@link uml.UmlElement}s of a given {@link uml.UmlModel} to {@link code.CodeElement}s for the {@link code.CodeRepresentation}.<br>

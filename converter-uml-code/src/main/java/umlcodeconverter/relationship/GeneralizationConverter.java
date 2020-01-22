@@ -18,9 +18,7 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class GeneralizationConverter {
 
-	private GeneralizationConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private GeneralizationConverter() {}
 	
 	/**
 	 * Static method adding a {@link code.CodeElement} converted out of the supplier {@link uml.UmlElement} of an {@link uml.UmlRelationship}
@@ -46,6 +44,9 @@ public class GeneralizationConverter {
 					supplierElement instanceof CodeInterface);
 			
 			((CodeInterface) clientElement).addInterface((CodeInterface) supplierElement);
+		}
+		else {
+			throw new IllegalStateException(clientElement.getName() + " is an invalid client element for a Generalization!");
 		}
 	}
 }

@@ -3,8 +3,6 @@ package umlcodeconverter.element;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.mapdb.BTreeMap;
-
 import code.CodeElement;
 import code.CodePackage;
 import code.CodeRepresentation;
@@ -17,9 +15,7 @@ import code.CodeRepresentation;
  */
 public class QualifiedNamesConverter {
 
-	private QualifiedNamesConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private QualifiedNamesConverter() {}
 	
 	/**
 	 * Map containing mappings of {@link code.CodeElement} names to their qualified names.
@@ -33,7 +29,7 @@ public class QualifiedNamesConverter {
 	 * @param codeRepresentation the {@link code.CodeRepresentation} containing the {@link code.CodeElement}s
 	 * @param qualifiedNamesDB the map representing the MapDB database containing mappings for qualified names of external classes
 	 */
-	public static void resolveQualifiedNames(CodeRepresentation codeRepresentation, BTreeMap<String, String> qualifiedNamesDB) {
+	public static void resolveQualifiedNames(CodeRepresentation codeRepresentation, Map<String, String> qualifiedNamesDB) {
 		codeRepresentation.getElementsAsList().forEach(codeElement -> 
 			resolveElementQualifiedName(codeElement, qualifiedNamesDB));
 	
@@ -50,14 +46,14 @@ public class QualifiedNamesConverter {
 	 * @param codeElement the {@link code.CodeElement} to set the qualified name for
 	 * @param qualifiedNamesDB the map representing the MapDB database containing mappings for qualified names of external classes 
 	 */
-	static void resolveElementQualifiedName(CodeElement codeElement, BTreeMap<String, String> qualifiedNamesDB) {
+	static void resolveElementQualifiedName(CodeElement codeElement, Map<String, String> qualifiedNamesDB) {
 		String key = codeElement.getName();
 		String genericType = "";
 		
 		//Check for generic type in class name
 		if (key.contains("<")) {
 			genericType = key.substring(key.indexOf('<'));
-			key = key.substring(0, key.indexOf('<') - 1);
+			key = key.substring(0, key.indexOf('<'));
 		}
 		
 		codeElement.setQualifiedName(qualifiedNamesDB.containsKey(key) ? qualifiedNamesDB.get(key) + genericType : createQualifiedName(codeElement));

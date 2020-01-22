@@ -3,31 +3,39 @@ package umlcodeconverter.relationship;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Tests the {@link GeneralizationConverter}.
- * 
- * @author dschoenicke
- *
- */
-public class GeneralizationConverterTest extends RelationshipTests {
+import umlcodeconverter.UmlCodeConverterTests;
 
-	/**
-	 * Tests {@link GeneralizationConverter#convertGeneralization} with {@link uml.UmlClass}es.
-	 */
-	@Test
-	public void testGeneralizationConverterWithClasses() {
-		GeneralizationConverter.convertGeneralization(mockClassGeneralization, mockTmpModel);
-		assertEquals(mockClass.getSuperClass(), mockClass);
+public class GeneralizationConverterTest extends UmlCodeConverterTests {
+
+	@Before
+	public void initializeMockTmpModel() {
+		mockTmpModel.addConvertedElement(umlTopLevelClass, codeTopLevelClass);
+		mockTmpModel.addConvertedElement(umlTopLevelInterface, codeTopLevelInterface);
+		mockTmpModel.addConvertedElement(umlBigEnum, codeBigEnum);
+		mockTmpModel.addConvertedElement(umlSubClass, codeSubClass);
+		mockTmpModel.addConvertedElement(umlSubInterface, codeSubInterface);
 	}
 	
-	/**
-	 * Tests {@link GeneralizationConverter#convertGeneralization} with {@link uml.UmlInterface}s.
-	 */
 	@Test
-	public void testGeneralizationConverterWithInterfaces() {
-		GeneralizationConverter.convertGeneralization(mockInterfaceGeneralization, mockTmpModel);
-		assertTrue(mockInterface.getInterfaces().contains(mockInterface));
+	public void testGeneralizationConverterClassClient() {
+		codeTopLevelClass.setSuperClass(null);
+		GeneralizationConverter.convertGeneralization(umlClassGeneralization, mockTmpModel);
+		assertEquals(codeSubClass.getSuperClass(), codeTopLevelClass);
+	}
+	
+	@Test
+	public void testGeneralizationConverterInterfaceClient() {
+		codeSubInterface.getInterfaces().clear();
+		GeneralizationConverter.convertGeneralization(umlInterfaceGeneralization, mockTmpModel);
+		assertTrue(codeSubInterface.getInterfaces().contains(codeTopLevelInterface));
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void testInvalidGeneralization() {
+		umlInterfaceGeneralization.setClient(umlBigEnum);
+		GeneralizationConverter.convertGeneralization(umlInterfaceGeneralization, mockTmpModel);
 	}
 }

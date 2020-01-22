@@ -8,6 +8,9 @@ import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.mapdb.BTreeMap;
+import org.mapdb.DB;
+import org.mapdb.DBMaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -158,11 +161,29 @@ public class TestCreator {
 	static void execute(String[] args) throws Exception {
 		UmlCodeConverter umlToCode = new UmlCodeConverter();
 		CodeTestConverter codeToTest = new CodeTestConverter();
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		BTreeMap<String, String> qualifiedNames = null;
+		BTreeMap<String, String> associationTypes = null;
 		
-		outputtypes.get(args[3]).convertTestFiles(codeToTest.convertCodeToTestRepresentation(
-				umlToCode.convertUmlToCodeRepresentation(
-						inputtypes.get(args[1]).convertToUmlRepresentation(args[2]), Core.DB_PATH)), 
-				args[4]);
+		try {
+			qualifiedNames = QualifiedNamesMapper.loadQualifiedNamesDB(database);
+			associationTypes = AssociationTypeMapper.loadAssociationTypesDB(database);
+			
+			outputtypes.get(args[3]).convertTestFiles(codeToTest.convertCodeToTestRepresentation(
+					umlToCode.convertUmlToCodeRepresentation(
+							inputtypes.get(args[1]).convertToUmlRepresentation(args[2]), qualifiedNames, associationTypes)), 
+					args[4]);
+		} finally {
+			if (qualifiedNames != null) {
+				qualifiedNames.close();
+			}
+			
+			if (associationTypes != null) {
+				associationTypes.close();
+			}
+			
+			database.close();
+		}
 	}
 	
 	/**

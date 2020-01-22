@@ -13,9 +13,7 @@ import uml.UmlLiteral;
  */
 public class LiteralConverter {
 
-	private LiteralConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private LiteralConverter() {}
 	
 	/**
 	 * Static method to convert the {@link uml.UmlLiteral}s of a given {@link uml.UmlEnumeration} to {@link code.CodeLiteral}s

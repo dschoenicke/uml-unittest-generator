@@ -1,41 +1,32 @@
 package umlcodeconverter.element;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import code.CodeMethod;
-import uml.UmlMultiplicityValue;
+import uml.UmlOperation;
+import umlcodeconverter.UmlCodeConverterTests;
 
-/**
- * Tests the {@link MethodConverter}.
- * 
- * @author dschoenicke
- *
- */
-public class MethodConverterTest extends TestInitializer {
+public class MethodConverterTest extends UmlCodeConverterTests {
 
-	/**
-	 * Tests {@link MethodConverter#getOperationReturnParameter}.
-	 */
 	@Test
 	public void testGetOperationReturnParameter() {
-		assertEquals(MethodConverter.getOperationReturnParameter(mockUmlOperation), mockUmlReturnParameter);
+		assertEquals(MethodConverter.getOperationReturnParameter(umlGenericClass.getOperations().get(1)), umlGenericClass.getOperations().get(1).getParameters().get(0));
 	}
 	
-	/**
-	 * Tests {@link MethodConverter#convertMethods}.
-	 */
 	@Test
 	public void testMethodConverter() {
-		mockCodeClass.getMethods().clear();
-		MethodConverter.convertMethods(mockUmlClass, mockCodeClass, mockTmpModel);
-		assertEquals(1, mockCodeClass.getMethods().size());
-		CodeMethod convertedMethod = mockCodeClass.getMethods().get(0);
-		assertEquals(convertedMethod.getName(), mockUmlOperation.getName());
-		assertEquals(convertedMethod.getParent(), mockCodeClass);
+		codeGenericClass.getMethods().clear();
+		MethodConverter.convertMethods(umlGenericClass, codeGenericClass, mockTmpModel);
+		assertEquals(2, codeGenericClass.getMethods().size());
+		UmlOperation mockUmlOperation = umlGenericClass.getOperations().get(1);
+		CodeMethod convertedMethod = codeGenericClass.getMethods().get(0);
+		assertEquals(mockUmlOperation.getName(), convertedMethod.getName());
+		assertEquals(codeGenericClass, convertedMethod.getParent());
 		assertEquals(1, convertedMethod.getModifiers());
-		assertEquals(convertedMethod.getReturnType().getType(), mockUmlReturnParameter.getType());
-		assertEquals(mockUmlReturnParameter.getUpperValue() == UmlMultiplicityValue.INFINITE, convertedMethod.isHasMultiplicity());
+		assertEquals(umlSubPackageClass.getName(), convertedMethod.getReturnType().getType());
+		assertTrue(convertedMethod.isHasMultiplicity());
 	}
 }

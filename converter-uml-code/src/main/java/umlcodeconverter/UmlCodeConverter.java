@@ -2,10 +2,7 @@ package umlcodeconverter;
 
 import static org.junit.Assert.assertFalse;
 
-import org.mapdb.BTreeMap;
-import org.mapdb.DB;
-import org.mapdb.DBMaker;
-import org.mapdb.Serializer;
+import java.util.Map;
 
 import code.CodePackage;
 import code.CodeRepresentation;
@@ -30,16 +27,20 @@ public class UmlCodeConverter
 {	
 	/**
 	 * Converts a given {@link uml.UmlModel} to a {@link code.CodeRepresentation}.<br>
+	 * Resolves fully qualified names with the mappings of the given MapDB database.<br>
+	 * Resolves association attribute data types with given collection types out of the given MapDB database.<br>
+	 * 
 	 * Delegates the conversion of {@link uml.UmlPackage}s to the {@link umlcodeconverter.packages.PackageConverter}<br>
 	 * Delegates the conversion of {@link uml.UmlElement}s to the {@link umlcodeconverter.element.ElementConverter}<br>
 	 * Delegates the definite conversion of {@link uml.UmlTemplateBinding}s to the {@link umlcodeconverter.element.TemplateBindingConverter}<br>
-	 * Delegates the conversion of {@link uml.UmlRelationship} to the {@link umlcodeconverter.relationship.RelationshipConverter}<br>
-	 * Removes {@link code.CodeElement}s from the {@link code.CodeRepresentation} which names contain '&lt;' or '[' since they are considered to be representatives of generic types or arrays
+	 * Delegates the conversion of {@link uml.UmlRelationship} to the {@link umlcodeconverter.relationship.RelationshipConverter}
 	 * 
 	 * @param umlModel the {@link uml.UmlModel} to be converted
+	 * @param qualifiedNames the map containing mappings from class names to fully qualified names
+	 * @param associationTypes the map containing mappings from field names to collection types
 	 * @return the converted {@link code.CodeRepresentation}
 	 */
-	public CodeRepresentation convertUmlToCodeRepresentation(UmlModel umlModel) {
+	public CodeRepresentation convertUmlToCodeRepresentation(UmlModel umlModel, Map<String, String> qualifiedNames, Map<String, String> associationTypes) {
 		CodeRepresentation codeRepresentation =  new CodeRepresentation(umlModel.getName());
 		TemporaryModel tmpModel = new TemporaryModel();
 		
@@ -63,36 +64,6 @@ public class UmlCodeConverter
 				((CodePackage) codeElement.getParent()).getElements().remove(codeElement);
 			}
 		});
-		
-		return codeRepresentation;
-	}
-	
-	/**
-	 * Converts a given {@link uml.UmlModel} to a {@link code.CodeRepresentation}.<br>
-	 * Resolves fully qualified names with the mappings of the given MapDB database.<br>
-	 * Resolves association attribute data types with given collection types out of the given MapDB database.<br>
-	 * 
-	 * Delegates the conversion of {@link uml.UmlPackage}s to the {@link umlcodeconverter.packages.PackageConverter}<br>
-	 * Delegates the conversion of {@link uml.UmlElement}s to the {@link umlcodeconverter.element.ElementConverter}<br>
-	 * Delegates the definite conversion of {@link uml.UmlTemplateBinding}s to the {@link umlcodeconverter.element.TemplateBindingConverter}<br>
-	 * Delegates the conversion of {@link uml.UmlRelationship} to the {@link umlcodeconverter.relationship.RelationshipConverter}
-	 * 
-	 * @param umlModel the {@link uml.UmlModel} to be converted
-	 * @param dbPath the path to the MapDB database containing the mappings to resolve the fully qualified names and association attribute collection types
-	 * @return the converted {@link code.CodeRepresentation}
-	 */
-	public CodeRepresentation convertUmlToCodeRepresentation(UmlModel umlModel, String dbPath) {
-		CodeRepresentation codeRepresentation = convertUmlToCodeRepresentation(umlModel);
-		
-		DB database = DBMaker.fileDB(dbPath).make();
-		BTreeMap<String, String> qualifiedNames = database.treeMap("qualifiedNames")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
-		BTreeMap<String, String> associationTypes = database.treeMap("associationTypes")
-				.keySerializer(Serializer.STRING)
-				.valueSerializer(Serializer.STRING)
-				.createOrOpen();
 		
 		FieldConverter.applyCollectionTypes(codeRepresentation, associationTypes);
 		QualifiedNamesConverter.resolveQualifiedNames(codeRepresentation, qualifiedNames);

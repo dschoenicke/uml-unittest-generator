@@ -27,9 +27,7 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class TemplateBindingConverter {
 
-	private TemplateBindingConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private TemplateBindingConverter() {}
 	
 	/**
 	 * Static method converting a given list of {@link uml.UmlTemplateBinding}s to {@link code.CodeTemplateBinding}s
@@ -63,6 +61,9 @@ public class TemplateBindingConverter {
 		}
 		else if (codeParent instanceof CodeMethod) {
 			((CodeMethod) codeParent).getTemplateBindings().add(codeTemplateBinding);
+		}
+		else {
+			throw new IllegalArgumentException(codeParent.getName() + " is an invalid parent for a template binding!");
 		}
 	}
 	

@@ -1,48 +1,52 @@
 package umlcodeconverter.element;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import code.CodeConstructor;
+import code.CodeMethod;
 import code.CodeParameter;
+import uml.UmlMultiplicityValue;
+import uml.UmlParameter;
+import uml.UmlParameterDirection;
+import umlcodeconverter.UmlCodeConverterTests;
 
-/**
- * Tests the {@link ParameterConverter}.
- * 
- * @author dschoenicke
- * 
- */
-public class ParameterConverterTest extends TestInitializer {
+public class ParameterConverterTest extends UmlCodeConverterTests {
 
-	/**
-	 * Tests {@link ParameterConverter#createParameter}.
-	 */
 	@Test
 	public void testCreateParameter() { 
-		CodeParameter convertedParameter = ParameterConverter.createParameter(mockUmlParameter, mockCodeMethod);
-		assertEquals(convertedParameter.getName(), mockUmlParameter.getName());
-		assertEquals(convertedParameter.getParent(), mockCodeMethod);
-		assertEquals(convertedParameter.getType(), mockUmlParameter.getType());
+		UmlParameter mockUmlParameter = umlGenericClass.getOperations().get(1).getParameters().get(0);
+		codeGenericClass.getMethods().get(0).getParameters().clear();
+		CodeParameter convertedParameter = ParameterConverter.createParameter(mockUmlParameter, codeGenericClass.getMethods().get(0));
+		assertEquals(mockUmlParameter.getName(), convertedParameter.getName());
+		assertEquals(codeGenericClass.getMethods().get(0), convertedParameter.getParent());
+		assertEquals(mockUmlParameter.getType(), convertedParameter.getType());
 		assertEquals(Integer.valueOf(0), convertedParameter.getModifiers());
 	}
 	
-	/**
-	 * Tests {@link ParameterConverter#convertParameters} with an {@link uml.UmlOperation}.
-	 */
 	@Test
-	public void testConvertParametersWithOperation() {
-		ParameterConverter.convertParameters(mockUmlOperation, mockCodeMethod);
-		assertEquals(1, mockCodeMethod.getParameters().size());
-		assertEquals(mockCodeMethod.getParameters().get(0).getName(), mockUmlParameter.getName());
+	public void testNullableParameter() {
+		UmlParameter param = new UmlParameter("", "", UmlParameterDirection.IN, false, UmlMultiplicityValue.ZERO, UmlMultiplicityValue.ONE);
+		assertTrue(ParameterConverter.createParameter(param, codeBigEnum.getConstructors().get(0)).getCanBeNull());
 	}
 	
-	/**
-	 * Tests {@link ParameterConverter#convertParameters} with a constructor
-	 */
+	@Test
+	public void testConvertParametersWithOperation() {
+		CodeMethod mockCodeMethod = codeGenericClass.getMethods().get(1);
+		mockCodeMethod.getParameters().clear();
+		ParameterConverter.convertParameters(umlGenericClass.getOperations().get(2), mockCodeMethod);
+		assertEquals(1, mockCodeMethod.getParameters().size());
+		assertEquals(umlGenericClass.getOperations().get(2).getParameters().get(1).getName(), mockCodeMethod.getParameters().get(0).getName());
+	}
+	
 	@Test
 	public void testConvertParametersWithConstructor() {
-		ParameterConverter.convertParameters(mockUmlConstructor, mockCodeConstructor);
+		CodeConstructor mockCodeConstructor = codeGenericClass.getConstructors().get(0);
+		mockCodeConstructor.getParameters().clear();
+		ParameterConverter.convertParameters(umlGenericClass.getOperations().get(0), mockCodeConstructor);
 		assertEquals(1, mockCodeConstructor.getParameters().size());
-		assertEquals(mockCodeConstructor.getParameters().get(0).getName(), mockUmlParameter.getName());
+		assertEquals(umlGenericClass.getOperations().get(0).getParameters().get(0).getName(), mockCodeConstructor.getParameters().get(0).getName());
 	}
 }

@@ -1,34 +1,29 @@
 package umlcodeconverter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
-import code.CodeRepresentation;
 import uml.UmlClass;
-import uml.UmlModel;
-import uml.UmlPackage;
+import uml.UmlVisibility;
 
-/**
- * Tests the {@link UmlCodeConverter}.
- * 
- * @author dschoenicke
- *
- */
-public class UmlCodeConverterTest {
+public class UmlCodeConverterTest extends UmlCodeConverterTests {
 	
-	/**
-	 * Checks if {@link UmlCodeConverter#convertUmlToCodeRepresentation} assigns the name of the {@link uml.UmlModel} to the {@link code.CodeRepresentation}.
-	 */
 	@Test
 	public void testUmlCodeConverter() {
-		UmlModel mockUmlModel = new UmlModel("testmodel");
-		UmlPackage mockUmlPackage = new UmlPackage("testpackage");
-		UmlClass mockUmlClass = new UmlClass("testclass", null, false, false, false);
-		mockUmlModel.addElement(mockUmlClass);
-		mockUmlModel.addPackage(mockUmlPackage);
-		UmlCodeConverter converter = new UmlCodeConverter();
-		CodeRepresentation codeRepresentation = converter.convertUmlToCodeRepresentation(mockUmlModel);
-		assertEquals(codeRepresentation.getName(), mockUmlModel.getName());
+		Map<String, String> map = new HashMap<>();
+		assertEquals(umlModel.getPackages().size() + 1, converter.convertUmlToCodeRepresentation(umlModel, map, map).getPackages().size());
+		umlModel.getElements().clear();
+		umlModel.getRelationships().clear();
+		assertEquals(umlModel.getPackages().size(), converter.convertUmlToCodeRepresentation(umlModel, map, map).getPackages().size());
+		umlModel.addElement(new UmlClass("Test<>", UmlVisibility.PUBLIC, false, false, false));
+		umlModel.addElement(new UmlClass("Test[]", UmlVisibility.PUBLIC, false, false, false));
+		codeRepresentation = converter.convertUmlToCodeRepresentation(umlModel, map, map);
+		assertEquals(umlModel.getPackages().size() + 1, codeRepresentation.getPackages().size());
+		assertTrue(codeRepresentation.getPackages().get(1).getElements().isEmpty());
 	}
 }

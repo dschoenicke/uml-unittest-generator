@@ -4,20 +4,16 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-/**
- * Tests the {@link LiteralConverter}
- *
- * @author dschoenicke
- *
- */
-public class LiteralConverterTest extends TestInitializer {
+import umlcodeconverter.UmlCodeConverterTests;
 
-	/**
-	 * Tests {@link LiteralConverter#convertLiterals}.
-	 */
+public class LiteralConverterTest extends UmlCodeConverterTests {
+
 	@Test
 	public void testLiteralConverter() {
-		LiteralConverter.convertLiterals(mockUmlEnumeration, mockCodeEnumeration);
-		assertEquals(mockCodeEnumeration.getLiterals().get(0).getName(), mockUmlLiteral.getName());
+		codeEnumeration.getLiterals().clear();
+		LiteralConverter.convertLiterals(umlEnumeration, codeEnumeration);
+		assertEquals(2, codeEnumeration.getLiterals().size());
+		assertEquals("FIRST", codeEnumeration.getLiterals().get(0).getName());
+		assertEquals("SECOND", codeEnumeration.getLiterals().get(1).getName());
 	}
 }

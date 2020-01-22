@@ -3,6 +3,8 @@ package uml;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,7 @@ public class UmlModelTests {
 	protected UmlRelationship umlClassGeneralization;
 	protected UmlRelationship umlInterfaceGeneralization;
 	protected UmlRelationship umlDependency;
+	@Rule public ExpectedException thrown;
 	
 	public void initializeUmlModel() {
 		umlModel = new UmlModel("Model");
@@ -55,7 +58,7 @@ public class UmlModelTests {
 				new UmlOperation("addSubPackageClass", UmlVisibility.PUBLIC)
 			));
 		umlGenericClass.getOperations().get(0).addParameter(new UmlParameter("name", "String", UmlParameterDirection.IN, false, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE));
-		umlGenericClass.getOperations().get(1).addParameter(new UmlParameter("", "UmlSubPackageClass", UmlParameterDirection.RETURN, false, UmlMultiplicityValue.ONE, UmlMultiplicityValue.INFINITE));
+		umlGenericClass.getOperations().get(1).addParameter(new UmlParameter("", "SubPackageClass", UmlParameterDirection.RETURN, false, UmlMultiplicityValue.ONE, UmlMultiplicityValue.INFINITE));
 		umlGenericClass.getOperations().get(2).getParameters().addAll(List.of(
 				new UmlParameter("", "void", UmlParameterDirection.RETURN, false, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE),
 				new UmlParameter("subPackageClass", "SubPackageClass", UmlParameterDirection.IN, false, UmlMultiplicityValue.ONE, UmlMultiplicityValue.ONE)

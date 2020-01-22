@@ -5,17 +5,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-/**
- * Tests the {@link TemplateBindingConverter}.
- * 
- * @author dschoenicke
- *
- */
+import code.CodeRepresentation;
+
 public class TemplateBindingConverterTest extends TestInitializer {
 
-	/**
-	 * Tests {@link TemplateBindingConverter#convertTemplateBindings}.
-	 */
 	@Test
 	public void testTemplateBindingConverter() {
 		mockTmpModel.getTemporaryTemplateBindings().clear();
@@ -37,12 +30,14 @@ public class TemplateBindingConverterTest extends TestInitializer {
 		assertTrue(mockTmpModel.getTemporaryTemplateBindings().containsKey(mockCodeConstructor.getTemplateBindings().get(0)));
 	}
 	
-	/**
-	 * Tests {@link TemplateBindingConverter#finishTemplateBindingConversions}.
-	 */
 	@Test
 	public void testFinishTemplateBindingConversion() {
 		TemplateBindingConverter.finishTemplateBindingConversions(mockTmpModel);
 		assertEquals(mockCodeTemplateBinding.getParameterSubstitutions().get(mockCodeTemplateParameter), mockUmlParameterSubstitution.getSubstitutionType());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidTemplateBinding() {
+		TemplateBindingConverter.convertTemplateBindings(mockUmlClass.getTemplateBindings(), new CodeRepresentation("Invalid"), mockTmpModel);
 	}
 }

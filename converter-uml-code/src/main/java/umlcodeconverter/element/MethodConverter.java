@@ -17,9 +17,7 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class MethodConverter {
 
-	private MethodConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private MethodConverter() {}
 	
 	/**
 	 * Static method to convert {@link uml.UmlOperation}s of an {@link uml.UmlElement} to {@link code.CodeMethod}s and adding them to the {@link code.CodeElement}.<br>
@@ -34,7 +32,7 @@ public class MethodConverter {
 		for (UmlOperation operation : element.getOperations()) {
 			UmlParameter returnParameter = getOperationReturnParameter(operation);
 			
-			if (operation.isConstructor() && operation.getName().equals(element.getName()) || returnParameter == null) {
+			if (returnParameter == null) {
 				continue;
 			}
 			

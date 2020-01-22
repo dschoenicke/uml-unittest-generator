@@ -6,17 +6,8 @@ import org.junit.Test;
 
 import uml.UmlVisibility;
 
-/**
- * Tests the {@link ModifierConverter}.
- * 
- * @author dschoenicke
- *
- */
 public class ModifierConverterTest {
 
-	/**
-	 * Tests {@link ModifierConverter#convertModifierValue}
-	 */
 	@Test
 	public void testModifierValueConversion() {
 		assertEquals(0, ModifierConverter.convertModifierValue(null, false, false, false));

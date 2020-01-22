@@ -1,7 +1,5 @@
 package umlcodeconverter.packages;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 
 import code.CodePackage;
@@ -18,9 +16,7 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class PackageConverter {
 	
-	private PackageConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private PackageConverter() {}
 	
 	/**
 	 * Converts a list of given {@link uml.UmlPackage}s and adds them to a {@link code.CodeParent}.<br>
@@ -53,8 +49,10 @@ public class PackageConverter {
 			codePackage = new CodePackage(umlPackage.getName(), parent);
 			((CodePackage) parent).addPackage(codePackage);
 		}
+		else {
+			throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for package " + umlPackage.getName());
+		}
 		
-		assertNotNull("The conversion of UmlPackage " + umlPackage.getName() + " failed!", codePackage);
 		tmpModel.addConvertedPackage(umlPackage, codePackage);
 		convertPackages(umlPackage.getPackages(), codePackage, tmpModel);
 	}

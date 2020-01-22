@@ -16,9 +16,7 @@ import umlcodeconverter.temporary.TemporaryModel;
  */
 public class RelationshipConverter {
 
-	private RelationshipConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private RelationshipConverter() {}
 	
 	/**
 	 * Static method delegating the conversion of {@link uml.UmlRelationship}s of type {@link uml.UmlRelationshipType#GENERALIZATION} 
