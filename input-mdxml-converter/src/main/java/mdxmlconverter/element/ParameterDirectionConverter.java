@@ -10,9 +10,7 @@ import uml.UmlParameterDirection;
  */
 public class ParameterDirectionConverter {
 
-	private ParameterDirectionConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private ParameterDirectionConverter() {}
 	
 	/**
 	 * Static method converting a given string describing the direction of an {@link mdxml.OwnedParameter} to an {@link uml.UmlParameterDirection}

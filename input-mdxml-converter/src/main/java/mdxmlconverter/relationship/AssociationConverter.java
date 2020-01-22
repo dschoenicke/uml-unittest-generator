@@ -1,7 +1,5 @@
 package mdxmlconverter.relationship;
 
-import static org.junit.Assert.assertTrue;
-
 import mdxml.MemberEnd;
 import mdxml.OwnedEnd;
 import mdxml.PackagedElement;
@@ -16,9 +14,7 @@ import mdxmlconverter.temporary.TemporaryRelationship;
  */
 public class AssociationConverter {
 
-	private AssociationConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private AssociationConverter() {}
 	
 	/**
 	 * Static method converting a given {@link mdxml.PackagedElement} with the type 'uml:Association to an {@link mdxmlconverter.temporary.TemporaryRelationship}<br>
@@ -30,7 +26,9 @@ public class AssociationConverter {
 	 * @return the converted {@link mdxmlconverter.temporary.TemporaryRelationship}
 	 */
 	public static TemporaryRelationship convertAssociation(PackagedElement packagedElement, TemporaryModel tmpModel) {
-		assertTrue("A packagedElement of type 'uml:Association' must have exactly two memberEnds!\nOccurance in packagedElement with id " + packagedElement.getId(), packagedElement.getMemberEnds().size() == 2);
+		if (packagedElement.getMemberEnds().size() != 2) {
+			throw new IllegalArgumentException("The PackagedElement with id " + packagedElement.getId() + " must have 2 MemberEnds!");
+		}
 		
 		MemberEnd firstMember = packagedElement.getMemberEnds().get(0);
 		MemberEnd secondMember = packagedElement.getMemberEnds().get(1);

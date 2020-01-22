@@ -21,9 +21,7 @@ import uml.UmlRelationshipType;
  */
 public class InterfaceRealizationConverter {
 
-	private InterfaceRealizationConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private InterfaceRealizationConverter() {}
 	
 	/**
 	 * Static method converting the {@link mdxml.InterfaceRealization}s of a {@link mdxml.PackagedElement} to a {@link mdxmlconverter.temporary.TemporaryRelationship} with references to the contract and the element itself
@@ -48,6 +46,9 @@ public class InterfaceRealizationConverter {
 			}
 			else if (parent instanceof UmlPackage) {
 				((UmlPackage) parent).addRelationship(tmpRelationship);
+			}
+			else {
+				throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for the InterfaceRealization with id: " + realization.getId() + "!");
 			}
 		}
 	}

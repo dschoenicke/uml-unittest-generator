@@ -2,78 +2,29 @@ package mdxmlconverter.element;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-
-import org.junit.Before;
 import org.junit.Test;
 
-import mdxml.DefaultValue;
 import mdxml.OwnedAttribute;
-import mdxml.PackagedElement;
-import mdxmlconverter.temporary.TemporaryModel;
+import mdxmlconverter.MdxmlUmlConverterTests;
 import uml.UmlAttribute;
-import uml.UmlClass;
 import uml.UmlMultiplicityValue;
 import uml.UmlVisibility;
 
-/**
- * Tests the {@link AttributeConverter}.
- * 
- * @author dschoenicke
- *
- */
-public class AttributeConverterTest {
+public class AttributeConverterTest extends MdxmlUmlConverterTests {
 
-	/**
-	 * Mocks a {@link mdxml.PackagedElement} which contains the {@link mdxml.OwnedAttribute} to be tested.
-	 */
-	PackagedElement mockPackagedElement;
-	
-	/**
-	 * Mocks an {@link mdxml.OwnedAttribute} to be tested.
-	 */
-	OwnedAttribute mockOwnedAttribute;
-	
-	/**
-	 * Mocks the {@link mdxmlconverter.temporary.TemporaryModel} to which the converted {@link uml.UmlAttribute} should be added.
-	 */
-	TemporaryModel mockTmpModel;
-	
-	/**
-	 * Initializes the mock elements.
-	 */
-	@Before
-	public void init() {
-		mockPackagedElement = new PackagedElement();
-		mockOwnedAttribute = new OwnedAttribute();
-		mockOwnedAttribute.setId("123");
-		mockOwnedAttribute.setName("TestAttribute");
-		mockOwnedAttribute.setAssociationType("associationtype");
-		ArrayList<OwnedAttribute> mockOwnedAttributes = new ArrayList<>();
-		mockOwnedAttributes.add(mockOwnedAttribute);
-		mockPackagedElement.setOwnedAttributes(mockOwnedAttributes);
-		mockTmpModel = new TemporaryModel();
-	}
-	
-	/**
-	 * Tests {@link AttributeConverter#convertAttributes}.
-	 */
 	@Test
 	public void testAttributeConverter() {
-		UmlClass mockClass = new UmlClass("Test", UmlVisibility.PUBLIC, false, false, false);
-		AttributeConverter.convertAttributes(mockPackagedElement, mockClass, mockTmpModel);
-		UmlAttribute umlAttribute = mockClass.getAttributes().get(0);
-		assertEquals(umlAttribute, mockTmpModel.getAttributeIDs().get(mockOwnedAttribute.getId()));
-		assertEquals(umlAttribute.getName(), mockOwnedAttribute.getName());
-		assertEquals(umlAttribute.getType(), mockOwnedAttribute.getAssociationType());
-		assertEquals(UmlVisibility.PUBLIC, umlAttribute.getVisibility());
+		umlGenericClass.getAttributes().clear();
+		OwnedAttribute ownedAttribute = mdxmlGenericClass.getOwnedAttributes().get(0);
+		AttributeConverter.convertAttributes(mdxmlGenericClass, umlGenericClass, mockTmpModel);
+		assertEquals(2, umlGenericClass.getAttributes().size());
+		UmlAttribute umlAttribute = umlGenericClass.getAttributes().get(0);
+		assertEquals(umlAttribute, mockTmpModel.getAttributeIDs().get(mdxmlGenericClass.getOwnedAttributes().get(0).getId()));
+		assertEquals(umlAttribute.getName(), ownedAttribute.getName());
+		assertEquals(umlAttribute.getType(), ownedAttribute.getAssociationType());
+		assertEquals(UmlVisibility.PRIVATE, umlAttribute.getVisibility());
 		assertEquals(UmlMultiplicityValue.ONE, umlAttribute.getLowerValue());
-		assertEquals(UmlMultiplicityValue.ONE, umlAttribute.getUpperValue());
+		assertEquals(UmlMultiplicityValue.INFINITE, umlAttribute.getUpperValue());
 		assertEquals("", umlAttribute.getDefaultValue());
-		mockOwnedAttribute.setDefaultValue(new DefaultValue());
-		mockOwnedAttribute.getDefaultValue().setValue("test");
-		AttributeConverter.convertAttributes(mockPackagedElement, mockClass, mockTmpModel);
-		umlAttribute = mockClass.getAttributes().get(1);
-		assertEquals("test", umlAttribute.getDefaultValue());
 	}
 }

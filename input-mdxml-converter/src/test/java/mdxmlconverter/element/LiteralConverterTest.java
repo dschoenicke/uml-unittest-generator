@@ -2,15 +2,9 @@ package mdxmlconverter.element;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-
-import org.junit.Before;
 import org.junit.Test;
 
-import mdxml.OwnedLiteral;
-import mdxml.PackagedElement;
-import uml.UmlEnumeration;
-import uml.UmlVisibility;
+import mdxmlconverter.MdxmlUmlConverterTests;
 
 /**
  * Tests {@link LiteralConverter}
@@ -18,47 +12,20 @@ import uml.UmlVisibility;
  * @author dschoenicke
  *
  */
-public class LiteralConverterTest {
+public class LiteralConverterTest extends MdxmlUmlConverterTests {
 
-	/**
-	 * Mocks a {@link mdxml.PackagedElement} which contains the {@link mdxml.OwnedLiteral}s to be tested.
-	 */
-	private PackagedElement mockPackagedElement;
-	
-	/**
-	 * A list containing {@link mdxml.OwnedLiteral}s to be tested.
-	 */
-	private ArrayList<OwnedLiteral> mockOwnedLiterals;
-	
-	/**
-	 * The {@link uml.UmlEnumeration} to which the converted {@link uml.UmlLiteral}s should be added.
-	 */
-	private UmlEnumeration mockEnumeration;
-	
-	/**
-	 * Initializes the mock elements.
-	 */
-	@Before
-	public void init() {
-		mockPackagedElement = new PackagedElement();
-		mockOwnedLiterals = new ArrayList<>();
-		OwnedLiteral firstLiteral = new OwnedLiteral();
-		firstLiteral.setName("FIRSTLITERAL");
-		OwnedLiteral secondLiteral = new OwnedLiteral();
-		secondLiteral.setName("SECONDLITERAL");
-		mockOwnedLiterals.add(firstLiteral);
-		mockOwnedLiterals.add(secondLiteral);
-		mockPackagedElement.setOwnedLiterals(mockOwnedLiterals);
-		mockEnumeration = new UmlEnumeration("TestEnumeration", UmlVisibility.PUBLIC);
-	}
-	
-	/**
-	 * Tests {@link mdxmlconverter.element.LiteralConverter}.
-	 */
 	@Test
 	public void testConvertLiterals() {
-		LiteralConverter.convertLiterals(mockPackagedElement, mockEnumeration);
-		assertEquals("FIRSTLITERAL", mockEnumeration.getLiterals().get(0).getName());
-		assertEquals("SECONDLITERAL", mockEnumeration.getLiterals().get(1).getName());
+		umlEnumeration.getLiterals().clear();
+		LiteralConverter.convertLiterals(mdxmlEnumeration, umlEnumeration);
+		assertEquals(2, umlEnumeration.getLiterals().size());
+		assertEquals("FIRST", umlEnumeration.getLiterals().get(0).getName());
+		assertEquals("SECOND", umlEnumeration.getLiterals().get(1).getName());
+	}
+	
+	@Test
+	public void testInvalidLiterals() {
+		thrown.expect(IllegalArgumentException.class);
+		LiteralConverter.convertLiterals(mdxmlBigEnum, umlSubClass);
 	}
 }

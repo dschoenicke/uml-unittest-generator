@@ -21,9 +21,7 @@ import uml.UmlRelationshipType;
  */
 public class RelationshipConverter {
 	
-	private RelationshipConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private RelationshipConverter() {}
 	
 	/**
 	 * Static method to convert {@link mdxml.PackagedElement}s of type 'uml:Association' and 'uml:Usage' to {@link mdxmlconverter.temporary.TemporaryRelationship}s
@@ -55,6 +53,9 @@ public class RelationshipConverter {
 		}
 		else if (parent instanceof UmlPackage) {
 			((UmlPackage) parent).addRelationship(relationship);
+		}
+		else {
+			throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for the relationship in PackagedElement with id: " + packagedElement.getId() + "!");
 		}
 		
 		return relationship;
@@ -99,6 +100,9 @@ public class RelationshipConverter {
 			else {
 				type = clientAttribute.getAggregation().equals("shared") ? UmlRelationshipType.AGGREGATION : UmlRelationshipType.COMPOSITION;
 			}
+		}
+		else {
+			throw new IllegalStateException("A TemporaryRelationship wasn't converted correctly!");
 		}
 		
 		tmpRelationship.setClient(client);

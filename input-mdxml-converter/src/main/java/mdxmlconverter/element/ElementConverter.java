@@ -22,9 +22,7 @@ import uml.UmlParent;
  */
 public class ElementConverter {
 
-	private ElementConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private ElementConverter() {}
 	
 	/**
 	 * Static method to convert a given {@link mdxml.PackagedElement} with the type 'uml:Class', 'uml:Interface' or 'uml:Enumeration' to an {@link UmlElement}, which will be added to the {@link mdxmlconverter.temporary.TemporaryModel}
@@ -80,18 +78,18 @@ public class ElementConverter {
 	 * @return the instantiated {@link uml.UmlElement}
 	 */
 	static UmlElement instantiateUmlElement(PackagedElement packagedElement) {
-		switch (packagedElement.getType()) {
-		case "uml:Class": return new UmlClass(packagedElement.getName(), 
-					ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
-					ModifierConverter.convertNonAccessModifier(packagedElement.getIsStatic()),
-					ModifierConverter.convertNonAccessModifier(packagedElement.getIsFinal()),
-					ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract()));
-		case "uml:Interface": return new UmlInterface(packagedElement.getName(), 
-					ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
-					ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract()));
-		case "uml:Enumeration": return new UmlEnumeration(packagedElement.getName(), 
-					ModifierConverter.convertAccessModifier(packagedElement.getVisibility()));
-		default: return null;
-	}
+			switch (packagedElement.getType()) {
+			case "uml:Class": return new UmlClass(packagedElement.getName(), 
+						ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
+						ModifierConverter.convertNonAccessModifier(packagedElement.getIsStatic()),
+						ModifierConverter.convertNonAccessModifier(packagedElement.getIsFinal()),
+						ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract()));
+			case "uml:Interface": return new UmlInterface(packagedElement.getName(), 
+						ModifierConverter.convertAccessModifier(packagedElement.getVisibility()), 
+						ModifierConverter.convertNonAccessModifier(packagedElement.getIsAbstract()));
+			case "uml:Enumeration": return new UmlEnumeration(packagedElement.getName(), 
+						ModifierConverter.convertAccessModifier(packagedElement.getVisibility()));
+			default: return null;
+		}
 	}
 }

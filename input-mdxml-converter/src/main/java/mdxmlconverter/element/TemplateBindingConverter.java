@@ -22,9 +22,7 @@ import uml.UmlTemplateBinding;
  */
 public class TemplateBindingConverter {
 
-	private TemplateBindingConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private TemplateBindingConverter() {}
 	
 	/**
 	 * Static method converting {@link mdxml.TemplateBinding}s of an {@link mdxml.OwnedOperation} to {@link mdxmlconverter.temporary.TemporaryTemplateBinding}s and adds them to the owning {@link uml.UmlOperation}

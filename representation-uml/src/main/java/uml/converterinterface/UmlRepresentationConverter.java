@@ -16,6 +16,7 @@ public interface UmlRepresentationConverter {
 	 * 
 	 * @param inputPath the file path of the input file to be converted
 	 * @return the generated {@link UmlModel}
+	 * @throws Exception if the input conversion process fails
 	 */
-	public UmlModel convertToUmlRepresentation(String inputPath);
+	public UmlModel convertToUmlRepresentation(String inputPath) throws Exception;
 }

@@ -36,9 +36,10 @@ public class TestCreatorTest extends CoreTests {
 	
 	/**
 	 * Tests {@link TestCreator#parseOptions}
+	 * @throws Exception if the input conversion process fails
 	 */
 	@Test
-	public void testParseOptions() {
+	public void testParseOptions() throws Exception {
 		Options options = new Options();
 		
 		try {

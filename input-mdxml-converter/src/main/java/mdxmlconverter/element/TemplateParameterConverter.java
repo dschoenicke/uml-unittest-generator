@@ -21,9 +21,7 @@ import uml.UmlTemplateParameter;
  */
 public class TemplateParameterConverter {
 
-	private TemplateParameterConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private TemplateParameterConverter() {}
 	
 	/**
 	 * Static method converting a given {@link mdxml.OwnedTemplateSignature} with its {@link mdxml.Parameter}s to {@link uml.UmlTemplateParameter}s and adds them to the owning {@link uml.UmlElement}

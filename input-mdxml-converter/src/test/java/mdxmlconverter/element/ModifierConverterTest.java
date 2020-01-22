@@ -8,17 +8,8 @@ import org.junit.Test;
 
 import uml.UmlVisibility;
 
-/**
- * Tests the methods of {@link ModifierConverter}.
- * 
- * @author dschoenicke
- *
- */
 public class ModifierConverterTest {
 
-	/**
-	 * Tests {@link ModifierConverter#convertAccessModifier}.
-	 */
 	@Test
 	public void testAccessModifier() {
 		assertEquals(UmlVisibility.PUBLIC, ModifierConverter.convertAccessModifier(null));
@@ -28,12 +19,10 @@ public class ModifierConverterTest {
 		assertEquals(UmlVisibility.PROTECTED, ModifierConverter.convertAccessModifier("protected"));
 	}
 	
-	/**
-	 * Tests {@link ModifierConverter#convertNonAccessModifier}.
-	 */
 	@Test
 	public void testNonAccessModifier() {
 		assertTrue(ModifierConverter.convertNonAccessModifier("true"));
 		assertFalse(ModifierConverter.convertNonAccessModifier(null));
+		assertFalse(ModifierConverter.convertNonAccessModifier("-"));
 	}
 }

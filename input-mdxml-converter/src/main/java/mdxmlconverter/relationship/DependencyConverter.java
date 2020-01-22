@@ -15,9 +15,7 @@ import uml.UmlRelationshipType;
  */
 public class DependencyConverter {
 
-	private DependencyConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private DependencyConverter() {}
 	
 	/**
 	 * Static method converting a given {@link mdxml.PackagedElement} with type 'uml:Usage' to a {@link mdxmlconverter.temporary.TemporaryRelationship} with references to the client and supplier and with type {@link uml.UmlRelationshipType#DEPENDENCY}

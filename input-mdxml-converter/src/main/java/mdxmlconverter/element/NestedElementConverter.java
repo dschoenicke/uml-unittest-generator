@@ -14,9 +14,7 @@ import uml.UmlElement;
  */
 public class NestedElementConverter {
 
-	private NestedElementConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private NestedElementConverter() {}
 	
 	/**
 	 * Static method converting nested {@link mdxml.PackagedElement}s of a given {@link mdxml.PackagedElement} to an {@link uml.UmlElement} and adds it to its owning {@link uml.UmlElement}

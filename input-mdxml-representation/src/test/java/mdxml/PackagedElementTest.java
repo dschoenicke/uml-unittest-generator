@@ -19,7 +19,7 @@ public class PackagedElementTest extends MdxmlRepresentationTests {
 		assertEquals("_19_0_1_62d0212_1574772109161_216184_4696", mdxmlTopLevelPackage.getId());
 		assertEquals("TopLevelPackage", mdxmlTopLevelPackage.getName());
 		assertEquals("uml:Package", mdxmlTopLevelPackage.getType());
-		assertEquals(7, mdxmlTopLevelPackage.getPackagedElements().size());
+		assertEquals(8, mdxmlTopLevelPackage.getPackagedElements().size());
 		
 		assertNotNull(mdxmlSubPackageClass);
 		assertEquals(mdxmlEnumeration, mdxmlSubPackageClass.getNestedClassifiers().get(0));

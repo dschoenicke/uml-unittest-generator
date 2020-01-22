@@ -4,84 +4,36 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-
-import org.junit.Before;
 import org.junit.Test;
 
-import mdxml.MemberEnd;
-import mdxml.OwnedEnd;
-import mdxml.PackagedElement;
-import mdxmlconverter.temporary.TemporaryModel;
+import mdxmlconverter.MdxmlUmlConverterTests;
 import mdxmlconverter.temporary.TemporaryRelationship;
 
-/**
- * Unit tests for {@link AssociationConverter} 
- * 
- * @author dschoenicke
- *
- */
-public class AssociationConverterTest {
+public class AssociationConverterTest extends MdxmlUmlConverterTests {
 
-	/**
-	 * Mock the two {@link mdxml.MemberEnd}s to be tested.
-	 */
-	private ArrayList<MemberEnd> mockMemberEnds;
-	
-	/**
-	 * Mocks the {@link mdxml.OwnedEnd} to test the conversion of directed relationships.
-	 */
-	private OwnedEnd mockOwnedEnd;
-	
-	/**
-	 * Mocks a {@link mdxml.PackagedElement} to test the conversion of relationships
-	 */
-	private PackagedElement mockPackagedElement;
-	
-	/**
-	 * Mocks the {@link mdxmlconverter.temporary.TemporaryModel} which contains the converted {@link mdxmlconverter.temporary.TemporaryModel}.
-	 */
-	private TemporaryModel mockTmpModel;
-	
-	/**
-	 * Initializes the mock objects
-	 */
-	@Before
-	public void init() {
-		mockMemberEnds = new ArrayList<>();
-		mockMemberEnds.add(new MemberEnd());
-		mockMemberEnds.add(new MemberEnd());
-		mockOwnedEnd = new OwnedEnd();
-		mockPackagedElement = new PackagedElement();
-		mockPackagedElement.setMemberEnds(mockMemberEnds);
-		mockTmpModel = new TemporaryModel();
+	@Test
+	public void testDirectedAssociation() {
+		TemporaryRelationship relationship = AssociationConverter.convertAssociation(mdxmlBigEnumAssociation, mockTmpModel);
+		assertTrue(mockTmpModel.getRelationships().contains(relationship));
+		assertEquals(mdxmlBigEnumAssociation.getMemberEnds().get(0), relationship.getFirstMember());
+		assertEquals(mdxmlBigEnumAssociation.getMemberEnds().get(1), relationship.getSecondMember());
+		assertEquals(mdxmlBigEnumAssociation.getOwnedEnd(), relationship.getOwnedEnd());
 	}
 	
-	/**
-	 * Tests {@link AssociationConverter#convertAssociation} with an undirected relationship.
-	 */
 	@Test
-	public void testUndirectedRelationshipConversion() {
-		TemporaryRelationship tmpRelationship = AssociationConverter.convertAssociation(mockPackagedElement, mockTmpModel);
-		
-		assertTrue("The converted TemporaryRelationship was not added to the TemporaryModel!", mockTmpModel.getRelationships().contains(tmpRelationship));
-		assertTrue("The converted TemporaryRelationship does not contain the MemberEnds!", 
-				tmpRelationship.getFirstMember().equals(mockMemberEnds.get(0)) &&
-				tmpRelationship.getSecondMember().equals(mockMemberEnds.get(1)));
-		assertNull("The converted TemporaryRelationship must not contain an OwnedEnd!", tmpRelationship.getOwnedEnd());
+	public void testUndirectedAssociation() {
+		mdxmlBigEnumAssociation.setOwnedEnd(null);
+		TemporaryRelationship relationship = AssociationConverter.convertAssociation(mdxmlBigEnumAssociation, mockTmpModel);
+		assertTrue(mockTmpModel.getRelationships().contains(relationship));
+		assertEquals(mdxmlBigEnumAssociation.getMemberEnds().get(0), relationship.getFirstMember());
+		assertEquals(mdxmlBigEnumAssociation.getMemberEnds().get(1), relationship.getSecondMember());
+		assertNull(mdxmlBigEnumAssociation.getOwnedEnd());
 	}
 	
-	/**
-	 * Tests {@link AssociationConverter#convertAssociation} with an directed relationship.
-	 */
 	@Test
-	public void testDirectedRelationshipConversion() {
-		mockPackagedElement.setOwnedEnd(mockOwnedEnd);
-		TemporaryRelationship tmpRelationship = AssociationConverter.convertAssociation(mockPackagedElement, mockTmpModel);
-		assertTrue("The converted TemporaryRelationship was not added to the TemporaryModel!", mockTmpModel.getRelationships().contains(tmpRelationship));
-		assertTrue("The converted TemporaryRelationship does not contain the MemberEnds!", 
-				tmpRelationship.getFirstMember().equals(mockMemberEnds.get(0)) &&
-				tmpRelationship.getSecondMember().equals(mockMemberEnds.get(1)));
-		assertEquals("The converted TemporaryRelationship does not contain an OwnedEnd!", tmpRelationship.getOwnedEnd(), mockOwnedEnd);
+	public void testInvalidAssociation() {
+		mdxmlBigEnumAssociation.getMemberEnds().clear();
+		thrown.expect(IllegalArgumentException.class);
+		AssociationConverter.convertAssociation(mdxmlBigEnumAssociation, mockTmpModel);
 	}
 }

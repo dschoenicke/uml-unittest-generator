@@ -18,9 +18,7 @@ import uml.UmlParameter;
  */
 public class ParameterConverter {
 
-	private ParameterConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private ParameterConverter() {}
 	
 	/**
 	 * Static method converting all {@link mdxml.OwnedParameter}s of a given {@link mdxml.OwnedOperation} and adds them to the owning {@link uml.UmlOperation} and the {@link mdxmlconverter.temporary.TemporaryModel}
@@ -32,8 +30,11 @@ public class ParameterConverter {
 	public static void convertParameters(OwnedOperation ownedOperation, UmlOperation operation, TemporaryModel tmpModel) {
 	
 		for (OwnedParameter ownedParameter : ownedOperation.getOwnedParameters()) {
-			assertNotNull("The direction of an ownedParameter must not be null!\nOccurance in " + operation.getName() + "(), parameter with id " + ownedParameter.getId());
-			assertFalse("The name of an ownedParameter with direction 'in' must not be null!\nOccurance in " + operation.getName() + "() with id " + ownedOperation.getId(), (ownedParameter.getName() == null && ownedParameter.getDirection().equals("in")));
+			assertNotNull(ownedParameter.getDirection(), "The direction of an ownedParameter must not be null!\nOccurance in " + operation.getName() + "(), parameter with id " + ownedParameter.getId());
+			
+			if (ownedParameter.getName() == null) {
+				assertFalse("The name of an ownedParameter with direction 'in' must not be null!\nOccurance in " + operation.getName() + "() with id " + ownedOperation.getId(), ownedParameter.getDirection().equals("in"));
+			}
 			
 			UmlParameter parameter = new UmlParameter(
 					(ownedParameter.getName() == null) ? "" : ownedParameter.getName(),

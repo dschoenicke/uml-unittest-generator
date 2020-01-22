@@ -4,9 +4,6 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.xml.bind.JAXBException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import lombok.NoArgsConstructor;
 import mdxml.MdxmlRepresentation;
 import mdxml.Model;
@@ -30,24 +27,12 @@ import uml.converterinterface.UmlRepresentationConverter;
 @NoArgsConstructor
 public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	
-	/**
-	 * The {@link org.slf4j.Logger} to be used in the methods
-	 */
-	private static final Logger LOG = LoggerFactory.getLogger("");
-	
 	@Override
-	public UmlModel convertToUmlRepresentation(String inputPath) {
-		
+	public UmlModel convertToUmlRepresentation(String inputPath) throws JAXBException {
 		MdxmlRepresentation mdxmlRepresentation = null;
-		
-		try {
-			mdxmlRepresentation = new MdxmlRepresentation(inputPath);
-			assertNotNull("The XMI of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi());
-			assertNotNull("The Model of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi().getModel());
-		} catch (JAXBException e) {
-			LOG.error("The file {} is not a valid XML Magic Draw Project file!", inputPath);
-			System.exit(0);
-		}
+		mdxmlRepresentation = new MdxmlRepresentation(inputPath);
+		assertNotNull("The XMI of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi());
+		assertNotNull("The Model of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi().getModel());
 		
 		Model xmlModel = mdxmlRepresentation.getXmi().getModel();
 		assertNotNull("The name of the mdxml.Model must not be null!", xmlModel.getName());
@@ -89,7 +74,8 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 				RelationshipConverter.convertRelationship(packagedElement, parent, tmpModel);
 				break;
 			
-			default: break;
+			default: 
+				throw new IllegalStateException(parent.getName() + " is not a valid parent element for a relationship! Occurance: packagedElement with id: " + packagedElement.getId());
 		}
 	}
 	

@@ -2,7 +2,6 @@ package mdxmlconverter.element;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -14,123 +13,69 @@ import mdxml.OwnedParameter;
 import mdxml.OwnedParameteredElement;
 import mdxml.OwnedTemplateSignature;
 import mdxml.ReferenceExtension;
-import mdxmlconverter.temporary.TemporaryModel;
+import mdxmlconverter.MdxmlUmlConverterTests;
 import uml.UmlClass;
 import uml.UmlOperation;
 import uml.UmlTemplateParameter;
 import uml.UmlVisibility;
 
-/**
- * Tests the {@link TemplateParameterConverter}.
- * 
- * @author dschoenicke
- *
- */
-public class TemplateParameterConverterTest {
+public class TemplateParameterConverterTest extends MdxmlUmlConverterTests {
 
-	/**
-	 * Mocks a {@link mdxml.OwnedTemplateSignature} to be used in the tests.
-	 */
 	private OwnedTemplateSignature mockSignature;
-	
-	/**
-	 * Mocks a {@link mdxml.OwnedParameter} without a {@link mdxml.ConstrainingClassifier}.
-	 */
-	private OwnedParameter mockUnconstrainedParameter;
-	
-	/**
-	 * Mocks a {@link mdxml.OwnedParameter} with a {@link mdxml.ConstrainingClassifier}.
-	 */
-	private OwnedParameter mockConstrainedParameter;
-	
-	/**
-	 * Mocks a {@link mdxml.OwnedParameter} with a {@link mdxml.ConstrainingClassifier} with primitive type.
-	 */
 	private OwnedParameter mockConstrainedPrimitiveParameter;
 	
-	/**
-	 * Mocks a {@link mdxmlconverter.temporary.TemporaryModel} to be used.
-	 */
-	private TemporaryModel mockTmpModel;
-	
-	/**
-	 * Initializes the mock elements.
-	 */
 	@Before
 	public void init() {
-		ConstrainingClassifier constrainingClassifier = new ConstrainingClassifier();
-		constrainingClassifier.setIdref("123");
 		ConstrainingClassifier primitiveConstrainingClassifier = new ConstrainingClassifier();
 		primitiveConstrainingClassifier.setExtension(new Extension());
 		primitiveConstrainingClassifier.getExtension().setReferenceExtension(new ReferenceExtension());
 		primitiveConstrainingClassifier.getExtension().getReferenceExtension().setReferentPath("UML Standard Profile::UML2 Metamodel::PrimitiveTypes::String");
-		
-		ArrayList<OwnedParameter> ownedParameters = new ArrayList<>();
-		
-		mockUnconstrainedParameter = new OwnedParameter();
-		mockConstrainedParameter = new OwnedParameter();
 		mockConstrainedPrimitiveParameter = new OwnedParameter();
-		OwnedParameteredElement firstOwnedParameteredElement = new OwnedParameteredElement();
-		firstOwnedParameteredElement.setName("T");
-		mockUnconstrainedParameter.setOwnedParameteredElement(firstOwnedParameteredElement);
-		mockUnconstrainedParameter.setId("unconstrained");
-		OwnedParameteredElement secondOwnedParameteredElement = new OwnedParameteredElement();
-		secondOwnedParameteredElement.setName("U");
-		mockConstrainedParameter.setOwnedParameteredElement(secondOwnedParameteredElement);
-		mockConstrainedParameter.setConstrainingClassifier(constrainingClassifier);
-		mockConstrainedParameter.setId("constrained");
 		OwnedParameteredElement thirdOwnedParameteredElement = new OwnedParameteredElement();
 		thirdOwnedParameteredElement.setName("V");
 		mockConstrainedPrimitiveParameter.setOwnedParameteredElement(thirdOwnedParameteredElement);
 		mockConstrainedPrimitiveParameter.setConstrainingClassifier(primitiveConstrainingClassifier);
 		mockConstrainedPrimitiveParameter.setId("constrainedPrimitive");
 		
-		ownedParameters.add(mockUnconstrainedParameter);
-		ownedParameters.add(mockConstrainedParameter);
-		ownedParameters.add(mockConstrainedPrimitiveParameter);
+		OwnedParameter withoutConstraint = new OwnedParameter();
+		withoutConstraint.setId("without");
+		OwnedParameteredElement fourthParameteredElement = new OwnedParameteredElement();
+		fourthParameteredElement.setName("W");
+		withoutConstraint.setOwnedParameteredElement(fourthParameteredElement);
 		
-		mockSignature = new OwnedTemplateSignature();
-		mockSignature.setOwnedParameters(ownedParameters);
-		
-		mockTmpModel = new TemporaryModel();
+		mockSignature = mdxmlGenericClass.getOwnedTemplateSignature();
+		mockSignature.getOwnedParameters().addAll(List.of(mockConstrainedPrimitiveParameter, withoutConstraint));
 		mockTmpModel.addElement("123", new UmlClass("TestElement", UmlVisibility.PUBLIC, false, false, false));
 	}
 	
-	/**
-	 * Test {@link mdxmlconverter.element.TemplateParameterConverter#convertTemplateParameters(OwnedTemplateSignature, TemporaryModel)}.
-	 */
 	@Test
 	public void testConvertTemplateParametersModel() {
 		List<UmlTemplateParameter> convertedTemplateParameters = TemplateParameterConverter.convertTemplateParameters(mockSignature, mockTmpModel);
 		assertEquals("T", convertedTemplateParameters.get(0).getName());
-		assertEquals("java.lang.Object", convertedTemplateParameters.get(0).getType());
-		assertEquals("U", convertedTemplateParameters.get(1).getName());
-		assertEquals("123", convertedTemplateParameters.get(1).getType());
+		assertEquals(mdxmlTopLevelClass.getId(), convertedTemplateParameters.get(0).getType());
+		assertEquals("O", convertedTemplateParameters.get(1).getName());
+		assertEquals("java.lang.Object", convertedTemplateParameters.get(1).getType());
 		assertEquals("V", convertedTemplateParameters.get(2).getName());
 		assertEquals("String", convertedTemplateParameters.get(2).getType());
-		assertEquals(convertedTemplateParameters.get(0), mockTmpModel.getTemplateParameterIDs().get("unconstrained"));
-		assertEquals(convertedTemplateParameters.get(1), mockTmpModel.getTemplateParameterIDs().get("constrained"));
+		assertEquals("W", convertedTemplateParameters.get(3).getName());
+		assertEquals("java.lang.Object", convertedTemplateParameters.get(3).getType());
+		assertEquals(convertedTemplateParameters.get(0), mockTmpModel.getTemplateParameterIDs().get(mockSignature.getOwnedParameters().get(0).getId()));
+		assertEquals(convertedTemplateParameters.get(1), mockTmpModel.getTemplateParameterIDs().get(mockSignature.getOwnedParameters().get(1).getId()));
 		assertEquals(convertedTemplateParameters.get(2), mockTmpModel.getTemplateParameterIDs().get("constrainedPrimitive"));
+		assertEquals(convertedTemplateParameters.get(3), mockTmpModel.getTemplateParameterIDs().get("without"));
 	}
 	
-	/**
-	 * Tests {@link mdxmlconverter.element.TemplateParameterConverter#convertTemplateParameters(OwnedTemplateSignature, uml.UmlElement, TemporaryModel)}.
-	 */
 	@Test
 	public void testConvertTemplateParametersElement() {
-		UmlClass mockElement = new UmlClass("Test", UmlVisibility.PUBLIC, false, false, false);
-		TemplateParameterConverter.convertTemplateParameters(null, mockElement, mockTmpModel);
-		assertEquals(0, mockElement.getTemplateParameters().size());
-		TemplateParameterConverter.convertTemplateParameters(mockSignature, mockElement, mockTmpModel);
-		assertEquals(mockElement.getTemplateParameters().size(), mockSignature.getOwnedParameters().size());
+		TemplateParameterConverter.convertTemplateParameters(null, umlBindingClass, mockTmpModel);
+		assertEquals(0, umlBindingClass.getTemplateParameters().size());
+		TemplateParameterConverter.convertTemplateParameters(mockSignature, umlBindingClass, mockTmpModel);
+		assertEquals(umlBindingClass.getTemplateParameters().size(), mockSignature.getOwnedParameters().size());
 	}
 	
-	/**
-	 * Test {@link mdxmlconverter.element.TemplateParameterConverter#convertTemplateParameters(OwnedTemplateSignature, uml.UmlOperation, TemporaryModel)}.
-	 */
 	@Test
 	public void testConvertTemplateParametersOperation() {
-		UmlOperation mockOperation = new UmlOperation("Test", UmlVisibility.PUBLIC);
+		UmlOperation mockOperation = umlGenericClass.getOperations().get(0);
 		TemplateParameterConverter.convertTemplateParameters(null, mockOperation, mockTmpModel);
 		assertEquals(0, mockOperation.getTemplateParameters().size());
 		TemplateParameterConverter.convertTemplateParameters(mockSignature, mockOperation, mockTmpModel);

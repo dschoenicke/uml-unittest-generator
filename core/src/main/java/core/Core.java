@@ -31,8 +31,9 @@ public class Core {
 	 * Prints the help message if an invalid argument is passed.
 	 * 
 	 * @param args the command line arguments passed to the application
+	 * @throws Exception if the input conversion process fails
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Options options = new Options();
 		TestCreator.addTestCreatorOptions(options);
 		QualifiedNamesMapper.addQualifiedNamesMapperOptions(options);

@@ -17,9 +17,7 @@ import uml.UmlElement;
  */
 public class AttributeConverter {
 
-	private AttributeConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private AttributeConverter() {}
 	
 	/**
 	 * Converts the {@link mdxml.OwnedAttribute}s of a {@link mdxml.PackagedElement} to {@link mdxmlconverter.temporary.TemporaryAttribute}s

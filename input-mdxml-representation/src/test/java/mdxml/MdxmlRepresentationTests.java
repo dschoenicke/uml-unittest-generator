@@ -4,7 +4,10 @@ import static org.junit.Assert.fail;
 
 import javax.xml.bind.JAXBException;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 public class MdxmlRepresentationTests
 {	
@@ -22,9 +25,11 @@ public class MdxmlRepresentationTests
 	protected PackagedElement mdxmlBigEnum;
 	protected PackagedElement mdxmlSubPackageClassAssociation;
 	protected PackagedElement mdxmlBigEnumAssociation;
+	protected PackagedElement mdxmlDependency;
+	@Rule public ExpectedException thrown = ExpectedException.none();
 	
 	@Before
-	public void init() {
+	public void initMdxmlRepresentation() {
 		try {
 			mdxmlRepresentation = new MdxmlRepresentation(getClass().getClassLoader().getResource("md_test.xml").getFile());
 			mdxmlTopLevelPackage = mdxmlRepresentation
@@ -64,8 +69,14 @@ public class MdxmlRepresentationTests
 			mdxmlSubPackageClass = mdxmlSubPackage.getPackagedElements().stream().filter(p -> (p.getName() != null && p.getName().equals("SubPackageClass"))).findFirst().get();
 			mdxmlEnumeration = mdxmlSubPackageClass.getNestedClassifiers().get(0);
 			mdxmlBigEnum = mdxmlSubPackage.getPackagedElements().stream().filter(p -> (p.getName() != null && p.getName().equals("BigEnum"))).findFirst().get();
+			mdxmlDependency = mdxmlTopLevelPackage.getPackagedElements().stream().filter(p -> p.getType().equals("uml:Usage")).findFirst().get();
 		} catch (JAXBException e) {
 			fail("Couldn't find a valid test diagram file named md_test.xml!");
 		}
+	}
+	
+	@After
+	public void cleanup() {
+		thrown = ExpectedException.none();
 	}
 }

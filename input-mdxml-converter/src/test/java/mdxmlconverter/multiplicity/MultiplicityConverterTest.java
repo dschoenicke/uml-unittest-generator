@@ -9,47 +9,15 @@ import mdxml.LowerValue;
 import mdxml.UpperValue;
 import uml.UmlMultiplicityValue;
 
-/**
- * Tests the {@link MultiplicityConverter} functions
- * 
- * @author dschoenicke
- *
- */
 public class MultiplicityConverterTest {
 
-	/**
-	 * Mocks a {@link mdxml.LowerValue} to be used for {@link MultiplicityConverter#convertLowerValue}.
-	 */
 	private LowerValue mockLowerValue1;
-	
-	/**
-	 * Mocks a {@link mdxml.LowerValue} to be used for {@link MultiplicityConverter#convertLowerValue}.
-	 */
 	private LowerValue mockLowerValue2;
-	
-	/**
-	 * Mocks a {@link mdxml.LowerValue} to be used for {@link MultiplicityConverter#convertLowerValue}.
-	 */
 	private LowerValue mockLowerValue3;
-	
-	/**
-	 * Mocks a {@link mdxml.UpperValue} to be used for {@link MultiplicityConverter#convertUpperValue}.
-	 */
 	private UpperValue mockUpperValue1;
-	
-	/**
-	 * Mocks a {@link mdxml.UpperValue} to be used for {@link MultiplicityConverter#convertUpperValue}.
-	 */
 	private UpperValue mockUpperValue2;
-	
-	/**
-	 * Mocks a {@link mdxml.UpperValue} to be used for {@link MultiplicityConverter#convertUpperValue}.
-	 */
 	private UpperValue mockUpperValue3;
 	
-	/**
-	 * Initializes the mock values.
-	 */
 	@Before
 	public void init() {
 		mockLowerValue1 = new LowerValue();
@@ -65,9 +33,6 @@ public class MultiplicityConverterTest {
 		mockUpperValue3.setValue("*");
 	}
 	
-	/**
-	 * Tests {@link MultiplicityConverter#convertLowerValue} with different inputs.
-	 */
 	@Test
 	public void convertLowerValueTest() {
 		assertEquals(UmlMultiplicityValue.ZERO, MultiplicityConverter.convertLowerValue(mockLowerValue1));
@@ -76,9 +41,6 @@ public class MultiplicityConverterTest {
 		assertEquals(UmlMultiplicityValue.ONE, MultiplicityConverter.convertLowerValue(null));
 	}
 	
-	/**
-	 * Tests {@link MultiplicityConverter#convertUpperValue} with different inputs.
-	 */
 	@Test
 	public void convertUpperValueTest() {
 		assertEquals(UmlMultiplicityValue.ONE, MultiplicityConverter.convertUpperValue(mockUpperValue1));

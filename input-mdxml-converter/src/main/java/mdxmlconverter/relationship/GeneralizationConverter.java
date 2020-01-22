@@ -18,9 +18,7 @@ import uml.UmlRelationshipType;
  */
 public class GeneralizationConverter {
 
-	private GeneralizationConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private GeneralizationConverter() {}
 	
 	/**
 	 * Static method converting the {@link mdxml.Generalization} of a given {@link mdxml.PackagedElement} to a {@link mdxmlconverter.temporary.TemporaryRelationship} with references to the general and the element itself
@@ -43,6 +41,9 @@ public class GeneralizationConverter {
 		}
 		else if (parent instanceof UmlPackage) {
 			((UmlPackage) parent).addRelationship(tmpRelationship);
+		}
+		else {
+			throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for the relationship in PackagedElement with id: " + packagedElement.getId() + "!");
 		}
 		
 		return tmpRelationship;

@@ -6,17 +6,8 @@ import org.junit.Test;
 
 import uml.UmlParameterDirection;
 
-/**
- * Tests the method of {@link ParameterDirectionConverter}.
- * 
- * @author dschoenicke
- *
- */
 public class ParameterDirectionConverterTest {
 
-	/**
-	 * Tests {@link ParameterDirectionConverter#convertDirection}.
-	 */
 	@Test
 	public void testParameterDirectionConverter() {
 		assertEquals(UmlParameterDirection.IN, ParameterDirectionConverter.convertDirection(null));

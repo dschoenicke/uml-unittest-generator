@@ -1,41 +1,35 @@
 package mdxmlconverter.packages;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import mdxml.PackagedElement;
+import mdxmlconverter.MdxmlUmlConverterTests;
 import mdxmlconverter.temporary.TemporaryModel;
-import uml.UmlModel;
+import uml.UmlPackage;
 
-/**
- * Tests the {@link PackageConverter#convertPackage} method.
- * 
- * @author dschoenicke
- *
- */
-public class PackageConverterTest {
+public class PackageConverterTest extends MdxmlUmlConverterTests {
 
-	/**
-	 * Mocks a {@link mdxml PackagedElement} which will be converted to an {@link uml.UmlPackage}
-	 */
-	private PackagedElement mockPackagedElement;
-	
-	/**
-	 * Initializes the mock {@link mdxml.PackagedElement}.
-	 */
-	@Before
-	public void init() {
-		mockPackagedElement = new PackagedElement();
-		mockPackagedElement.setName("test");
+	@Test
+	public void testTopLevelPackageConverter() {
+		umlModel.getPackages().clear();
+		UmlPackage umlPackage = PackageConverter.convertPackage(mdxmlTopLevelPackage, umlModel, new TemporaryModel());
+		assertEquals(umlTopLevelPackage.getName(), umlPackage.getName());
+		assertTrue(umlModel.getPackages().contains(umlPackage));
 	}
 	
-	/**
-	 * Tests the {@link PackageConverter#convertPackage} method.
-	 */
 	@Test
-	public void testPackageConverter() {
-		assertEquals(PackageConverter.convertPackage(mockPackagedElement, new UmlModel(""), new TemporaryModel()).getName(), mockPackagedElement.getName());
+	public void testSubPackageConverter() {
+		umlTopLevelPackage.getPackages().clear();
+		UmlPackage umlPackage = PackageConverter.convertPackage(mdxmlSubPackage, umlTopLevelPackage, new TemporaryModel());
+		assertEquals(umlSubPackage.getName(), umlPackage.getName());
+		assertTrue(umlTopLevelPackage.getPackages().contains(umlPackage));
+	}
+	
+	@Test
+	public void testInvalidPackageConverter() {
+		thrown.expect(IllegalArgumentException.class);
+		PackageConverter.convertPackage(mdxmlSubPackage, umlBigEnum, mockTmpModel);
 	}
 }

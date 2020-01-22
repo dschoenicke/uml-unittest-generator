@@ -10,9 +10,7 @@ import uml.UmlVisibility;
  */
 public class ModifierConverter {
 
-	private ModifierConverter() {
-		throw new IllegalStateException("utility class");
-	}
+	private ModifierConverter() {}
 	
 	/**
 	 * Static method converting the a given access modifier to an {@link uml.UmlVisibility}

@@ -37,22 +37,4 @@ public class UmlInterface extends UmlElement {
 		super(name, visibility, false);
 		this.isAbstract = isAbstract;
 	}
-	
-	/**
-	 * Returns true if the interface is abstract
-	 * 
-	 * @return true if the interface is abstract
-	 */
-	public boolean isAbstract() {
-		return isAbstract;
-	}
-	
-	/**
-	 * Sets the abstract value
-	 * 
-	 * @param isAbstract the abstract value
-	 */
-	public void setAbstract(boolean isAbstract) {
-		this.isAbstract = isAbstract;
-	}
 }

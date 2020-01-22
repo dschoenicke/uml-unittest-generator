@@ -78,8 +78,9 @@ public class TestCreator {
 	 * @param cmd the parsed {@link org.apache.commons.cli.CommandLine} containing the arguments
 	 * @param args the command line input arguments to be parsed
 	 * @return true, if the given arguments belong to the test file creation {@link org.apache.commons.cli.Options}.
+	 * @throws Exception if the input conversion process fails
 	 */
-	public static boolean parseOptions(CommandLine cmd, String[] args) {
+	public static boolean parseOptions(CommandLine cmd, String[] args) throws Exception {
 		if (cmd.hasOption("ct")) {
 			if (evaluateArguments(args)) {
 				execute(args);
@@ -152,8 +153,9 @@ public class TestCreator {
 	 * Starts the conversion of a class diagram to test files for the given arguments
 	 * 
 	 * @param args the arguments (input-type) (input-path) (output-type) (output-path)
+	 * @throws Exception if the input conversion process fails
 	 */
-	static void execute(String[] args) {
+	static void execute(String[] args) throws Exception {
 		UmlCodeConverter umlToCode = new UmlCodeConverter();
 		CodeTestConverter codeToTest = new CodeTestConverter();
 		
