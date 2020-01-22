@@ -23,9 +23,8 @@ public class LiteralConverterTest extends MdxmlUmlConverterTests {
 		assertEquals("SECOND", umlEnumeration.getLiterals().get(1).getName());
 	}
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidLiterals() {
-		thrown.expect(IllegalArgumentException.class);
 		LiteralConverter.convertLiterals(mdxmlBigEnum, umlSubClass);
 	}
 }

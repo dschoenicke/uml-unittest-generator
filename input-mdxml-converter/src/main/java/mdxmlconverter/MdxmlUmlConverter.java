@@ -70,12 +70,13 @@ public class MdxmlUmlConverter implements UmlRepresentationConverter {
 				break;
 
 			case "uml:Association":
+			case "uml:Dependency":
 			case "uml:Usage":
 				RelationshipConverter.convertRelationship(packagedElement, parent, tmpModel);
 				break;
 			
 			default: 
-				throw new IllegalStateException(parent.getName() + " is not a valid parent element for a relationship! Occurance: packagedElement with id: " + packagedElement.getId());
+				throw new IllegalStateException("The PackagedElement with id: " + packagedElement.getId() + " is of invalid type: " + packagedElement.getType() + "!");
 		}
 	}
 	

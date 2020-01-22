@@ -46,22 +46,19 @@ public class ElementConverter {
 			OperationConverter.convertOperations(packagedElement, element, tmpModel);
 			TemplateParameterConverter.convertTemplateParameters(packagedElement.getOwnedTemplateSignature(), element, tmpModel);
 			TemplateBindingConverter.convertTemplateBindings(packagedElement.getTemplateBindings(), element);
-			NestedElementConverter.convertNestedElements(packagedElement, element, tmpModel);
+			NestedElementConverter.convertNestedElements(packagedElement, element, parent, tmpModel);
 			GeneralizationConverter.convertNestedGeneralizations(packagedElement, tmpModel, parent);
 			InterfaceRealizationConverter.convertNestedInterfaceRealizations(packagedElement, tmpModel, parent);
+			InterfaceRealizationConverter.convertInterfaceRealizations(packagedElement.getInterfaceRealizations(), tmpModel, parent);
 			
 			if (packagedElement.getGeneralization() != null) {
 				GeneralizationConverter.convertGeneralization(packagedElement, tmpModel, parent);
 			}
 			
-			if (!packagedElement.getInterfaceRealizations().isEmpty()) {
-				InterfaceRealizationConverter.convertInterfaceRealizations(packagedElement.getInterfaceRealizations(), tmpModel, parent);
-			}
-			
 			if (parent instanceof UmlModel) {
 				((UmlModel) parent).addElement(element);
 			}
-			else if (parent instanceof UmlPackage) {
+			else {
 				((UmlPackage) parent).addElement(element);
 			}
 			

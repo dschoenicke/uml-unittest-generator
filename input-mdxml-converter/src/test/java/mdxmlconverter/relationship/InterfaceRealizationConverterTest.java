@@ -42,9 +42,8 @@ public class InterfaceRealizationConverterTest extends MdxmlUmlConverterTests {
 		assertEquals(UmlRelationshipType.INTERFACEREALIZATION, relationship.getType());
 	}
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidInterfaceRealization() {
-		thrown.expect(IllegalArgumentException.class);
 		InterfaceRealizationConverter.convertInterfaceRealizations(mdxmlTopLevelClass.getInterfaceRealizations(), mockTmpModel, umlBigEnum);
 	}
 }

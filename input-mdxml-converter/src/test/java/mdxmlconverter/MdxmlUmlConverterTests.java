@@ -1,20 +1,38 @@
 package mdxmlconverter;
 
-import javax.xml.bind.JAXBException;
-
+import org.junit.After;
 import org.junit.Before;
+import org.junit.rules.ExpectedException;
 
+import mdxml.MdxmlRepresentation;
 import mdxml.MdxmlRepresentationTests;
+import mdxml.PackagedElement;
 import mdxmlconverter.temporary.TemporaryModel;
 import uml.UmlClass;
 import uml.UmlEnumeration;
 import uml.UmlInterface;
 import uml.UmlModel;
+import uml.UmlModelTests;
 import uml.UmlPackage;
 import uml.UmlRelationship;
-import uml.UmlRelationshipType;
 
-public class MdxmlUmlConverterTests extends MdxmlRepresentationTests {
+public class MdxmlUmlConverterTests {
+	
+	protected MdxmlRepresentation mdxmlRepresentation;
+	protected PackagedElement mdxmlTopLevelPackage;
+	protected PackagedElement mdxmlTopLevelInterface;
+	protected PackagedElement mdxmlTopLevelClass;
+	protected PackagedElement mdxmlSubClass;
+	protected PackagedElement mdxmlSubInterface;
+	protected PackagedElement mdxmlGenericClass;
+	protected PackagedElement mdxmlBindingClass;
+	protected PackagedElement mdxmlSubPackage;
+	protected PackagedElement mdxmlSubPackageClass;
+	protected PackagedElement mdxmlEnumeration;
+	protected PackagedElement mdxmlBigEnum;
+	protected PackagedElement mdxmlSubPackageClassAssociation;
+	protected PackagedElement mdxmlBigEnumAssociation;
+	protected PackagedElement mdxmlDependency;
 	
 	protected UmlModel umlModel;
 	protected UmlPackage umlTopLevelPackage;
@@ -34,30 +52,61 @@ public class MdxmlUmlConverterTests extends MdxmlRepresentationTests {
 	protected UmlRelationship umlClassGeneralization;
 	protected UmlRelationship umlInterfaceGeneralization;
 	protected UmlRelationship umlDependency;
+	
+	protected MdxmlRepresentationTests mdxmlRepresentationTests;
+	protected UmlModelTests umlModelTests;
 	protected TemporaryModel mockTmpModel;
 	protected MdxmlUmlConverter converter;
+	protected ExpectedException thrown;
 	
 	@Before
-	public void initUmlModel() throws JAXBException {
-		converter = new MdxmlUmlConverter();
-		umlModel = converter.convertToUmlRepresentation(getClass().getClassLoader().getResource("md_test.xml").getFile());
-		umlTopLevelPackage = umlModel.getPackages().get(0);
-		umlTopLevelInterface = (UmlInterface) umlModel.getElements().stream().filter(e -> e.getName().equals("TopLevelInterface")).findFirst().get();
-		umlTopLevelClass = (UmlClass) umlModel.getElements().stream().filter(e -> e.getName().equals("TopLevelClass")).findFirst().get();
-		umlSubClass = (UmlClass) umlTopLevelPackage.getElements().stream().filter(e -> e.getName().equals("SubClass")).findFirst().get();
-		umlSubInterface = (UmlInterface) umlTopLevelPackage.getElements().stream().filter(e -> e.getName().equals("SubInterface")).findFirst().get();
-		umlGenericClass = (UmlClass) umlTopLevelPackage.getElements().stream().filter(e -> e.getName().equals("GenericClass")).findFirst().get();
-		umlBindingClass = (UmlClass) umlTopLevelPackage.getElements().stream().filter(e -> e.getName().equals("BindingClass")).findFirst().get();
-		umlSubPackage = umlTopLevelPackage.getPackages().stream().filter(e -> e.getName().equals("SubPackage")).findFirst().get();
-		umlSubPackageClass = (UmlClass) umlSubPackage.getElements().stream().filter(e -> e.getName().equals("SubPackageClass")).findFirst().get();
-		umlEnumeration = (UmlEnumeration) umlSubPackageClass.getInnerElements().get(0);
-		umlBigEnum = (UmlEnumeration) umlSubPackage.getElements().stream().filter(e -> e.getName().equals("BigEnum")).findFirst().get();
-		umlSubPackageClassAssociation = umlTopLevelPackage.getRelationships().stream().filter(r -> r.getType().equals(UmlRelationshipType.AGGREGATION)).findFirst().get();
-		umlBigEnumAssociation = umlTopLevelPackage.getRelationships().stream().filter(r -> r.getType().equals(UmlRelationshipType.ASSOCIATION)).findFirst().get();
-		umlInterfaceRealization = umlModel.getRelationships().stream().filter(r -> r.getType().equals(UmlRelationshipType.INTERFACEREALIZATION)).findFirst().get();
-		umlClassGeneralization = umlTopLevelPackage.getRelationships().stream().filter(r -> r.getType().equals(UmlRelationshipType.GENERALIZATION) && r.getClient().equals(umlSubClass)).findFirst().get();
-		umlInterfaceGeneralization = umlTopLevelPackage.getRelationships().stream().filter(r -> r.getType().equals(UmlRelationshipType.GENERALIZATION) && r.getClient().equals(umlSubInterface)).findFirst().get();
-		umlDependency = umlTopLevelPackage.getRelationships().stream().filter(r -> r.getType().equals(UmlRelationshipType.DEPENDENCY)).findFirst().get();
+	public void initTestData() {
+		mdxmlRepresentationTests = new MdxmlRepresentationTests();
+		mdxmlRepresentationTests.initMdxmlRepresentation();
+		umlModelTests = new UmlModelTests();
+		umlModelTests.initializeUmlModel();
+		thrown = mdxmlRepresentationTests.thrown;
+		mdxmlRepresentation = mdxmlRepresentationTests.getMdxmlRepresentation();
+		mdxmlTopLevelPackage = mdxmlRepresentationTests.getMdxmlTopLevelPackage();
+		mdxmlTopLevelInterface = mdxmlRepresentationTests.getMdxmlTopLevelInterface();
+		mdxmlTopLevelClass = mdxmlRepresentationTests.getMdxmlTopLevelClass();
+		mdxmlSubClass = mdxmlRepresentationTests.getMdxmlSubClass();
+		mdxmlSubInterface = mdxmlRepresentationTests.getMdxmlSubInterface();
+		mdxmlGenericClass = mdxmlRepresentationTests.getMdxmlGenericClass();
+		mdxmlBindingClass = mdxmlRepresentationTests.getMdxmlBindingClass();
+		mdxmlSubPackage = mdxmlRepresentationTests.getMdxmlSubPackage();
+		mdxmlSubPackageClass = mdxmlRepresentationTests.getMdxmlSubPackageClass();
+		mdxmlEnumeration = mdxmlRepresentationTests.getMdxmlEnumeration();
+		mdxmlBigEnum = mdxmlRepresentationTests.getMdxmlBigEnum();
+		mdxmlSubPackageClassAssociation = mdxmlRepresentationTests.getMdxmlSubPackageClassAssociation();
+		mdxmlBigEnumAssociation = mdxmlRepresentationTests.getMdxmlBigEnumAssociation();
+		mdxmlDependency = mdxmlRepresentationTests.getMdxmlDependency();
+		
+		umlModel = umlModelTests.getUmlModel();
+		umlTopLevelPackage = umlModelTests.getUmlTopLevelPackage();
+		umlTopLevelInterface = umlModelTests.getUmlTopLevelInterface();
+		umlTopLevelClass = umlModelTests.getUmlTopLevelClass();
+		umlSubClass = umlModelTests.getUmlSubClass();
+		umlSubInterface = umlModelTests.getUmlSubInterface();
+		umlGenericClass = umlModelTests.getUmlGenericClass();
+		umlBindingClass = umlModelTests.getUmlBindingClass();
+		umlSubPackage = umlModelTests.getUmlSubPackage();
+		umlSubPackageClass = umlModelTests.getUmlSubPackageClass();
+		umlEnumeration = umlModelTests.getUmlEnumeration();
+		umlBigEnum = umlModelTests.getUmlBigEnum();
+		umlSubPackageClassAssociation = umlModelTests.getUmlSubPackageClassAssociation();
+		umlBigEnumAssociation = umlModelTests.getUmlBigEnumAssociation();
+		umlInterfaceRealization = umlModelTests.getUmlInterfaceRealization();
+		umlClassGeneralization = umlModelTests.getUmlClassGeneralization();
+		umlInterfaceGeneralization = umlModelTests.getUmlInterfaceGeneralization();
+		umlDependency = umlModelTests.getUmlDependency();
+		
 		mockTmpModel = new TemporaryModel();
+		converter = new MdxmlUmlConverter();
+	}
+	
+	@After
+	public void cleanup() {
+		thrown = ExpectedException.none();
 	}
 }

@@ -9,6 +9,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
 public class MdxmlRepresentationTests
 {	
 	protected MdxmlRepresentation mdxmlRepresentation;
@@ -28,7 +33,6 @@ public class MdxmlRepresentationTests
 	protected PackagedElement mdxmlDependency;
 	@Rule public ExpectedException thrown = ExpectedException.none();
 	
-	@Before
 	public void initMdxmlRepresentation() {
 		try {
 			mdxmlRepresentation = new MdxmlRepresentation(getClass().getClassLoader().getResource("md_test.xml").getFile());
@@ -73,6 +77,11 @@ public class MdxmlRepresentationTests
 		} catch (JAXBException e) {
 			fail("Couldn't find a valid test diagram file named md_test.xml!");
 		}
+	}
+	
+	@Before
+	public void init() {
+		initMdxmlRepresentation();
 	}
 	
 	@After

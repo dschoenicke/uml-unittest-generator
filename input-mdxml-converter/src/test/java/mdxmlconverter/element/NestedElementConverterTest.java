@@ -18,7 +18,7 @@ public class NestedElementConverterTest extends MdxmlUmlConverterTests {
 
 	@Test
 	public void testNestedElementConverter() {
-		NestedElementConverter.convertNestedElements(mdxmlSubPackageClass, umlSubClass, mockTmpModel);
+		NestedElementConverter.convertNestedElements(mdxmlSubPackageClass, umlSubClass, umlSubPackage, mockTmpModel);
 		assertEquals(1, umlSubClass.getInnerElements().size());
 		assertEquals("Enumeration", umlSubClass.getInnerElements().get(0).getName());
 		assertTrue(umlSubClass.getInnerElements().get(0) instanceof UmlEnumeration);

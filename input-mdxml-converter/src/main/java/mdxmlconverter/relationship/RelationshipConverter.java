@@ -41,7 +41,8 @@ public class RelationshipConverter {
 				relationship = AssociationConverter.convertAssociation(packagedElement, tmpModel);
 				break;
 				
-			case "uml:Usage": 
+			case "uml:Usage":
+			case "uml:Dependency":
 				relationship = DependencyConverter.convertDependency(packagedElement, tmpModel);
 				break;
 				

@@ -49,11 +49,15 @@ public class RelationshipConverterTest extends MdxmlUmlConverterTests {
 		TemporaryRelationship relationship = RelationshipConverter.convertRelationship(mdxmlDependency, umlTopLevelPackage, mockTmpModel);
 		assertTrue(umlTopLevelPackage.getRelationships().contains(relationship));
 		assertEquals(UmlRelationshipType.DEPENDENCY, relationship.getType());
+		
+		mdxmlDependency.setType("uml:Dependency");
+		relationship = RelationshipConverter.convertRelationship(mdxmlDependency, umlTopLevelPackage, mockTmpModel);
+		assertTrue(umlTopLevelPackage.getRelationships().contains(relationship));
+		assertEquals(UmlRelationshipType.DEPENDENCY, relationship.getType());
 	}
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidRelationship() {
-		thrown.expect(IllegalArgumentException.class);
 		RelationshipConverter.convertRelationship(mdxmlDependency, umlBigEnum, mockTmpModel);
 	}
 	
@@ -93,23 +97,20 @@ public class RelationshipConverterTest extends MdxmlUmlConverterTests {
 		assertEquals(UmlRelationshipType.COMPOSITION, mockTmpRelationship.getType());
 	}
 	
-	@Test
+	@Test(expected = IllegalStateException.class)
 	public void testConvertEmptyTemporaryRelationship() {
-		thrown.expect(IllegalStateException.class);
 		RelationshipConverter.convertTemporaryRelationship(new TemporaryRelationship(), mockTmpModel);
 	}
 	
-	@Test
+	@Test(expected = IllegalStateException.class)
 	public void testConvertInvalidMemberTemporaryRelatioship() {
-		thrown.expect(IllegalStateException.class);
 		TemporaryRelationship invalid = new TemporaryRelationship();
 		invalid.setFirstMember(new MemberEnd());
 		RelationshipConverter.convertTemporaryRelationship(invalid, mockTmpModel);
 	}
 	
-	@Test
+	@Test(expected = IllegalStateException.class)
 	public void testConvertInvalidSupplierTemporaryRelationship() {
-		thrown.expect(IllegalStateException.class);
 		TemporaryRelationship invalid = new TemporaryRelationship();
 		invalid.setClientId("-");
 		RelationshipConverter.convertTemporaryRelationship(invalid, mockTmpModel);

@@ -30,10 +30,9 @@ public class AssociationConverterTest extends MdxmlUmlConverterTests {
 		assertNull(mdxmlBigEnumAssociation.getOwnedEnd());
 	}
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidAssociation() {
 		mdxmlBigEnumAssociation.getMemberEnds().clear();
-		thrown.expect(IllegalArgumentException.class);
 		AssociationConverter.convertAssociation(mdxmlBigEnumAssociation, mockTmpModel);
 	}
 }

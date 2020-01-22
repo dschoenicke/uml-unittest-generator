@@ -2,6 +2,8 @@ package mdxmlconverter;
 
 import static org.junit.Assert.assertEquals;
 
+import javax.xml.bind.JAXBException;
+
 import org.junit.Test;
 
 import mdxml.OwnedAttribute;
@@ -18,16 +20,24 @@ import uml.UmlTemplateParameter;
 public class MdxmlUmlConverterTest extends MdxmlUmlConverterTests {
 	
 	@Test
+	public void testConverToUmlRepresentation() throws JAXBException {
+		assertEquals(mdxmlRepresentation.getXmi().getModel().getName(), converter.convertToUmlRepresentation(getClass().getClassLoader().getResource("md_test.xml").getFile()).getName());
+	}
+	
+	@Test
 	public void testConvertPackagedElement() {
 		MdxmlUmlConverter.convertPackagedElement(mdxmlDependency, mockTmpModel, umlTopLevelPackage);
 		TemporaryRelationship convertedRelationship = (TemporaryRelationship) mockTmpModel.getRelationships().get(0);
 		assertEquals(mdxmlDependency.getClient().getIdref(), convertedRelationship.getClientId());
 		assertEquals(mdxmlDependency.getSupplier().getIdref(), convertedRelationship.getSupplierId());
 		assertEquals(umlDependency.getType(), convertedRelationship.getType());
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void testConvertInvalidPackagedElement() {
 		PackagedElement invalid = new PackagedElement();
 		invalid.setId("id");
 		invalid.setType("invalid");
-		thrown.expect(IllegalStateException.class);
 		MdxmlUmlConverter.convertPackagedElement(invalid, mockTmpModel, umlModel);
 	}
 	

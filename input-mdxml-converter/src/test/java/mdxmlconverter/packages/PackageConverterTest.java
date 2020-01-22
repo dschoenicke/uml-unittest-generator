@@ -27,9 +27,8 @@ public class PackageConverterTest extends MdxmlUmlConverterTests {
 		assertTrue(umlTopLevelPackage.getPackages().contains(umlPackage));
 	}
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidPackageConverter() {
-		thrown.expect(IllegalArgumentException.class);
 		PackageConverter.convertPackage(mdxmlSubPackage, umlBigEnum, mockTmpModel);
 	}
 }
