@@ -1,7 +1,5 @@
 package test;
 
-import org.slf4j.LoggerFactory;
-
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -39,19 +37,5 @@ public class TestClass {
 	 */
 	public String getQualifiedName() {
 		return this.parent.getQualifiedName() + "." + this.name;
-	}
-	
-	/**
-	 * Gets the package path of the test class
-	 * 
-	 * @return the package path of the test class
-	 */
-	public String getPackagePath() {
-		try {
-			return parent.getQualifiedName();
-		} catch (ClassCastException e) {
-			LoggerFactory.getLogger("").error("The package path for {} could not be resolved!", getQualifiedName());
-			return "";
-		}
 	}
 }

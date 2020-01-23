@@ -48,7 +48,7 @@ public class TestClassConverter {
 		JunitTestClass junitTestClass = new JunitTestClass(
 				testClass.getName(), 
 				testClass.getClassUnderTest().getQualifiedName(), 
-				junitRepresentation.getName() + "Structure." + testClass.getPackagePath(), 
+				junitRepresentation.getName() + "Structure." + testClass.getParent().getQualifiedName(), 
 				parent,
 				testClass.getClassUnderTest().isEnum());
 		

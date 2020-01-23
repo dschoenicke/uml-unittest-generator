@@ -1,11 +1,10 @@
 package codetestconverter.packages;
 
-import static org.junit.Assert.assertTrue;
-
 import code.CodePackage;
 import code.CodeParent;
 import code.CodeRepresentation;
 import codetestconverter.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 import test.TestPackage;
 import test.TestParent;
 import test.TestRepresentation;
@@ -16,12 +15,9 @@ import test.TestRepresentation;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class PackageConverter {
 
-	private PackageConverter() {
-		throw new IllegalStateException("utility class");
-	}
-	
 	/**
 	 * Static method to convert {@link code.CodePackage}s of a given {@link code.CodeParent} to a {@link test.TestPackage}.
 	 * 
@@ -40,8 +36,9 @@ public class PackageConverter {
 				convertPackage(codePackage, testParent, tmpModel);
 			}
 		}
-		
-		assertTrue("The CodeParent " + codeParent.getName() + " must be an instance of CodeRepresentation or CodePackage!", (codeParent instanceof CodePackage || codeParent instanceof CodeRepresentation));
+		else {
+			throw new IllegalArgumentException("The CodeParent " + codeParent.getName() + " must be an instance of CodeRepresentation or CodePackage!");
+		}
 	}
 	
 	/**

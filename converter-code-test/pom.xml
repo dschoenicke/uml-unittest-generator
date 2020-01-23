@@ -10,16 +10,25 @@
 	
 	<artifactId>converter-code-test</artifactId>
 	<name>converter-code-test</name>
-	
-	<!-- Necessary for sonarqube test coverage -->
-	<properties>
-		<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/converter-code-test/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-	</properties>
-			
+
 	<dependencies>
   		<dependency>
   			<groupId>${project.groupId}</groupId>
   			<artifactId>representation-code</artifactId>
+  			<version>${project.version}</version>
+  		</dependency>
+  		
+  		<dependency>
+  			<groupId>${project.groupId}</groupId>
+  			<artifactId>representation-code</artifactId>
+  			<version>${project.version}</version>
+  			<type>test-jar</type>
+  			<scope>test</scope>
+  		</dependency>
+  	
+  		<dependency>
+  			<groupId>${project.groupId}</groupId>
+  			<artifactId>representation-test</artifactId>
   			<version>${project.version}</version>
   		</dependency>
   	
@@ -27,6 +36,8 @@
   			<groupId>${project.groupId}</groupId>
   			<artifactId>representation-test</artifactId>
   			<version>${project.version}</version>
+  			<type>test-jar</type>
+  			<scope>test</scope>
   		</dependency>
   		
   		<dependency>

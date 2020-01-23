@@ -21,7 +21,7 @@ public class Core {
 	/**
 	 * The path to the configuration database
 	 */
-	public static final String DB_PATH = "configuration.db";
+	public static final String DB_PATH = "qualifiedNames.db";
 	
 	/**
 	 * Main method.<br>

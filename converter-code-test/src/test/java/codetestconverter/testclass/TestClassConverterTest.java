@@ -2,78 +2,46 @@ package codetestconverter.testclass;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
+import java.util.Optional;
+
 import org.junit.Test;
 
-import code.CodeClass;
-import code.CodePackage;
-import code.CodeRepresentation;
-import codetestconverter.temporary.TemporaryModel;
-import test.TestPackage;
-import test.TestRepresentation;
+import codetestconverter.CodeTestConverterTests;
+import test.TestClass;
 
-public class TestClassConverterTest {
+public class TestClassConverterTest extends CodeTestConverterTests {
 
-	/**
-	 * Mocks a {@link test.TestRepresentation} to be used in the test.
-	 */
-	TestRepresentation mockTestRepresentation;
-	
-	/**
-	 * Mocks a {@link test.TestPackage} to be used in the test.
-	 */
-	TestPackage mockTestPackage;
-	
-	/**
-	 * Mocks a {@link codetestconverter.temporary.TemporaryModel}
-	 */
-	TemporaryModel mockTmpModel;
-	
-	/**
-	 * Mocks a {@link code.CodeRepresentation} to be used in the test.
-	 */
-	CodeRepresentation mockCodeRepresentation;
-	
-	/**
-	 * Mocks a {@link code.CodePackage} to be used in the test.
-	 */
-	CodePackage mockCodePackage;
-	
-	/**
-	 * Mocks a {@link code.CodeClass} to be used in the test.
-	 */
-	CodeClass mockCodeClass;
-	
-	/**
-	 * Mocks a nested {@link code.CodeClass} to be used in the test.
-	 */
-	CodeClass mockNestedClass;
-	
-	/**
-	 * Initializes the mock elements.
-	 */
-	@Before
-	public void init() {
-		mockTestRepresentation = new TestRepresentation("");
-		mockCodeRepresentation = new CodeRepresentation("");
-		mockTestPackage = new TestPackage("package", mockTestRepresentation);
-		mockCodePackage = new CodePackage("package", mockCodeRepresentation);
-		mockCodeClass = new CodeClass("class", mockCodePackage, 1);
-		mockNestedClass = new CodeClass("nestedclass", mockCodeClass, 1);
-		mockCodeClass.addNestedElement(mockNestedClass);
-		mockCodePackage.addElement(mockCodeClass);
-		mockTmpModel = new TemporaryModel();
-		mockTmpModel.addConvertedPackage(mockCodePackage, mockTestPackage);
+	@Test
+	public void testConvertTestClass() {
+		testSubPackage.getTestClasses().clear();
+		TestClassConverter.convertTestClass(codeSubPackageClass, testSubPackage);
+		assertEquals(2, testSubPackage.getTestClasses().size());
+		TestClass convertedClass = testSubPackage.getTestClasses().get(0);
+		TestClass convertedInnerClass = testSubPackage.getTestClasses().get(1);
+		assertEquals(codeSubPackageClass.getName() + "Test", convertedClass.getName());
+		assertEquals("TopLevelPackage.SubPackage.SubPackageClassTest", convertedClass.getQualifiedName());
+		assertEquals(testSubPackage, convertedClass.getParent());
+		assertEquals(Optional.empty(), convertedClass.getClassUnderTest().getNestHost());
+		assertEquals(codeEnumeration.getName() + "Test", convertedInnerClass.getName());
+		assertEquals(testSubPackage, convertedInnerClass.getParent());
+		assertEquals("TopLevelPackage.SubPackage.EnumerationTest", convertedInnerClass.getQualifiedName());
+		assertEquals(Optional.of(convertedClass.getClassUnderTest()), convertedInnerClass.getClassUnderTest().getNestHost());
 	}
 	
-	/**
-	 * Tests {@link TestClassConverter#convertTestClasses}.
-	 */
 	@Test
-	public void testTestClassConverter() {
+	public void testConvertNestedClass() {
+		testSubPackage.getTestClasses().clear();
+		codeEnumeration.addNestedElement(codeBigEnum);
+		TestClassConverter.convertTestClass(codeSubPackageClass, testSubPackage);
+		assertEquals(Optional.of(testSubPackage.getTestClasses().get(0).getClassUnderTest()), testSubPackage.getTestClasses().get(1).getClassUnderTest().getNestHost());
+		assertEquals(Optional.of(testSubPackage.getTestClasses().get(1).getClassUnderTest()), testSubPackage.getTestClasses().get(2).getClassUnderTest().getNestHost());
+	}
+	
+	@Test
+	public void testConvertTestClasses() {
+		testTopLevelPackage.getTestClasses().clear();
+		mockTmpModel.addConvertedPackage(codeTopLevelPackage, testTopLevelPackage);
 		TestClassConverter.convertTestClasses(mockTmpModel);
-		assertEquals(2, mockTestPackage.getTestClasses().size());
-		assertEquals("classTest", mockTestPackage.getTestClasses().get(0).getName());
-		assertEquals("nestedclassTest", mockTestPackage.getTestClasses().get(1).getName());
+		assertEquals(codeTopLevelPackage.getElements().size(), testTopLevelPackage.getTestClasses().size());
 	}
 }

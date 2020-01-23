@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import code.CodeParameter;
+import lombok.experimental.UtilityClass;
 import test.testobjects.ParameterUnderTest;
 
 /**
@@ -12,12 +13,9 @@ import test.testobjects.ParameterUnderTest;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ParameterUnderTestConverter {
 
-	private ParameterUnderTestConverter() {
-		throw new IllegalStateException("utility class");
-	}
-	
 	/**
 	 * Static method to convert a list of {@link code.CodeParameter}s to a list of {@link test.testobjects.ParameterUnderTest}.
 	 * 

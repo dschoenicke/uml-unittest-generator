@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import code.CodeElement;
 import codetestconverter.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 import test.TestClass;
 import test.TestPackage;
 import test.testobjects.ClassUnderTest;
@@ -14,12 +15,9 @@ import test.testobjects.ClassUnderTest;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TestClassConverter {
 
-	private TestClassConverter() {
-		throw new IllegalStateException("utility class");
-	}
-	
 	/**
 	 * Static methods to convert {@link code.CodeElement}s of the {@link code.CodePackage}s in the {@link codetestconverter.temporary.TemporaryModel} to {@link test.TestClass}es.
 	 * 

@@ -6,6 +6,7 @@ import code.CodeClass;
 import code.CodeElement;
 import code.CodeEnumeration;
 import code.CodeInterface;
+import lombok.experimental.UtilityClass;
 import test.testobjects.ClassUnderTest;
 import test.testobjects.ClassUnderTest.ClassUnderTestType;
 
@@ -15,11 +16,8 @@ import test.testobjects.ClassUnderTest.ClassUnderTestType;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ClassUnderTestConverter {
-
-	private ClassUnderTestConverter() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * Static method converting a given {@link code.CodeElement} to a {@link test.testobjects.ClassUnderTest}.

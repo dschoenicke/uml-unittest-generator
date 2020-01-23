@@ -2,6 +2,7 @@ package codetestconverter.testclass;
 
 import code.CodeElement;
 import code.CodeTemplateParameter;
+import lombok.experimental.UtilityClass;
 import test.testobjects.ClassUnderTest;
 import test.testobjects.TemplateParameterUnderTest;
 
@@ -11,12 +12,9 @@ import test.testobjects.TemplateParameterUnderTest;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TemplateParameterUnderTestConverter {
 
-	private TemplateParameterUnderTestConverter() {
-		throw new IllegalStateException("utility class");
-	}
-	
 	/**
 	 * Static method to convert {@link code.CodeTemplateParameter}s of a given {@link code.CodeElement} to {@link test.testobjects.TemplateParameterUnderTest} and adding them to a {@link test.testobjects.ClassUnderTest}.
 	 * 

@@ -71,15 +71,6 @@ public class JunitMethodUnderTest {
 	}
 	
 	/**
-	 * Adds a {@link JunitParameterUnderTest} to the list
-	 * 
-	 * @param parameter the {@link JunitParameterUnderTest} to be added to the list
-	 */
-	public void addParameter(JunitParameterUnderTest parameter) {
-		parameters.add(parameter);
-	}
-	
-	/**
 	 * Adds a {@link JunitAssertion} to the list
 	 * 
 	 * @param assertion the {@link JunitAssertion} to be added to the list

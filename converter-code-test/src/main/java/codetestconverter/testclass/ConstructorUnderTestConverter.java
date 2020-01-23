@@ -2,6 +2,7 @@ package codetestconverter.testclass;
 
 import code.CodeConstructor;
 import code.CodeElement;
+import lombok.experimental.UtilityClass;
 import test.testobjects.ClassUnderTest;
 import test.testobjects.ConstructorUnderTest;
 
@@ -11,11 +12,8 @@ import test.testobjects.ConstructorUnderTest;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ConstructorUnderTestConverter {
-
-	private ConstructorUnderTestConverter() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * Static method to convert {@link code.CodeConstructor}s of a given {@link code.CodeElement} to {@link test.testobjects.ConstructorUnderTest} and adding them to a given {@link test.testobjects.ClassUnderTest}.

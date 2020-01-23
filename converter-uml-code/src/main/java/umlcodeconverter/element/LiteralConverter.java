@@ -2,6 +2,7 @@ package umlcodeconverter.element;
 
 import code.CodeEnumeration;
 import code.CodeLiteral;
+import lombok.experimental.UtilityClass;
 import uml.UmlEnumeration;
 import uml.UmlLiteral;
 
@@ -11,10 +12,9 @@ import uml.UmlLiteral;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class LiteralConverter {
 
-	private LiteralConverter() {}
-	
 	/**
 	 * Static method to convert the {@link uml.UmlLiteral}s of a given {@link uml.UmlEnumeration} to {@link code.CodeLiteral}s
 	 * 
