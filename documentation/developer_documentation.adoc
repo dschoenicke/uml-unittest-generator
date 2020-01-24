@@ -88,30 +88,39 @@ The code representation aims to provide compatibility to the Java Reflection API
 via the class fields and references to super classes and interfaces, which is held by each _CodeElement_. 
 
 Furthermore, the modifiers of a _CodeElement_, _CodeField_, _CodeMethod_ and _CodeParameter_ are represented by an
-integer value calculated in the same way, as Java Reflection does (see: link:https://docs.oracle.com/javase/8/docs/api/constant-values.html#java.lang.reflect.Modifier.ABSTRACT[List of java.reflect.Modifier enum constants]).
-Therefore, the class _CodeModifier_ extends the class java.lang.reflect.Modifier and adds a method to calculate the integer modifier
-out of a _CodeVisibility_ and boolean values for the _static_, _final_ and _abstract_ modifier.
+integer value calculated in the same way, as Java Reflection does (see: <<umlcode>>).
 
 While the UML representation can contain _CodeElements_ at the top level without a _UmlPackage_, the _CodeElements_ without a package in the diagram
 are grouped into a _CodePackage_ with the name of the model.
 
+The representation distinguishes _CodeMethods_ from _CodeConstructors_. _CodeConstructors_ do neither have a return type nor a name. 
+
 [#test-representation]
 === Test-Representation
-link:javadoc/test/package-summary.html[Javadoc of the test package]
+The test representation represents the structure of the test suite to be created. It consists of three packages describing the test file structure,
+the test cases and defines an interface for <<#output>> converters since this representation is used to create individual test outputs.
 
-The test representation represents the structure of the test suite to be created. It consists out of a _TestRepresentation_ as root element, 
-which has the name of the project and a list of _TestPackages_. The package structure should be consistent to the package structure of the implementation,
-which will be checked. _TestPackages_ contain sub _TestPackages_ and _TestClasses_. Each _TestClass_ represents a _CodeElement_ which will be tested in the class.
-The _TestClass_ contains _TestMethods_ which are the actual methods executed in the test runs. _TestMethods_ will be created for each field, constructor and method
-of an element. 
+==== Package test
+link:javadoc/test/package-summary.html[Javadoc of the test package] +
+The _TestRepresentation_ as root element has the name of the project and a list of _TestPackages_. The package structure should be consistent to the package structure of the implementation,
+which will be checked. _TestPackages_ contain sub _TestPackages_ and _TestClasses_. The name of the _TestClass_ is the name of the converted _CodeElement_ with the suffix *Test*.
 
-_TestMethods_ contain a list of _TestAssertions_ which are the actual assertions to be checked in the method. _TestAssertions_ have a _TestAssertionType_, 
-which determines the type of assertion to be used, to implement the _TestAssertion_ in the actual test method.
+==== Package test.testobjects
+link:javadoc/test/testobjects/package-summary.html[Javadoc of the test.testobjects package] +
+Each _TestClass_ has a _ClassUnderTest_ object representing the class to be tested. The _ClassUnderTest_ has the fully qualified name of the class to be tested as an attribute,
+The type of the class is determined by the _ClassUnderTestType_. Furthermore the _ClassUnderTest_ holds lists of _ConstructorUnderTest_, _FieldUnderTest_, _ClassUnderTests_ representing implemented interfaces, MethodUnderTest_, _TemplateParameterUnderTest_
+and _EnumConstantUnderTest_ if the class is an enumeration. Furthermore, _ClassUnderTest_ holds optional references to other _ClassUnderTests_ which act as a super class or nest host of the class.
+
+==== Package test.converterinterface
+link:javadoc/test/converterinterface/package-summary.html[Javadoc of the test.converterinterface package] + 
+This package contains an interface, which defines a conversion method called _convertTestFiles_ which takes the _TestRepresentation_ and the path to the output directory.
+This interface must be implemented by <<output>> converters.
 
 [#converters]
 == Converters
 The following sections provide descriptions of the two converters, pointing out the essential steps during the conversion from one representation to another.
 
+[#umlcode]
 === converter-uml-code
 link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the umlcode package] +
 link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the umlcode.converter.element package] +
@@ -138,6 +147,9 @@ In the <<representation-uml>> each modifier is represented by its own value: boo
 The <<representation-code>> handles modifiers as an integer value, computed out of all the modifier values, the same way, the Java Reflection API handles these values.
 This conversion step is done by the _ModifierConverter_ class. +
 See link:https://docs.oracle.com/javase/8/docs/api/constant-values.html#java.lang.reflect.Modifier.ABSTRACT[Java Constant Field Values] for a list of Java's modifier values.
+
+Another importing step of the conversion process is splitting up _UmlOperations_ into _CodeMethods_ and _CodeConstructors_. This is done by comparing the name of the _UmlOperation_
+to the name of the owning _UmlElement_ and checking whether the _UmlParameters_ of the _UmlOperation_ contain a _UmlParameter_ with _UmlParameterDirection.RETURN_.
 
 === converter-code-test
 link:javadoc/codetest/package-summary.html[Javadoc of the codetest package] +
