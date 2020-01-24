@@ -10,7 +10,7 @@
 [cols="1, 3, 3"]
 |===
 |Version | Processing Date   | Author 
-|0.2	| November 29th, 2019 | Daniel Schoenicke 
+|0.3	| January 24th, 2020s | Daniel Schoenicke 
 |===
 
 == Context
@@ -45,8 +45,9 @@ During the conversion process, the input diagram is converted
 to several representations before an output is generated. The following section contains descriptions
 of each of these representations and references to their respective javadocs.
 
+[#representation-uml]
 === UML-Representation
-The UML representation presentation acts as the first abstraction of the input class diagram within
+The UML representation acts as the first abstraction of the input class diagram within
 the application. The diagram representation of a modeling tool has to be converted to this representation
 in a first step. Therefore, the UML representation provides an interface for a converter, which converts
 a diagram representation of a modeling tool to the UML representation.
@@ -79,6 +80,7 @@ link:javadoc/uml/converterinterface/package-summary.html[Javadoc of the uml.conv
 This package contains an interface, which defines a conversion method, that returns the converted _UmlModel_ out of a given _UmlInputRepresentation_.
 The _UmlInputRepresentation_ - interface needs to be implemented by the root object of the input representation to be converted.
 
+[#representation-code]
 === Code-Representation
 link:javadoc/code/package-summary.html[Javadoc of the code package]
 
@@ -108,9 +110,32 @@ which determines the type of assertion to be used, to implement the _TestAsserti
 
 [#converters]
 == Converters
-* Descriptions of all the converters
+The following sections provide descriptions of the two converters, pointing out the essential steps during the conversion from one representation to another.
 
 === converter-uml-code
+link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the codetest package] +
+link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the codetest.converter.element package] +
+link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the codetest.converter.relationship package]
+
+The uml code converter consists out of three packages: the main package with the main converter class, the element package with the converters responsible
+for converting _UmlElements_ to _CodeElements_ and the relationship package resolving the _UmlRelationships_.
+
+The uml code converter has two main objectives: resolving the remaining relationships and grouping potential top level elements
+into a package. +
+Since the <<representation-code>> does not contain any information about associations, all relationships with type _ASSOCIATION_, _AGGREGATION_, _COMPOSITION_, 
+as well as _DEPENDENCY_ are discarded. The remaining generalizations and interface realizations are resolved by adding references to the parent classes / interfaces
+to the child classes of such a relationship.
+
+In contrast to the <<representation-uml>>, the <<representation-code>> object does not allow _CodeElements_ as direct childs. 
+Therefore, potential converted _CodeElements_, which corresponding _UmlElements_ were children of the _UmlModel_ will be grouped into a new _CodePackage_ with the name of the model.
+Therefore, a package with the name of the model is not allowed, as long as the model has direct children elements. Since all packages without the model name as prefix are considered
+external packages, such packages stay direct child elements of the _CodeRepresentation_, while the other packages with the model name as prefix become child packages of the newly created 
+model package.
+
+In the <<representation-uml>> each modifier is represented by its own value: boolean values for _static_, _final_ and _abstract_, and _UmlVisibility_ for the access modifiers. 
+The <<representation-code>> handles modifiers as an integer value, computed out of all the modifier values, the same way, the Java Reflection API handles these values.
+This conversion step is done by the _ModifierConverter_ class. +
+See link:https://docs.oracle.com/javase/8/docs/api/constant-values.html#java.lang.reflect.Modifier.ABSTRACT[Java Constant Field Values] for a list of Java's modifier values.
 
 === converter-code-test
 
