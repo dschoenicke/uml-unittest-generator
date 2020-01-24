@@ -4,11 +4,11 @@ import junit.JunitPackage;
 import junit.JunitRepresentation;
 import junit.JunitTestClass;
 import lombok.experimental.UtilityClass;
-import outputjunit.converter.temporary.TemporaryModel;
+import outputjunit.TemporaryModel;
 import test.TestClass;
 
 /**
- * Provides static methods to convert {@link test.TestClass}es of the {@link test.TestPackage}s in the {@link outputjunit.converter.temporary.TemporaryModel} to {@link junit.JunitTestClass}es.
+ * Provides static methods to convert {@link test.TestClass}es of the {@link test.TestPackage}s in the {@link outputjunit.TemporaryModel} to {@link junit.JunitTestClass}es.
  * 
  * @author dschoenicke
  *
@@ -17,10 +17,10 @@ import test.TestClass;
 public class TestClassConverter {
 	
 	/**
-	 * Static methods to convert {@link test.TestClass}es of the {@link test.TestPackage}s in the {@link outputjunit.converter.temporary.TemporaryModel} to {@link junit.JunitTestClass}es.
+	 * Static methods to convert {@link test.TestClass}es of the {@link test.TestPackage}s in the {@link outputjunit.TemporaryModel} to {@link junit.JunitTestClass}es.
 	 * 
 	 * @param junitRepresentation the {@link junit.JunitRepresentation}
-	 * @param tmpModel the {@link outputjunit.converter.temporary.TemporaryModel} containing a map of {@link test.TestPackage}s and the corresponding converted {@link junit.JunitPackage}s.
+	 * @param tmpModel the {@link outputjunit.TemporaryModel} containing a map of {@link test.TestPackage}s and the corresponding converted {@link junit.JunitPackage}s.
 	 */
 	public static void convertTestClasses(JunitRepresentation junitRepresentation, TemporaryModel tmpModel) {
 		tmpModel.getConvertedPackages().forEach((testPackage, junitPackage) -> 

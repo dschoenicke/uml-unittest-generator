@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import junit.JunitPackage;
 import outputjunit.OutputJunitConverterTests;
-import outputjunit.converter.temporary.TemporaryModel;
+import outputjunit.TemporaryModel;
 
 /**
  * Tests {@link PackageConverter}

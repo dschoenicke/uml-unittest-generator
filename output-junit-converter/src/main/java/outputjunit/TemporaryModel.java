@@ -1,4 +1,4 @@
-package outputjunit.converter.temporary;
+package outputjunit;
 
 import java.util.HashMap;
 

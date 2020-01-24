@@ -9,7 +9,6 @@ import junit.JunitRepresentation;
 import lombok.NoArgsConstructor;
 import outputjunit.converter.PackageConverter;
 import outputjunit.converter.TestClassConverter;
-import outputjunit.converter.temporary.TemporaryModel;
 import outputjunit.files.FileDirectoryCreator;
 import outputjunit.files.TestFileCreator;
 import test.TestRepresentation;

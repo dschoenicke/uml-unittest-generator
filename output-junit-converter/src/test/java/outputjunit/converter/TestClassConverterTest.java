@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import junit.JunitTestClass;
 import outputjunit.OutputJunitConverterTests;
-import outputjunit.converter.temporary.TemporaryModel;
+import outputjunit.TemporaryModel;
 
 /**
  * Tests {@link TestClassConverter}
@@ -18,12 +18,12 @@ import outputjunit.converter.temporary.TemporaryModel;
 public class TestClassConverterTest extends OutputJunitConverterTests {
 
 	/**
-	 * Mocks a {@link outputjunit.converter.temporary.TemporaryModel} to be used in the tests.
+	 * Mocks a {@link outputjunit.TemporaryModel} to be used in the tests.
 	 */
 	TemporaryModel tmpModel;
 	
 	/**
-	 * Initializes the {@link outputjunit.converter.temporary.TemporaryModel} and clears the package's class lists.
+	 * Initializes the {@link outputjunit.TemporaryModel} and clears the package's class lists.
 	 */
 	@Before
 	public void initTmpModel() {

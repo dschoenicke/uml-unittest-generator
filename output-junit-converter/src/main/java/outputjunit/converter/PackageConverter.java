@@ -4,7 +4,7 @@ import junit.JunitPackage;
 import junit.JunitParent;
 import junit.JunitRepresentation;
 import lombok.experimental.UtilityClass;
-import outputjunit.converter.temporary.TemporaryModel;
+import outputjunit.TemporaryModel;
 import test.TestPackage;
 import test.TestParent;
 import test.TestRepresentation;
@@ -23,7 +23,7 @@ public class PackageConverter {
 	 * 
 	 * @param testParent the {@link test.TestParent} of the {@link test.TestPackage}s, can be {@link test.TestRepresentation} or {@link test.TestPackage}.
 	 * @param junitParent the {@link junit.JunitParent} of the {@link junit.JunitPackage}s, can be {@link junit.JunitRepresentation} or {@link junit.JunitPackage}.
-	 * @param tmpModel the {@link outputjunit.converter.temporary.TemporaryModel} to add the converted {@link junit.JunitPackage}s to
+	 * @param tmpModel the {@link outputjunit.TemporaryModel} to add the converted {@link junit.JunitPackage}s to
 	 */
 	public static void convertPackages(TestParent testParent, JunitParent junitParent, TemporaryModel tmpModel) {
 		if (testParent instanceof TestRepresentation) {
@@ -43,7 +43,7 @@ public class PackageConverter {
 	 * 
 	 * @param testPackage the {@link test.TestPackage} to be converted.
 	 * @param junitParent the {@link junit.JunitParent} to which to converted {@link junit.JunitPackage} should be added, can be {@link junit.JunitRepresentation} of {@link junit.JunitPackage}.
-	 * @param tmpModel the {@link outputjunit.converter.temporary.TemporaryModel} to add the converted {@link junit.JunitPackage}s to
+	 * @param tmpModel the {@link outputjunit.TemporaryModel} to add the converted {@link junit.JunitPackage}s to
 	 * @return the converted {@link test.TestPackage}
 	 */
 	static JunitPackage convertPackage(TestPackage testPackage, JunitParent junitParent, TemporaryModel tmpModel) {

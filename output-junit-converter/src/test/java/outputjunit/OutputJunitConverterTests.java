@@ -12,7 +12,6 @@ import org.junit.Before;
 import junit.JunitPackage;
 import junit.JunitRepresentation;
 import junit.JunitTestClass;
-import outputjunit.converter.temporary.TemporaryModel;
 import test.TestClass;
 import test.TestPackage;
 import test.TestRepresentation;
