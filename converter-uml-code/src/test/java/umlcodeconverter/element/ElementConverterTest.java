@@ -43,9 +43,9 @@ public class ElementConverterTest extends UmlCodeConverterTests {
 		mockTmpModel.addConvertedPackage(umlTopLevelPackage, codeTopLevelPackage);
 		mockTmpModel.addConvertedPackage(umlSubPackage, codeSubPackage);
 		ElementConverter.convertElements(umlModel, codeRepresentation, mockTmpModel);
-		assertEquals(2, codeRepresentation.getPackages().size());
-		assertEquals(codeRepresentation.getPackages().get(1).getName(), umlModel.getName());
-		assertEquals(codeRepresentation.getPackages().get(1).getElements().get(0), mockTmpModel.getConvertedElements().get(umlTopLevelInterface));
+		assertEquals(1, codeRepresentation.getPackages().size());
+		assertEquals(codeRepresentation.getPackages().get(0).getName(), umlModel.getName());
+		assertEquals(codeRepresentation.getPackages().get(0).getElements().get(0), mockTmpModel.getConvertedElements().get(umlTopLevelInterface));
 	}
 	
 	@Test

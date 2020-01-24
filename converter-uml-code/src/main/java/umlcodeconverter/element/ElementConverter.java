@@ -38,6 +38,12 @@ public class ElementConverter {
 	public static void convertElements(UmlModel umlModel, CodeRepresentation codeRepresentation, TemporaryModel tmpModel) {
 		if (!umlModel.getElements().isEmpty()) {
 			CodePackage topLevelPackage = new CodePackage(umlModel.getName(), codeRepresentation);
+			
+			for (CodePackage codePackage : codeRepresentation.getPackages()) {
+				topLevelPackage.addPackage(codePackage);
+			}
+			
+			codeRepresentation.getPackages().clear();
 			codeRepresentation.addPackage(topLevelPackage);
 			
 			for (UmlElement umlElement : umlModel.getElements()) {

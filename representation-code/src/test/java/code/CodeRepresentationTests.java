@@ -94,7 +94,7 @@ public class CodeRepresentationTests {
 		codeBigEnum.getConstructors().get(0).getParameters().add(new CodeParameter("value", "int", 0, false, false, codeBigEnum.getConstructors().get(0)));
 		codeBigEnum.addMethod(new CodeMethod("someOperation", codeBigEnum, null, false, 1));
 		codeBigEnum.getMethods().get(0).setReturnType(new CodeParameter("", "void", 0, false, false, codeBigEnum.getMethods().get(0)));
-		codeSubPackage.getElements().addAll(List.of(codeSubPackageClass, codeEnumeration, codeBigEnum));
+		codeSubPackage.getElements().addAll(List.of(codeSubPackageClass, codeBigEnum));
 	}
 	
 	@Before
