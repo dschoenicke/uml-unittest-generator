@@ -3,4 +3,4 @@
  * 
  * @author dschoenicke
  */
-package codetest;
+package umlcode;
