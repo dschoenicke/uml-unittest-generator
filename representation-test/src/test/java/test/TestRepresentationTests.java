@@ -56,15 +56,15 @@ public class TestRepresentationTests {
 		testTopLevelPackage = new TestPackage("TopLevelPackage", testRepresentation);
 		testRepresentation.addPackage(testTopLevelPackage);
 		
-		subInterfaceUnderTest = new ClassUnderTest("TopLevelPackage.SubInterface", ClassUnderTestType.INTERFACE, 1, Optional.empty());
+		subInterfaceUnderTest = new ClassUnderTest("Model.TopLevelPackage.SubInterface", ClassUnderTestType.INTERFACE, 1, Optional.empty());
 		subInterfaceUnderTest.getInterfaces().add(topLevelInterfaceUnderTest.getQualifiedName());
 		testSubInterface = new TestClass("SubInterfaceTest", testTopLevelPackage, subInterfaceUnderTest);
-		subClassUnderTest = new ClassUnderTest("TopLevelPackage.SubClass", ClassUnderTestType.CLASS, 1, Optional.of(topLevelClassUnderTest.getQualifiedName()));
+		subClassUnderTest = new ClassUnderTest("Model.TopLevelPackage.SubClass", ClassUnderTestType.CLASS, 1, Optional.of(topLevelClassUnderTest.getQualifiedName()));
 		new FieldUnderTest("testString", "String", 2, subClassUnderTest, true, false);
 		testSubClass = new TestClass("SubClassTest", testTopLevelPackage, subClassUnderTest);
-		genericClassUnderTest = new ClassUnderTest("TopLevelPackage.GenericClass", ClassUnderTestType.CLASS, 1, Optional.empty());
-		new FieldUnderTest("subPackageClass", "TopLevelPackage.SubPackage.SubPackageClass", 2, genericClassUnderTest, false, true);
-		new FieldUnderTest("bigEnum", "TopLevelPackage.SubPackage.BigEnum", 2, genericClassUnderTest, false, false);
+		genericClassUnderTest = new ClassUnderTest("Model.TopLevelPackage.GenericClass", ClassUnderTestType.CLASS, 1, Optional.empty());
+		new FieldUnderTest("subPackageClass", "Model.TopLevelPackage.SubPackage.SubPackageClass", 2, genericClassUnderTest, false, true);
+		new FieldUnderTest("bigEnum", "Model.TopLevelPackage.SubPackage.BigEnum", 2, genericClassUnderTest, false, false);
 		new ConstructorUnderTest(1, genericClassUnderTest);
 		genericClassUnderTest.getConstructors().get(0).addParameter(new ParameterUnderTest("name", "String", 0, false, false));
 		new MethodUnderTest("getSubPackageClasses", 1, genericClassUnderTest, new ParameterUnderTest("", "TopLevelPackage.SubPackage.SubPackageClass", 0, false, true));
@@ -73,20 +73,20 @@ public class TestRepresentationTests {
 		new TemplateParameterUnderTest("T", "Model.TopLevelClass", genericClassUnderTest);
 		new TemplateParameterUnderTest("O", "java.lang.Object", genericClassUnderTest);
 		testGenericClass = new TestClass("GenericClassTest", testTopLevelPackage, genericClassUnderTest);
-		bindingClassUnderTest = new ClassUnderTest("TopLevelPackage.BindingClass", ClassUnderTestType.CLASS, 1, Optional.empty());
+		bindingClassUnderTest = new ClassUnderTest("Model.TopLevelPackage.BindingClass", ClassUnderTestType.CLASS, 1, Optional.empty());
 		new ConstructorUnderTest(1, bindingClassUnderTest);
 		testBindingClass = new TestClass("BindingClassTest", testTopLevelPackage, bindingClassUnderTest);
 		testTopLevelPackage.getTestClasses().addAll(List.of(testSubInterface, testSubClass, testGenericClass, testBindingClass));
 		
 		testSubPackage = new TestPackage("SubPackage", testTopLevelPackage);
 		testTopLevelPackage.addPackage(testSubPackage);
-		subPackageClassUnderTest = new ClassUnderTest("TopLevelPackage.SubPackage.SubPackageClass", ClassUnderTestType.CLASS, 1, Optional.empty());
+		subPackageClassUnderTest = new ClassUnderTest("Model.TopLevelPackage.SubPackage.SubPackageClass", ClassUnderTestType.CLASS, 1, Optional.empty());
 		testSubPackageClass = new TestClass("SubPackageClassTest", testSubPackage, subPackageClassUnderTest);
-		enumerationUnderTest = new ClassUnderTest("TopLevelPackage.SubPackage.SubPackageClass$Enumeration", ClassUnderTestType.ENUM, 1, Optional.empty());
+		enumerationUnderTest = new ClassUnderTest("Model.TopLevelPackage.SubPackage.SubPackageClass$Enumeration", ClassUnderTestType.ENUM, 1, Optional.empty());
 		new EnumConstantUnderTest("FIRST", enumerationUnderTest);
 		new EnumConstantUnderTest("SECOND", enumerationUnderTest);
 		testEnumeration = new TestClass("EnumerationTest", testSubPackage, enumerationUnderTest);
-		bigEnumUnderTest = new ClassUnderTest("TopLevelPackage.SubPackage.BigEnum", ClassUnderTestType.ENUM, 1, Optional.empty());
+		bigEnumUnderTest = new ClassUnderTest("Model.TopLevelPackage.SubPackage.BigEnum", ClassUnderTestType.ENUM, 1, Optional.empty());
 		new EnumConstantUnderTest("BIGFIRST", bigEnumUnderTest);
 		new FieldUnderTest("value", "int", 18, bigEnumUnderTest, false, false);
 		new ConstructorUnderTest(1, bigEnumUnderTest);
