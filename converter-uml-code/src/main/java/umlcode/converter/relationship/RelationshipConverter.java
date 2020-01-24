@@ -2,6 +2,7 @@ package umlcode.converter.relationship;
 
 import java.util.List;
 
+import lombok.experimental.UtilityClass;
 import uml.UmlRelationship;
 import uml.UmlRelationshipType;
 import umlcode.TemporaryModel;
@@ -14,10 +15,9 @@ import umlcode.TemporaryModel;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class RelationshipConverter {
 
-	private RelationshipConverter() {}
-	
 	/**
 	 * Static method delegating the conversion of {@link uml.UmlRelationship}s of type {@link uml.UmlRelationshipType#GENERALIZATION} 
 	 * to the {@link umlcode.converter.relationship.GeneralizationConverter} and those of type {@link uml.UmlRelationshipType#INTERFACEREALIZATION}

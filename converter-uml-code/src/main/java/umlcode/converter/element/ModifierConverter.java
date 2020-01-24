@@ -2,6 +2,7 @@ package umlcode.converter.element;
 
 import java.lang.reflect.Modifier;
 
+import lombok.experimental.UtilityClass;
 import uml.UmlVisibility;
 
 /**
@@ -12,9 +13,8 @@ import uml.UmlVisibility;
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/constant-values.html#java.lang.reflect.Modifier.ABSTRACT">List of Modifier enumeration constants</a>
  *
  */
+@UtilityClass
 public class ModifierConverter extends Modifier {
-	
-	private ModifierConverter() {}
 	
 	/**
 	 * Static method to convert a given {@link uml.UmlVisibility} and boolean values for the non access modifiers of 

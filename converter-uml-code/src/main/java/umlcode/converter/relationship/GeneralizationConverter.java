@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import code.CodeClass;
 import code.CodeElement;
 import code.CodeInterface;
+import lombok.experimental.UtilityClass;
 import uml.UmlRelationship;
 import umlcode.TemporaryModel;
 
@@ -16,10 +17,9 @@ import umlcode.TemporaryModel;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class GeneralizationConverter {
 
-	private GeneralizationConverter() {}
-	
 	/**
 	 * Static method adding a {@link code.CodeElement} converted out of the supplier {@link uml.UmlElement} of an {@link uml.UmlRelationship}
 	 * of type {@link uml.UmlRelationshipType#GENERALIZATION} to the {@link code.CodeElement} converted out of the client {@link uml.UmlElement} of this {@link uml.UmlRelationship}.

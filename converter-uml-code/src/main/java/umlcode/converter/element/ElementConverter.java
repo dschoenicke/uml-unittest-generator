@@ -9,6 +9,7 @@ import code.CodeInterface;
 import code.CodePackage;
 import code.CodeParent;
 import code.CodeRepresentation;
+import lombok.experimental.UtilityClass;
 import uml.UmlClass;
 import uml.UmlElement;
 import uml.UmlEnumeration;
@@ -23,10 +24,9 @@ import umlcode.TemporaryModel;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ElementConverter {
 
-	private ElementConverter() {}
-	
 	/**
 	 * Static method converting the {@link uml.UmlElement}s of a given {@link uml.UmlModel} to {@link code.CodeElement}s for the {@link code.CodeRepresentation}.<br>
 	 * If the {@link uml.UmlModel} contains {@link uml.UmlElement}s at the top level, a {@link code.CodePackage} is created, where the converted {@link code.CodeElement}s are added to. 

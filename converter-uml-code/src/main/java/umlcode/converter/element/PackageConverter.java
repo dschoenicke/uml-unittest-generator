@@ -6,6 +6,7 @@ import java.util.List;
 import code.CodePackage;
 import code.CodeParent;
 import code.CodeRepresentation;
+import lombok.experimental.UtilityClass;
 import uml.UmlPackage;
 import umlcode.TemporaryModel;
 
@@ -15,9 +16,8 @@ import umlcode.TemporaryModel;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class PackageConverter {
-	
-	private PackageConverter() {}
 	
 	/**
 	 * Converts a list of given {@link uml.UmlPackage}s and adds them to a {@link code.CodeParent}.<br>

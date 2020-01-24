@@ -2,6 +2,7 @@ package umlcode.converter.element;
 
 import code.CodeElement;
 import code.CodeMethod;
+import lombok.experimental.UtilityClass;
 import uml.UmlElement;
 import uml.UmlMultiplicityValue;
 import uml.UmlOperation;
@@ -15,10 +16,9 @@ import umlcode.TemporaryModel;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class MethodConverter {
 
-	private MethodConverter() {}
-	
 	/**
 	 * Static method to convert {@link uml.UmlOperation}s of an {@link uml.UmlElement} to {@link code.CodeMethod}s and adding them to the {@link code.CodeElement}.<br>
 	 * Delegates the conversion of {@link code.CodeParameter}s to the {@link umlcode.converter.element.ParameterConverter}<br>

@@ -2,6 +2,7 @@ package umlcode.converter.element;
 
 import code.CodeConstructor;
 import code.CodeElement;
+import lombok.experimental.UtilityClass;
 import uml.UmlElement;
 import uml.UmlOperation;
 import umlcode.TemporaryModel;
@@ -12,9 +13,8 @@ import umlcode.TemporaryModel;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ConstructorConverter {
-
-	private ConstructorConverter() {}
 	
 	/**
 	 * Static method to convert {@link uml.UmlOperation}s of an {@link uml.UmlElement} to {@link code.CodeConstructor}s and adding them to the {@link code.CodeElement}.<br>

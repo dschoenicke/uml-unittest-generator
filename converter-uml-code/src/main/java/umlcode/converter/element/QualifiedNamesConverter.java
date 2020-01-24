@@ -6,6 +6,7 @@ import java.util.Map;
 import code.CodeElement;
 import code.CodePackage;
 import code.CodeRepresentation;
+import lombok.experimental.UtilityClass;
 
 /**
  * Provides static methods to create qualified names for {@link code.CodeElement}s and replace the type attributes of {@link code.CodeParameter}s and {@link code.CodeTemplateParameter}s.
@@ -13,10 +14,9 @@ import code.CodeRepresentation;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class QualifiedNamesConverter {
 
-	private QualifiedNamesConverter() {}
-	
 	/**
 	 * Map containing mappings of {@link code.CodeElement} names to their qualified names.
 	 */

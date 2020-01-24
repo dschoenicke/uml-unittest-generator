@@ -4,6 +4,7 @@ import code.CodeConstructor;
 import code.CodeMethod;
 import code.CodeParameter;
 import code.CodeParent;
+import lombok.experimental.UtilityClass;
 import uml.UmlMultiplicityValue;
 import uml.UmlOperation;
 import uml.UmlParameter;
@@ -15,10 +16,9 @@ import uml.UmlParameterDirection;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ParameterConverter {
 
-	private ParameterConverter() {}
-	
 	/**
 	 * Static method converting the {@link uml.UmlParameter}s of an {@link uml.UmlOperation} with {@link uml.UmlParameterDirection#IN} to {@link code.CodeParameter}s and adding them to a {@link code.CodeMethod}.
 	 * 

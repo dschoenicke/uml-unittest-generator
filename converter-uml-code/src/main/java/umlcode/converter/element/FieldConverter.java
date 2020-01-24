@@ -5,6 +5,7 @@ import java.util.Map;
 import code.CodeElement;
 import code.CodeField;
 import code.CodeRepresentation;
+import lombok.experimental.UtilityClass;
 import uml.UmlAttribute;
 import uml.UmlElement;
 import uml.UmlMultiplicityValue;
@@ -15,10 +16,9 @@ import uml.UmlMultiplicityValue;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class FieldConverter {
 
-	private FieldConverter() {}
-	
 	/**
 	 * Static method to convert the {@link uml.UmlAttribute}s of a given {@link uml.UmlElement} to {@link code.CodeField}s and adding them to the {@link code.CodeElement}
 	 * 

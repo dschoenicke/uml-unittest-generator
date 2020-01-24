@@ -7,6 +7,7 @@ import code.CodeElement;
 import code.CodeMethod;
 import code.CodeParent;
 import code.CodeTemplateParameter;
+import lombok.experimental.UtilityClass;
 import uml.UmlTemplateParameter;
 import umlcode.TemporaryModel;
 
@@ -16,10 +17,9 @@ import umlcode.TemporaryModel;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TemplateParameterConverter {
 
-	private TemplateParameterConverter() {}
-	
 	/**
 	 * Static method to convert {@link uml.UmlTemplateParameter}s to {@link code.CodeTemplateParameter}s and adding them to the {@link code.CodeParent}
 	 * 

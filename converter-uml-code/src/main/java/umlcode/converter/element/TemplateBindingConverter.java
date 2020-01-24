@@ -9,6 +9,7 @@ import code.CodeElement;
 import code.CodeMethod;
 import code.CodeParent;
 import code.CodeTemplateBinding;
+import lombok.experimental.UtilityClass;
 import uml.UmlParameterSubstitution;
 import uml.UmlTemplateBinding;
 import umlcode.TemporaryModel;
@@ -25,10 +26,9 @@ import umlcode.TemporaryModel;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TemplateBindingConverter {
 
-	private TemplateBindingConverter() {}
-	
 	/**
 	 * Static method converting a given list of {@link uml.UmlTemplateBinding}s to {@link code.CodeTemplateBinding}s
 	 * 
