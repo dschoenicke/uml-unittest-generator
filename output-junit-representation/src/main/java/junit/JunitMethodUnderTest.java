@@ -5,6 +5,12 @@ import java.util.List;
 
 import lombok.Getter;
 
+/**
+ * Represents a method with its {@link JunitParameterUnderTest}s to be tested in a {@link JunitTestClass}.
+ * 
+ * @author dschoenicke
+ *
+ */
 @Getter
 public class JunitMethodUnderTest {
 

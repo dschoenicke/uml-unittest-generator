@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import lombok.Getter;
 
+/**
+ * Represents a field with to be tested in a {@link JunitTestClass}.
+ * 
+ * @author dschoenicke
+ *
+ */
 @Getter
 public class JunitFieldUnderTest {
 

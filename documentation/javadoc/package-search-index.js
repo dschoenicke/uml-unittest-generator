@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"codetestconverter.temporary"},{"l":"mdxmlconverter.temporary"},{"l":"outputjunit.converter.temporary"},{"l":"test.converterinterface"},{"l":"uml.converterinterface"},{"l":"umlcodeconverter.temporary"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"inputmdxml.temporary"},{"l":"test.converterinterface"},{"l":"uml.converterinterface"}]

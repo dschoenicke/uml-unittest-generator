@@ -14,14 +14,14 @@ import org.mapdb.DBMaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import codetestconverter.CodeTestConverter;
+import codetest.CodeTestConverter;
 import core.Core;
+import inputmdxml.MdxmlUmlConverter;
 import lombok.experimental.UtilityClass;
-import mdxmlconverter.MdxmlUmlConverter;
 import outputjunit.OutputJunitConverter;
 import test.converterinterface.TestConverter;
 import uml.converterinterface.UmlRepresentationConverter;
-import umlcodeconverter.UmlCodeConverter;
+import umlcode.UmlCodeConverter;
 
 /**
  * Contains the functions necessary to process CLI commands for the test file creation

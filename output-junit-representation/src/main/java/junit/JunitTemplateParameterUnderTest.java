@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import lombok.Getter;
 
+/**
+ * Represents a template parameter in a {@link JunitTestClass}.
+ * 
+ * @author dschoenicke
+ *
+ */
 @Getter
 public class JunitTemplateParameterUnderTest {
 
