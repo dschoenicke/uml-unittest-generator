@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import inputmdxml.temporary.TemporaryModel;
 import inputmdxml.temporary.TemporaryRelationship;
+import lombok.experimental.UtilityClass;
 import mdxml.PackagedElement;
 import uml.UmlRelationshipType;
 
@@ -13,9 +14,8 @@ import uml.UmlRelationshipType;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class DependencyConverter {
-
-	private DependencyConverter() {}
 	
 	/**
 	 * Static method converting a given {@link mdxml.PackagedElement} with type 'uml:Usage' to a {@link inputmdxml.temporary.TemporaryRelationship} with references to the client and supplier and with type {@link uml.UmlRelationshipType#DEPENDENCY}

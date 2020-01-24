@@ -2,6 +2,7 @@ package inputmdxml.converter.element;
 
 import static org.junit.Assert.assertNotNull;
 
+import lombok.experimental.UtilityClass;
 import mdxml.OwnedLiteral;
 import mdxml.PackagedElement;
 import uml.UmlElement;
@@ -14,9 +15,8 @@ import uml.UmlLiteral;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class LiteralConverter {
-
-	private LiteralConverter() {}
 	
 	/**
 	 * Converts the {@link mdxml.OwnedLiteral}s of the given {@link mdxml.PackagedElement} to {@link uml.UmlLiteral}s and adds them to the owning {@link uml.UmlElement}

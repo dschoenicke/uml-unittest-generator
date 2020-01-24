@@ -1,5 +1,6 @@
 package inputmdxml.converter.element;
 
+import lombok.experimental.UtilityClass;
 import uml.UmlVisibility;
 
 /**
@@ -8,9 +9,8 @@ import uml.UmlVisibility;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ModifierConverter {
-
-	private ModifierConverter() {}
 	
 	/**
 	 * Static method converting the a given access modifier to an {@link uml.UmlVisibility}

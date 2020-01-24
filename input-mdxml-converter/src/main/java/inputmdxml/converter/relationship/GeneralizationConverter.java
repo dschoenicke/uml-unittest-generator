@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import inputmdxml.temporary.TemporaryModel;
 import inputmdxml.temporary.TemporaryRelationship;
+import lombok.experimental.UtilityClass;
 import mdxml.PackagedElement;
 import uml.UmlModel;
 import uml.UmlPackage;
@@ -16,9 +17,8 @@ import uml.UmlRelationshipType;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class GeneralizationConverter {
-
-	private GeneralizationConverter() {}
 	
 	/**
 	 * Static method converting the {@link mdxml.Generalization} of a given {@link mdxml.PackagedElement} to a {@link inputmdxml.temporary.TemporaryRelationship} with references to the general and the element itself

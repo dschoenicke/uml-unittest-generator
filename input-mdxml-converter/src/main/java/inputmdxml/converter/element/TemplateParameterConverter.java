@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inputmdxml.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 import mdxml.ConstrainingClassifier;
 import mdxml.OwnedParameter;
 import mdxml.OwnedTemplateSignature;
@@ -19,9 +20,8 @@ import uml.UmlTemplateParameter;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TemplateParameterConverter {
-
-	private TemplateParameterConverter() {}
 	
 	/**
 	 * Static method converting a given {@link mdxml.OwnedTemplateSignature} with its {@link mdxml.Parameter}s to {@link uml.UmlTemplateParameter}s and adds them to the owning {@link uml.UmlElement}

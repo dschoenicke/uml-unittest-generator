@@ -3,6 +3,7 @@ package inputmdxml.converter.element;
 import static org.junit.Assert.assertNotNull;
 
 import inputmdxml.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 import mdxml.Actual;
 import mdxml.DataType;
 import mdxml.Extension;
@@ -13,9 +14,8 @@ import mdxml.Extension;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class DataTypeConverter {
-	
-	private DataTypeConverter() {}
 	
 	/**
 	 * Static method converting the string representing the data type of a given {@link mdxml.Extension} or sets the data type to the id of a {@link mdxml.PackagedElement} if the data type is a reference

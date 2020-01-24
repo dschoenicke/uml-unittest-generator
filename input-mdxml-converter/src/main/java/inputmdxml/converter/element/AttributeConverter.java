@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import inputmdxml.temporary.TemporaryAttribute;
 import inputmdxml.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 import mdxml.OwnedAttribute;
 import mdxml.PackagedElement;
 import uml.UmlAttribute;
@@ -15,9 +16,8 @@ import uml.UmlElement;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class AttributeConverter {
-
-	private AttributeConverter() {}
 	
 	/**
 	 * Converts the {@link mdxml.OwnedAttribute}s of a {@link mdxml.PackagedElement} to {@link inputmdxml.temporary.TemporaryAttribute}s

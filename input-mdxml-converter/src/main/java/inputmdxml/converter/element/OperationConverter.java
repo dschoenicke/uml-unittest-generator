@@ -3,6 +3,7 @@ package inputmdxml.converter.element;
 import static org.junit.Assert.assertNotNull;
 
 import inputmdxml.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 import mdxml.OwnedOperation;
 import mdxml.PackagedElement;
 import uml.UmlElement;
@@ -14,9 +15,8 @@ import uml.UmlOperation;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class OperationConverter {
-
-	private OperationConverter() {}
 	
 	/**
 	 * Static method converting all {@link mdxml.OwnedOperation}s of a given {@link PackagedElement} to {@link uml.UmlOperation}s and adds them to the owning {@link uml.UmlElement}

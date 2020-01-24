@@ -3,6 +3,7 @@ package inputmdxml.converter.element;
 import static org.junit.Assert.assertNotNull;
 
 import inputmdxml.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 
 import static org.junit.Assert.assertFalse;
 
@@ -17,9 +18,8 @@ import uml.UmlParameter;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ParameterConverter {
-
-	private ParameterConverter() {}
 	
 	/**
 	 * Static method converting all {@link mdxml.OwnedParameter}s of a given {@link mdxml.OwnedOperation} and adds them to the owning {@link uml.UmlOperation} and the {@link inputmdxml.temporary.TemporaryModel}

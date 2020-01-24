@@ -1,5 +1,6 @@
 package inputmdxml.converter.element;
 
+import lombok.experimental.UtilityClass;
 import uml.UmlParameterDirection;
 
 /**
@@ -8,9 +9,8 @@ import uml.UmlParameterDirection;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ParameterDirectionConverter {
-
-	private ParameterDirectionConverter() {}
 	
 	/**
 	 * Static method converting a given string describing the direction of an {@link mdxml.OwnedParameter} to an {@link uml.UmlParameterDirection}

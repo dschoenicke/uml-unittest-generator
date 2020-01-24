@@ -7,6 +7,7 @@ import java.util.List;
 
 import inputmdxml.temporary.TemporaryModel;
 import inputmdxml.temporary.TemporaryTemplateBinding;
+import lombok.experimental.UtilityClass;
 import mdxml.ParameterSubstitution;
 import mdxml.TemplateBinding;
 import uml.UmlElement;
@@ -20,9 +21,8 @@ import uml.UmlTemplateBinding;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TemplateBindingConverter {
-
-	private TemplateBindingConverter() {}
 	
 	/**
 	 * Static method converting {@link mdxml.TemplateBinding}s of an {@link mdxml.OwnedOperation} to {@link inputmdxml.temporary.TemporaryTemplateBinding}s and adds them to the owning {@link uml.UmlOperation}

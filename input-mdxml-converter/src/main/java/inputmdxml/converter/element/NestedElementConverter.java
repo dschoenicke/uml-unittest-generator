@@ -3,6 +3,7 @@ package inputmdxml.converter.element;
 import static org.junit.Assert.assertNotNull;
 
 import inputmdxml.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 import mdxml.PackagedElement;
 import uml.UmlElement;
 import uml.UmlParent;
@@ -13,9 +14,8 @@ import uml.UmlParent;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class NestedElementConverter {
-
-	private NestedElementConverter() {}
 	
 	/**
 	 * Static method converting nested {@link mdxml.PackagedElement}s of a given {@link mdxml.PackagedElement} to an {@link uml.UmlElement} and adds it to its owning {@link uml.UmlElement}

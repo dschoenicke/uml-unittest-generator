@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import inputmdxml.temporary.TemporaryAttribute;
 import inputmdxml.temporary.TemporaryModel;
 import inputmdxml.temporary.TemporaryRelationship;
+import lombok.experimental.UtilityClass;
 import mdxml.PackagedElement;
 import uml.UmlElement;
 import uml.UmlModel;
@@ -19,9 +20,8 @@ import uml.UmlRelationshipType;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class RelationshipConverter {
-	
-	private RelationshipConverter() {}
 	
 	/**
 	 * Static method to convert {@link mdxml.PackagedElement}s of type 'uml:Association' and 'uml:Usage' to {@link inputmdxml.temporary.TemporaryRelationship}s

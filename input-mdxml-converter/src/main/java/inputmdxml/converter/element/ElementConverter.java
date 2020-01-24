@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import inputmdxml.converter.relationship.GeneralizationConverter;
 import inputmdxml.converter.relationship.InterfaceRealizationConverter;
 import inputmdxml.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 import mdxml.PackagedElement;
 import uml.UmlClass;
 import uml.UmlElement;
@@ -20,9 +21,8 @@ import uml.UmlParent;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ElementConverter {
-
-	private ElementConverter() {}
 	
 	/**
 	 * Static method to convert a given {@link mdxml.PackagedElement} with the type 'uml:Class', 'uml:Interface' or 'uml:Enumeration' to an {@link UmlElement}, which will be added to the {@link inputmdxml.temporary.TemporaryModel}

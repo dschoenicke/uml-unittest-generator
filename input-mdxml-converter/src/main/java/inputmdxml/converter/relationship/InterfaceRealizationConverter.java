@@ -6,6 +6,7 @@ import java.util.List;
 
 import inputmdxml.temporary.TemporaryModel;
 import inputmdxml.temporary.TemporaryRelationship;
+import lombok.experimental.UtilityClass;
 import mdxml.InterfaceRealization;
 import mdxml.PackagedElement;
 import uml.UmlModel;
@@ -19,9 +20,8 @@ import uml.UmlRelationshipType;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class InterfaceRealizationConverter {
-
-	private InterfaceRealizationConverter() {}
 	
 	/**
 	 * Static method converting the {@link mdxml.InterfaceRealization}s of a {@link mdxml.PackagedElement} to a {@link inputmdxml.temporary.TemporaryRelationship} with references to the contract and the element itself

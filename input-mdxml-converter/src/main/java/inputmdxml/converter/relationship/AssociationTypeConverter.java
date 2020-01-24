@@ -1,5 +1,6 @@
 package inputmdxml.converter.relationship;
 
+import lombok.experimental.UtilityClass;
 import uml.UmlRelationshipType;
 
 /**
@@ -8,9 +9,8 @@ import uml.UmlRelationshipType;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class AssociationTypeConverter {
-
-	private AssociationTypeConverter() {}
 	
 	/**
 	 * Converts a given string representing the aggregation attribute of a {@link inputmdxml.temporary.TemporaryAttribute} to an {@link uml.UmlRelationshipType}

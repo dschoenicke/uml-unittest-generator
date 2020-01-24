@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import inputmdxml.MdxmlUmlConverter;
 import inputmdxml.temporary.TemporaryModel;
+import lombok.experimental.UtilityClass;
 import mdxml.PackagedElement;
 import uml.UmlModel;
 import uml.UmlPackage;
@@ -15,9 +16,8 @@ import uml.UmlParent;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class PackageConverter {
-
-	private PackageConverter() {}
 	
 	/** 
 	 * Static method converting a given {@link mdxml.PackagedElement} with type 'uml:Package' to an {@link uml.UmlPackage}

@@ -2,6 +2,7 @@ package inputmdxml.converter.relationship;
 
 import inputmdxml.temporary.TemporaryModel;
 import inputmdxml.temporary.TemporaryRelationship;
+import lombok.experimental.UtilityClass;
 import mdxml.MemberEnd;
 import mdxml.OwnedEnd;
 import mdxml.PackagedElement;
@@ -12,9 +13,8 @@ import mdxml.PackagedElement;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class AssociationConverter {
-
-	private AssociationConverter() {}
 	
 	/**
 	 * Static method converting a given {@link mdxml.PackagedElement} with the type 'uml:Association to an {@link inputmdxml.temporary.TemporaryRelationship}<br>

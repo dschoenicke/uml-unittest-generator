@@ -2,6 +2,7 @@ package inputmdxml.converter.element;
 
 import static org.junit.Assert.assertNotNull;
 
+import lombok.experimental.UtilityClass;
 import mdxml.LowerValue;
 import mdxml.UpperValue;
 import uml.UmlMultiplicityValue;
@@ -12,9 +13,8 @@ import uml.UmlMultiplicityValue;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class MultiplicityConverter {
-
-	private MultiplicityConverter() {}
 	
 	/**
 	 * Converts a {@link mdxml.LowerValue} to the corresponding {@link uml.UmlMultiplicityValue}, returns {@link uml.UmlMultiplicityValue#ONE} if the {@link mdxml.LowerValue} is {@literal null}
