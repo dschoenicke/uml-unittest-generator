@@ -1,11 +1,12 @@
-package codetestconverter.testclass;
+package codetest.converters;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import code.CodeConstructor;
-import codetestconverter.CodeTestConverterTests;
+import codetest.CodeTestConverterTests;
+import codetest.converters.ConstructorUnderTestConverter;
 import test.testobjects.ConstructorUnderTest;
 
 public class ConstructorUnderTestConverterTest extends CodeTestConverterTests {

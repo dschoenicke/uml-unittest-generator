@@ -1,4 +1,4 @@
-package codetestconverter.temporary;
+package codetest;
 
 import java.util.HashMap;
 
@@ -7,7 +7,7 @@ import lombok.Getter;
 import test.TestPackage;
 
 /**
- * Auxiliary class providing a map of {@link code.CodePackage}s and converted {@link test.TestPackage}s to be used by {@link codetestconverter.testclass.TestClassConverter#convertTestClasses}.
+ * Auxiliary class providing a map of {@link code.CodePackage}s and converted {@link test.TestPackage}s to be used by {@link codetest.converters.TestClassConverter#convertTestClasses}.
  * 
  * @author dschoenicke
  *

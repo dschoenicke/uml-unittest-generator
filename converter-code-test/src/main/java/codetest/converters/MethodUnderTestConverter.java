@@ -1,4 +1,4 @@
-package codetestconverter.testclass;
+package codetest.converters;
 
 import code.CodeElement;
 import code.CodeMethod;

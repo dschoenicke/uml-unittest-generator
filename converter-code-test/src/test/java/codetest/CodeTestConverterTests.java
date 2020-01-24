@@ -1,4 +1,4 @@
-package codetestconverter;
+package codetest;
 
 import org.junit.Before;
 
@@ -8,7 +8,7 @@ import code.CodeInterface;
 import code.CodePackage;
 import code.CodeRepresentation;
 import code.CodeRepresentationTests;
-import codetestconverter.temporary.TemporaryModel;
+import codetest.CodeTestConverter;
 import test.TestClass;
 import test.TestPackage;
 import test.TestRepresentation;

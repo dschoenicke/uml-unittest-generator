@@ -1,16 +1,16 @@
-package codetestconverter.testclass;
+package codetest.converters;
 
 import java.util.Optional;
 
 import code.CodeElement;
-import codetestconverter.temporary.TemporaryModel;
+import codetest.TemporaryModel;
 import lombok.experimental.UtilityClass;
 import test.TestClass;
 import test.TestPackage;
 import test.testobjects.ClassUnderTest;
 
 /**
- * Provides static methods to convert {@link code.CodeElement}s of the {@link code.CodePackage}s in the {@link codetestconverter.temporary.TemporaryModel} to {@link test.TestClass}es.
+ * Provides static methods to convert {@link code.CodeElement}s of the {@link code.CodePackage}s in the {@link codetest.TemporaryModel} to {@link test.TestClass}es.
  * 
  * @author dschoenicke
  *
@@ -19,9 +19,9 @@ import test.testobjects.ClassUnderTest;
 public class TestClassConverter {
 
 	/**
-	 * Static methods to convert {@link code.CodeElement}s of the {@link code.CodePackage}s in the {@link codetestconverter.temporary.TemporaryModel} to {@link test.TestClass}es.
+	 * Static methods to convert {@link code.CodeElement}s of the {@link code.CodePackage}s in the {@link codetest.TemporaryModel} to {@link test.TestClass}es.
 	 * 
-	 * @param tmpModel the {@link codetestconverter.temporary.TemporaryModel} containing a map of {@link code.CodePackage}s and the corresponding converted {@link test.TestPackage}s.
+	 * @param tmpModel the {@link codetest.TemporaryModel} containing a map of {@link code.CodePackage}s and the corresponding converted {@link test.TestPackage}s.
 	 */
 	public static void convertTestClasses(TemporaryModel tmpModel) {
 		tmpModel.getConvertedPackages().forEach((codePackage, testPackage) -> 

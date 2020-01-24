@@ -1,9 +1,9 @@
-package codetestconverter.packages;
+package codetest.converters;
 
 import code.CodePackage;
 import code.CodeParent;
 import code.CodeRepresentation;
-import codetestconverter.temporary.TemporaryModel;
+import codetest.TemporaryModel;
 import lombok.experimental.UtilityClass;
 import test.TestPackage;
 import test.TestParent;
@@ -23,7 +23,7 @@ public class PackageConverter {
 	 * 
 	 * @param codeParent the {@link code.CodeParent} of the {@link code.CodePackage}s, can be {@link code.CodeRepresentation} or {@link code.CodePackage}.
 	 * @param testParent the {@link test.TestParent} of the {@link test.TestPackage}s, can be {@link test.TestRepresentation} of {@link test.TestPackage}.
-	 * @param tmpModel the {@link codetestconverter.temporary.TemporaryModel} to add the converted {@link test.TestPackage}s to
+	 * @param tmpModel the {@link codetest.TemporaryModel} to add the converted {@link test.TestPackage}s to
 	 */
 	public static void convertPackages(CodeParent codeParent, TestParent testParent, TemporaryModel tmpModel) {
 		if (codeParent instanceof CodeRepresentation) {
@@ -46,7 +46,7 @@ public class PackageConverter {
 	 * 
 	 * @param codePackage the {@link code.CodePackage} to be converted.
 	 * @param testParent the {@link test.TestParent} to which to converted {@link test.TestPackage} should be added, can be {@link test.TestRepresentation} of {@link test.TestPackage}.
-	 * @param tmpModel the {@link codetestconverter.temporary.TemporaryModel} to add the converted {@link test.TestPackage}s to
+	 * @param tmpModel the {@link codetest.TemporaryModel} to add the converted {@link test.TestPackage}s to
 	 * @return the converted {@link test.TestPackage}
 	 */
 	private static TestPackage convertPackage(CodePackage codePackage, TestParent testParent, TemporaryModel tmpModel) {

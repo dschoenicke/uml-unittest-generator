@@ -1,9 +1,8 @@
-package codetestconverter;
+package codetest;
 
 import code.CodeRepresentation;
-import codetestconverter.packages.PackageConverter;
-import codetestconverter.temporary.TemporaryModel;
-import codetestconverter.testclass.TestClassConverter;
+import codetest.converters.PackageConverter;
+import codetest.converters.TestClassConverter;
 import lombok.NoArgsConstructor;
 import test.TestRepresentation;
 
@@ -18,8 +17,8 @@ public class CodeTestConverter {
 	
 	/**
 	 * Converts a given {@link code.CodeRepresentation} to a {@link test.TestRepresentation}.<br>
-	 * Delegates the creation of {@link test.TestPackage}s to the {@link codetestconverter.packages.PackageConverter}.
-	 * Delegates the creation of {@link test.TestClass}es to the {@link codetestconverter.testclass.TestClassConverter}.
+	 * Delegates the creation of {@link test.TestPackage}s to the {@link codetest.converters.PackageConverter}.
+	 * Delegates the creation of {@link test.TestClass}es to the {@link codetest.converters.TestClassConverter}.
 	 * 
 	 * @param codeRepresentation the {@link code.CodeRepresentation} to be converted
 	 * @return the converted {@link test.TestRepresentation}

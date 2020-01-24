@@ -1,4 +1,4 @@
-package codetestconverter.testclass;
+package codetest.converters;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,7 +7,8 @@ import java.util.List;
 import org.junit.Test;
 
 import code.CodeParameter;
-import codetestconverter.CodeTestConverterTests;
+import codetest.CodeTestConverterTests;
+import codetest.converters.ParameterUnderTestConverter;
 import test.testobjects.ParameterUnderTest;
 
 public class ParameterUnderTestConverterTest extends CodeTestConverterTests {

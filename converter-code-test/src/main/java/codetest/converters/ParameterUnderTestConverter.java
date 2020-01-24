@@ -1,4 +1,4 @@
-package codetestconverter.testclass;
+package codetest.converters;
 
 import java.util.ArrayList;
 import java.util.List;

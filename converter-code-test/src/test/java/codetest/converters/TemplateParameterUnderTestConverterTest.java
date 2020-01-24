@@ -1,10 +1,11 @@
-package codetestconverter.testclass;
+package codetest.converters;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import codetestconverter.CodeTestConverterTests;
+import codetest.CodeTestConverterTests;
+import codetest.converters.TemplateParameterUnderTestConverter;
 
 public class TemplateParameterUnderTestConverterTest extends CodeTestConverterTests {
 
