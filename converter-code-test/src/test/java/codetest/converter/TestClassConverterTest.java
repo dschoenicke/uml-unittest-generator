@@ -1,4 +1,4 @@
-package codetest.converters;
+package codetest.converter;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.junit.Test;
 
 import codetest.CodeTestConverterTests;
-import codetest.converters.TestClassConverter;
+import codetest.converter.TestClassConverter;
 import test.TestClass;
 
 public class TestClassConverterTest extends CodeTestConverterTests {

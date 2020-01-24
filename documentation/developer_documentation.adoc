@@ -113,11 +113,11 @@ which determines the type of assertion to be used, to implement the _TestAsserti
 The following sections provide descriptions of the two converters, pointing out the essential steps during the conversion from one representation to another.
 
 === converter-uml-code
-link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the codetest package] +
-link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the codetest.converter.element package] +
-link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the codetest.converter.relationship package]
+link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the umlcode package] +
+link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the umlcode.converter.element package] +
+link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the umlcode.converter.relationship package]
 
-The uml code converter consists out of three packages: the main package with the main converter class, the element package with the converters responsible
+The _uml code converter_ consists out of three packages: the main package with the main converter class, the element package with the converters responsible
 for converting _UmlElements_ to _CodeElements_ and the relationship package resolving the _UmlRelationships_.
 
 The uml code converter has two main objectives: resolving the remaining relationships and grouping potential top level elements
@@ -132,12 +132,25 @@ Therefore, a package with the name of the model is not allowed, as long as the m
 external packages, such packages stay direct child elements of the _CodeRepresentation_, while the other packages with the model name as prefix become child packages of the newly created 
 model package.
 
+image:diagrams/umlcode.svg[umlcode-conversion]
+
 In the <<representation-uml>> each modifier is represented by its own value: boolean values for _static_, _final_ and _abstract_, and _UmlVisibility_ for the access modifiers. 
 The <<representation-code>> handles modifiers as an integer value, computed out of all the modifier values, the same way, the Java Reflection API handles these values.
 This conversion step is done by the _ModifierConverter_ class. +
 See link:https://docs.oracle.com/javase/8/docs/api/constant-values.html#java.lang.reflect.Modifier.ABSTRACT[Java Constant Field Values] for a list of Java's modifier values.
 
 === converter-code-test
+link:javadoc/codetest/package-summary.html[Javadoc of the codetest package] +
+link:javadoc/codetest/converter/package-summary.html[Javadoc of the codetest.converter package]
+
+The _code test converter_ consists out of two packages: the main package with the main converter class and the converter package with the converters responsible for converting
+_CodeElements_ to _TestClasses_ and _ClassUnderTest_ objects.
+
+Has the narrow field of task of creating an abstract test structure by creating representations of the packages and files of the test suite to be created as well as a representation of the test cases.
+Instead of abstracting the <<#representation-code>> the main conversion step of the _code test converter_ is to split up a _CodeElemet_ into two objects: a _TestClass_ object representing the actual file in
+its package and the corresponding _ClassUnderTest_, representing the class with its components to be tested.
+
+image:diagrams/codetest.svg[codetest]
 
 [#input]
 == Input

@@ -3,4 +3,4 @@
  * 
  * @author dschoenicke
  */
-package codetest.converters;
+package codetest.converter;
