@@ -9,6 +9,7 @@ import org.apache.commons.cli.ParseException;
 import core.options.AssociationTypeMapper;
 import core.options.QualifiedNamesMapper;
 import core.options.TestCreator;
+import lombok.experimental.UtilityClass;
 
 /**
  * Main class
@@ -16,12 +17,13 @@ import core.options.TestCreator;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class Core {
 
 	/**
 	 * The path to the configuration database
 	 */
-	public static final String DB_PATH = "qualifiedNames.db";
+	public static final String DB_PATH = "configuration.db";
 	
 	/**
 	 * Main method.<br>

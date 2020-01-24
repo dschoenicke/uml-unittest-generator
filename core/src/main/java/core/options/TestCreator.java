@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import codetestconverter.CodeTestConverter;
 import core.Core;
+import lombok.experimental.UtilityClass;
 import mdxmlconverter.MdxmlUmlConverter;
 import outputjunit.OutputJunitConverter;
 import test.converterinterface.TestConverter;
@@ -28,11 +29,8 @@ import umlcodeconverter.UmlCodeConverter;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TestCreator {
-	
-	private TestCreator() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * The {@link org.slf4j.Logger} to be used in the methods

@@ -3,6 +3,7 @@ package outputjunit.converter;
 import junit.JunitPackage;
 import junit.JunitRepresentation;
 import junit.JunitTestClass;
+import lombok.experimental.UtilityClass;
 import outputjunit.converter.temporary.TemporaryModel;
 import test.TestClass;
 
@@ -12,11 +13,8 @@ import test.TestClass;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TestClassConverter {
-
-	private TestClassConverter() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * Static methods to convert {@link test.TestClass}es of the {@link test.TestPackage}s in the {@link outputjunit.converter.temporary.TemporaryModel} to {@link junit.JunitTestClass}es.

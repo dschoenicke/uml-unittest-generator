@@ -27,7 +27,7 @@ public class ConstructorConverterTest extends OutputJunitConverterTests {
 		assertEquals(0, convertedConstructor.getParameters().size());
 		assertEquals(3, convertedConstructor.getAssertions().size());
 		convertedConstructor = mockJunitTestClass2.getConstructors().get(1);
-		assertEquals("int.class, app.firstpackage.firstclass.class", convertedConstructor.getParameterTypeClasses());
+		assertEquals("List.class, app.firstpackage.firstclass.class", convertedConstructor.getParameterTypeClasses());
 		assertEquals(2, convertedConstructor.getParameters().size());
 		assertEquals(3, convertedConstructor.getAssertions().size());
 	}

@@ -1,5 +1,8 @@
 package core.options;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
@@ -13,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import core.Core;
+import lombok.experimental.UtilityClass;
 
 /**
  * Manages mappings from field names to collection types
@@ -20,11 +24,8 @@ import core.Core;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class AssociationTypeMapper {
-
-	private AssociationTypeMapper() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * The {@link org.slf4j.Logger} to be used in the methods
@@ -126,10 +127,12 @@ public class AssociationTypeMapper {
 	 * 
 	 * @param attribute the attribute as the key
 	 * @param collectionType the collection type as the object
+	 * @return the updated map containing the mappings
 	 */
-	static void addAssociationType(String attribute, String collectionType) {
+	static Map<String, String> addAssociationType(String attribute, String collectionType) {
 		DB database = DBMaker.fileDB(Core.DB_PATH).make();
 		BTreeMap<String, String> associationTypes = null;
+		Map<String, String> returnMap = new HashMap<>();
 		
 		try {
 			associationTypes = loadAssociationTypesDB(database);
@@ -137,18 +140,22 @@ public class AssociationTypeMapper {
 			if (associationTypes.containsKey(attribute)) {
 				LOG.info("Error: There is already a mapping for the attribute {}!", attribute);
 				LOG.info("The mapping for {} is {}.", attribute, associationTypes.get(attribute));
-				return;
+				returnMap.putAll(associationTypes);
+				return returnMap;
 			}
 			
 			associationTypes.put(attribute, collectionType);
 			LOG.info("The mapping {} -> {} was added.", attribute, collectionType);
 		} finally {
 			if (associationTypes != null) {
+				returnMap.putAll(associationTypes);
 				associationTypes.close();
 			}
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**
@@ -156,17 +163,20 @@ public class AssociationTypeMapper {
 	 * 
 	 * @param attribute the key of the entry to be replaced
 	 * @param collectionType the new value to be set for the entry
+	 * @return the updated map containing the mappings
 	 */
-	static void replaceAssociationType(String attribute, String collectionType) {
+	static Map<String, String> replaceAssociationType(String attribute, String collectionType) {
 		DB database = DBMaker.fileDB(Core.DB_PATH).make();
 		BTreeMap<String, String> associationTypes = null;
+		HashMap<String, String> returnMap = new HashMap<>();
 		
 		try {
 			associationTypes = loadAssociationTypesDB(database);
 			
 			if (!associationTypes.containsKey(attribute)) {
 				LOG.error("There is no mapping for the attribute {} to be replaced!", attribute);
-				return;
+				returnMap.putAll(associationTypes);
+				return returnMap;
 			}
 			
 			String oldValue = associationTypes.get(attribute);
@@ -174,28 +184,34 @@ public class AssociationTypeMapper {
 			LOG.info("The mapping {} -> {} was replaced by {} -> {}.", attribute, oldValue, attribute, collectionType);
 		} finally {
 			if (associationTypes != null) {
+				returnMap.putAll(associationTypes);
 				associationTypes.close();
 			}
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**
 	 * Deletes an entry with the given key attribute
 	 * 
 	 * @param attribute the key to be deleted
+	 * @return the updated map containing the mappings
 	 */
-	static void deleteAssociationType(String attribute) {
+	static Map<String, String> deleteAssociationType(String attribute) {
 		DB database = DBMaker.fileDB(Core.DB_PATH).make();
 		BTreeMap<String, String> associationTypes = null;
+		Map<String, String> returnMap = new HashMap<>();
 		
 		try {
 			associationTypes = loadAssociationTypesDB(database);
 		
 			if (!associationTypes.containsKey(attribute)) {
 				LOG.error("There is no mapping for the attribute {} to be deleted!", attribute);
-				return;
+				returnMap.putAll(associationTypes);
+				return returnMap;
 			}
 		
 			String oldValue = associationTypes.get(attribute);
@@ -203,46 +219,56 @@ public class AssociationTypeMapper {
 			LOG.info("The mapping {} -> {} was deleted.", attribute, oldValue);
 		} finally {
 			if (associationTypes != null) {
+				returnMap.putAll(associationTypes);
 				associationTypes.close();
 			}
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**
 	 * Deletes all entries
+	 * @return the updated map containing the mappings
 	 */
-	static void clearAssociationTypes() {
+	static Map<String, String> clearAssociationTypes() {
 		DB database = DBMaker.fileDB(Core.DB_PATH).make();	
 		BTreeMap<String, String> associationTypes = null;
+		Map<String, String> returnMap = new HashMap<>();
 		
 		try {
 			associationTypes = loadAssociationTypesDB(database);
+			associationTypes.clear();
 			LOG.info("All association type mappings were deleted.");
 		} finally {
 			if (associationTypes != null) {
+				returnMap.putAll(associationTypes);
 				associationTypes.close();
 			}
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**
 	 * Prints out a list of all mappings to the console
+	 * @return the map containing the mappings
 	 */
-	static void showAssociationTypes() {
+	static Map<String, String> showAssociationTypes() {
 		DB database = DBMaker.fileDB(Core.DB_PATH).make();
 		BTreeMap<String, String> associationTypes = null;
+		Map<String, String> returnMap = new HashMap<>();
 		
 		try {
 			associationTypes = loadAssociationTypesDB(database);
+			returnMap.putAll(associationTypes);
 			
 			if (associationTypes.isEmpty()) {
 				LOG.info("There have no mappings been stored yet!");
-				database.close();
-				return;
 			}
 			
 			associationTypes.forEach((attribute, collectionType) -> 
@@ -255,6 +281,8 @@ public class AssociationTypeMapper {
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**

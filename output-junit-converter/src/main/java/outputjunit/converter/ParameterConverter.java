@@ -7,6 +7,7 @@ import java.util.List;
 import junit.JunitAssertion;
 import junit.JunitParameterUnderTest;
 import junit.JunitTestClass;
+import lombok.experimental.UtilityClass;
 import test.testobjects.ConstructorUnderTest;
 import test.testobjects.MethodUnderTest;
 import test.testobjects.ParameterUnderTest;
@@ -18,11 +19,8 @@ import test.testobjects.ParameterUnderTest;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class ParameterConverter {
-
-	private ParameterConverter() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * Converts {@link junit.JunitParameterUnderTest}s out of the {@link test.testobjects.ParameterUnderTest} of a given {@link test.testobjects.ConstructorUnderTest}<br>

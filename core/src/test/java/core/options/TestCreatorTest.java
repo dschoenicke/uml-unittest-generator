@@ -11,7 +11,6 @@ import java.io.IOException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
 import core.CoreTests;
@@ -34,34 +33,27 @@ public class TestCreatorTest extends CoreTests {
 		assertEquals(3, options.getOptions().size());
 	}
 	
-	/**
-	 * Tests {@link TestCreator#parseOptions}
-	 * @throws Exception if the input conversion process fails
-	 */
 	@Test
 	public void testParseOptions() throws Exception {
 		Options options = new Options();
-		
-		try {
-			DefaultParser parser = new DefaultParser();
-			String[] args = {"-fail"};
-			CommandLine cmd = parser.parse(options, args);
-			assertFalse(TestCreator.parseOptions(cmd, args));
-			String[] ctargs = {"-ct", "-", "-", "-", "-"};
-			cmd = parser.parse(options, ctargs);
-			assertTrue(TestCreator.parseOptions(cmd, ctargs));
-			String[] inargs = {"-inputtypes"};
-			cmd = parser.parse(options, inargs);
-			assertTrue(TestCreator.parseOptions(cmd, inargs));
-			String[] outargs = {"-outputtypes"};
-			cmd = parser.parse(options, outargs);
-			assertTrue(TestCreator.parseOptions(cmd, outargs));
-			String[] exargs = {"-ct"};
-			cmd = parser.parse(options, exargs);
-			assertTrue(TestCreator.parseOptions(cmd, exargs));
-		} catch (ParseException e) {
-			
-		}
+		TestCreator.addTestCreatorOptions(options);
+		DefaultParser parser = new DefaultParser();
+		String[] ctargs = {"-ct", "f", "f", "f", "f"};
+		CommandLine cmd = parser.parse(options, ctargs);
+		TestCreator.parseOptions(cmd, ctargs);
+		assertTrue(TestCreator.parseOptions(cmd, ctargs));
+		String[] inargs = {"-inputtypes"};
+		cmd = parser.parse(options, inargs);
+		TestCreator.parseOptions(cmd, inargs);
+		assertTrue(TestCreator.parseOptions(cmd, inargs));
+		String[] outargs = {"-outputtypes"};
+		cmd = parser.parse(options, outargs);
+		TestCreator.parseOptions(cmd, outargs);
+		assertTrue(TestCreator.parseOptions(cmd, outargs));
+		String[] invalidargs = {"invalid"};
+		cmd = parser.parse(options, invalidargs);
+		TestCreator.parseOptions(cmd, invalidargs);
+		assertFalse(TestCreator.parseOptions(cmd, invalidargs));
 	}
 	
 	/**

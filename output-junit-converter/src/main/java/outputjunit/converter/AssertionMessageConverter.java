@@ -2,18 +2,17 @@ package outputjunit.converter;
 
 import java.lang.reflect.Modifier;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Provides static methods to generate messages for modifier {@link junit.JunitAssertion}s
  * 
  * @author dschoenicke
  *
  */
+@UtilityClass
 class AssertionMessageConverter {
 
-	private AssertionMessageConverter() {
-		throw new IllegalStateException("utility class");
-	}
-	
 	/**
 	 * Generates the message for a modifier {@link junit.JunitAssertion} of a {@link junit.JunitTestClass}
 	 * 

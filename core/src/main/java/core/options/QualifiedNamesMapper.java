@@ -1,5 +1,8 @@
 package core.options;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
@@ -13,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import core.Core;
+import lombok.experimental.UtilityClass;
 
 /**
  * Manages mappings from shortcuts of external classes to fully qualified names
@@ -20,11 +24,8 @@ import core.Core;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class QualifiedNamesMapper {
-	
-	private QualifiedNamesMapper() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * The {@link org.slf4j.Logger} to be used in the methods
@@ -126,29 +127,35 @@ public class QualifiedNamesMapper {
 	 * 
 	 * @param shortcut the shortcut as the key
 	 * @param qualifiedName the qualified name as the object
+	 * @return the updated map containing the mappings
 	 */
-	static void addQualifiedName(String shortcut, String qualifiedName) {
+	static Map<String, String> addQualifiedName(String shortcut, String qualifiedName) {
 		DB database = DBMaker.fileDB(Core.DB_PATH).make();
 		BTreeMap<String, String> qualifiedNames = null;
-				
+		Map<String, String> returnMap = new HashMap<>();
+		
 		try {
 			qualifiedNames = loadQualifiedNamesDB(database);
 			
 			if (qualifiedNames.containsKey(shortcut)) {
 				LOG.error("There is already a mapping for the shortcut {}!", shortcut);
 				LOG.error("The mapping for {} is {}.", shortcut, qualifiedNames.get(shortcut));
-				return;
+				returnMap.putAll(qualifiedNames);
+				return returnMap;
 			}
 			
 			qualifiedNames.put(shortcut, qualifiedName);
 			LOG.info("The mapping {} -> {} was added.", shortcut, qualifiedName);
 		} finally {
 			if (qualifiedNames != null) {
+				returnMap.putAll(qualifiedNames);
 				qualifiedNames.close();
 			}
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**
@@ -156,17 +163,20 @@ public class QualifiedNamesMapper {
 	 * 
 	 * @param shortcut the key of the entry to be replaced
 	 * @param qualifiedName the new value to be set for the entry
+	 * @return the updated map containing the mappings
 	 */
-	static void replaceQualifiedName(String shortcut, String qualifiedName) {
-		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+	static Map<String, String> replaceQualifiedName(String shortcut, String qualifiedName) {
 		BTreeMap<String, String> qualifiedNames = null;
+		DB database = DBMaker.fileDB(Core.DB_PATH).make();
+		Map<String, String> returnMap = new HashMap<>();
 		
 		try {
 			qualifiedNames = loadQualifiedNamesDB(database);
 			
 			if (!qualifiedNames.containsKey(shortcut)) {
 				LOG.error("There is no mapping for the shortcut {} to be replaced!", shortcut);
-				return;
+				returnMap.putAll(qualifiedNames);
+				return returnMap;
 			}
 			
 			String oldValue = qualifiedNames.get(shortcut);
@@ -174,28 +184,34 @@ public class QualifiedNamesMapper {
 			LOG.info("The mapping {} -> {} was replaced by {} -> {}.", shortcut, oldValue, shortcut, qualifiedName);
 		} finally {
 			if (qualifiedNames != null) {
+				returnMap.putAll(qualifiedNames);
 				qualifiedNames.close();
 			}
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**
 	 * Deletes an entry with the given key shortcut
 	 * 
 	 * @param shortcut the key to be deleted
+	 * @return the updated map containing the mappings
 	 */
-	static void deleteQualifiedName(String shortcut) {
+	static Map<String, String> deleteQualifiedName(String shortcut) {
 		DB database = DBMaker.fileDB(Core.DB_PATH).make();
 		BTreeMap<String, String> qualifiedNames = null;
+		Map<String, String> returnMap = new HashMap<>();
 		
 		try {
 			qualifiedNames = loadQualifiedNamesDB(database);
 			
 			if (!qualifiedNames.containsKey(shortcut)) {
 				LOG.error("There is no mapping for the shortcut {} to be deleted!", shortcut);
-				return;
+				returnMap.putAll(qualifiedNames);
+				return returnMap;
 			}
 			
 			String oldValue = qualifiedNames.get(shortcut);
@@ -203,19 +219,25 @@ public class QualifiedNamesMapper {
 			LOG.info("The mapping {} -> {} was deleted.", shortcut, oldValue);
 		} finally {
 			if (qualifiedNames != null) {
+				returnMap.putAll(qualifiedNames);
 				qualifiedNames.close();
 			}
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**
 	 * Deletes all entries
+	 * 
+	 * @return the updated map containing the mappings
 	 */
-	static void clearQualifiedNames() {
+	static Map<String, String> clearQualifiedNames() {
 		DB database = DBMaker.fileDB(Core.DB_PATH).make();
 		BTreeMap<String, String> qualifiedNames = null;
+		Map<String, String> returnMap = new HashMap<>();
 		
 		try {
 			qualifiedNames = loadQualifiedNamesDB(database);
@@ -223,27 +245,31 @@ public class QualifiedNamesMapper {
 			LOG.info("All qualified name mappings were deleted.");
 		} finally {
 			if (qualifiedNames != null) {
+				returnMap.putAll(qualifiedNames);
 				qualifiedNames.close();
 			}
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**
 	 * Prints a list of all mappings to the console
+	 * 
+	 * @return the map containing the mappings
 	 */
-	static void showQualifiedNames() {
+	static Map<String, String> showQualifiedNames() {
 		DB database = DBMaker.fileDB(Core.DB_PATH).make();
 		BTreeMap<String, String> qualifiedNames = null;
+		Map<String, String> returnMap = new HashMap<>();
 		
 		try {
 			qualifiedNames = loadQualifiedNamesDB(database);
 		
 			if (qualifiedNames.isEmpty()) {
 				LOG.info("There have no mappings been stored yet!");
-				database.close();
-				return;
 			}
 			
 			qualifiedNames.forEach((shortcut, qualifiedName) -> 
@@ -251,11 +277,14 @@ public class QualifiedNamesMapper {
 			);
 		} finally {
 			if (qualifiedNames != null) {
+				returnMap.putAll(qualifiedNames);
 				qualifiedNames.close();
 			}
 			
 			database.close();
 		}
+		
+		return returnMap;
 	}
 	
 	/**

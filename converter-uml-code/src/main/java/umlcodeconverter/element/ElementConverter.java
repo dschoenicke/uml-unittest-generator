@@ -15,6 +15,7 @@ import uml.UmlEnumeration;
 import uml.UmlInterface;
 import uml.UmlModel;
 import uml.UmlPackage;
+import umlcodeconverter.packages.PackageConverter;
 import umlcodeconverter.temporary.TemporaryModel;
 
 /**
@@ -37,14 +38,7 @@ public class ElementConverter {
 	 */
 	public static void convertElements(UmlModel umlModel, CodeRepresentation codeRepresentation, TemporaryModel tmpModel) {
 		if (!umlModel.getElements().isEmpty()) {
-			CodePackage topLevelPackage = new CodePackage(umlModel.getName(), codeRepresentation);
-			
-			for (CodePackage codePackage : codeRepresentation.getPackages()) {
-				topLevelPackage.addPackage(codePackage);
-			}
-			
-			codeRepresentation.getPackages().clear();
-			codeRepresentation.addPackage(topLevelPackage);
+			CodePackage topLevelPackage = PackageConverter.createTopLevelPackage(codeRepresentation);
 			
 			for (UmlElement umlElement : umlModel.getElements()) {
 				convertElement(umlElement, null, topLevelPackage, tmpModel);

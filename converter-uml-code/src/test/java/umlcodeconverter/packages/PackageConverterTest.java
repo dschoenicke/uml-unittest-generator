@@ -23,6 +23,19 @@ public class PackageConverterTest extends UmlCodeConverterTests {
 		assertEquals(1, convertedTopPackage.getPackages().size());
 	}
 	
+	@Test
+	public void testCreateTopLevelPackage() {
+		codeRepresentation.getPackages().clear();
+		PackageConverter.convertPackages(umlModel.getPackages(), codeRepresentation, mockTmpModel);
+		CodePackage subPackage = new CodePackage("Model.SubPackage", codeRepresentation);
+		codeRepresentation.addPackage(subPackage);
+		assertEquals(2, codeRepresentation.getPackages().size());
+		CodePackage topLevelPackage = PackageConverter.createTopLevelPackage(codeRepresentation);
+		assertEquals(2, codeRepresentation.getPackages().size());
+		assertTrue(codeRepresentation.getPackages().contains(topLevelPackage));
+		assertTrue(topLevelPackage.getPackages().contains(subPackage));
+	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidPackageConverter() {
 		PackageConverter.convertPackage(umlTopLevelPackage, codeBigEnum, mockTmpModel);

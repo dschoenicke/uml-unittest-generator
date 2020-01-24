@@ -1,5 +1,6 @@
 package umlcodeconverter.packages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import code.CodePackage;
@@ -55,5 +56,35 @@ public class PackageConverter {
 		
 		tmpModel.addConvertedPackage(umlPackage, codePackage);
 		convertPackages(umlPackage.getPackages(), codePackage, tmpModel);
+	}
+	
+	/**
+	 * Creates a {@link code.CodePackage} with the name of the given {@link code.CodeRepresentation}.<br>
+	 * This function is called, if the {@link uml.UmlModel} to be converted contains {@link uml.UmlElement}s as direct child elements.<br>
+	 * In this case, the converted {@link code.CodeElement} are grouped in the returned {@link code.CodePackage}.<br>
+	 * All sub {@link code.CodePackage}s of the {@link code.CodeRepresentation} which names start with the name of the representation
+	 * are added to the newly created {@link code.CodePackage} because with the representation name as prefix, they are considered subpackages.<br>
+	 * {@link code.CodePackage}s without this prefix in their name are considered external packages and are kept as child packages of the {@link code.CodeRepresentation} object.
+	 * 
+	 * @param codeRepresentation
+	 * @return
+	 */
+	public static CodePackage createTopLevelPackage(CodeRepresentation codeRepresentation) {
+		CodePackage topLevelPackage = new CodePackage(codeRepresentation.getName(), codeRepresentation);
+		List<CodePackage> externalPackages = new ArrayList<>();
+		
+		for (CodePackage codePackage : codeRepresentation.getPackages()) {
+			if (codePackage.getName().startsWith(codeRepresentation.getName() + ".")) {
+				topLevelPackage.addPackage(codePackage);
+			}
+			else {
+				externalPackages.add(codePackage);
+			}
+		}
+		
+		codeRepresentation.getPackages().clear();
+		codeRepresentation.getPackages().addAll(externalPackages);
+		codeRepresentation.addPackage(topLevelPackage);
+		return topLevelPackage;
 	}
 }

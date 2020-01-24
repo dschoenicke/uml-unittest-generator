@@ -16,6 +16,7 @@ import com.github.mustachejava.MustacheFactory;
 
 import junit.JunitRepresentation;
 import junit.JunitTestClass;
+import lombok.experimental.UtilityClass;
 
 /**
  * Provides static methods the generate test class file out of the mustache template
@@ -23,11 +24,8 @@ import junit.JunitTestClass;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TestFileCreator {
-	
-	private TestFileCreator() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * The {@link org.slf4j.Logger} to be used in the methods

@@ -46,7 +46,6 @@ public class TestRepresentationTests {
 	public void initializeTestRepresentation() {
 		testRepresentation = new TestRepresentation("Model");
 		testModelPackage = new TestPackage("Model", testRepresentation);
-		testRepresentation.addPackage(testModelPackage);
 		topLevelInterfaceUnderTest = new ClassUnderTest("Model.TopLevelInterface", ClassUnderTestType.INTERFACE, 1, Optional.empty());
 		testTopLevelInterface = new TestClass("TopLevelInterfaceTest", testModelPackage, topLevelInterfaceUnderTest);
 		topLevelClassUnderTest = new ClassUnderTest("Model.TopLevelClass", ClassUnderTestType.CLASS, 1, Optional.empty());
@@ -55,6 +54,7 @@ public class TestRepresentationTests {
 		testModelPackage.addTestClass(testTopLevelClass);
 		testTopLevelPackage = new TestPackage("TopLevelPackage", testRepresentation);
 		testRepresentation.addPackage(testTopLevelPackage);
+		testRepresentation.addPackage(testModelPackage);
 		
 		subInterfaceUnderTest = new ClassUnderTest("Model.TopLevelPackage.SubInterface", ClassUnderTestType.INTERFACE, 1, Optional.empty());
 		subInterfaceUnderTest.getInterfaces().add(topLevelInterfaceUnderTest.getQualifiedName());
@@ -94,6 +94,16 @@ public class TestRepresentationTests {
 		new MethodUnderTest("someOperation", 1, bigEnumUnderTest, new ParameterUnderTest("", "void", 0, false, false));
 		testBigEnum = new TestClass("BigEnumTest", testSubPackage, bigEnumUnderTest);
 		testSubPackage.getTestClasses().addAll(List.of(testSubPackageClass, testEnumeration, testBigEnum));
+		
+		topLevelInterfaceUnderTest.setNestHost(Optional.empty());
+		topLevelClassUnderTest.setNestHost(Optional.empty());
+		subInterfaceUnderTest.setNestHost(Optional.empty());
+		subClassUnderTest.setNestHost(Optional.empty());
+		genericClassUnderTest.setNestHost(Optional.empty());
+		bindingClassUnderTest.setNestHost(Optional.empty());
+		subPackageClassUnderTest.setNestHost(Optional.empty());
+		enumerationUnderTest.setNestHost(Optional.of(subPackageClassUnderTest));
+		bigEnumUnderTest.setNestHost(Optional.empty());
 	}
 	
 	@Before

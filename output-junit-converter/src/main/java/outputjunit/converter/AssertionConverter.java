@@ -8,6 +8,7 @@ import junit.JunitFieldUnderTest;
 import junit.JunitMethodUnderTest;
 import junit.JunitTemplateParameterUnderTest;
 import junit.JunitTestClass;
+import lombok.experimental.UtilityClass;
 import test.testobjects.ClassUnderTest;
 import test.testobjects.ClassUnderTest.ClassUnderTestType;
 import test.testobjects.ConstructorUnderTest;
@@ -20,11 +21,8 @@ import test.testobjects.MethodUnderTest;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class AssertionConverter {
-
-	private AssertionConverter() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * Creates property {@link junit.JunitAssertion}s for a given {@link junit.JunitTestClass}

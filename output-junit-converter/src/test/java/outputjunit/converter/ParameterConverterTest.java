@@ -28,9 +28,9 @@ public class ParameterConverterTest extends OutputJunitConverterTests {
 		assertEquals(true, parameters.get(0).getIsFinal());
 		assertEquals("true", parameters.get(0).getAssertion().getExpectedValue());
 		assertEquals("Modifier.isFinal(parameterUnderTest.getModifiers())", parameters.get(0).getAssertion().getActualValue());
-		assertEquals("The parameter param1 of the method method1 with parameters (int, app.firstpackage.firstclass) in app.firstpackage.firstclass must be final!", parameters.get(0).getAssertion().getMessage());
+		assertEquals("The parameter param1 of the method method1 with parameters (List, app.firstpackage.firstclass) in app.firstpackage.firstclass must be final!", parameters.get(0).getAssertion().getMessage());
 		assertEquals("false", parameters.get(1).getAssertion().getExpectedValue());
-		assertEquals("The parameter param2 of the method method1 with parameters (int, app.firstpackage.firstclass) in app.firstpackage.firstclass must not be final!", parameters.get(1).getAssertion().getMessage());
+		assertEquals("The parameter param2 of the method method1 with parameters (List, app.firstpackage.firstclass) in app.firstpackage.firstclass must not be final!", parameters.get(1).getAssertion().getMessage());
 	}
 	
 	/**
@@ -44,9 +44,9 @@ public class ParameterConverterTest extends OutputJunitConverterTests {
 		assertEquals(true, parameters.get(0).getIsFinal());
 		assertEquals("true", parameters.get(0).getAssertion().getExpectedValue());
 		assertEquals("Modifier.isFinal(parameterUnderTest.getModifiers())", parameters.get(0).getAssertion().getActualValue());
-		assertEquals("The parameter param1 of the constructor with parameters (int, app.firstpackage.firstclass) in app.secondpackage.secondclass must be final!", parameters.get(0).getAssertion().getMessage());
+		assertEquals("The parameter param1 of the constructor with parameters (List, app.firstpackage.firstclass) in app.secondpackage.secondclass must be final!", parameters.get(0).getAssertion().getMessage());
 		assertEquals("false", parameters.get(1).getAssertion().getExpectedValue());
-		assertEquals("The parameter param2 of the constructor with parameters (int, app.firstpackage.firstclass) in app.secondpackage.secondclass must not be final!", parameters.get(1).getAssertion().getMessage());
+		assertEquals("The parameter param2 of the constructor with parameters (List, app.firstpackage.firstclass) in app.secondpackage.secondclass must not be final!", parameters.get(1).getAssertion().getMessage());
 	
 		parameters = ParameterConverter.createParameters(mockInnerClass.getConstructors().get(0), mockJunitInnerTestClass);
 		assertEquals(2, parameters.size());
@@ -61,7 +61,7 @@ public class ParameterConverterTest extends OutputJunitConverterTests {
 	 */
 	@Test
 	public void testCreateParameterTypeClasses() {
-		assertEquals("int.class, app.firstpackage.firstclass.class", ParameterConverter.createParameterTypeClasses(mockClass1.getMethods().get(0).getParameters()));
+		assertEquals("List.class, app.firstpackage.firstclass.class", ParameterConverter.createParameterTypeClasses(mockClass1.getMethods().get(0).getParameters()));
 		assertEquals("", ParameterConverter.createParameterTypeClasses(mockClass1.getMethods().get(1).getParameters()));
 	}
 	
@@ -70,7 +70,7 @@ public class ParameterConverterTest extends OutputJunitConverterTests {
 	 */
 	@Test
 	public void testCreateParameterTypes() {
-		assertEquals("int, app.firstpackage.firstclass", ParameterConverter.createParameterTypes(mockClass1.getMethods().get(0).getParameters()));
+		assertEquals("List, app.firstpackage.firstclass", ParameterConverter.createParameterTypes(mockClass1.getMethods().get(0).getParameters()));
 		assertEquals("", ParameterConverter.createParameterTypes(mockClass1.getMethods().get(1).getParameters()));
 	}
 }

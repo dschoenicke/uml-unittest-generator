@@ -21,7 +21,7 @@ public class ClassUnderTest implements TestObject {
 	private String qualifiedName;
 	
 	/**
-	 * The qualified name of the super class of the class under test. Can be {@literal null}.
+	 * The qualified name of the super class of the class under test.
 	 */
 	private Optional<String> superClass;
 	

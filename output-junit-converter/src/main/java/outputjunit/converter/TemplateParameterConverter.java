@@ -2,6 +2,7 @@ package outputjunit.converter;
 
 import junit.JunitTemplateParameterUnderTest;
 import junit.JunitTestClass;
+import lombok.experimental.UtilityClass;
 import test.testobjects.ClassUnderTest;
 
 /**
@@ -10,11 +11,8 @@ import test.testobjects.ClassUnderTest;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class TemplateParameterConverter {
-
-	private TemplateParameterConverter() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * Converts the {@link test.testobjects.TemplateParameterUnderTest}s of a given {@link test.testobjects.ClassUnderTest} to {@link junit.JunitTemplateParameterUnderTest}.

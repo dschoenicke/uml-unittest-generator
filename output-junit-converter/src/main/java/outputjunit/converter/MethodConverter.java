@@ -2,6 +2,7 @@ package outputjunit.converter;
 
 import junit.JunitMethodUnderTest;
 import junit.JunitTestClass;
+import lombok.experimental.UtilityClass;
 import test.testobjects.ClassUnderTest;
 
 /**
@@ -10,11 +11,8 @@ import test.testobjects.ClassUnderTest;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class MethodConverter {
-
-	private MethodConverter() {
-		throw new IllegalStateException("utility class");
-	}
 	
 	/**
 	 * Converts the {@link test.testobjects.MethodUnderTest}s of a given {@link test.testobjects.ClassUnderTest} to {@link junit.JunitMethodUnderTest}.

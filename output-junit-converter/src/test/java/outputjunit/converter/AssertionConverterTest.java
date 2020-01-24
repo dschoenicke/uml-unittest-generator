@@ -10,17 +10,8 @@ import junit.JunitMethodUnderTest;
 import junit.JunitTemplateParameterUnderTest;
 import outputjunit.OutputJunitConverterTests;
 
-/**
- * Tests {@link AssertionConverter}
- * 
- * @author dschoenicke
- *
- */
 public class AssertionConverterTest extends OutputJunitConverterTests {
 
-	/**
-	 * Tests {@link AssertionConverter#createPropertyAssertions}.
-	 */
 	@Test
 	public void testCreatePropertyAssertions() {
 		AssertionConverter.createPropertyAssertions(mockClass1, mockJunitTestClass1);
@@ -188,11 +179,11 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 		
 		AssertionConverter.createConstructorAssertions(mockClass2.getConstructors().get(1), mockClass2, constructor2);
 		assertEquals("false", constructor2.getAssertions().get(0).getExpectedValue());
-		assertEquals("The constructor with parameters (int, app.firstpackage.firstclass) in app.secondpackage.secondclass must not be public!", constructor2.getAssertions().get(0).getMessage());
+		assertEquals("The constructor with parameters (List, app.firstpackage.firstclass) in app.secondpackage.secondclass must not be public!", constructor2.getAssertions().get(0).getMessage());
 		assertEquals("false", constructor2.getAssertions().get(1).getExpectedValue());
-		assertEquals("The constructor with parameters (int, app.firstpackage.firstclass) in app.secondpackage.secondclass must not be private!", constructor2.getAssertions().get(1).getMessage());
+		assertEquals("The constructor with parameters (List, app.firstpackage.firstclass) in app.secondpackage.secondclass must not be private!", constructor2.getAssertions().get(1).getMessage());
 		assertEquals("false", constructor2.getAssertions().get(2).getExpectedValue());
-		assertEquals("The constructor with parameters (int, app.firstpackage.firstclass) in app.secondpackage.secondclass must not be protected!", constructor2.getAssertions().get(2).getMessage());
+		assertEquals("The constructor with parameters (List, app.firstpackage.firstclass) in app.secondpackage.secondclass must not be protected!", constructor2.getAssertions().get(2).getMessage());
 	}
 	
 	/**
@@ -206,25 +197,25 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 		assertEquals(7, method1.getAssertions().size());
 		assertEquals("\"void\"", method1.getAssertions().get(0).getExpectedValue());
 		assertEquals("methodUnderTest.getReturnType().getSimpleName()", method1.getAssertions().get(0).getActualValue());
-		assertEquals("The method method1 with parameters (int, app.firstpackage.firstclass) in app.firstpackage.firstclass must return void!", method1.getAssertions().get(0).getMessage());
+		assertEquals("The method method1 with parameters (List, app.firstpackage.firstclass) in app.firstpackage.firstclass must return void!", method1.getAssertions().get(0).getMessage());
 		assertEquals("true", method1.getAssertions().get(1).getExpectedValue());
 		assertEquals("Modifier.isPublic(methodUnderTest.getModifiers())", method1.getAssertions().get(1).getActualValue());
-		assertEquals("The method method1 with parameters (int, app.firstpackage.firstclass) in app.firstpackage.firstclass must be public!", method1.getAssertions().get(1).getMessage());
+		assertEquals("The method method1 with parameters (List, app.firstpackage.firstclass) in app.firstpackage.firstclass must be public!", method1.getAssertions().get(1).getMessage());
 		assertEquals("true", method1.getAssertions().get(2).getExpectedValue());
 		assertEquals("Modifier.isPrivate(methodUnderTest.getModifiers())", method1.getAssertions().get(2).getActualValue());
-		assertEquals("The method method1 with parameters (int, app.firstpackage.firstclass) in app.firstpackage.firstclass must be private!", method1.getAssertions().get(2).getMessage());
+		assertEquals("The method method1 with parameters (List, app.firstpackage.firstclass) in app.firstpackage.firstclass must be private!", method1.getAssertions().get(2).getMessage());
 		assertEquals("true", method1.getAssertions().get(3).getExpectedValue());
 		assertEquals("Modifier.isProtected(methodUnderTest.getModifiers())", method1.getAssertions().get(3).getActualValue());
-		assertEquals("The method method1 with parameters (int, app.firstpackage.firstclass) in app.firstpackage.firstclass must be protected!", method1.getAssertions().get(3).getMessage());
+		assertEquals("The method method1 with parameters (List, app.firstpackage.firstclass) in app.firstpackage.firstclass must be protected!", method1.getAssertions().get(3).getMessage());
 		assertEquals("true", method1.getAssertions().get(4).getExpectedValue());
 		assertEquals("Modifier.isStatic(methodUnderTest.getModifiers())", method1.getAssertions().get(4).getActualValue());
-		assertEquals("The method method1 with parameters (int, app.firstpackage.firstclass) in app.firstpackage.firstclass must be static!", method1.getAssertions().get(4).getMessage());
+		assertEquals("The method method1 with parameters (List, app.firstpackage.firstclass) in app.firstpackage.firstclass must be static!", method1.getAssertions().get(4).getMessage());
 		assertEquals("true", method1.getAssertions().get(5).getExpectedValue());
 		assertEquals("Modifier.isFinal(methodUnderTest.getModifiers())", method1.getAssertions().get(5).getActualValue());
-		assertEquals("The method method1 with parameters (int, app.firstpackage.firstclass) in app.firstpackage.firstclass must be final!", method1.getAssertions().get(5).getMessage());
+		assertEquals("The method method1 with parameters (List, app.firstpackage.firstclass) in app.firstpackage.firstclass must be final!", method1.getAssertions().get(5).getMessage());
 		assertEquals("true", method1.getAssertions().get(6).getExpectedValue());
 		assertEquals("Modifier.isAbstract(methodUnderTest.getModifiers())", method1.getAssertions().get(6).getActualValue());
-		assertEquals("The method method1 with parameters (int, app.firstpackage.firstclass) in app.firstpackage.firstclass must be abstract!", method1.getAssertions().get(6).getMessage());
+		assertEquals("The method method1 with parameters (List, app.firstpackage.firstclass) in app.firstpackage.firstclass must be abstract!", method1.getAssertions().get(6).getMessage());
 		
 		AssertionConverter.createMethodAssertions(mockClass1.getMethods().get(1), mockClass1, method2);
 		assertEquals("false", method2.getAssertions().get(1).getExpectedValue());

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import junit.JunitPackage;
 import junit.JunitParent;
 import junit.JunitRepresentation;
+import lombok.experimental.UtilityClass;
 
 /**
  * Provides static methods to create the directory for the test files.
@@ -19,12 +20,9 @@ import junit.JunitRepresentation;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class FileDirectoryCreator {
 
-	private FileDirectoryCreator() {
-		throw new IllegalStateException("utility class");
-	}
-	
 	/**
 	 * The {@link org.slf4j.Logger} to be used in the methods
 	 */

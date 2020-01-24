@@ -1,7 +1,6 @@
 package codetestconverter;
 
 import org.junit.Before;
-import org.junit.rules.ExpectedException;
 
 import code.CodeClass;
 import code.CodeEnumeration;
@@ -59,7 +58,6 @@ public class CodeTestConverterTests {
 	protected TestRepresentationTests testRepresentationTests;
 	protected TemporaryModel mockTmpModel;
 	protected CodeTestConverter converter;
-	protected ExpectedException thrown;
 	
 	@Before
 	public void initTestData() {

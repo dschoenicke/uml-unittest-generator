@@ -2,6 +2,7 @@ package outputjunit.converter;
 
 import junit.JunitFieldUnderTest;
 import junit.JunitTestClass;
+import lombok.experimental.UtilityClass;
 import test.testobjects.ClassUnderTest;
 
 /**
@@ -10,12 +11,9 @@ import test.testobjects.ClassUnderTest;
  * @author dschoenicke
  *
  */
+@UtilityClass
 public class FieldConverter {
 
-	private FieldConverter() {
-		throw new IllegalStateException("utility class");
-	}
-	
 	/**
 	 * Converts the {@link test.testobjects.FieldUnderTest}s of a given {@link test.testobjects.ClassUnderTest} to {@link junit.JunitFieldUnderTest}.
 	 * 
