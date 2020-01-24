@@ -24,6 +24,7 @@ uml-unittest-converter
 ├── input-mdxml-converter
 ├── input-mdxml-representation
 ├── output-junit-converter
+├── output-junit-representation
 ├── representation-code
 ├── representation-test
 ├── representation-uml
@@ -33,7 +34,7 @@ The different projects containing the internal representations are designated wi
 the prefix `representation-[name]`. A project for an input representation and its converter, which converts it
 to the _UML representation_ is designated with the prefix `input-[name]-representation` and `input-[name]-converter`. + 
 The same rule applies for output converters: `output-[name]-converter`. + 
-The `core` project acts as a coordinator, which acts as the actual application, delegation the conversion steps
+The `core` project acts as a coordinator, delegating the conversion steps
 to the corresponding subprojects.
 
 == Usage
