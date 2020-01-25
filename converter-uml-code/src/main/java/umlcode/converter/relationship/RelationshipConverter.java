@@ -3,6 +3,9 @@ package umlcode.converter.relationship;
 import java.util.List;
 
 import lombok.experimental.UtilityClass;
+import uml.UmlModel;
+import uml.UmlPackage;
+import uml.UmlParent;
 import uml.UmlRelationship;
 import uml.UmlRelationshipType;
 import umlcode.TemporaryModel;
@@ -23,10 +26,26 @@ public class RelationshipConverter {
 	 * to the {@link umlcode.converter.relationship.GeneralizationConverter} and those of type {@link uml.UmlRelationshipType#INTERFACEREALIZATION}
 	 * to the {@link umlcode.converter.relationship.InterfaceRealizationConverter}
 	 * 
-	 * @param relationships the list of {@link uml.UmlRelationship}s to be converted
+	 * @param parent the {@link uml.UmlModel} or {@link uml.UmlPackage} containing the {@link uml.Relationship}s to be converted
 	 * @param tmpModel the {@link umlcode.TemporaryModel} containing the map of {@link uml.UmlElement}s and {@link code.CodeElement}s used to convert the {@link uml.UmlRelationship}s
 	 */
-	public static void convertRelationships(List<UmlRelationship> relationships, TemporaryModel tmpModel) {
+	public static void convertRelationships(UmlParent parent, TemporaryModel tmpModel) {
+		List<UmlRelationship> relationships;
+		List<UmlPackage> packages;
+		
+		if (parent instanceof UmlModel) {
+			relationships = ((UmlModel) parent).getRelationships();
+			packages = ((UmlModel) parent).getPackages();
+		}
+		else if (parent instanceof UmlPackage) {
+			relationships = ((UmlPackage) parent).getRelationships();
+			packages = ((UmlPackage) parent).getPackages();
+		}
+		else {
+			throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for a relationship!");
+		}
+		
+		
 		for (UmlRelationship relationship : relationships) {
 			if (relationship.getType() == UmlRelationshipType.GENERALIZATION) {
 				GeneralizationConverter.convertGeneralization(relationship, tmpModel);
@@ -35,5 +54,9 @@ public class RelationshipConverter {
 				InterfaceRealizationConverter.convertInterfaceRealization(relationship, tmpModel);
 			}
 		}
+		
+		packages.forEach(umlPackage -> 
+			convertRelationships(umlPackage, tmpModel)
+		);
 	}
 }

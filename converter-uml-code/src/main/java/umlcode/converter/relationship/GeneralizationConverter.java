@@ -30,8 +30,8 @@ public class GeneralizationConverter {
 	public static void convertGeneralization(UmlRelationship relationship, TemporaryModel tmpModel) {
 		CodeElement clientElement = tmpModel.getConvertedElements().get(relationship.getClient());
 		CodeElement supplierElement = tmpModel.getConvertedElements().get(relationship.getSupplier());
-		assertNotNull("The UmlElement " + relationship.getClient().getName() + " has not been converted properly!");
-		assertNotNull("The UmlElement " + relationship.getSupplier().getName() + " has not been converted properly!");
+		assertNotNull("The UmlElement " + relationship.getClient().getName() + " has not been converted properly!", clientElement);
+		assertNotNull("The UmlElement " + relationship.getSupplier().getName() + " has not been converted properly!", supplierElement);
 	
 		if (clientElement instanceof CodeClass) {
 			assertTrue("UmlClass " + relationship.getClient().getName() + " cannot extend an UmlElement of another type than UmlClass!", 

@@ -90,7 +90,8 @@ public class UmlModelTests {
 		
 		umlTopLevelPackage.getRelationships().addAll(List.of(
 				new UmlRelationship(umlGenericClass, umlSubPackageClass, UmlRelationshipType.AGGREGATION),
-				new UmlRelationship(umlGenericClass, umlBigEnum, UmlRelationshipType.ASSOCIATION)
+				new UmlRelationship(umlGenericClass, umlBigEnum, UmlRelationshipType.ASSOCIATION),
+				umlClassGeneralization
 			));
 	}
 	

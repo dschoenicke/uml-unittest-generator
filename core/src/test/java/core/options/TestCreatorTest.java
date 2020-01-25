@@ -11,6 +11,8 @@ import java.io.IOException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 import core.CoreTests;
@@ -79,5 +81,16 @@ public class TestCreatorTest extends CoreTests {
 		} catch (IOException e) {
 			fail();
 		}
+	}
+	
+	@Test
+	public void testExecute() throws ParseException, Exception {
+		Options options = new Options();
+		TestCreator.addTestCreatorOptions(options);
+		String[] args = {"-ct", "mdxml", getClass().getClassLoader().getResource("md_test.xml").getFile(), "junit", System.getProperty("user.dir")};
+		TestCreator.parseOptions(new DefaultParser().parse(options, args), args);
+		File dir = new File(System.getProperty("user.dir") + File.separator + "ModelStructure");
+		assertTrue(dir.exists());
+		FileUtils.deleteDirectory(dir);
 	}
 }

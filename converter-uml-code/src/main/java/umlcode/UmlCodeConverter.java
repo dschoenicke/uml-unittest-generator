@@ -44,7 +44,7 @@ public class UmlCodeConverter
 		TemporaryModel tmpModel = new TemporaryModel();
 		
 		if (!umlModel.getElements().isEmpty()) {
-			umlModel.getPackagesAsList().forEach(umlPackage -> 
+			umlModel.getPackages().forEach(umlPackage -> 
 				assertFalse("Could not convert UmlModel " + umlModel.getName() + "!\n"
 						+ "UmlModel " + umlModel.getName() + " contains a package with the model name\n"
 						+ "while containing UmlElements, which are not assigned to a UmlPackage.\n"
@@ -57,7 +57,7 @@ public class UmlCodeConverter
 		PackageConverter.convertPackages(umlModel.getPackages(), codeRepresentation, tmpModel);
 		ElementConverter.convertElements(umlModel, codeRepresentation, tmpModel);
 		TemplateBindingConverter.finishTemplateBindingConversions(tmpModel);
-		RelationshipConverter.convertRelationships(umlModel.getRelationshipsAsList(), tmpModel);
+		RelationshipConverter.convertRelationships(umlModel, tmpModel);
 		codeRepresentation.getElementsAsList().forEach(codeElement -> {
 			if (codeElement.getName().contains("<") || codeElement.getName().contains("[")) {
 				((CodePackage) codeElement.getParent()).getElements().remove(codeElement);

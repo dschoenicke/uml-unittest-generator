@@ -74,7 +74,10 @@ public class PackageConverter {
 		List<CodePackage> externalPackages = new ArrayList<>();
 		
 		for (CodePackage codePackage : codeRepresentation.getPackages()) {
-			if (codePackage.getName().startsWith(codeRepresentation.getName() + ".")) {
+			String name = codePackage.getName();
+			
+			if (name.startsWith(codeRepresentation.getName() + ".")) {
+				codePackage.setName(name.replaceFirst(codeRepresentation.getName() + ".", ""));
 				topLevelPackage.addPackage(codePackage);
 			}
 			else {

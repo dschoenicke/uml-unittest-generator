@@ -71,36 +71,4 @@ public class UmlModel implements UmlParent {
 	public void addRelationship(UmlRelationship relationship) {
 		relationships.add(relationship);
 	}
-	
-	/**
-	 * Returns a list of all {@link UmlPackage}s regardless of their hierarchy
-	 * 
-	 * @return a list of all {@link UmlPackage}s
-	 */
-	public List<UmlPackage> getPackagesAsList() {
-		List<UmlPackage> ownedPackages = new ArrayList<>();
-		
-		for (UmlPackage umlPackage : getPackages()) {
-			ownedPackages.add(umlPackage);
-			ownedPackages.addAll(umlPackage.getPackagesAsList());
-		}
-		
-		return ownedPackages;
-	}
-	
-	/**
-	 * Returns a list of all {@link UmlRelationship}s regardless of their hierarchy
-	 * 
-	 * @return a list of all {@link UmlRelationship}s
-	 */
-	public List<UmlRelationship> getRelationshipsAsList() {
-		List<UmlRelationship> ownedRelationships = new ArrayList<>();
-		ownedRelationships.addAll(getRelationships());
-		
-		for (UmlPackage umlPackage : getPackagesAsList()) {
-			ownedRelationships.addAll(umlPackage.getRelationships());
-		}
-		
-		return ownedRelationships;
-	}
 }

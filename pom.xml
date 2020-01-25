@@ -21,7 +21,7 @@
     	<module>converter-uml-code</module>
     	<module>converter-code-test</module>
     	<module>output-junit-converter</module>
-    <module>output-junit-representation</module>
+		<module>output-junit-representation</module>
   </modules>
 
 	<properties>

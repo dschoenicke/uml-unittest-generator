@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A package containing {@link CodeElement}s and other sub-{@link CodePackage}s
@@ -17,7 +18,7 @@ public class CodePackage implements CodeParent {
 	/**
 	 * The name of the package
 	 */
-	private String name;
+	@Setter private String name;
 	
 	/**
 	 * List of sub packages of the package

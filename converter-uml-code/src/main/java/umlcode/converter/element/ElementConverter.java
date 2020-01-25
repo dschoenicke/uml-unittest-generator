@@ -44,11 +44,11 @@ public class ElementConverter {
 			}
 		}
 		
-		for (UmlPackage umlPackage : umlModel.getPackagesAsList()) {
-			for (UmlElement umlElement : umlPackage.getElements()) {
-				convertElement(umlElement, umlPackage, null, tmpModel);
-			}
-		}
+		tmpModel.getConvertedPackages().forEach((umlPackage, codePackage) ->
+			umlPackage.getElements().forEach(umlElement ->
+				convertElement(umlElement, umlPackage, codePackage, tmpModel)
+			)
+		);
 	}
 	
 	/**
@@ -66,10 +66,6 @@ public class ElementConverter {
 	 * @return the converted {@link code.CodeElement}
 	 */
 	public static CodeElement convertElement(UmlElement element, UmlPackage umlPackage, CodeParent parent, TemporaryModel tmpModel) {
-		if (parent == null) {
-			parent= tmpModel.getConvertedPackages().get(umlPackage);
-		}
-		
 		assertNotNull("There was no CodePackage found to add the CodeElement " + element.getName() + " to!" +
 				(umlPackage != null ? ("\nA package with name " + umlPackage.getName() + " is expected!") : ""), parent);
 				

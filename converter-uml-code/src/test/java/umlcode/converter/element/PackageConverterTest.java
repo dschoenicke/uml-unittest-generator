@@ -35,6 +35,8 @@ public class PackageConverterTest extends UmlCodeConverterTests {
 		assertEquals(2, codeRepresentation.getPackages().size());
 		assertTrue(codeRepresentation.getPackages().contains(topLevelPackage));
 		assertTrue(topLevelPackage.getPackages().contains(subPackage));
+		assertEquals("Model", topLevelPackage.getName());
+		assertEquals("SubPackage", subPackage.getName());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

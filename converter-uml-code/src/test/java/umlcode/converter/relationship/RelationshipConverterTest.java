@@ -4,14 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import uml.UmlRelationship;
 import umlcode.UmlCodeConverterTests;
-import umlcode.converter.relationship.RelationshipConverter;
 
 public class RelationshipConverterTest extends UmlCodeConverterTests {
 
@@ -26,15 +22,15 @@ public class RelationshipConverterTest extends UmlCodeConverterTests {
 	
 	@Test
 	public void testRelationshipConverter() {
-		List<UmlRelationship> relationships = List.of(umlClassGeneralization, umlInterfaceRealization);
-		RelationshipConverter.convertRelationships(relationships, mockTmpModel);
-		assertEquals(codeSubClass.getSuperClass(), codeTopLevelClass);
+		RelationshipConverter.convertRelationships(umlModel, mockTmpModel);
 		assertTrue(codeTopLevelClass.getInterfaces().contains(codeTopLevelInterface));
+		RelationshipConverter.convertRelationships(umlTopLevelPackage, mockTmpModel);
+		assertEquals(codeSubClass.getSuperClass(), codeTopLevelClass);
 	}
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidRelationship() {
-		RelationshipConverter.convertRelationships(List.of(umlDependency), mockTmpModel);
+		RelationshipConverter.convertRelationships(umlGenericClass, mockTmpModel);
 		assertNull(codeSubClass.getSuperClass());
 	}
 }

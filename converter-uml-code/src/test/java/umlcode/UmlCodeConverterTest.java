@@ -18,6 +18,7 @@ public class UmlCodeConverterTest extends UmlCodeConverterTests {
 		assertEquals(umlModel.getPackages().size() + 1, converter.convertUmlToCodeRepresentation(umlModel, map, map).getPackages().size());
 		umlModel.getElements().clear();
 		umlModel.getRelationships().clear();
+		umlTopLevelPackage.getRelationships().clear();
 		assertEquals(umlModel.getPackages().size(), converter.convertUmlToCodeRepresentation(umlModel, map, map).getPackages().size());
 		umlModel.addElement(new UmlClass("Test<>", UmlVisibility.PUBLIC, false, false, false));
 		umlModel.addElement(new UmlClass("Test[]", UmlVisibility.PUBLIC, false, false, false));
