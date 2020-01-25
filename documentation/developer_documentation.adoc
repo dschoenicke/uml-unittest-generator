@@ -14,7 +14,12 @@
 |===
 
 == Context
-* Task description
+Most of the time testing of applications is behavior based. But especially in an educational environment e.g. E-Learning it is important
+to check the structure of the application, whether it matches the require architecture. UML class diagrams are used to describe such an architecture
+and therefore it is desired to automatically validate the structure of the implemented application against the structure given in the diagram.
+
+This tool provides an automatic generation of test files for the application structure based on a given input diagram. Input diagram formats as well as
+output test formats are variable and can easily be extended.
 
 [#constraints]
 == Constraints
