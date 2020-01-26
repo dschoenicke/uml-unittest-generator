@@ -100,7 +100,7 @@ any association with `*` as the upper multiplicity value is considered an array.
 
 ==== Example
 Consider the following association: +
-image:documentation/diagrams/association.svg[association]
+image:documentation/diagrams/img/association.svg[association]
 
 The class `parent` can have zero or more instances of `child`. Without any more information, the field `Parent.childs` is considered to be an array. +
 The command `-aat Parent.childs java.util.List` changes the type of `Parent.child` from `Child` to `java.util.List<Child>` which allows the tool to check

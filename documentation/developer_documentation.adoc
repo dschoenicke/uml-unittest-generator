@@ -10,7 +10,7 @@
 [cols="1, 3, 3"]
 |===
 |Version | Processing Date   | Author 
-|0.3	| January 24th, 2020s | Daniel Schoenicke 
+|1.0	| January 26th, 2020s | Daniel Schoenicke 
 |===
 
 == Context
@@ -23,11 +23,34 @@ output test formats are variable and can easily be extended.
 
 [#constraints]
 == Constraints
-* Definition of constraints for the input diagrams
+To work properly, the tool expects an syntactically correct UML diagram with the following additional constraints.
+
+=== Detection of external classes and packages
+To exclude the creation of test files of external classes which are part of the input class diagram, the tool checks the package names.
+The names of packages containing classes to be tested must start with the name of the model.
+
+Example for model with name `app`:
+[cols="3h,1,1,1,1,1"]
+|===
+| package name | app | app.package | app.app | application | other.app
+| included in test file creation | [green]#*yes*# | [green]#*yes*# | [green]#*yes*# | [red]#*no*# | [red]#*no*#
+|===
+
+=== Classes without a package
+Given the case that the input diagram contains classes which are not inside a package, the converter assumes, that these classes are part of
+a package with the model name. Therefore in such a scenario a package with the model name is created where these classes are assigned to. +
+Therefore a diagram containing classes without a package *must not* contain another package with the model name.
+
+Example for model with name `app`:
+[cols="1h,3,3,3"]
+|===
+| model a|image:diagrams/img/valid1.svg[valid1] a|image:diagrams/img/valid2.svg[valid2] a|image:diagrams/img/invalid.svg[invalid]
+| valid | [green]#*yes*# | [green]#*yes*# | [red]#*no*#
+|===
 
 == Architecture
 [caption="Figure 1: Top Level Architecture"]
-image:diagrams/top-level-diagram.svg[top level architecture]
+image:diagrams/img/top-level-diagram.svg[top level architecture]
 
 The project _{project_name}_ is a Maven parent project, which consists
 of the _core_-module and additional modules of input representations and converters, 
@@ -146,7 +169,7 @@ Therefore, a package with the name of the model is not allowed, as long as the m
 external packages, such packages stay direct child elements of the _CodeRepresentation_, while the other packages with the model name as prefix become child packages of the newly created 
 model package.
 
-image:diagrams/umlcode.svg[umlcode-conversion]
+image:diagrams/img/umlcode.svg[umlcode-conversion]
 
 In the <<representation-uml>> each modifier is represented by its own value: boolean values for _static_, _final_ and _abstract_, and _UmlVisibility_ for the access modifiers. 
 The <<representation-code>> handles modifiers as an integer value, computed out of all the modifier values, the same way, the Java Reflection API handles these values.
@@ -167,7 +190,7 @@ It has the narrow field of task of creating an abstract test structure by creati
 Instead of abstracting the <<#representation-code>> the main conversion step of the _code test converter_ is to split up a _CodeElemet_ into two objects: a _TestClass_ object representing the actual file in
 its package and the corresponding _ClassUnderTest_, representing the class with its components to be tested.
 
-image:diagrams/codetest.svg[codetest]
+image:diagrams/img/codetest.svg[codetest]
 
 [#input]
 == Input
