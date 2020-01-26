@@ -127,9 +127,9 @@ The following sections provide descriptions of the two converters, pointing out 
 
 [#umlcode]
 === converter-uml-code
-link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the umlcode package] +
+link:javadoc/umlcode/package-summary.html[Javadoc of the umlcode package] +
 link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the umlcode.converter.element package] +
-link:javadoc/umlcode/converter/element/package-summary.html[Javadoc of the umlcode.converter.relationship package]
+link:javadoc/umlcode/converter/relationship/package-summary.html[Javadoc of the umlcode.converter.relationship package]
 
 The _uml code converter_ consists out of three packages: the main package with the main converter class, the element package with the converters responsible
 for converting _UmlElements_ to _CodeElements_ and the relationship package resolving the _UmlRelationships_.
@@ -163,7 +163,7 @@ link:javadoc/codetest/converter/package-summary.html[Javadoc of the codetest.con
 The _code test converter_ consists out of two packages: the main package with the main converter class and the converter package with the converters responsible for converting
 _CodeElements_ to _TestClasses_ and _ClassUnderTest_ objects.
 
-Has the narrow field of task of creating an abstract test structure by creating representations of the packages and files of the test suite to be created as well as a representation of the test cases.
+It has the narrow field of task of creating an abstract test structure by creating representations of the packages and files of the test suite to be created as well as a representation of the test cases.
 Instead of abstracting the <<#representation-code>> the main conversion step of the _code test converter_ is to split up a _CodeElemet_ into two objects: a _TestClass_ object representing the actual file in
 its package and the corresponding _ClassUnderTest_, representing the class with its components to be tested.
 
@@ -177,7 +177,7 @@ This chapter describes on the example of the _input-mdmxl-representation_ and _i
 how such a representation and converter can be implemented.
 
 === input-mdxml-representation
-link:../javadoc/mdxml/package-summary.html[Javadoc of the mdxml package]
+link:javadoc/mdxml/package-summary.html[Javadoc of the mdxml package]
 
 MagicDraw provides the ability to save projects in an XML file. As a first step, this XML representation is converted into
 the _input-mdxml-representation_ by unmarshalling the XML elements to Java objects with link:https://github.com/eclipse-ee4j/jaxb-ri[JAXB]. +
@@ -190,7 +190,7 @@ path to the XML file as an argument in its constructor, where it initializes the
 interface, provided by the _UML Representation_, which is necessary for the _input-mdxml-converter_.
 
 === input-mdxml-converter
-link:../javadoc/mdxmlconverter/package-summary.html[Javadoc of the input-mdxml-converter]
+link:javadoc/inputmdxml/package-summary.html[Javadoc of the input-mdxml-converter]
 
 A converter converting an input representation to the _UML representation_ must have a central class implementing the link:/javadoc/uml/converterinterface/UmlRepresentationConverter.html[UmlRepresentationConverter] interface
 with its _convertToUmlRepresentation_ method. This method requires an object of type _UmlInputRepresentation_ which should be the root class of the input representation.
@@ -206,10 +206,46 @@ To convert an uml class diagram to the _UML representation_ follow these steps:
 * Model the diagram according to the defined <<#constraints>>.
 * Transform the project into a representation with a root class implementing the _UmlInputRepresentation_ interface.
 * Implement a converter using the _UmlRepresentationConverter_ interface to convert the input representation to the _UML-representation_.
+* Add a mapping for the new input converter to link:javadoc/core/options/TestCreator.html#inputtypes[the inputtypes map] in TestCreator.java
 
 [#output]
 == Output
-* Description of how to implement an output representation and converter
+The _{project_name}_ provides the <<representation-test>> as a final representation out of which an additional converter has to create the actual test files. Besides the implementation of such a converter this might also include
+the implementation of one or more additional representation. +
+The following section describes the _output-junit-converter_ with the corresponding _output-junit-representation_ which convert a <<representation-test>> to junit test files.
+
+[#junit-representation]
+=== output-junit-representation
+link:javadoc/junit/package-summary.html[Javadoc of the output-junit-representation]
+
+Before the jUnit test files can be created, an additional representation is required.
+The _output-junit-representation_ equals the <<representation-test>> describing the directory structure of the test files with _JunitPackages_ and _JunitTestClasses_.
+The core of this representation are _JunitAssertions_. These objects have an _expected value_, _actual value_ and _message_ to denote an actual JUnit Assertion.
+A _JunitTestClass_ contains multiple lists of such _JunitAssertions_ for main class properties, relationships, template parameters and enum constants. Furthermore, a _JunitTestClass_ has
+lists of _JunitFieldUnderTest_, _JunitConstructorUnderTest_ and _JunitMethodUnderTest_ which describe these class members and contain corresponding _JunitAssertions_.
+
+=== output-junit-converter
+link:javadoc/outputjunit/package-summary.html[Javadoc of the outputjunit package] + 
+link:javadoc/outputjunit/converter/package-summary.html[Javadoc of the outputjunit.converter package] +
+link:javadoc/outputjunit/files/package-summary.html[Javadoc of the outputjunit.files package]
+
+The _output-junit-converter_ consists out of three packages: the main package with the main converter class, the converter package responsible for creating a <<junit-representation>> out of the given
+<<representation-test>> and the files package responsible for creating the actual test directory and test files.
+
+The first step is to convert the given <<representation-test>> to a <<junit-representation>>. Hereby, the _AssertionConverter_ creates _JunitAssertions_ for all of the test cases. These assertions use the
+Java Reflection API to get the actual values of the implementation and compare them with the expected ones of the representation. 
+
+The second step is to use the _JunitPackages_ of the _JunitRepresentation_ to create directories for the test files and fill them with the actual test files.
+For creating the test files the template engine link:https://github.com/spullara/mustache.java[Mustache] is used. The template file determines the structure of the test file and is
+filled with the values of the corresponding _JunitTestClass_.
+
+=== Summary - How to write an output-converter
+To convert a <<representation-test>> to test files follow these steps:
+
+* Consider defining another representation which matches your desired output format
+* Write a converter converting the <<representation-test>> to the potential additional output representation implementing _test.converterinterface.TestConverter_.
+* Extend the converter with methods creating test files out of the representation
+* Add a mapping for the new output converter to link:javadoc/core/options/TestCreator.html#outputtypes[the output types map] in TestCreator.java
 
 == Test Plan
 This section provides an overview about the jUnit Tests of the application.
