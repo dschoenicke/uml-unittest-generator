@@ -17,8 +17,6 @@ import uml.UmlModel;
 import uml.UmlModelTests;
 import uml.UmlPackage;
 import uml.UmlRelationship;
-import umlcode.TemporaryModel;
-import umlcode.UmlCodeConverter;
 
 public class UmlCodeConverterTests {
 	

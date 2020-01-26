@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import umlcode.UmlCodeConverterTests;
-import umlcode.converter.element.LiteralConverter;
 
 public class LiteralConverterTest extends UmlCodeConverterTests {
 

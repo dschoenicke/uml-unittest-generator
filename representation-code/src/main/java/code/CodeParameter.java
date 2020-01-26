@@ -39,9 +39,4 @@ public class CodeParameter {
 	 * Determines whether the parameter has a multiplicity
 	 */
 	@NonNull private Boolean hasMultiplicity;
-	
-	/**
-	 * The {@link CodeParent} of the parameter
-	 */
-	@NonNull @Setter private CodeParent parent;
 }

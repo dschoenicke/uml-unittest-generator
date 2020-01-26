@@ -44,11 +44,8 @@ public class InterfaceRealizationConverter {
 			if (parent instanceof UmlModel) {
 				((UmlModel) parent).addRelationship(tmpRelationship);
 			}
-			else if (parent instanceof UmlPackage) {
-				((UmlPackage) parent).addRelationship(tmpRelationship);
-			}
 			else {
-				throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for the InterfaceRealization with id: " + realization.getId() + "!");
+				((UmlPackage) parent).addRelationship(tmpRelationship);
 			}
 		}
 	}

@@ -24,11 +24,11 @@ public class CodeEnumeration extends CodeElement {
 	 * Initializes the list of {@link CodeLiteral}s
 	 * 
 	 * @param name the name of the enumeration
-	 * @param parent the {@link CodeParent} of the enumeration
+	 * @param parent the {@link CodePackage} of the enumeration
 	 * @param modifiers the modifier value of the class
 	 */
 	public CodeEnumeration(String name, 
-			CodeParent parent,
+			CodePackage parent,
 			int modifiers) {
 		
 		super(name, parent, modifiers);

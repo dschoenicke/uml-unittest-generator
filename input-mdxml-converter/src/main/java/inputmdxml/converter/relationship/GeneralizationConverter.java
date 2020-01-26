@@ -39,11 +39,8 @@ public class GeneralizationConverter {
 		if (parent instanceof UmlModel) {
 			((UmlModel) parent).addRelationship(tmpRelationship);
 		}
-		else if (parent instanceof UmlPackage) {
-			((UmlPackage) parent).addRelationship(tmpRelationship);
-		}
 		else {
-			throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for the relationship in PackagedElement with id: " + packagedElement.getId() + "!");
+			((UmlPackage) parent).addRelationship(tmpRelationship);
 		}
 		
 		return tmpRelationship;

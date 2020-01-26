@@ -31,13 +31,10 @@ public class PackageConverter {
 				convertPackage(codePackage, testParent, tmpModel);
 			}
 		}
-		else if (codeParent instanceof CodePackage) {
+		else {
 			for (CodePackage codePackage : ((CodePackage) codeParent).getPackages()) {
 				convertPackage(codePackage, testParent, tmpModel);
 			}
-		}
-		else {
-			throw new IllegalArgumentException("The CodeParent " + codeParent.getName() + " must be an instance of CodeRepresentation or CodePackage!");
 		}
 	}
 	

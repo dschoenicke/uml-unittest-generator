@@ -2,12 +2,9 @@ package umlcode.converter.element;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import code.CodeConstructor;
-import code.CodeElement;
-import code.CodeMethod;
-import code.CodeParent;
 import code.CodeTemplateBinding;
 import lombok.experimental.UtilityClass;
 import uml.UmlParameterSubstitution;
@@ -33,38 +30,29 @@ public class TemplateBindingConverter {
 	 * Static method converting a given list of {@link uml.UmlTemplateBinding}s to {@link code.CodeTemplateBinding}s
 	 * 
 	 * @param templateBindings the list of {@link uml.UmlTemplateBinding}s to be converted
-	 * @param codeParent the {@link code.CodeParent} to add the converted {@link code.CodeTemplateBinding} to
 	 * @param tmpModel the {@link umlcode.TemporaryModel} containing the maps to add temporary {@link code.CodeTemplateBinding}s to
+	 * @return the converted {@link code.CodeTemplateBinding}s.
 	 */
-	public static void convertTemplateBindings(List<UmlTemplateBinding> templateBindings, CodeParent codeParent, TemporaryModel tmpModel) {
-		for (UmlTemplateBinding templateBinding : templateBindings) {
-			convertTemporaryTemplateBinding(templateBinding, codeParent, tmpModel);
-		}
+	public static List<CodeTemplateBinding> convertTemplateBindings(List<UmlTemplateBinding> templateBindings, TemporaryModel tmpModel) {
+		List<CodeTemplateBinding> returnTemplateBindings = new ArrayList<>();
+		templateBindings.forEach(templateBinding ->
+			returnTemplateBindings.add(convertTemporaryTemplateBinding(templateBinding, tmpModel))
+		);
+		
+		return returnTemplateBindings;
 	}
 	
 	/**
 	 * Static method converting a given {@link uml.UmlTemplateBinding} to a {@link code.CodeTemplateBinding} and adding it to the {@link umlcode.TemporaryModel}
 	 * 
 	 * @param templateBinding the {@link uml.UmlTemplateBinding} to be converted
-	 * @param codeParent the {@link code.CodeParent} to add the converted {@link code.CodeTemplateBinding} to
 	 * @param tmpModel the {@link umlcode.TemporaryModel} containing the map to add the temporary {@link code.CodeTemplateBinding} to
+	 * @return the converted {@link code.CodeTemplateBinding}
 	 */
-	static void convertTemporaryTemplateBinding(UmlTemplateBinding templateBinding, CodeParent codeParent, TemporaryModel tmpModel) {
+	static CodeTemplateBinding convertTemporaryTemplateBinding(UmlTemplateBinding templateBinding, TemporaryModel tmpModel) {
 		CodeTemplateBinding codeTemplateBinding = new CodeTemplateBinding();
 		tmpModel.addTemporaryTemplateBinding(codeTemplateBinding, templateBinding.getParameterSubstitutions());
-		
-		if (codeParent instanceof CodeElement) {
-			((CodeElement) codeParent).addTemplateBinding(codeTemplateBinding);
-		}
-		else if (codeParent instanceof CodeConstructor) {
-			((CodeConstructor) codeParent).getTemplateBindings().add(codeTemplateBinding);
-		}
-		else if (codeParent instanceof CodeMethod) {
-			((CodeMethod) codeParent).getTemplateBindings().add(codeTemplateBinding);
-		}
-		else {
-			throw new IllegalArgumentException(codeParent.getName() + " is an invalid parent for a template binding!");
-		}
+		return codeTemplateBinding;
 	}
 	
 	/**

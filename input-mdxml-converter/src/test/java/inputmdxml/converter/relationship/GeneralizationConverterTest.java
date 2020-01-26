@@ -43,9 +43,4 @@ public class GeneralizationConverterTest extends MdxmlUmlConverterTests {
 		assertEquals(mdxmlTopLevelClass.getId(), ((TemporaryRelationship) relationship).getSupplierId());
 		assertEquals(UmlRelationshipType.GENERALIZATION, relationship.getType());
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidGeneralization() {
-		GeneralizationConverter.convertGeneralization(mdxmlSubClass, mockTmpModel, umlBigEnum);
-	}
 }

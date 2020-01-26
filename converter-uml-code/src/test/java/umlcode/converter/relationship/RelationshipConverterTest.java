@@ -1,7 +1,6 @@
 package umlcode.converter.relationship;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -26,11 +25,5 @@ public class RelationshipConverterTest extends UmlCodeConverterTests {
 		assertTrue(codeTopLevelClass.getInterfaces().contains(codeTopLevelInterface));
 		RelationshipConverter.convertRelationships(umlTopLevelPackage, mockTmpModel);
 		assertEquals(codeSubClass.getSuperClass(), codeTopLevelClass);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidRelationship() {
-		RelationshipConverter.convertRelationships(umlGenericClass, mockTmpModel);
-		assertNull(codeSubClass.getSuperClass());
 	}
 }

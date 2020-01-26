@@ -7,7 +7,6 @@ import codetest.TemporaryModel;
 import lombok.experimental.UtilityClass;
 import test.TestClass;
 import test.TestPackage;
-import test.testobjects.ClassUnderTest;
 
 /**
  * Provides static methods to convert {@link code.CodeElement}s of the {@link code.CodePackage}s in the {@link codetest.TemporaryModel} to {@link test.TestClass}es.
@@ -21,14 +20,23 @@ public class TestClassConverter {
 	/**
 	 * Static methods to convert {@link code.CodeElement}s of the {@link code.CodePackage}s in the {@link codetest.TemporaryModel} to {@link test.TestClass}es.
 	 * 
-	 * @param tmpModel the {@link codetest.TemporaryModel} containing a map of {@link code.CodePackage}s and the corresponding converted {@link test.TestPackage}s.
+	 * @param tmpModel the {@link codetest.TemporaryModel} containing a map of {@link code.CodePackage}s and the corresponding converted {@link test.TestPackage}s as well as {@link test.testobjects.ClassUnderTest}s with their corresponding {@link code.CodeElement}s.
 	 */
 	public static void convertTestClasses(TemporaryModel tmpModel) {
 		tmpModel.getConvertedPackages().forEach((codePackage, testPackage) -> 
 			codePackage.getElements().forEach(codeElement -> 
-				convertTestClass(codeElement, testPackage)
+				tmpModel.addConvertedClassUnderTest(codeElement, convertTestClass(codeElement, testPackage).getClassUnderTest())
 			)
 		);
+		
+		tmpModel.getConvertedClassesUnderTest().forEach((codeElement, classUnderTest) -> {
+			if (codeElement.getNestHost().isPresent()) {
+				classUnderTest.setNestHost(Optional.of(tmpModel.getConvertedClassesUnderTest().get(codeElement.getNestHost().get())));
+			}
+			else {
+				classUnderTest.setNestHost(Optional.empty());
+			}
+		});
 	}
 	
 	/**
@@ -36,31 +44,11 @@ public class TestClassConverter {
 	 * 
 	 * @param codeElement the {@link code.CodeElement} to be converted.
 	 * @param parent the {@link test.TestPackage} containing the converted {@link test.TestClass}.
+	 * @return the converted {@link test.TestClass}
 	 */
-	static void convertTestClass(CodeElement codeElement, TestPackage parent) {
+	static TestClass convertTestClass(CodeElement codeElement, TestPackage parent) {
 		TestClass testClass = new TestClass(codeElement.getName() + "Test", parent, ClassUnderTestConverter.convertClassUnderTest(codeElement));
-		testClass.getClassUnderTest().setNestHost(Optional.empty());
 		parent.addTestClass(testClass);
-		
-		for (CodeElement nestedElement : codeElement.getNestedElements()) {
-			convertTestClass(nestedElement, parent, testClass.getClassUnderTest());
-		}
-	}
-	
-	/**
-	 * Static method converting a given nested {@link code.CodeElement} to a {@link test.TestClass} with its {@link test.testobjects.ClassUnderTest} and adds it to the given {@link test.TestPackage} as well as setting the parent class as nest host of the resulting {@link test.testobjects.ClassUnderTest}.
-	 * 
-	 * @param codeElement the {@link code.CodeElement} to be converted.
-	 * @param parent the {@link test.TestPackage} containing the converted {@link test.TestClass}.
-	 * @param nestHost the {@link test.testobjects.ClassUnderTest} acting as the nest host of the element.
-	 */
-	static void convertTestClass(CodeElement codeElement, TestPackage parent, ClassUnderTest nestHost) {
-		TestClass testClass = new TestClass(codeElement.getName() + "Test", parent, ClassUnderTestConverter.convertClassUnderTest(codeElement));
-		testClass.getClassUnderTest().setNestHost(Optional.of(nestHost));
-		parent.addTestClass(testClass);
-		
-		for (CodeElement nestedElement : codeElement.getNestedElements()) {
-			convertTestClass(nestedElement, parent, testClass.getClassUnderTest());
-		}
+		return testClass;
 	}
 }

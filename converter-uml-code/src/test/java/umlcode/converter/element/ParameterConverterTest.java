@@ -12,7 +12,6 @@ import uml.UmlMultiplicityValue;
 import uml.UmlParameter;
 import uml.UmlParameterDirection;
 import umlcode.UmlCodeConverterTests;
-import umlcode.converter.element.ParameterConverter;
 
 public class ParameterConverterTest extends UmlCodeConverterTests {
 
@@ -20,9 +19,8 @@ public class ParameterConverterTest extends UmlCodeConverterTests {
 	public void testCreateParameter() { 
 		UmlParameter mockUmlParameter = umlGenericClass.getOperations().get(1).getParameters().get(0);
 		codeGenericClass.getMethods().get(0).getParameters().clear();
-		CodeParameter convertedParameter = ParameterConverter.createParameter(mockUmlParameter, codeGenericClass.getMethods().get(0));
+		CodeParameter convertedParameter = ParameterConverter.createParameter(mockUmlParameter);
 		assertEquals(mockUmlParameter.getName(), convertedParameter.getName());
-		assertEquals(codeGenericClass.getMethods().get(0), convertedParameter.getParent());
 		assertEquals(mockUmlParameter.getType(), convertedParameter.getType());
 		assertEquals(Integer.valueOf(0), convertedParameter.getModifiers());
 	}
@@ -30,7 +28,7 @@ public class ParameterConverterTest extends UmlCodeConverterTests {
 	@Test
 	public void testNullableParameter() {
 		UmlParameter param = new UmlParameter("", "", UmlParameterDirection.IN, false, UmlMultiplicityValue.ZERO, UmlMultiplicityValue.ONE);
-		assertTrue(ParameterConverter.createParameter(param, codeBigEnum.getConstructors().get(0)).getCanBeNull());
+		assertTrue(ParameterConverter.createParameter(param).getCanBeNull());
 	}
 	
 	@Test

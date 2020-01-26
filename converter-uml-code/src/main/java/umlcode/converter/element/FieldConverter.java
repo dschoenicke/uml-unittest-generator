@@ -35,8 +35,7 @@ public class FieldConverter {
 							false),
 					attribute.getDefaultValue(),
 					Boolean.valueOf(attribute.getLowerValue() == UmlMultiplicityValue.ZERO),
-					Boolean.valueOf(attribute.getUpperValue() == UmlMultiplicityValue.INFINITE),
-					codeElement
+					Boolean.valueOf(attribute.getUpperValue() == UmlMultiplicityValue.INFINITE)
 				));
 		}
 	}

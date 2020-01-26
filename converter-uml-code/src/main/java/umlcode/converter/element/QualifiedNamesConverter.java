@@ -2,6 +2,7 @@ package umlcode.converter.element;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import code.CodeElement;
 import code.CodePackage;
@@ -114,11 +115,13 @@ public class QualifiedNamesConverter {
 	 * @return the fully qualified name for the given {@link code.CodeElement}.
 	 */
 	static String createQualifiedName(CodeElement codeElement) {
-		if (codeElement.getParent() instanceof CodePackage) {
-			return createQualifiedName((CodePackage) codeElement.getParent()) + "." + codeElement.getName();
+		Optional<CodeElement> nestHost = codeElement.getNestHost();
+		
+		if (nestHost.isPresent()) {
+			return createQualifiedName(nestHost.get()) + '$' + codeElement.getName();
 		}
 		
-		return createQualifiedName((CodeElement) codeElement.getParent()) + "$" + codeElement.getName();
+		return createQualifiedName(codeElement.getParent()) + "." + codeElement.getName();
 	}
 	
 	/**

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import uml.UmlVisibility;
-import umlcode.converter.element.ModifierConverter;
 
 public class ModifierConverterTest {
 

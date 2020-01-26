@@ -31,12 +31,11 @@ public class ConstructorConverter {
 				continue;
 			}
 			
-			CodeConstructor constructor = new CodeConstructor(codeElement,
-					ModifierConverter.convertModifierValue(operation.getVisibility(), operation.isStatic(), operation.isFinal(), operation.isAbstract()));
+			CodeConstructor constructor = new CodeConstructor(ModifierConverter.convertModifierValue(operation.getVisibility(), operation.isStatic(), operation.isFinal(), operation.isAbstract()));
 			
 			ParameterConverter.convertParameters(operation, constructor);
-			TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), constructor, tmpModel);
-			TemplateBindingConverter.convertTemplateBindings(operation.getTemplateBindings(), constructor, tmpModel);
+			constructor.getTemplateParameters().addAll(TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), tmpModel));
+			constructor.getTemplateBindings().addAll(TemplateBindingConverter.convertTemplateBindings(operation.getTemplateBindings(), tmpModel));
 			codeElement.addConstructor(constructor);
 		}
 	}

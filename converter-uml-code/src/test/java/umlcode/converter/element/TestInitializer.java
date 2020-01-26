@@ -53,11 +53,11 @@ public class TestInitializer {
 		mockUmlConstructor.addTemplateParameter(mockUmlTemplateParameter);
 		
 		mockCodeClass = new CodeClass("codeClass", null, 1);
-		mockCodeMethod = new CodeMethod("mockCodeMethod", mockCodeClass, null, false, 1);
-		mockCodeMethod.setReturnType(new CodeParameter("", "String", 0, false, false, mockCodeMethod));
-		mockCodeConstructor = new CodeConstructor(mockCodeClass, 2);
+		mockCodeMethod = new CodeMethod("mockCodeMethod", null, false, 1);
+		mockCodeMethod.setReturnType(new CodeParameter("", "String", 0, false, false));
+		mockCodeConstructor = new CodeConstructor(2);
 		
-		mockCodeTemplateParameter = new CodeTemplateParameter("T", mockCodeClass, "java.lang.Object");
+		mockCodeTemplateParameter = new CodeTemplateParameter("T", "java.lang.Object");
 		mockCodeTemplateBinding = new CodeTemplateBinding();
 		mockTmpModel.addConvertedTemplateParameter(mockUmlTemplateParameter, mockCodeTemplateParameter);
 		mockTmpModel.addTemporaryTemplateBinding(mockCodeTemplateBinding, mockUmlTemplateBinding.getParameterSubstitutions());

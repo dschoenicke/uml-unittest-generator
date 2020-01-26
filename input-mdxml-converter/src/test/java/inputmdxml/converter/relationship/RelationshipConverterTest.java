@@ -57,11 +57,6 @@ public class RelationshipConverterTest extends MdxmlUmlConverterTests {
 		assertEquals(UmlRelationshipType.DEPENDENCY, relationship.getType());
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidRelationship() {
-		RelationshipConverter.convertRelationship(mdxmlDependency, umlBigEnum, mockTmpModel);
-	}
-	
 	@Test
 	public void testInvalidRelationshipType() {
 		mdxmlDependency.setType("-");

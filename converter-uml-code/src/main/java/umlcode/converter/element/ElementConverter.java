@@ -2,12 +2,13 @@ package umlcode.converter.element;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Optional;
+
 import code.CodeClass;
 import code.CodeElement;
 import code.CodeEnumeration;
 import code.CodeInterface;
 import code.CodePackage;
-import code.CodeParent;
 import code.CodeRepresentation;
 import lombok.experimental.UtilityClass;
 import uml.UmlClass;
@@ -61,19 +62,19 @@ public class ElementConverter {
 	 * 
 	 * @param element the {@link uml.UmlElement} to be converted
 	 * @param umlPackage the {@link uml.UmlPackage} used to get the {@link code.CodePackage} out of the map of the {@link umlcode.TemporaryModel}. Can be {@literal null} in case of the conversion of a nested {@link uml.UmlElement} 
-	 * @param parent the {@link code.CodeParent} to add the converted {@link code.CodeElement} to. Can be {@literal null} in which case it needs to be taken out of the map in the {@link umlcode.TemporaryModel} with the {@link uml.UmlPackage} as key.
+	 * @param codePackage the {@link code.CodePackage} to add the converted {@link code.CodeElement} to.
 	 * @param tmpModel the {@link umlcode.TemporaryModel} containing the maps to add temporary {@link code.CodeTemplateBinding}s and converted {@link code.CodeTemplateParameter}s and {@link code.CodeElement}s to
 	 * @return the converted {@link code.CodeElement}
 	 */
-	public static CodeElement convertElement(UmlElement element, UmlPackage umlPackage, CodeParent parent, TemporaryModel tmpModel) {
+	public static CodeElement convertElement(UmlElement element, UmlPackage umlPackage, CodePackage codePackage, TemporaryModel tmpModel) {
 		assertNotNull("There was no CodePackage found to add the CodeElement " + element.getName() + " to!" +
-				(umlPackage != null ? ("\nA package with name " + umlPackage.getName() + " is expected!") : ""), parent);
+				(umlPackage != null ? ("\nA package with name " + umlPackage.getName() + " is expected!") : ""), codePackage);
 				
 		CodeElement codeElement = null;
 		
 		if (element instanceof UmlClass) {
 			codeElement = new CodeClass(element.getName(),
-					parent,
+					codePackage,
 					ModifierConverter.convertModifierValue(element.getVisibility(), 
 							((UmlClass) element).isStatic(),
 							((UmlClass) element).isFinal(),
@@ -82,7 +83,7 @@ public class ElementConverter {
 		}
 		else if (element instanceof UmlInterface) {
 			codeElement = new CodeInterface(element.getName(),
-					parent,
+					codePackage,
 					ModifierConverter.convertModifierValue(element.getVisibility(), 
 							((UmlInterface) element).isStatic(),
 							false,
@@ -91,7 +92,7 @@ public class ElementConverter {
 		}
 		else {
 			codeElement = new CodeEnumeration(element.getName(),
-					parent,
+					codePackage,
 					ModifierConverter.convertModifierValue(element.getVisibility(), ((UmlEnumeration) element).isStatic(), false, false)
 				);
 		
@@ -101,19 +102,17 @@ public class ElementConverter {
 		FieldConverter.convertFields(element, codeElement);
 		ConstructorConverter.convertConstructors(element, codeElement, tmpModel);
 		MethodConverter.convertMethods(element, codeElement, tmpModel);
-		TemplateParameterConverter.convertTemplateParameters(element.getTemplateParameters(), codeElement, tmpModel);
-		TemplateBindingConverter.convertTemplateBindings(element.getTemplateBindings(), codeElement, tmpModel);
+		codeElement.getTemplateParameters().addAll(TemplateParameterConverter.convertTemplateParameters(element.getTemplateParameters(), tmpModel));
+		codeElement.getTemplateBindings().addAll(TemplateBindingConverter.convertTemplateBindings(element.getTemplateBindings(), tmpModel));
 		
-		for (UmlElement nestedElement : element.getInnerElements()) {
-			codeElement.addNestedElement(convertElement(nestedElement, null, codeElement, tmpModel));
+		for (UmlElement innerElement : element.getInnerElements()) {
+			CodeElement nestedElement = convertElement(innerElement, null, codePackage, tmpModel);
+			nestedElement.setNestHost(Optional.of(codeElement));
+			codeElement.addNestedElement(nestedElement);
 		}
 		
 		tmpModel.addConvertedElement(element, codeElement);
-		
-		if (parent instanceof CodePackage) {
-			((CodePackage) parent).addElement(codeElement);
-		}
-		
+		codePackage.addElement(codeElement);
 		return codeElement;
 	}
 }

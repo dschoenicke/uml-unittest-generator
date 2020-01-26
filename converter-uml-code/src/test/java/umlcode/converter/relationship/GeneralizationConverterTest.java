@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import umlcode.UmlCodeConverterTests;
-import umlcode.converter.relationship.GeneralizationConverter;
 
 public class GeneralizationConverterTest extends UmlCodeConverterTests {
 

@@ -18,9 +18,4 @@ public class CodeLiteral {
 	 * The name of the literal
 	 */
 	@NonNull private String name;
-	
-	/**
-	 * The {@link CodeParent} of the literal
-	 */
-	@NonNull private CodeParent parent;
 }

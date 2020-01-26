@@ -12,7 +12,6 @@ import org.junit.Test;
 import code.CodeField;
 import uml.UmlAttribute;
 import umlcode.UmlCodeConverterTests;
-import umlcode.converter.element.FieldConverter;
 
 /**
  * Tests the {@link FieldConverter}.
@@ -40,7 +39,6 @@ public class FieldConverterTest extends UmlCodeConverterTests {
 		assertTrue(firstField.getDefaultValue().isEmpty());
 		assertFalse(firstField.getCanBeNull());
 		assertTrue(firstField.getHasMultiplicity());
-		assertEquals(firstField.getParent(), codeGenericClass);
 		
 		assertEquals(secondAttribute.getName(), secondField.getName());
 		assertEquals(secondAttribute.getType(), secondField.getType());
@@ -48,7 +46,6 @@ public class FieldConverterTest extends UmlCodeConverterTests {
 		assertTrue(secondField.getDefaultValue().isEmpty());
 		assertTrue(secondField.getCanBeNull());
 		assertFalse(secondField.getHasMultiplicity());
-		assertEquals(secondField.getParent(), codeSubClass);
 	}
 	
 	@Test

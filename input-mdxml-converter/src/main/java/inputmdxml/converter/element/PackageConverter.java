@@ -39,11 +39,8 @@ public class PackageConverter {
 		if (parent instanceof UmlModel) {
 			((UmlModel) parent).addPackage(umlPackage);
 		}
-		else if (parent instanceof UmlPackage) {
-			((UmlPackage) parent).addPackage(umlPackage);
-		}
 		else {
-			throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for the package in PackagedElement with id: " + packagedElement.getId() + "!");
+			((UmlPackage) parent).addPackage(umlPackage);
 		}
 		
 		return umlPackage;

@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.Map;
 
-import code.CodePackage;
 import code.CodeRepresentation;
 import lombok.NoArgsConstructor;
 import uml.UmlModel;
@@ -60,7 +59,7 @@ public class UmlCodeConverter
 		RelationshipConverter.convertRelationships(umlModel, tmpModel);
 		codeRepresentation.getElementsAsList().forEach(codeElement -> {
 			if (codeElement.getName().contains("<") || codeElement.getName().contains("[")) {
-				((CodePackage) codeElement.getParent()).getElements().remove(codeElement);
+				(codeElement.getParent()).getElements().remove(codeElement);
 			}
 		});
 		

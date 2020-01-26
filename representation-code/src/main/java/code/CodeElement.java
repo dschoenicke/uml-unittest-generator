@@ -2,6 +2,7 @@ package code;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import lombok.Setter;
  *
  */
 @Getter
-public abstract class CodeElement implements CodeParent {
+public abstract class CodeElement {
 	
 	/**
 	 * The name of the element
@@ -26,9 +27,9 @@ public abstract class CodeElement implements CodeParent {
 	@Setter private String qualifiedName;
 	
 	/**
-	 * The parent {@link CodeParent} of the element
+	 * The parent {@link CodePackage} of the element
 	 */
-	private CodeParent parent;
+	private CodePackage parent;
 	
 	/**
 	 * The list of {@link CodeField}s of the element
@@ -71,22 +72,29 @@ public abstract class CodeElement implements CodeParent {
 	private List<CodeElement> nestedElements;
 	
 	/**
-	 * Constructor with name, fully qualified name, {@link CodeParent} and modifiers.<br>
+	 * The nest host element of the element
+	 */
+	@Setter private Optional<CodeElement> nestHost;
+	
+	/**
+	 * Constructor with name, fully qualified name, {@link CodePackage} and modifiers.<br>
 	 * Initializes the lists of {@link CodeField}s, {@link CodeConstructor}s, {@link CodeMethod}s, {@link CodeTemplateBinding}s, {@link CodeTemplateParameter}s, {@link CodeInterface}s and nested {@link CodeElement}s.<br>
-	 * Sets the qualified name to the name value since it is set afterwards.
+	 * Sets the qualified name to the name value since it is set afterwards.<br>
+	 * Sets the nest host to empty.
 	 * 
 	 * @param name the name of the element
-	 * @param parent the parent {@link CodeParent} of the element
+	 * @param parent the parent {@link CodePackage} of the element
 	 * @param modifiers the modifier value of the class
 	 */
 	public CodeElement(String name, 
-			CodeParent parent,
+			CodePackage parent,
 			int modifiers) {
 		
 		this.name = name;
 		this.qualifiedName = name;
 		this.parent = parent;
 		this.modifiers = modifiers;
+		this.nestHost = Optional.empty();
 		fields = new ArrayList<>();
 		constructors = new ArrayList<>();
 		methods = new ArrayList<>();

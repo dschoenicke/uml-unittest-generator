@@ -44,9 +44,4 @@ public class CodeField {
 	 * Determines whether the field has a multiplicity
 	 */
 	@NonNull private Boolean hasMultiplicity;
-	
-	/**
-	 * The {@link CodeParent} of the field
-	 */
-	@NonNull private CodeParent parent;
 }

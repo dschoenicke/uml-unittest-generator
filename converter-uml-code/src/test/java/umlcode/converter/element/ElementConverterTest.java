@@ -8,7 +8,6 @@ import code.CodeClass;
 import code.CodeEnumeration;
 import code.CodeInterface;
 import umlcode.UmlCodeConverterTests;
-import umlcode.converter.element.ElementConverter;
 
 public class ElementConverterTest extends UmlCodeConverterTests {
 	
@@ -21,7 +20,7 @@ public class ElementConverterTest extends UmlCodeConverterTests {
 		CodeEnumeration mockCodeEnumeration = (CodeEnumeration) ElementConverter.convertElement(umlBigEnum, umlSubPackage, codeSubPackage, mockTmpModel);
 		
 		assertEquals(1, codeTopLevelPackage.getElements().size());
-		assertEquals(2, codeSubPackage.getElements().size());
+		assertEquals(3, codeSubPackage.getElements().size());
 		assertEquals(mockCodeClass, mockTmpModel.getConvertedElements().get(umlSubPackageClass));
 		assertEquals(mockCodeInterface, mockTmpModel.getConvertedElements().get(umlSubInterface));
 		assertEquals(mockCodeEnumeration, mockTmpModel.getConvertedElements().get(umlBigEnum));
@@ -34,7 +33,7 @@ public class ElementConverterTest extends UmlCodeConverterTests {
 		assertEquals(mockCodeEnumeration.getName(), umlBigEnum.getName());
 		assertEquals(mockCodeEnumeration.getParent(), codeSubPackage);
 		assertEquals(mockCodeClass.getNestedElements().get(0).getName(), codeEnumeration.getName());
-		assertEquals(mockCodeClass.getNestedElements().get(0).getParent(), mockCodeClass);
+		assertEquals(mockCodeClass.getNestedElements().get(0).getNestHost().get(), mockCodeClass);
 	}
 	
 	@Test

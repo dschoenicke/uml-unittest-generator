@@ -26,7 +26,7 @@ public class RelationshipConverter {
 	 * to the {@link umlcode.converter.relationship.GeneralizationConverter} and those of type {@link uml.UmlRelationshipType#INTERFACEREALIZATION}
 	 * to the {@link umlcode.converter.relationship.InterfaceRealizationConverter}
 	 * 
-	 * @param parent the {@link uml.UmlModel} or {@link uml.UmlPackage} containing the {@link uml.Relationship}s to be converted
+	 * @param parent the {@link uml.UmlModel} or {@link uml.UmlPackage} containing the {@link uml.UmlRelationship}s to be converted
 	 * @param tmpModel the {@link umlcode.TemporaryModel} containing the map of {@link uml.UmlElement}s and {@link code.CodeElement}s used to convert the {@link uml.UmlRelationship}s
 	 */
 	public static void convertRelationships(UmlParent parent, TemporaryModel tmpModel) {
@@ -37,12 +37,9 @@ public class RelationshipConverter {
 			relationships = ((UmlModel) parent).getRelationships();
 			packages = ((UmlModel) parent).getPackages();
 		}
-		else if (parent instanceof UmlPackage) {
+		else {
 			relationships = ((UmlPackage) parent).getRelationships();
 			packages = ((UmlPackage) parent).getPackages();
-		}
-		else {
-			throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for a relationship!");
 		}
 		
 		

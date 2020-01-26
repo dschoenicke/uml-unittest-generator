@@ -13,7 +13,7 @@ import lombok.Setter;
  *
  */
 @Getter
-public abstract class UmlElement implements UmlParent {
+public abstract class UmlElement {
 
 	/**
 	 * The name of the element

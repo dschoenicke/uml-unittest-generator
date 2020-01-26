@@ -23,7 +23,7 @@ public class LiteralConverter {
 	 */
 	public static void convertLiterals(UmlEnumeration umlEnumeration, CodeEnumeration codeEnumeration) {
 		for (UmlLiteral literal : umlEnumeration.getLiterals()) {
-			codeEnumeration.addCodeLiteral(new CodeLiteral(literal.getName(), codeEnumeration));
+			codeEnumeration.addCodeLiteral(new CodeLiteral(literal.getName()));
 		}
 	}
 }

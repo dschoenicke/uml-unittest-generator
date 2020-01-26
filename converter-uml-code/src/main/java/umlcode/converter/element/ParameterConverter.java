@@ -3,7 +3,6 @@ package umlcode.converter.element;
 import code.CodeConstructor;
 import code.CodeMethod;
 import code.CodeParameter;
-import code.CodeParent;
 import lombok.experimental.UtilityClass;
 import uml.UmlMultiplicityValue;
 import uml.UmlOperation;
@@ -28,7 +27,7 @@ public class ParameterConverter {
 	public static void convertParameters(UmlOperation operation, CodeMethod method) {
 		for (UmlParameter parameter : operation.getParameters()) {
 			if (parameter.getDirection() == UmlParameterDirection.IN) {
-				method.getParameters().add(createParameter(parameter, method));
+				method.getParameters().add(createParameter(parameter));
 			}
 		}
 	}
@@ -41,25 +40,23 @@ public class ParameterConverter {
 	 */
 	public static void convertParameters(UmlOperation operation, CodeConstructor constructor) {
 		operation.getParameters().forEach(parameter -> 
-			constructor.getParameters().add(createParameter(parameter, constructor)
+			constructor.getParameters().add(createParameter(parameter)
 		));
 	}
 	
 	/**
-	 * Static method converting a given {@link uml.UmlParameter} to a {@link code.CodeParameter} and adding it to the {@link code.CodeParent}
+	 * Static method converting a given {@link uml.UmlParameter} to a {@link code.CodeParameter}.
 	 * 
 	 * @param parameter the {@link uml.UmlParameter} to be converted
-	 * @param parent the {@link code.CodeParent} to which the converted {@link code.CodeParameter} should be added to
 	 * @return the converted {@link code.CodeParameter}
 	 */
-	public static CodeParameter createParameter(UmlParameter parameter, CodeParent parent) {
+	public static CodeParameter createParameter(UmlParameter parameter) {
 		return new CodeParameter(
 						(parameter.getDirection() == UmlParameterDirection.IN ? parameter.getName() : ""),
 						parameter.getType(),
 						ModifierConverter.convertModifierValue(null, false, parameter.getIsFinal(), false),
 						(parameter.getLowerValue() == UmlMultiplicityValue.ZERO),
-						(parameter.getUpperValue() == UmlMultiplicityValue.INFINITE),
-						parent
+						(parameter.getUpperValue() == UmlMultiplicityValue.INFINITE)
 					);
 	}
 }

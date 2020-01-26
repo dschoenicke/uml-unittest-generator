@@ -13,17 +13,12 @@ import lombok.Setter;
  *
  */
 @Getter
-public class CodeMethod implements CodeParent {
+public class CodeMethod {
 
 	/**
 	 * The name of the method
 	 */
 	private String name;
-	
-	/**
-	 * The {@link CodeParent} of the method
-	 */
-	private CodeParent parent;
 	
 	/**
 	 * The return type of the method
@@ -56,23 +51,20 @@ public class CodeMethod implements CodeParent {
 	private List<CodeTemplateParameter> templateParameters;
 	
 	/**
-	 * Constructor with name, {@link CodeParent}, return type, value whether the return value has a multiplicity and modifiers.
+	 * Constructor with name, return type, value whether the return value has a multiplicity and modifiers.
 	 * Initializes the lists for {@link CodeParameter}s, {@link CodeTemplateBinding}s and {@link CodeTemplateParameter}s
 	 * 
 	 * @param name the name of the method
-	 * @param parent the {@link CodeParent} element of the method
 	 * @param returnType the {@link CodeParameter} representing the return type of the method
 	 * @param hasMultiplicity true if the field has a multiplicity
 	 * @param modifiers the modifier value of the class
 	 */
 	public CodeMethod(String name,
-			CodeParent parent,
 			CodeParameter returnType,
 			boolean hasMultiplicity,
 			int modifiers) {
 		
 		this.name = name;
-		this.parent = parent;
 		this.returnType = returnType;
 		this.hasMultiplicity = hasMultiplicity;
 		this.modifiers = modifiers;

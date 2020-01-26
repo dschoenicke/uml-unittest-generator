@@ -46,12 +46,9 @@ public class PackageConverter {
 			codePackage = new CodePackage(umlPackage.getName(), parent);
 			((CodeRepresentation) parent).addPackage(codePackage);
 		}
-		else if (parent instanceof CodePackage) {
+		else {
 			codePackage = new CodePackage(umlPackage.getName(), parent);
 			((CodePackage) parent).addPackage(codePackage);
-		}
-		else {
-			throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for package " + umlPackage.getName());
 		}
 		
 		tmpModel.addConvertedPackage(umlPackage, codePackage);

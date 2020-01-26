@@ -38,7 +38,6 @@ public class MethodConverter {
 			
 			CodeMethod method = new CodeMethod(
 					operation.getName(),
-					codeElement,
 					null,
 					(returnParameter.getUpperValue() == UmlMultiplicityValue.INFINITE),
 					ModifierConverter.convertModifierValue(operation.getVisibility(),
@@ -47,11 +46,10 @@ public class MethodConverter {
 					operation.isAbstract())
 				);
 			
-			method.setReturnType(ParameterConverter.createParameter(returnParameter, method));
-			method.getReturnType().setParent(method);
+			method.setReturnType(ParameterConverter.createParameter(returnParameter));
 			ParameterConverter.convertParameters(operation, method);
-			TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), method, tmpModel);
-			TemplateBindingConverter.convertTemplateBindings(operation.getTemplateBindings(), method, tmpModel);
+			method.getTemplateParameters().addAll(TemplateParameterConverter.convertTemplateParameters(operation.getTemplateParameters(), tmpModel));
+			method.getTemplateBindings().addAll(TemplateBindingConverter.convertTemplateBindings(operation.getTemplateBindings(), tmpModel));
 			codeElement.addMethod(method);
 		}
 	}

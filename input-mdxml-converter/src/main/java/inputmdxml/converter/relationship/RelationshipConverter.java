@@ -52,11 +52,8 @@ public class RelationshipConverter {
 		if (parent instanceof UmlModel) {
 			((UmlModel) parent).addRelationship(relationship);
 		}
-		else if (parent instanceof UmlPackage) {
-			((UmlPackage) parent).addRelationship(relationship);
-		}
 		else {
-			throw new IllegalArgumentException(parent.getName() + " is an invalid parent element for the relationship in PackagedElement with id: " + packagedElement.getId() + "!");
+			((UmlPackage) parent).addRelationship(relationship);
 		}
 		
 		return relationship;

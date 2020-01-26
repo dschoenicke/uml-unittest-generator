@@ -19,15 +19,15 @@ public class CodeClass extends CodeElement {
 	private CodeClass superClass;
 	
 	/**
-	 * Constructor with name, {@link CodeParent} and modifiers.<br>
+	 * Constructor with name, {@link CodePackage} and modifiers.<br>
 	 * For further information see {@link CodeElement#CodeElement}
 	 * 
 	 * @param name the name of the class
-	 * @param parent the parent {@link CodeParent} of the class
+	 * @param parent the parent {@link CodePackage} of the class
 	 * @param modifiers the modifier value of the class
 	 */
 	public CodeClass(String name, 
-			CodeParent parent,
+			CodePackage parent,
 			int modifiers) {
 		
 		super(name, parent, modifiers);

@@ -21,9 +21,4 @@ public class PackageConverterTest extends CodeTestConverterTests {
 		assertEquals(codeTopLevelPackage.getName(), testRepresentation.getPackages().get(0).getPackages().get(0).getName());
 		assertEquals(codeSubPackage.getName(), testRepresentation.getPackages().get(0).getPackages().get(0).getPackages().get(0).getName());
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testIllegalPackage() {
-		PackageConverter.convertPackages(codeBigEnum, testRepresentation, mockTmpModel);
-	}
 }

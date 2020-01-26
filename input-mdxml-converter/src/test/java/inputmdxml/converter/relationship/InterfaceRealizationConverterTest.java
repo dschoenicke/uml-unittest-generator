@@ -42,9 +42,4 @@ public class InterfaceRealizationConverterTest extends MdxmlUmlConverterTests {
 		assertEquals(mdxmlTopLevelInterface.getId(), ((TemporaryRelationship) relationship).getSupplierId());
 		assertEquals(UmlRelationshipType.INTERFACEREALIZATION, relationship.getType());
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidInterfaceRealization() {
-		InterfaceRealizationConverter.convertInterfaceRealizations(mdxmlTopLevelClass.getInterfaceRealizations(), mockTmpModel, umlBigEnum);
-	}
 }

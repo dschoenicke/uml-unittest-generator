@@ -8,7 +8,6 @@ import org.junit.Test;
 import code.CodePackage;
 import code.CodeRepresentation;
 import umlcode.UmlCodeConverterTests;
-import umlcode.converter.element.PackageConverter;
 
 public class PackageConverterTest extends UmlCodeConverterTests {
 
@@ -37,10 +36,5 @@ public class PackageConverterTest extends UmlCodeConverterTests {
 		assertTrue(topLevelPackage.getPackages().contains(subPackage));
 		assertEquals("Model", topLevelPackage.getName());
 		assertEquals("SubPackage", subPackage.getName());
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidPackageConverter() {
-		PackageConverter.convertPackage(umlTopLevelPackage, codeBigEnum, mockTmpModel);
 	}
 }

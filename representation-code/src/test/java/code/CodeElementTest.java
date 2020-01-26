@@ -10,7 +10,7 @@ public class CodeElementTest extends CodeRepresentationTests {
 
 	@Test
 	public void testGetNestedElementsAsList() {
-		CodeClass nestedClass= new CodeClass("nestedClass", codeEnumeration, 0);
+		CodeClass nestedClass= new CodeClass("nestedClass", codeSubPackage, 0);
 		codeEnumeration.addNestedElement(nestedClass);
 		List<CodeElement> elements = codeSubPackageClass.getNestedElementsAsList();
 		assertTrue(elements.contains(codeEnumeration));

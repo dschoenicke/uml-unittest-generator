@@ -13,7 +13,6 @@ import code.CodeMethod;
 import code.CodeParameter;
 import code.CodeTemplateParameter;
 import umlcode.UmlCodeConverterTests;
-import umlcode.converter.element.QualifiedNamesConverter;
 
 public class QualifiedNamesConverterTest extends UmlCodeConverterTests {
 	
@@ -27,11 +26,11 @@ public class QualifiedNamesConverterTest extends UmlCodeConverterTests {
 		codeTopLevelPackage.addElement(codeClass);
 		CodeConstructor constructor = codeGenericClass.getConstructors().get(0);
 		CodeMethod method = codeGenericClass.getMethods().get(0);
-		method.getParameters().add(new CodeParameter("test", "SubPackageClass", 0, false, false, method));
+		method.getParameters().add(new CodeParameter("test", "SubPackageClass", 0, false, false));
 		method.getReturnType().setType("SubPackageClass");
-		CodeTemplateParameter templateParameter = new CodeTemplateParameter("Test", codeGenericClass, "SubPackageClass");
+		CodeTemplateParameter templateParameter = new CodeTemplateParameter("Test", "SubPackageClass");
 		codeGenericClass.addTemplateParameter(templateParameter);
-		constructor.getParameters().add(new CodeParameter("test", "SubPackageClass", 0, false, false, constructor));
+		constructor.getParameters().add(new CodeParameter("test", "SubPackageClass", 0, false, false));
 		QualifiedNamesConverter.resolveQualifiedNames(codeRepresentation, qualifiedNames);
 		
 		assertEquals("QualifiedName", codeSubPackageClass.getQualifiedName());
