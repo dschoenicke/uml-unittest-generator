@@ -123,7 +123,7 @@ are grouped into a _CodePackage_ with the name of the model.
 
 The representation distinguishes _CodeMethods_ from _CodeConstructors_. _CodeConstructors_ do neither have a return type nor a name. 
 
-[#test-representation]
+[#representation-test]
 === Test-Representation
 The test representation represents the structure of the test suite to be created. It consists of three packages describing the test file structure,
 the test cases and defines an interface for <<#output>> converters since this representation is used to create individual test outputs.
@@ -187,7 +187,7 @@ The _code test converter_ consists out of two packages: the main package with th
 _CodeElements_ to _TestClasses_ and _ClassUnderTest_ objects.
 
 It has the narrow field of task of creating an abstract test structure by creating representations of the packages and files of the test suite to be created as well as a representation of the test cases.
-Instead of abstracting the <<#representation-code>> the main conversion step of the _code test converter_ is to split up a _CodeElemet_ into two objects: a _TestClass_ object representing the actual file in
+Instead of abstracting the <<#representation-code>> the main conversion step of the _code test converter_ is to split up a _CodeElement_ into two objects: a _TestClass_ object representing the actual file in
 its package and the corresponding _ClassUnderTest_, representing the class with its components to be tested.
 
 image:diagrams/img/codetest.svg[codetest]
