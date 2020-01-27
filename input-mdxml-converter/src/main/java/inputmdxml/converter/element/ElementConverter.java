@@ -48,7 +48,6 @@ public class ElementConverter {
 			TemplateBindingConverter.convertTemplateBindings(packagedElement.getTemplateBindings(), element);
 			NestedElementConverter.convertNestedElements(packagedElement, element, parent, tmpModel);
 			GeneralizationConverter.convertNestedGeneralizations(packagedElement, tmpModel, parent);
-			InterfaceRealizationConverter.convertNestedInterfaceRealizations(packagedElement, tmpModel, parent);
 			InterfaceRealizationConverter.convertInterfaceRealizations(packagedElement.getInterfaceRealizations(), tmpModel, parent);
 			
 			if (packagedElement.getGeneralization() != null) {

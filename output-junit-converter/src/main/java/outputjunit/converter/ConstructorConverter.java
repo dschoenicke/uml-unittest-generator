@@ -4,6 +4,7 @@ import junit.JunitConstructorUnderTest;
 import junit.JunitTestClass;
 import lombok.experimental.UtilityClass;
 import test.testobjects.ClassUnderTest;
+import test.testobjects.ConstructorUnderTest;
 
 /**
  * Provides a static method to convert {@link test.testobjects.ConstructorUnderTest} to {@link junit.JunitConstructorUnderTest}.
@@ -21,6 +22,10 @@ public class ConstructorConverter {
 	 * @param testClass the {@link junit.JunitTestClass} to which the converted {@link junit.JunitConstructorUnderTest}s should be added
 	 */
 	static void convertConstructors(ClassUnderTest classUnderTest, JunitTestClass testClass) {
+		if (classUnderTest.isClass() && classUnderTest.getConstructors().isEmpty()) {
+			new ConstructorUnderTest(classUnderTest.getModifiers(), classUnderTest);
+		}
+		
 		classUnderTest.getConstructors().forEach(constructor -> {
 			JunitConstructorUnderTest junitConstructor = new JunitConstructorUnderTest(
 					ParameterConverter.createParameterTypeClasses(constructor.getParameters()),

@@ -41,4 +41,32 @@ public class QualifiedNamesConverterTest extends UmlCodeConverterTests {
 		assertEquals("QualifiedName", templateParameter.getType());
 		assertEquals("test.test<Test>", codeClass.getQualifiedName());
 	}
+	
+	@Test
+	public void testConstructorParameterQualifiedName() {
+		CodeParameter arrayParam = new CodeParameter("arrayParam", "String", 0, false, true);
+		CodeParameter arrayClassParam = new CodeParameter("arrayClassParam", "String[]", 0, false, true);
+		CodeParameter collectionParam = new CodeParameter("collectionParam", "Collection<String>", 0, false, true);
+		codeGenericClass.getConstructors().get(0).getParameters().add(arrayParam);
+		codeGenericClass.getConstructors().get(0).getParameters().add(arrayClassParam);
+		codeGenericClass.getConstructors().get(0).getParameters().add(collectionParam);
+		QualifiedNamesConverter.resolveElementConstructorParameters(codeGenericClass);
+		assertEquals("String[]", codeGenericClass.getConstructors().get(0).getParameters().get(1).getType());
+		assertEquals("String[]", codeGenericClass.getConstructors().get(0).getParameters().get(2).getType());
+		assertEquals("Collection<String>", codeGenericClass.getConstructors().get(0).getParameters().get(3).getType());
+	}
+	
+	@Test
+	public void testMethodParameterQualifiedName() {
+		CodeParameter arrayParam = new CodeParameter("arrayParam", "String", 0, false, true);
+		CodeParameter arrayClassParam = new CodeParameter("arrayClassParam", "String[]", 0, false, true);
+		CodeParameter collectionParam = new CodeParameter("collectionParam", "Collection<String>", 0, false, true);
+		codeGenericClass.getMethods().get(0).getParameters().add(arrayParam);
+		codeGenericClass.getMethods().get(0).getParameters().add(arrayClassParam);
+		codeGenericClass.getMethods().get(0).getParameters().add(collectionParam);
+		QualifiedNamesConverter.resolveElementMethodParameters(codeGenericClass);
+		assertEquals("String[]", codeGenericClass.getMethods().get(0).getParameters().get(0).getType());
+		assertEquals("String[]", codeGenericClass.getMethods().get(0).getParameters().get(1).getType());
+		assertEquals("Collection<String>", codeGenericClass.getMethods().get(0).getParameters().get(2).getType());
+	}
 }

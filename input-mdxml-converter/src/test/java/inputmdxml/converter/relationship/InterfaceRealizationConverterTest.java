@@ -6,9 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import inputmdxml.MdxmlUmlConverterTests;
-import inputmdxml.converter.relationship.InterfaceRealizationConverter;
 import inputmdxml.temporary.TemporaryRelationship;
-import uml.UmlRelationship;
 import uml.UmlRelationshipType;
 
 public class InterfaceRealizationConverterTest extends MdxmlUmlConverterTests {
@@ -30,16 +28,5 @@ public class InterfaceRealizationConverterTest extends MdxmlUmlConverterTests {
 		TemporaryRelationship relationship = (TemporaryRelationship) mockTmpModel.getRelationships().get(0);
 		assertTrue(mockTmpModel.getRelationships().contains(relationship));
 		assertTrue(umlTopLevelPackage.getRelationships().contains(relationship));
-	}
-	
-	@Test
-	public void testNestedInterfaceRealizations() {
-		mdxmlSubPackageClass.getNestedClassifiers().add(mdxmlTopLevelClass);
-		InterfaceRealizationConverter.convertNestedInterfaceRealizations(mdxmlSubPackageClass, mockTmpModel, umlTopLevelPackage);
-		UmlRelationship relationship = mockTmpModel.getRelationships().get(0);
-		assertTrue(relationship instanceof TemporaryRelationship);
-		assertEquals(mdxmlTopLevelClass.getId(), ((TemporaryRelationship) relationship).getClientId());
-		assertEquals(mdxmlTopLevelInterface.getId(), ((TemporaryRelationship) relationship).getSupplierId());
-		assertEquals(UmlRelationshipType.INTERFACEREALIZATION, relationship.getType());
 	}
 }

@@ -2,7 +2,12 @@ package inputmdxml;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Arrays;
+
 import javax.xml.bind.JAXBException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import inputmdxml.converter.element.DataTypeConverter;
 import inputmdxml.converter.element.ElementConverter;
@@ -27,10 +32,23 @@ import uml.converterinterface.UmlRepresentationConverter;
 @NoArgsConstructor
 public class MdxmlUmlConverter implements UmlRepresentationConverter {
 	
+	/**
+	 * The {@link org.slf4j.Logger} to be used in the methods
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger("");
+	
 	@Override
-	public UmlModel convertToUmlRepresentation(String inputPath) throws JAXBException {
+	public UmlModel convertToUmlRepresentation(String inputPath) {
 		MdxmlRepresentation mdxmlRepresentation = null;
-		mdxmlRepresentation = new MdxmlRepresentation(inputPath);
+		
+		try {
+			mdxmlRepresentation = new MdxmlRepresentation(inputPath);
+		} catch (JAXBException e) {
+			LOG.error("Exception while converting the diagram!");
+			LOG.error(Arrays.toString(e.getStackTrace()));
+			System.exit(0);
+		}
+		
 		assertNotNull("The XMI of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi());
 		assertNotNull("The Model of the MdxmlRepresentation must not be null!", mdxmlRepresentation.getXmi().getModel());
 		

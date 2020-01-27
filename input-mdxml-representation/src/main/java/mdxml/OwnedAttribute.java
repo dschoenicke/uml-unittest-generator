@@ -73,7 +73,7 @@ public class OwnedAttribute {
 	/**
 	 * Set to "true" if the attribute is final, null otherwise
 	 */
-	@XmlAttribute(name = "isFinal")
+	@XmlAttribute(name = "isReadOnly")
 	private String isFinal;
 	
 	/**

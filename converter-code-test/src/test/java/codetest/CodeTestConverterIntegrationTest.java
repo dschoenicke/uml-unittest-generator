@@ -47,7 +47,7 @@ public class CodeTestConverterIntegrationTest extends CodeTestConverterTests {
 		assertEquals("Model.TopLevelInterface", topLevelInterfaceUnderTest.getQualifiedName());
 		assertEquals("TopLevelClassTest", testTopLevelClass.getName());
 		assertEquals("Model.TopLevelClass", topLevelClassUnderTest.getQualifiedName());
-		assertTrue(topLevelClassUnderTest.getInterfaces().contains(testTopLevelInterface.getName().substring(0, testTopLevelInterface.getName().length() - 4)));
+		assertTrue(topLevelClassUnderTest.getInterfaces().contains(testTopLevelInterface.getClassUnderTest().getQualifiedName()));
 		assertEquals(1, testModelPackage.getPackages().size());
 		assertTrue(testModelPackage.getPackages().contains(testTopLevelPackage));
 		assertEquals(4, testTopLevelPackage.getTestClasses().size());
@@ -57,7 +57,7 @@ public class CodeTestConverterIntegrationTest extends CodeTestConverterTests {
 		assertTrue(testTopLevelPackage.getTestClasses().contains(testBindingClass));
 		assertEquals("SubInterfaceTest", testSubInterface.getName());
 		assertEquals("Model.TopLevelPackage.SubInterface", subInterfaceUnderTest.getQualifiedName());
-		assertTrue(subInterfaceUnderTest.getInterfaces().contains(testTopLevelInterface.getName().substring(0, testTopLevelInterface.getName().length() - 4)));
+		assertTrue(subInterfaceUnderTest.getInterfaces().contains(testTopLevelInterface.getClassUnderTest().getQualifiedName()));
 		assertEquals("SubClassTest", testSubClass.getName());
 		assertEquals("TopLevelClass", subClassUnderTest.getSuperClass().get());
 		assertEquals(1, subClassUnderTest.getFields().size());

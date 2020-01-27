@@ -8,7 +8,6 @@ import inputmdxml.temporary.TemporaryModel;
 import inputmdxml.temporary.TemporaryRelationship;
 import lombok.experimental.UtilityClass;
 import mdxml.InterfaceRealization;
-import mdxml.PackagedElement;
 import uml.UmlModel;
 import uml.UmlPackage;
 import uml.UmlParent;
@@ -46,21 +45,6 @@ public class InterfaceRealizationConverter {
 			}
 			else {
 				((UmlPackage) parent).addRelationship(tmpRelationship);
-			}
-		}
-	}
-	
-	/**
-	 * Static method converting the {@link mdxml.InterfaceRealization}s of nested elements of a given {@link mdxml.PackagedElement} to {@link inputmdxml.temporary.TemporaryRelationship}s with references to the contract and the element itself
-	 * 
-	 * @param packagedElement the {@link mdxml.PackagedElement} containing the nested elements which {@link mdxml.InterfaceRealization}s should be converted
-	 * @param tmpModel the {@link inputmdxml.temporary.TemporaryModel} to which the converted {@link inputmdxml.temporary.TemporaryRelationship}s should be added
-	 * @param parent the {@link uml.UmlParent} representing the {uml.UmlModel} or {@link uml.UmlPackage} to which the converted {@link inputmdxml.temporary.TemporaryRelationship}s should be added
-	 */
-	public static void convertNestedInterfaceRealizations(PackagedElement packagedElement, TemporaryModel tmpModel, UmlParent parent) {
-		for (PackagedElement innerElement : packagedElement.getNestedClassifiers()) {
-			if (!innerElement.getInterfaceRealizations().isEmpty()) {
-				convertInterfaceRealizations(innerElement.getInterfaceRealizations(), tmpModel, parent);
 			}
 		}
 	}

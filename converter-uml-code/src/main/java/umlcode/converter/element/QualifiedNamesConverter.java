@@ -72,6 +72,10 @@ public class QualifiedNamesConverter {
 				if (qualifiedNames.containsKey(codeParameter.getType())) {
 					codeParameter.setType(qualifiedNames.get(codeParameter.getType()).replace("$",  "."));
 				}
+				
+				if (codeParameter.getHasMultiplicity() && !(codeParameter.getType().contains("<") || codeParameter.getType().contains("["))) {
+					codeParameter.setType(codeParameter.getType() + "[]");
+				}
 			})
 		);
 	}
@@ -90,6 +94,10 @@ public class QualifiedNamesConverter {
 			codeMethod.getParameters().forEach(codeParameter -> {
 				if (qualifiedNames.containsKey(codeParameter.getType())) {
 					codeParameter.setType(qualifiedNames.get(codeParameter.getType()).replace("$",  "."));
+				}
+				
+				if (codeParameter.getHasMultiplicity() && !(codeParameter.getType().contains("<") || codeParameter.getType().contains("["))) {
+					codeParameter.setType(codeParameter.getType() + "[]");
 				}
 			});
 		});
