@@ -81,12 +81,15 @@ public class AssertionConverter {
 			testClass.addRelationshipAssertion(new JunitAssertion("\"" + superclass + "\"", "classUnderTest.getSuperclass().getSimpleName()", testClass.getClassName() + " must extend " + superclass + "!"));
 		}
 		else {
-			testClass.addRelationshipAssertion(new JunitAssertion("\"" + superclass + "\"", "classUnderTest.getSuperclass().getSimpleName()", testClass.getClassName() + " must not extend any superclass!"));
+			if (classUnderTest.getType() != ClassUnderTestType.INTERFACE) {
+				testClass.addRelationshipAssertion(new JunitAssertion("\"" + superclass + "\"", "classUnderTest.getSuperclass().getSimpleName()", testClass.getClassName() + " must not extend any superclass!"));
+			}
 		}
 		
-		testClass.addRelationshipAssertion(new JunitAssertion(String.valueOf(classUnderTest.getInterfaces().size()), "classUnderTest.getInterfaces().length", testClass.getClassName() + " must implement exactly " + classUnderTest.getInterfaces().size() + " interfaces!"));
+		String keyword = classUnderTest.getType() == ClassUnderTestType.INTERFACE ? "extend" : "implement";
+		testClass.addRelationshipAssertion(new JunitAssertion(String.valueOf(classUnderTest.getInterfaces().size()), "classUnderTest.getInterfaces().length", testClass.getClassName() + " must " + keyword + " exactly " + classUnderTest.getInterfaces().size() + " interfaces!"));
 		classUnderTest.getInterfaces().forEach(testInterface -> 
-			testClass.addRelationshipAssertion(new JunitAssertion("true", "java.util.Arrays.asList(classUnderTest.getInterfaces()).stream().filter(i -> i.getName().equals(\"" + testInterface + "\")).findFirst().isPresent()", testClass.getClassName() + " must implement the interface " + testInterface + "!"))
+			testClass.addRelationshipAssertion(new JunitAssertion("true", "java.util.Arrays.asList(classUnderTest.getInterfaces()).stream().filter(i -> i.getName().equals(\"" + testInterface + "\")).findFirst().isPresent()", testClass.getClassName() + " must " + keyword + " the interface " + testInterface + "!"))
 		);
 	}
 	

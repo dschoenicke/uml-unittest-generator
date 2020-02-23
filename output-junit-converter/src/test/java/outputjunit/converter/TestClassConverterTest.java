@@ -57,7 +57,7 @@ public class TestClassConverterTest extends OutputJunitConverterTests {
 		assertEquals("app.firstpackage.firstclass", convertedClass.getClassName());
 		assertEquals("appStructure.app.firstpackage", convertedClass.getPackageDeclaration());
 		assertEquals(7, convertedClass.getPropertyAssertions().size());
-		assertEquals(2, convertedClass.getRelationshipAssertions().size());
+		assertEquals(1, convertedClass.getRelationshipAssertions().size());
 		assertEquals(0, convertedClass.getTemplateParameters().size());
 		assertEquals(0, convertedClass.getEnumConstantAssertions().size());
 		assertEquals(0, convertedClass.getFields().size());

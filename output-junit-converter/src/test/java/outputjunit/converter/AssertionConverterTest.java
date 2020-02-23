@@ -67,13 +67,10 @@ public class AssertionConverterTest extends OutputJunitConverterTests {
 	@Test
 	public void testCreateRelationshipAssertions() {
 		AssertionConverter.createRelationshipAssertions(mockClass1, mockJunitTestClass1);
-		assertEquals(2, mockJunitTestClass1.getRelationshipAssertions().size());
-		assertEquals("\"Object\"", mockJunitTestClass1.getRelationshipAssertions().get(0).getExpectedValue());
-		assertEquals("classUnderTest.getSuperclass().getSimpleName()", mockJunitTestClass1.getRelationshipAssertions().get(0).getActualValue());
-		assertEquals("app.firstpackage.firstclass must not extend any superclass!", mockJunitTestClass1.getRelationshipAssertions().get(0).getMessage());
-		assertEquals("0", mockJunitTestClass1.getRelationshipAssertions().get(1).getExpectedValue());
-		assertEquals("classUnderTest.getInterfaces().length", mockJunitTestClass1.getRelationshipAssertions().get(1).getActualValue());
-		assertEquals("app.firstpackage.firstclass must implement exactly 0 interfaces!", mockJunitTestClass1.getRelationshipAssertions().get(1).getMessage());
+		assertEquals(1, mockJunitTestClass1.getRelationshipAssertions().size());
+		assertEquals("0", mockJunitTestClass1.getRelationshipAssertions().get(0).getExpectedValue());
+		assertEquals("classUnderTest.getInterfaces().length", mockJunitTestClass1.getRelationshipAssertions().get(0).getActualValue());
+		assertEquals("app.firstpackage.firstclass must extend exactly 0 interfaces!", mockJunitTestClass1.getRelationshipAssertions().get(0).getMessage());
 	
 		AssertionConverter.createRelationshipAssertions(mockSubClass, mockJunitSubTestClass);
 		assertEquals("\"firstclass\"", mockJunitSubTestClass.getRelationshipAssertions().get(0).getExpectedValue());
