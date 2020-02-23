@@ -83,11 +83,11 @@ public class AssociationTypeMapper {
 			return true;
 		}
 		else if (cmd.hasOption("rat")) {
-			replaceAssociationType(args[0], args[1]);
+			replaceAssociationType(args[1], args[2]);
 			return true;
 		}
 		else if (cmd.hasOption("dat")) {
-			deleteAssociationType(args[0]);
+			deleteAssociationType(args[1]);
 			return true;
 		}
 		else if (cmd.hasOption("cat")) {
