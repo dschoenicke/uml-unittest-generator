@@ -37,6 +37,8 @@ The same rule applies for output converters: `output-[name]-converter`. +
 The `core` project acts as a coordinator, delegating the conversion steps
 to the corresponding subprojects.
 
+*Note: Since link:https://projectlombok.org/[Lombok] is used in the projects, you have to make sure that Lombok is installed for your IDE if you want to extend the application!*
+
 == Usage
 The tool provides three main functionalities: converting diagrams to test files,
 managing qualified names and managing association types. + 
