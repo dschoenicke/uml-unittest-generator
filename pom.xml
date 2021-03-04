@@ -27,7 +27,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<javac.target>11</javac.target>
-    	<junit.version>4.12</junit.version>
+    	<junit.version>4.13.2</junit.version>
     	
     	<!-- Sonar -->
 	    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
